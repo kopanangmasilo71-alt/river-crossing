@@ -450,11 +450,10 @@ private fun LevelLeaderboardCard(
     val isOptimal = bestScore != null && bestScore.movesCount <= scenario.optimalMoves
 
     val (cardGradient, cardBorder) = when (scenario.difficulty) {
-        com.example.model.Difficulty.EASY -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
-        com.example.model.Difficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
-        com.example.model.Difficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
-        com.example.model.Difficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
-        com.example.model.Difficulty.MASTER -> listOf(Color(0xF0481214), Color(0xF02A080A)) to MenuBtnRedBorder
+        com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
+        com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
+        com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
+        com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
     }
 
     WoodCard(

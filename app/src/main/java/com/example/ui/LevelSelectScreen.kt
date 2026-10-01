@@ -597,20 +597,20 @@ private fun QuickLevelGridDialog(
                             val tileGradient = when {
                                 isCleared -> listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                                 !isUnlocked -> listOf(Color(0xDD241106), Color(0xDD180A03))
-                                scenario.difficulty == com.example.model.Difficulty.EASY -> listOf(Color(0xFF166534), Color(0xFF14532D))
-                                scenario.difficulty == com.example.model.Difficulty.MEDIUM -> listOf(Color(0xFF0369A1), Color(0xFF075985))
-                                scenario.difficulty == com.example.model.Difficulty.HARD -> listOf(Color(0xFFB45309), Color(0xFF92400E))
-                                scenario.difficulty == com.example.model.Difficulty.EXPERT -> listOf(Color(0xFF7E22CE), Color(0xFF6B21A8))
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xFF166534), Color(0xFF14532D))
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xFF0369A1), Color(0xFF075985))
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xFFB45309), Color(0xFF92400E))
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xFF7E22CE), Color(0xFF6B21A8))
                                 else -> listOf(Color(0xFFB91C1C), Color(0xFF991B1B))
                             }
 
                             val tileBorder = when {
                                 isCleared -> MenuBtnGreenBorder
                                 !isUnlocked -> Color(0x44D97706)
-                                scenario.difficulty == com.example.model.Difficulty.EASY -> MenuBtnGreenBorder
-                                scenario.difficulty == com.example.model.Difficulty.MEDIUM -> MenuBtnBlueBorder
-                                scenario.difficulty == com.example.model.Difficulty.HARD -> MenuBtnAmberBorder
-                                scenario.difficulty == com.example.model.Difficulty.EXPERT -> MenuBtnPurpleBorder
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> MenuBtnGreenBorder
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> MenuBtnBlueBorder
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> MenuBtnAmberBorder
+                                scenario.difficulty == com.example.model.PuzzleDifficulty.EXPERT -> MenuBtnPurpleBorder
                                 else -> MenuBtnRedBorder
                             }
 
@@ -809,11 +809,10 @@ private fun LevelScenarioCard(
     var isRulesExpanded by remember { mutableStateOf(false) }
 
     val (cardGradient, cardBorder) = when (scenario.difficulty) {
-        com.example.model.Difficulty.EASY -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
-        com.example.model.Difficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
-        com.example.model.Difficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
-        com.example.model.Difficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
-        com.example.model.Difficulty.MASTER -> listOf(Color(0xF0481214), Color(0xF02A080A)) to MenuBtnRedBorder
+        com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
+        com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
+        com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
+        com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
     }
 
     WoodCard(
