@@ -38,6 +38,22 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -58,9 +74,9 @@ fun TutorialDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(26.dp),
-            color = Color(0xF2072449),
-            border = BorderStroke(2.dp, Color(0xFF38BDF8)),
-            shadowElevation = 12.dp,
+            color = Color(0xF62C1408),
+            border = BorderStroke(2.dp, GoldenBankGlow),
+            shadowElevation = 14.dp,
             modifier = modifier
                 .fillMaxWidth(0.92f)
                 .heightIn(max = 620.dp)
@@ -80,7 +96,7 @@ fun TutorialDialog(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Surface(
                             shape = CircleShape,
-                            color = WoodInsetPanel,
+                            color = Color(0xDD2A1308),
                             border = BorderStroke(1.5.dp, GoldenBankGlow),
                             modifier = Modifier.size(38.dp)
                         ) {
@@ -99,7 +115,7 @@ fun TutorialDialog(
                             Text(
                                 text = "Quick 4-Step Guide",
                                 fontSize = 11.sp,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFDE68A)
                             )
                         }
                     }
@@ -111,7 +127,7 @@ fun TutorialDialog(
                         Icon(
                             imageVector = Icons.Default.Close,
                             contentDescription = "Close",
-                            tint = Color(0xFFBAE6FD)
+                            tint = GoldenBankGlow
                         )
                     }
                 }
@@ -128,25 +144,33 @@ fun TutorialDialog(
                     QuickTutorialStep(
                         step = 1,
                         title = "1. Board the Boat",
-                        desc = "Tap any item on the active bank where the Farmer is docked to load them into the boat (up to boat capacity)."
+                        desc = "Tap any item on the active bank where the Farmer is docked to load them into the boat (up to boat capacity).",
+                        accentColor = MenuBtnGreenBorder,
+                        bgTint = Color(0xF012351A)
                     )
 
                     QuickTutorialStep(
                         step = 2,
                         title = "2. Row Across",
-                        desc = "Tap 'CROSS RIVER'. The Farmer rows the boat across to the opposite bank with any onboard cargo."
+                        desc = "Tap 'CROSS RIVER'. The Farmer rows the boat across to the opposite bank with any onboard cargo.",
+                        accentColor = MenuBtnCyanBorder,
+                        bgTint = Color(0xF00A263D)
                     )
 
                     QuickTutorialStep(
                         step = 3,
                         title = "3. Beware of Predators! ⚠️",
-                        desc = "Never leave predator & prey alone without the Farmer! (e.g. Wolf eats Rabbit, Rabbit eats Cabbage, Fox eats Goose)."
+                        desc = "Never leave predator & prey alone without the Farmer! (e.g. Wolf eats Rabbit, Rabbit eats Cabbage, Fox eats Goose).",
+                        accentColor = MenuBtnRedBorder,
+                        bgTint = Color(0xF03B1313)
                     )
 
                     QuickTutorialStep(
                         step = 4,
                         title = "4. The 'Take-Back' Trick ⭐",
-                        desc = "Stuck in a deadlock? Bring an item BACK with you on the return trip to keep banks safe!"
+                        desc = "Stuck in a deadlock? Bring an item BACK with you on the return trip to keep banks safe!",
+                        accentColor = MenuBtnAmberBorder,
+                        bgTint = Color(0xF038220A)
                     )
                 }
 
@@ -159,8 +183,8 @@ fun TutorialDialog(
                 ) {
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                        color = Color(0xCC2A1308),
+                        border = BorderStroke(1.2.dp, GoldenBankGlow),
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
@@ -181,8 +205,8 @@ fun TutorialDialog(
 
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = Color(0xFF0284C7),
-                        border = BorderStroke(1.5.dp, GoldenBankGlow),
+                        color = MenuBtnGreenBottom,
+                        border = BorderStroke(1.8.dp, GoldenBankGlow),
                         modifier = Modifier
                             .weight(1f)
                             .clickable(onClick = onDismiss)
@@ -192,7 +216,7 @@ fun TutorialDialog(
                                 .fillMaxWidth()
                                 .background(
                                     Brush.verticalGradient(
-                                        listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                        listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                                     )
                                 )
                                 .padding(vertical = 12.dp),
@@ -211,48 +235,55 @@ fun TutorialDialog(
 private fun QuickTutorialStep(
     step: Int,
     title: String,
-    desc: String
+    desc: String,
+    accentColor: Color = GoldenBankGlow,
+    bgTint: Color = Color(0xDD2A1308)
 ) {
     Surface(
         shape = RoundedCornerShape(14.dp),
-        color = WoodInsetPanel,
-        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+        color = Color.Transparent,
+        border = BorderStroke(1.2.dp, accentColor.copy(alpha = 0.7f)),
         modifier = Modifier.fillMaxWidth()
     ) {
-        Row(
-            modifier = Modifier.padding(12.dp),
-            verticalAlignment = Alignment.Top
+        Box(
+            modifier = Modifier
+                .background(Brush.horizontalGradient(listOf(bgTint, Color(0xF01A0B05))))
+                .padding(12.dp)
         ) {
-            Surface(
-                shape = CircleShape,
-                color = Color(0xFF072449),
-                border = BorderStroke(1.dp, GoldenBankGlow),
-                modifier = Modifier.size(26.dp)
+            Row(
+                verticalAlignment = Alignment.Top
             ) {
-                Box(contentAlignment = Alignment.Center) {
+                Surface(
+                    shape = CircleShape,
+                    color = accentColor.copy(alpha = 0.2f),
+                    border = BorderStroke(1.2.dp, accentColor),
+                    modifier = Modifier.size(26.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Text(
+                            text = "$step",
+                            color = accentColor,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.width(10.dp))
+                Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "$step",
-                        color = GoldenBankGlow,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold
+                        text = title,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = desc,
+                        fontSize = 11.5.sp,
+                        color = Color(0xFFFDE68A),
+                        lineHeight = 15.sp
                     )
                 }
-            }
-            Spacer(modifier = Modifier.width(10.dp))
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = desc,
-                    fontSize = 11.5.sp,
-                    color = Color(0xFFBAE6FD),
-                    lineHeight = 15.sp
-                )
             }
         }
     }

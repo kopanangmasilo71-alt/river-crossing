@@ -49,6 +49,10 @@ import androidx.compose.ui.window.DialogProperties
 import com.example.R
 import com.example.model.ViolationType
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -85,14 +89,14 @@ fun GameOverDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(26.dp),
-            color = Color(0xF2072449),
+            color = Color(0xF62C1408),
             border = BorderStroke(
                 2.dp,
                 Brush.verticalGradient(
                     listOf(
-                        Color(0xFF38BDF8),
                         Color(0xFFEF4444),
-                        Color(0xFF0F4D8F)
+                        GoldenBankGlow,
+                        Color(0xFFB91C1C)
                     )
                 )
             ),
@@ -108,9 +112,9 @@ fun GameOverDialog(
                     .background(
                         Brush.verticalGradient(
                             listOf(
-                                Color(0xF00D3B73),
-                                Color(0xF0181A3A),
-                                Color(0xF0072449)
+                                Color(0xF43A1608),
+                                Color(0xF4250E05),
+                                Color(0xF41A0A04)
                             )
                         )
                     )
@@ -319,10 +323,10 @@ fun GameOverDialog(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        // Undo Move Button (Primary Recovery)
+                        // Undo Move Button (Primary Recovery - Vibrant 3D Golden Amber)
                         Surface(
                             shape = RoundedCornerShape(14.dp),
-                            color = Color(0xFF0284C7),
+                            color = MenuBtnAmberBottom,
                             border = BorderStroke(1.8.dp, GoldenBankGlow),
                             shadowElevation = 6.dp,
                             modifier = Modifier
@@ -335,7 +339,7 @@ fun GameOverDialog(
                                 modifier = Modifier
                                     .background(
                                         Brush.verticalGradient(
-                                            listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                            listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
                                         )
                                     ),
                                 contentAlignment = Alignment.Center
@@ -347,24 +351,24 @@ fun GameOverDialog(
                                     Icon(
                                         imageVector = Icons.Default.Undo,
                                         contentDescription = "Undo",
-                                        tint = GoldenBankGlow,
+                                        tint = Color.White,
                                         modifier = Modifier.size(18.dp)
                                     )
                                     Spacer(modifier = Modifier.width(6.dp))
                                     Text(
                                         text = "Undo Move",
                                         fontWeight = FontWeight.ExtraBold,
-                                        color = GoldenBankGlow,
+                                        color = Color.White,
                                         fontSize = 13.5.sp
                                     )
                                 }
                             }
                         }
 
-                        // Restart Button (Reset)
+                        // Restart Button (Reset - Warm Timber Pill with Crimson border)
                         Surface(
                             shape = RoundedCornerShape(14.dp),
-                            color = Color(0xCC072449),
+                            color = Color(0xCC2A1308),
                             border = BorderStroke(1.2.dp, Color(0xFFEF4444)),
                             shadowElevation = 2.dp,
                             modifier = Modifier

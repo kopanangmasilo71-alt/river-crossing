@@ -69,6 +69,31 @@ import com.example.ui.components.WoodInsetBox
 import com.example.ui.components.WoodScreenContainer
 import com.example.ui.components.WoodTopAppBar
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnBlueTop
+import com.example.ui.theme.MenuBtnBlueMid
+import com.example.ui.theme.MenuBtnBlueBottom
+import com.example.ui.theme.MenuBtnBlueBorder
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnPurpleTop
+import com.example.ui.theme.MenuBtnPurpleMid
+import com.example.ui.theme.MenuBtnPurpleBottom
+import com.example.ui.theme.MenuBtnPurpleBorder
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnRedTop
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.components.VibrantSectionHeader
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -123,9 +148,13 @@ fun SettingsScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-            // 1. PLAYER PROFILE CARD
-            SettingsSectionHeader(title = "CAPTAIN PROFILE")
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+            // 1. PLAYER PROFILE CARD (Warm Golden Amber)
+            VibrantSectionHeader(title = "Captain Profile", accentColor = GoldenBankGlow)
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
+                borderColor = GoldenBankGlow
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -134,7 +163,7 @@ fun SettingsScreen(
                 ) {
                     Surface(
                         shape = CircleShape,
-                        color = WoodInsetPanel,
+                        color = Color(0xDD220F05),
                         border = BorderStroke(2.dp, GoldenBankGlow),
                         modifier = Modifier.size(54.dp),
                         shadowElevation = 4.dp
@@ -156,7 +185,7 @@ fun SettingsScreen(
                             text = "Captain Name",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = WoodTextMuted
+                            color = Color(0xFFFEF3C7)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
@@ -168,11 +197,11 @@ fun SettingsScreen(
                             singleLine = true,
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = GoldenBankGlow,
-                                unfocusedBorderColor = WoodSignboardBorder,
+                                unfocusedBorderColor = Color(0xFFD97706),
                                 focusedTextColor = GoldenBankGlow,
-                                unfocusedTextColor = WoodGoldenText,
-                                focusedContainerColor = WoodInsetPanel,
-                                unfocusedContainerColor = WoodInsetPanel
+                                unfocusedTextColor = Color.White,
+                                focusedContainerColor = Color(0xDD220F05),
+                                unfocusedContainerColor = Color(0xDD220F05)
                             ),
                             shape = RoundedCornerShape(10.dp),
                             modifier = Modifier
@@ -183,9 +212,13 @@ fun SettingsScreen(
                 }
             }
 
-            // 2. AUDIO & HAPTICS SETTINGS
-            SettingsSectionHeader(title = "AUDIO & FEEDBACK")
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+            // 2. AUDIO & HAPTICS SETTINGS (Vibrant Cyan / Teal)
+            VibrantSectionHeader(title = "Audio & Feedback", accentColor = MenuBtnCyanTop)
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF00E3D3A), Color(0xF0072624)),
+                borderColor = MenuBtnCyanBorder
+            ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     // Sound Effects switch
                     Row(
@@ -199,15 +232,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = WoodInsetPanel,
-                                border = BorderStroke(1.dp, GoldenBankGlow),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.2.dp, MenuBtnCyanBorder),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = if (isMuted) Icons.Default.VolumeMute else Icons.Default.VolumeUp,
                                         contentDescription = null,
-                                        tint = GoldenBankGlow,
+                                        tint = if (isMuted) Color(0xFFEF4444) else MenuBtnCyanTop,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -218,12 +251,12 @@ fun SettingsScreen(
                                     text = "Synthesized Sound Effects",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 14.sp,
-                                    color = WoodGoldenText
+                                    color = Color.White
                                 )
                                 Text(
                                     text = "Animal calls, water splash & oar strokes",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFFCCFBF1)
                                 )
                             }
                         }
@@ -231,10 +264,10 @@ fun SettingsScreen(
                             checked = !isMuted,
                             onCheckedChange = { viewModel.toggleMute() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = WoodButtonTop,
-                                uncheckedThumbColor = WoodTextMuted,
-                                uncheckedTrackColor = WoodInsetPanel
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = MenuBtnCyanMid,
+                                uncheckedThumbColor = Color(0xFF99F6E4),
+                                uncheckedTrackColor = Color(0xDD072624)
                             ),
                             modifier = Modifier.testTag("settings_sound_switch")
                         )
@@ -254,15 +287,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = WoodInsetPanel,
-                                border = BorderStroke(1.dp, GoldenBankGlow),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.2.dp, MenuBtnCyanBorder),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.Vibration,
                                         contentDescription = null,
-                                        tint = GoldenBankGlow,
+                                        tint = MenuBtnCyanTop,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -273,12 +306,12 @@ fun SettingsScreen(
                                     text = "Haptic Feedback",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 14.sp,
-                                    color = WoodGoldenText
+                                    color = Color.White
                                 )
                                 Text(
                                     text = "Tactile vibration when boarding or docking",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFFCCFBF1)
                                 )
                             }
                         }
@@ -286,10 +319,10 @@ fun SettingsScreen(
                             checked = isHapticsEnabled,
                             onCheckedChange = { viewModel.toggleHaptics() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = WoodButtonTop,
-                                uncheckedThumbColor = WoodTextMuted,
-                                uncheckedTrackColor = WoodInsetPanel
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = MenuBtnCyanMid,
+                                uncheckedThumbColor = Color(0xFF99F6E4),
+                                uncheckedTrackColor = Color(0xDD072624)
                             ),
                             modifier = Modifier.testTag("settings_haptics_switch")
                         )
@@ -297,9 +330,13 @@ fun SettingsScreen(
                 }
             }
 
-            // 3. CHALLENGE MODIFIERS
-            SettingsSectionHeader(title = "GAMEPLAY CHALLENGES & MODIFIERS")
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+            // 3. CHALLENGE MODIFIERS (Royal Amethyst Purple)
+            VibrantSectionHeader(title = "Gameplay Modifiers", accentColor = MenuBtnPurpleTop)
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF0300F48), Color(0xF01B072B)),
+                borderColor = MenuBtnPurpleBorder
+            ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     // Mystery Shore Fog of War
                     Row(
@@ -313,15 +350,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = WoodInsetPanel,
-                                border = BorderStroke(1.dp, GoldenBankGlow),
+                                color = Color(0xDD1B072B),
+                                border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.VisibilityOff,
                                         contentDescription = null,
-                                        tint = GoldenBankGlow,
+                                        tint = MenuBtnPurpleTop,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -332,12 +369,12 @@ fun SettingsScreen(
                                     text = "Mystery Shore (Fog of War)",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 14.sp,
-                                    color = WoodGoldenText
+                                    color = Color.White
                                 )
                                 Text(
                                     text = "Hides opposite shore items until boat docks",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFFF3E8FF)
                                 )
                             }
                         }
@@ -345,10 +382,10 @@ fun SettingsScreen(
                             checked = modifiers.hideOppositeBankItems,
                             onCheckedChange = { viewModel.toggleHiddenItems() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = WoodButtonTop,
-                                uncheckedThumbColor = WoodTextMuted,
-                                uncheckedTrackColor = WoodInsetPanel
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = MenuBtnPurpleMid,
+                                uncheckedThumbColor = Color(0xFFE9D5FF),
+                                uncheckedTrackColor = Color(0xDD1B072B)
                             ),
                             modifier = Modifier.testTag("settings_fog_switch")
                         )
@@ -368,15 +405,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = WoodInsetPanel,
-                                border = BorderStroke(1.dp, GoldenBankGlow),
+                                color = Color(0xDD1B072B),
+                                border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.Security,
                                         contentDescription = null,
-                                        tint = GoldenBankGlow,
+                                        tint = MenuBtnPurpleTop,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -387,12 +424,12 @@ fun SettingsScreen(
                                     text = "Restricted Boat Combinations",
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 14.sp,
-                                    color = WoodGoldenText
+                                    color = Color.White
                                 )
                                 Text(
                                     text = "Conflicting items cannot share boat cargo",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFFF3E8FF)
                                 )
                             }
                         }
@@ -400,10 +437,10 @@ fun SettingsScreen(
                             checked = modifiers.restrictBoatCombinations,
                             onCheckedChange = { viewModel.toggleRestrictedCombos() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = WoodButtonTop,
-                                uncheckedThumbColor = WoodTextMuted,
-                                uncheckedTrackColor = WoodInsetPanel
+                                checkedThumbColor = Color.White,
+                                checkedTrackColor = MenuBtnPurpleMid,
+                                uncheckedThumbColor = Color(0xFFE9D5FF),
+                                uncheckedTrackColor = Color(0xDD1B072B)
                             ),
                             modifier = Modifier.testTag("settings_restricted_switch")
                         )
@@ -411,12 +448,18 @@ fun SettingsScreen(
                 }
             }
 
-            // 4. DATA & LOCAL ROOM DATABASE MANAGEMENT
-            SettingsSectionHeader(title = "LOGBOOK & DATABASE")
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+            // 4. DATA & LOCAL ROOM DATABASE MANAGEMENT (Lush Emerald Green)
+            VibrantSectionHeader(title = "Logbook & Progress", accentColor = MenuBtnGreenTop)
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF012361B), Color(0xF00B2110)),
+                borderColor = MenuBtnGreenBorder
+            ) {
                 Column(modifier = Modifier.padding(16.dp)) {
-                    WoodInsetBox(
+                    Surface(
                         shape = RoundedCornerShape(12.dp),
+                        color = Color(0xCC091D0E),
+                        border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Row(
@@ -429,26 +472,72 @@ fun SettingsScreen(
                                 Text(
                                     text = "$completedCount / ${PuzzleScenarios.ALL.size}",
                                     fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 16.sp,
+                                    fontSize = 17.sp,
                                     color = GoldenBankGlow
                                 )
                                 Text(
                                     text = "Levels Solved",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFF86EFAC)
                                 )
                             }
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = "$totalRunsCount",
                                     fontWeight = FontWeight.ExtraBold,
-                                    fontSize = 16.sp,
-                                    color = WoodGoldenText
+                                    fontSize = 17.sp,
+                                    color = Color.White
                                 )
                                 Text(
                                     text = "Total Runs Logged",
                                     fontSize = 11.sp,
-                                    color = WoodTextMuted
+                                    color = Color(0xFF86EFAC)
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    // Unlock All Levels with Rewarded Ad (Vibrant Golden Amber 3D pill)
+                    Surface(
+                        shape = RoundedCornerShape(14.dp),
+                        color = MenuBtnAmberTop,
+                        border = BorderStroke(1.8.dp, MenuBtnAmberBorder),
+                        shadowElevation = 4.dp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable { showUnlockAllDialog = true }
+                            .testTag("settings_unlock_all_levels_button")
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
+                                    )
+                                )
+                                .padding(vertical = 11.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.LockOpen,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    "Unlock All ${PuzzleScenarios.ALL.size} Levels (${unlockedLevelIds.size}/${PuzzleScenarios.ALL.size} Unlocked)",
+                                    fontSize = 12.5.sp,
+                                    fontWeight = FontWeight.Black,
+                                    color = Color.White,
+                                    letterSpacing = 0.5.sp
                                 )
                             }
                         }
@@ -456,66 +545,47 @@ fun SettingsScreen(
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // Unlock All Levels with Rewarded Ad
+                    // Reset High Scores Database (Vibrant Ruby Red 3D pill)
                     Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = WoodButtonTop,
-                        border = BorderStroke(1.dp, GoldenBankGlow),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showUnlockAllDialog = true }
-                            .testTag("settings_unlock_all_levels_button")
-                    ) {
-                        Row(
-                            modifier = Modifier.padding(vertical = 10.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.LockOpen,
-                                contentDescription = null,
-                                tint = GoldenBankGlow,
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                "Unlock All ${PuzzleScenarios.ALL.size} Levels (${unlockedLevelIds.size}/${PuzzleScenarios.ALL.size} Unlocked)",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = GoldenBankGlow
-                            )
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = Color(0xFF4A1A1A),
-                        border = BorderStroke(1.dp, Color(0xFFDC2626)),
+                        shape = RoundedCornerShape(14.dp),
+                        color = MenuBtnRedTop,
+                        border = BorderStroke(1.8.dp, MenuBtnRedBorder),
+                        shadowElevation = 4.dp,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { showClearDialog = true }
                             .testTag("settings_reset_database_button")
                     ) {
-                        Row(
-                            modifier = Modifier.padding(vertical = 10.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    Brush.verticalGradient(
+                                        listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom)
+                                    )
+                                )
+                                .padding(vertical = 11.dp),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.DeleteOutline,
-                                contentDescription = null,
-                                tint = Color(0xFFFF7A7A),
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                "Reset High Scores Database",
-                                fontSize = 12.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFFFF7A7A)
-                            )
+                            Row(
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.DeleteOutline,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(
+                                    "Reset High Scores Database",
+                                    fontSize = 12.5.sp,
+                                    fontWeight = FontWeight.Black,
+                                    color = Color.White,
+                                    letterSpacing = 0.5.sp
+                                )
+                            }
                         }
                     }
                 }
@@ -523,7 +593,11 @@ fun SettingsScreen(
 
             // 5. ABOUT
             SettingsSectionHeader(title = "ABOUT")
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
+                borderColor = GoldenBankGlow
+            ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -532,12 +606,12 @@ fun SettingsScreen(
                         text = "River Crossing Puzzle Game",
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 14.sp,
-                        color = WoodGoldenText
+                        color = Color.White
                     )
                     Text(
                         text = "${PuzzleScenarios.ALL.size} Handcrafted Logic Levels • Room Database High Scores • State-Space AI Solver • Procedural Audio Engine",
                         fontSize = 11.sp,
-                        color = WoodTextMuted
+                        color = Color(0xFFFEF3C7)
                     )
                     Text(
                         text = "Version 1.0.0 • River Academy Edition",
@@ -555,7 +629,7 @@ fun SettingsScreen(
     if (showUnlockAllDialog) {
         AlertDialog(
             onDismissRequest = { showUnlockAllDialog = false },
-            containerColor = Color(0xF2072449),
+            containerColor = Color(0xF4281206),
             shape = RoundedCornerShape(20.dp),
             title = {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -569,7 +643,7 @@ fun SettingsScreen(
                     Text(
                         "Unlock All ${PuzzleScenarios.ALL.size} Levels?",
                         fontWeight = FontWeight.ExtraBold,
-                        color = Color.White
+                        color = GoldenBankGlow
                     )
                 }
             },
@@ -577,34 +651,41 @@ fun SettingsScreen(
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
                         "Unlock all ${PuzzleScenarios.ALL.size} handcrafted levels at once for complete access to the expedition!",
-                        color = Color(0xFFBAE6FD),
+                        color = Color(0xFFFEF3C7),
                         fontSize = 13.sp
                     )
                 }
             },
             confirmButton = {
-                Button(
-                    onClick = {
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MenuBtnAmberTop,
+                    border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
+                    modifier = Modifier.clickable {
                         showUnlockAllDialog = false
                         viewModel.unlockAllLevels()
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0284C7))
+                    }
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        modifier = Modifier
+                            .background(Brush.verticalGradient(listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)))
+                            .padding(horizontal = 14.dp, vertical = 8.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Icon(
                             imageVector = Icons.Default.LockOpen,
                             contentDescription = null,
-                            tint = GoldenBankGlow,
+                            tint = Color.White,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
-                        Text("Unlock All Levels", fontWeight = FontWeight.Bold, color = Color.White)
+                        Text("Unlock All", fontWeight = FontWeight.Bold, color = Color.White)
                     }
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showUnlockAllDialog = false }) {
-                    Text("Cancel", color = Color(0xFFBAE6FD))
+                    Text("Cancel", color = Color(0xFFFEF3C7))
                 }
             }
         )
@@ -613,35 +694,43 @@ fun SettingsScreen(
     if (showClearDialog) {
         AlertDialog(
             onDismissRequest = { showClearDialog = false },
-            containerColor = Color(0xF2072449),
+            containerColor = Color(0xF4281206),
             shape = RoundedCornerShape(20.dp),
             title = {
                 Text(
                     "Reset Local High Scores?",
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
+                    color = GoldenBankGlow
                 )
             },
             text = {
                 Text(
                     "Are you sure you want to delete all saved scores and least moves from the local Room database? This cannot be undone.",
-                    color = Color(0xFFBAE6FD)
+                    color = Color(0xFFFEF3C7)
                 )
             },
             confirmButton = {
-                Button(
-                    onClick = {
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MenuBtnRedTop,
+                    border = BorderStroke(1.2.dp, MenuBtnRedBorder),
+                    modifier = Modifier.clickable {
                         viewModel.clearHighScoreHistory(null)
                         showClearDialog = false
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDC2626))
+                    }
                 ) {
-                    Text("Delete All", fontWeight = FontWeight.Bold, color = Color.White)
+                    Box(
+                        modifier = Modifier
+                            .background(Brush.verticalGradient(listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom)))
+                            .padding(horizontal = 14.dp, vertical = 8.dp)
+                    ) {
+                        Text("Delete All", fontWeight = FontWeight.Bold, color = Color.White)
+                    }
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearDialog = false }) {
-                    Text("Cancel", color = Color(0xFFBAE6FD))
+                    Text("Cancel", color = Color(0xFFFEF3C7))
                 }
             }
         )

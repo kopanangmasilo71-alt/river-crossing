@@ -35,6 +35,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -58,8 +74,8 @@ fun RulesDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = Color(0xFF0284C7),
-                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                color = MenuBtnGreenBottom,
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onDismiss)
@@ -70,13 +86,13 @@ fun RulesDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                             )
                         )
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Got It! Let's Play", fontWeight = FontWeight.ExtraBold, fontSize = 14.sp, color = GoldenBankGlow)
+                    Text("Got It! Let's Play", fontWeight = FontWeight.ExtraBold, fontSize = 14.sp, color = Color.White)
                 }
             }
         },
@@ -102,7 +118,7 @@ fun RulesDialog(
                     )
                 }
                 IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = Color(0xFFE0F2FE))
+                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = GoldenBankGlow)
                 }
             }
         },
@@ -116,7 +132,8 @@ fun RulesDialog(
                 // Narrative Section
                 RuleSection(
                     title = "📖 The Story",
-                    borderColor = Color(0xFF38BDF8).copy(alpha = 0.5f)
+                    borderColor = MenuBtnAmberBorder,
+                    bgGradient = listOf(Color(0xF038220A), Color(0xF0241405))
                 ) {
                     Text(
                         text = currentScenario.description,
@@ -126,15 +143,16 @@ fun RulesDialog(
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = "The log raft can carry the Farmer plus at most ${currentScenario.boatCapacity} passenger(s) at a time (or the Farmer alone).",
-                        fontSize = 12.5.sp,
-                        color = Color(0xFFBAE6FD)
+                        fontSize = 12.sp,
+                        color = Color(0xFFFDE68A)
                     )
                 }
 
                 // Forbidden Situations
                 RuleSection(
                     title = "🚫 Forbidden Situations",
-                    borderColor = Color(0xFFEF4444).copy(alpha = 0.6f)
+                    borderColor = MenuBtnRedBorder,
+                    bgGradient = listOf(Color(0xF03B1313), Color(0xF0220909))
                 ) {
                     if (currentScenario.dangerRules.isNotEmpty()) {
                         currentScenario.dangerRules.forEach { rule ->
@@ -158,7 +176,8 @@ fun RulesDialog(
                 // Mathematical State Logic
                 RuleSection(
                     title = "⚙️ Level Parameters & Target",
-                    borderColor = GoldenBankGlow.copy(alpha = 0.5f)
+                    borderColor = MenuBtnGreenBorder,
+                    bgGradient = listOf(Color(0xF012351A), Color(0xF00A200F))
                 ) {
                     Text(
                         text = "Passengers: ${currentScenario.items.joinToString { it.displayName }}",
@@ -177,19 +196,20 @@ fun RulesDialog(
                 // Human-Friendly Strategy
                 RuleSection(
                     title = "💡 The 'Take-Back' Strategy",
-                    borderColor = Color(0xFF38BDF8).copy(alpha = 0.5f)
+                    borderColor = MenuBtnCyanBorder,
+                    bgGradient = listOf(Color(0xF00A263D), Color(0xF0071828))
                 ) {
                     Text(
                         text = "1. First move a passenger that prevents immediate conflict.\n2. When returning, bring a passenger back if leaving them would trigger a conflict.\n3. Keep calm and alternate your ferrying moves!",
                         fontSize = 12.sp,
-                        color = Color(0xFFBAE6FD),
+                        color = Color(0xFFFDE68A),
                         lineHeight = 16.sp
                     )
                 }
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF2072449),
+        containerColor = Color(0xF62C1408),
         modifier = modifier
     )
 }
@@ -198,23 +218,30 @@ fun RulesDialog(
 private fun RuleSection(
     title: String,
     borderColor: Color,
+    bgGradient: List<Color> = listOf(Color(0xCC2A1308), Color(0xCC1A0B05)),
     content: @Composable () -> Unit
 ) {
     Surface(
         shape = RoundedCornerShape(14.dp),
-        color = WoodInsetPanel,
-        border = BorderStroke(1.dp, borderColor),
+        color = Color.Transparent,
+        border = BorderStroke(1.2.dp, borderColor.copy(alpha = 0.7f)),
         modifier = Modifier.fillMaxWidth()
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Text(
-                text = title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 13.sp,
-                color = GoldenBankGlow
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            content()
+        Box(
+            modifier = Modifier
+                .background(Brush.horizontalGradient(bgGradient))
+                .padding(12.dp)
+        ) {
+            Column {
+                Text(
+                    text = title,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 13.sp,
+                    color = borderColor
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                content()
+            }
         }
     }
 }

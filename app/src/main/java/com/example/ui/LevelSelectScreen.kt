@@ -108,6 +108,33 @@ import com.example.ui.theme.VibrantSurfaceVariant
 import com.example.ui.theme.VibrantTextPrimary
 import com.example.ui.theme.VibrantTextSecondary
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnBlueTop
+import com.example.ui.theme.MenuBtnBlueMid
+import com.example.ui.theme.MenuBtnBlueBottom
+import com.example.ui.theme.MenuBtnBlueBorder
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnPurpleTop
+import com.example.ui.theme.MenuBtnPurpleMid
+import com.example.ui.theme.MenuBtnPurpleBottom
+import com.example.ui.theme.MenuBtnPurpleBorder
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnRedTop
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuQuickActionBgTop
+import com.example.ui.theme.MenuQuickActionBgBottom
+import com.example.ui.theme.MenuQuickActionBorder
 import com.example.ui.theme.WoodButtonBorder
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
@@ -129,13 +156,19 @@ import com.example.ui.components.WoodScreenContainer
 import com.example.ui.components.WoodTopAppBar
 import com.example.viewmodel.RiverGameViewModel
 
-enum class LevelFilter(val title: String, val minLvl: Int, val maxLvl: Int) {
-    ALL("All (50)", 1, 50),
-    NOVICE("Novice (1-10)", 1, 10),
-    SKILLED("Skilled (11-20)", 11, 20),
-    EXPERT("Expert (21-35)", 21, 35),
-    CHAMPION("Champion (36-45)", 36, 45),
-    GRANDMASTER("Grandmaster (46-50)", 46, 50)
+enum class LevelFilter(
+    val title: String,
+    val minLvl: Int,
+    val maxLvl: Int,
+    val gradient: List<Color>,
+    val border: Color
+) {
+    ALL("All (50)", 1, 50, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
+    NOVICE("Novice (1-10)", 1, 10, listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom), MenuBtnGreenBorder),
+    SKILLED("Skilled (11-20)", 11, 20, listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom), MenuBtnBlueBorder),
+    EXPERT("Expert (21-35)", 21, 35, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
+    CHAMPION("Champion (36-45)", 36, 45, listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom), MenuBtnPurpleBorder),
+    GRANDMASTER("Grandmaster (46-50)", 46, 50, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -181,18 +214,20 @@ fun LevelSelectScreen(
                 onBack = onNavigateToMainMenu,
                 actions = {
                     Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
+                        shape = CircleShape,
+                        color = MenuQuickActionBgTop,
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
+                        shadowElevation = 3.dp,
                         modifier = Modifier
+                            .size(36.dp)
                             .clickable { showQuickGrid = true }
                             .testTag("level_select_grid_button")
                     ) {
-                        Box(modifier = Modifier.padding(6.dp), contentAlignment = Alignment.Center) {
+                        Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = Icons.Default.Apps,
                                 contentDescription = "Quick Level Grid",
-                                tint = Color(0xFFBAE6FD),
+                                tint = GoldenBankGlow,
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -201,14 +236,16 @@ fun LevelSelectScreen(
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
+                        shape = CircleShape,
+                        color = MenuQuickActionBgTop,
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
+                        shadowElevation = 3.dp,
                         modifier = Modifier
+                            .size(36.dp)
                             .clickable { showLeaderboard = true }
                             .testTag("level_select_leaderboard_button")
                     ) {
-                        Box(modifier = Modifier.padding(6.dp), contentAlignment = Alignment.Center) {
+                        Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = Icons.Default.EmojiEvents,
                                 contentDescription = "Leaderboard",
@@ -221,18 +258,20 @@ fun LevelSelectScreen(
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
+                        shape = CircleShape,
+                        color = MenuQuickActionBgTop,
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
+                        shadowElevation = 3.dp,
                         modifier = Modifier
+                            .size(36.dp)
                             .clickable(onClick = onNavigateToSettings)
                             .testTag("level_select_settings_button")
                     ) {
-                        Box(modifier = Modifier.padding(6.dp), contentAlignment = Alignment.Center) {
+                        Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = Icons.Default.Settings,
                                 contentDescription = "Settings",
-                                tint = Color(0xFFBAE6FD),
+                                tint = Color(0xFFFEF3C7),
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -241,18 +280,20 @@ fun LevelSelectScreen(
                     Spacer(modifier = Modifier.width(4.dp))
 
                     Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
+                        shape = CircleShape,
+                        color = MenuQuickActionBgTop,
+                        border = BorderStroke(1.5.dp, if (isMuted) Color(0xFFEF4444) else GoldenBankGlow),
+                        shadowElevation = 3.dp,
                         modifier = Modifier
+                            .size(36.dp)
                             .clickable { viewModel.toggleMute() }
                             .testTag("level_select_mute_button")
                     ) {
-                        Box(modifier = Modifier.padding(6.dp), contentAlignment = Alignment.Center) {
+                        Box(contentAlignment = Alignment.Center) {
                             Icon(
                                 imageVector = if (isMuted) Icons.Default.VolumeMute else Icons.Default.VolumeUp,
                                 contentDescription = "Toggle Mute",
-                                tint = if (isMuted) Color(0xFFEF4444) else Color(0xFFBAE6FD),
+                                tint = if (isMuted) Color(0xFFEF4444) else GoldenBankGlow,
                                 modifier = Modifier.size(18.dp)
                             )
                         }
@@ -320,7 +361,9 @@ fun LevelSelectScreen(
                                 WoodFilterPill(
                                     selected = isSelected,
                                     onClick = { selectedFilter = filter },
-                                    text = filter.title
+                                    text = filter.title,
+                                    activeGradient = filter.gradient,
+                                    activeBorder = filter.border
                                 )
                             }
                         }
@@ -476,8 +519,8 @@ private fun QuickLevelGridDialog(
     Dialog(onDismissRequest = onDismiss) {
         Card(
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = WoodCardBg),
-            border = BorderStroke(1.5.dp, Color(0xFF38BDF8).copy(alpha = 0.7f)),
+            colors = CardDefaults.cardColors(containerColor = Color(0xF03B1C08)),
+            border = BorderStroke(2.dp, GoldenBankGlow),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -488,7 +531,7 @@ private fun QuickLevelGridDialog(
                     .fillMaxWidth()
                     .background(
                         Brush.verticalGradient(
-                            colors = listOf(Color(0xF00D3B73), Color(0xF0072449))
+                            colors = listOf(Color(0xF04A260E), Color(0xF02B1405))
                         )
                     )
                     .padding(18.dp)
@@ -503,18 +546,18 @@ private fun QuickLevelGridDialog(
                             text = "Level Matrix",
                             fontWeight = FontWeight.ExtraBold,
                             fontSize = 18.sp,
-                            color = Color.White
+                            color = GoldenBankGlow
                         )
                         Text(
                             text = "Tap any level (1 - ${PuzzleScenarios.ALL.size}) to set sail",
-                            fontSize = 11.sp,
-                            color = Color(0xFFBAE6FD)
+                            fontSize = 11.5.sp,
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                     Surface(
                         shape = CircleShape,
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
+                        color = Color(0xDD220F05),
+                        border = BorderStroke(1.2.dp, GoldenBankGlow),
                         modifier = Modifier
                             .size(28.dp)
                             .clickable { onDismiss() }
@@ -523,7 +566,7 @@ private fun QuickLevelGridDialog(
                             Icon(
                                 Icons.Default.Close,
                                 contentDescription = "Close",
-                                tint = Color(0xFFE0F2FE),
+                                tint = Color(0xFFFEF3C7),
                                 modifier = Modifier.size(16.dp)
                             )
                         }
@@ -551,65 +594,81 @@ private fun QuickLevelGridDialog(
                             val isCleared = best != null
                             val isUnlocked = unlockedLevelIds.contains(scenario.id)
 
+                            val tileGradient = when {
+                                isCleared -> listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
+                                !isUnlocked -> listOf(Color(0xDD241106), Color(0xDD180A03))
+                                scenario.difficulty == com.example.model.Difficulty.EASY -> listOf(Color(0xFF166534), Color(0xFF14532D))
+                                scenario.difficulty == com.example.model.Difficulty.MEDIUM -> listOf(Color(0xFF0369A1), Color(0xFF075985))
+                                scenario.difficulty == com.example.model.Difficulty.HARD -> listOf(Color(0xFFB45309), Color(0xFF92400E))
+                                scenario.difficulty == com.example.model.Difficulty.EXPERT -> listOf(Color(0xFF7E22CE), Color(0xFF6B21A8))
+                                else -> listOf(Color(0xFFB91C1C), Color(0xFF991B1B))
+                            }
+
+                            val tileBorder = when {
+                                isCleared -> MenuBtnGreenBorder
+                                !isUnlocked -> Color(0x44D97706)
+                                scenario.difficulty == com.example.model.Difficulty.EASY -> MenuBtnGreenBorder
+                                scenario.difficulty == com.example.model.Difficulty.MEDIUM -> MenuBtnBlueBorder
+                                scenario.difficulty == com.example.model.Difficulty.HARD -> MenuBtnAmberBorder
+                                scenario.difficulty == com.example.model.Difficulty.EXPERT -> MenuBtnPurpleBorder
+                                else -> MenuBtnRedBorder
+                            }
+
                             Surface(
                                 shape = RoundedCornerShape(12.dp),
-                                color = when {
-                                    isCleared -> Color(0xFF0F4D8F)
-                                    isUnlocked -> Color(0xFF0C3565)
-                                    else -> Color(0x66081E3B)
-                                },
-                                border = BorderStroke(
-                                    1.2.dp,
-                                    when {
-                                        isCleared -> GoldenBankGlow
-                                        isUnlocked -> Color(0xFF38BDF8).copy(alpha = 0.7f)
-                                        else -> Color(0x3338BDF8)
-                                    }
-                                ),
+                                color = tileGradient.first(),
+                                border = BorderStroke(1.4.dp, tileBorder),
                                 modifier = Modifier
                                     .size(54.dp)
                                     .clickable { onSelectLevel(scenario) }
                             ) {
-                                Column(
-                                    modifier = Modifier.fillMaxSize(),
-                                    verticalArrangement = Arrangement.Center,
-                                    horizontalAlignment = Alignment.CenterHorizontally
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .background(Brush.verticalGradient(tileGradient)),
+                                    contentAlignment = Alignment.Center
                                 ) {
-                                    if (!isUnlocked) {
-                                        Icon(
-                                            imageVector = Icons.Default.Lock,
-                                            contentDescription = "Locked",
-                                            tint = Color(0xFF64748B),
-                                            modifier = Modifier.size(15.dp)
-                                        )
-                                        Text(
-                                            text = "${scenario.levelNumber}",
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 11.sp,
-                                            color = Color(0xFF64748B)
-                                        )
-                                    } else {
-                                        Text(
-                                            text = "${scenario.levelNumber}",
-                                            fontWeight = FontWeight.Bold,
-                                            fontSize = 14.sp,
-                                            color = if (isCleared) GoldenBankGlow else Color.White
-                                        )
-                                        Row(
-                                            verticalAlignment = Alignment.CenterVertically,
-                                            horizontalArrangement = Arrangement.Center
-                                        ) {
-                                            if (stars > 0) {
-                                                Text(
-                                                    text = "★".repeat(stars),
-                                                    fontSize = 9.sp,
-                                                    color = GoldenBankGlow
-                                                )
-                                            } else {
-                                                Text(
-                                                    text = scenario.difficulty.iconEmoji,
-                                                    fontSize = 9.sp
-                                                )
+                                    Column(
+                                        modifier = Modifier.fillMaxSize(),
+                                        verticalArrangement = Arrangement.Center,
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        if (!isUnlocked) {
+                                            Icon(
+                                                imageVector = Icons.Default.Lock,
+                                                contentDescription = "Locked",
+                                                tint = Color(0xFFF87171),
+                                                modifier = Modifier.size(14.dp)
+                                            )
+                                            Text(
+                                                text = "${scenario.levelNumber}",
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 11.sp,
+                                                color = Color(0xFFFECACA)
+                                            )
+                                        } else {
+                                            Text(
+                                                text = "${scenario.levelNumber}",
+                                                fontWeight = FontWeight.ExtraBold,
+                                                fontSize = 14.sp,
+                                                color = if (isCleared) Color.White else Color(0xFFFEF3C7)
+                                            )
+                                            Row(
+                                                verticalAlignment = Alignment.CenterVertically,
+                                                horizontalArrangement = Arrangement.Center
+                                            ) {
+                                                if (stars > 0) {
+                                                    Text(
+                                                        text = "★".repeat(stars),
+                                                        fontSize = 9.sp,
+                                                        color = GoldenBankGlow
+                                                    )
+                                                } else {
+                                                    Text(
+                                                        text = scenario.difficulty.iconEmoji,
+                                                        fontSize = 9.sp
+                                                    )
+                                                }
                                             }
                                         }
                                     }
@@ -633,6 +692,8 @@ private fun LevelSelectHeroCard(
 ) {
     WoodCard(
         shape = RoundedCornerShape(20.dp),
+        gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
+        borderColor = GoldenBankGlow,
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
@@ -643,54 +704,64 @@ private fun LevelSelectHeroCard(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = "Ferry Master Academy",
-                    fontWeight = FontWeight.ExtraBold,
-                    fontSize = 17.sp,
-                    color = Color.White
-                )
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "⭐ Ferry Master Academy",
+                        fontWeight = FontWeight.ExtraBold,
+                        fontSize = 17.sp,
+                        color = GoldenBankGlow
+                    )
+                }
                 Spacer(modifier = Modifier.height(3.dp))
                 Text(
-                    text = "Transport passengers across the river without leaving predator and prey alone together.",
+                    text = "50 unique river landscapes with distinct challenges. Conquer every crossing!",
                     fontSize = 12.sp,
-                    color = Color(0xFFBAE6FD),
+                    color = Color(0xFFFEF3C7),
                     lineHeight = 16.sp
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    WoodInsetBox(shape = RoundedCornerShape(10.dp)) {
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = Color(0xCC1A0C04),
+                        border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.8f))
+                    ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = "Stars",
                                 tint = GoldenBankGlow,
-                                modifier = Modifier.size(14.dp)
+                                modifier = Modifier.size(15.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
                                 text = "$totalStars / ${totalLevels * 3} Stars",
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
+                                fontSize = 11.5.sp,
+                                fontWeight = FontWeight.ExtraBold,
                                 color = GoldenBankGlow
                             )
                         }
                     }
 
-                    WoodInsetBox(shape = RoundedCornerShape(10.dp)) {
+                    Surface(
+                        shape = RoundedCornerShape(10.dp),
+                        color = Color(0xCC1A0C04),
+                        border = BorderStroke(1.2.dp, Color(0xFF22C55E).copy(alpha = 0.8f))
+                    ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
                                 text = "🏆 $completedLevels/$totalLevels Solved",
-                                fontSize = 11.sp,
+                                fontSize = 11.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = Color.White
+                                color = Color(0xFF4ADE80)
                             )
                         }
                     }
@@ -701,12 +772,12 @@ private fun LevelSelectHeroCard(
 
             Surface(
                 shape = CircleShape,
-                color = WoodInsetPanel,
-                border = BorderStroke(2.dp, Color(0xFF38BDF8).copy(alpha = 0.8f)),
+                color = Color(0xDD220F05),
+                border = BorderStroke(2.dp, GoldenBankGlow),
                 modifier = Modifier
                     .size(62.dp)
                     .clickable { onOpenGrid() },
-                shadowElevation = 4.dp
+                shadowElevation = 5.dp
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Image(
@@ -737,8 +808,18 @@ private fun LevelScenarioCard(
 ) {
     var isRulesExpanded by remember { mutableStateOf(false) }
 
+    val (cardGradient, cardBorder) = when (scenario.difficulty) {
+        com.example.model.Difficulty.EASY -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
+        com.example.model.Difficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
+        com.example.model.Difficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
+        com.example.model.Difficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
+        com.example.model.Difficulty.MASTER -> listOf(Color(0xF0481214), Color(0xF02A080A)) to MenuBtnRedBorder
+    }
+
     WoodCard(
         shape = RoundedCornerShape(20.dp),
+        gradientColors = cardGradient,
+        borderColor = cardBorder,
         modifier = modifier
             .fillMaxWidth()
             .alpha(if (isUnlocked) 1f else 0.88f)
@@ -758,8 +839,8 @@ private fun LevelScenarioCard(
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Surface(
                         shape = RoundedCornerShape(8.dp),
-                        color = if (isUnlocked) WoodInsetPanel else Color(0x66081E3B),
-                        border = BorderStroke(1.dp, if (isUnlocked) GoldenBankGlow else Color(0x3338BDF8)),
+                        color = if (isUnlocked) Color(0xDD220F05) else Color(0x66220F05),
+                        border = BorderStroke(1.dp, if (isUnlocked) GoldenBankGlow else Color(0x44D97706)),
                         modifier = Modifier.size(26.dp)
                     ) {
                         Box(contentAlignment = Alignment.Center) {
@@ -767,7 +848,7 @@ private fun LevelScenarioCard(
                                 Icon(
                                     imageVector = Icons.Default.Lock,
                                     contentDescription = "Locked",
-                                    tint = Color(0xFF64748B),
+                                    tint = Color(0xFFF87171),
                                     modifier = Modifier.size(14.dp)
                                 )
                             } else {
@@ -800,8 +881,8 @@ private fun LevelScenarioCard(
                 // Boat capacity pill or Locked status tag
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = if (isUnlocked) WoodInsetPanel else Color(0x66081E3B),
-                    border = BorderStroke(1.dp, if (isUnlocked) Color(0xFF38BDF8).copy(alpha = 0.5f) else Color(0x3338BDF8))
+                    color = if (isUnlocked) Color(0xDD220F05) else Color(0x66220F05),
+                    border = BorderStroke(1.dp, if (isUnlocked) cardBorder.copy(alpha = 0.7f) else Color(0x33D97706))
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
@@ -825,7 +906,7 @@ private fun LevelScenarioCard(
                             Icon(
                                 imageVector = Icons.Default.DirectionsBoat,
                                 contentDescription = "Boat",
-                                tint = Color(0xFFBAE6FD),
+                                tint = cardBorder,
                                 modifier = Modifier.size(12.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
@@ -833,7 +914,7 @@ private fun LevelScenarioCard(
                                 text = "Boat Cap: ${scenario.boatCapacity + 1}",
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.SemiBold,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFEF3C7)
                             )
                         }
                     }
@@ -849,7 +930,7 @@ private fun LevelScenarioCard(
                     .fillMaxWidth()
                     .height(84.dp)
                     .clip(RoundedCornerShape(14.dp))
-                    .border(1.2.dp, Color(0xFF38BDF8).copy(alpha = 0.5f), RoundedCornerShape(14.dp))
+                    .border(1.2.dp, cardBorder.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
             ) {
                 Image(
                     painter = painterResource(id = theme.backgroundDrawableRes),
@@ -909,7 +990,7 @@ private fun LevelScenarioCard(
             Text(
                 text = scenario.subtitle,
                 fontSize = 12.sp,
-                color = Color(0xFFBAE6FD)
+                color = Color(0xFFFEF3C7)
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -930,8 +1011,8 @@ private fun LevelScenarioCard(
                     scenario.items.forEach { item ->
                         Surface(
                             shape = RoundedCornerShape(16.dp),
-                            color = WoodInsetPanel,
-                            border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f))
+                            color = Color(0xDD220F05),
+                            border = BorderStroke(1.dp, cardBorder.copy(alpha = 0.5f))
                         ) {
                             Row(
                                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
@@ -990,7 +1071,7 @@ private fun LevelScenarioCard(
                         Text(
                             text = "Not Cleared",
                             fontSize = 11.sp,
-                            color = Color(0xFF94A3B8),
+                            color = Color(0xFFD4A373),
                             fontWeight = FontWeight.Medium
                         )
                     }
@@ -1017,7 +1098,7 @@ private fun LevelScenarioCard(
                         Icon(
                             imageVector = Icons.Default.Info,
                             contentDescription = "Rules",
-                            tint = Color(0xFFBAE6FD),
+                            tint = GoldenBankGlow,
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -1025,13 +1106,13 @@ private fun LevelScenarioCard(
                             text = if (isRulesExpanded) "Hide Rules" else "Rules & Danger",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFFBAE6FD)
+                            color = GoldenBankGlow
                         )
                     }
                     Icon(
                         imageVector = if (isRulesExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
                         contentDescription = null,
-                        tint = Color(0xFFBAE6FD),
+                        tint = GoldenBankGlow,
                         modifier = Modifier.size(16.dp)
                     )
                 }
@@ -1108,14 +1189,15 @@ private fun LevelScenarioCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             if (isUnlocked) {
-                // Play Button
+                // Play Button (Lush Emerald Green Pill matching Main Menu button 1)
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = Color(0xFF0284C7),
-                    border = BorderStroke(1.5.dp, GoldenBankGlow),
+                    color = MenuBtnGreenTop,
+                    border = BorderStroke(1.8.dp, MenuBtnGreenBorder),
+                    shadowElevation = 4.dp,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(46.dp)
+                        .height(48.dp)
                         .clip(RoundedCornerShape(14.dp))
                         .clickable(onClick = onPlay)
                         .testTag("play_level_${scenario.id}")
@@ -1126,13 +1208,23 @@ private fun LevelScenarioCard(
                             .background(
                                 Brush.verticalGradient(
                                     colors = listOf(
-                                        Color(0xFF0284C7),
-                                        Color(0xFF0369A1)
+                                        MenuBtnGreenTop,
+                                        MenuBtnGreenMid,
+                                        MenuBtnGreenBottom
                                     )
                                 )
                             ),
                         contentAlignment = Alignment.Center
                     ) {
+                        // Glossy top reflection
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(2.dp)
+                                .align(Alignment.TopCenter)
+                                .background(Color(0x66FFFFFF))
+                        )
+
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
@@ -1140,29 +1232,37 @@ private fun LevelScenarioCard(
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = "Play",
-                                tint = GoldenBankGlow,
-                                modifier = Modifier.size(18.dp)
+                                tint = Color.White,
+                                modifier = Modifier.size(20.dp)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = "SET SAIL • LEVEL ${scenario.levelNumber}",
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 13.sp,
+                                fontWeight = FontWeight.Black,
+                                fontSize = 13.5.sp,
                                 color = Color.White,
-                                letterSpacing = 0.5.sp
+                                letterSpacing = 0.8.sp,
+                                style = androidx.compose.ui.text.TextStyle(
+                                    shadow = androidx.compose.ui.graphics.Shadow(
+                                        color = Color(0x66000000),
+                                        offset = androidx.compose.ui.geometry.Offset(1f, 1f),
+                                        blurRadius = 2f
+                                    )
+                                )
                             )
                         }
                     }
                 }
             } else {
-                // Locked State: Tap to Unlock with Rewarded Ad Button
+                // Locked State: Tap to Unlock with Rewarded Ad Button (Golden Amber Pill)
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = Color(0xFF78350F),
-                    border = BorderStroke(1.5.dp, GoldenBankGlow),
+                    color = MenuBtnAmberTop,
+                    border = BorderStroke(1.8.dp, MenuBtnAmberBorder),
+                    shadowElevation = 4.dp,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(46.dp)
+                        .height(48.dp)
                         .clip(RoundedCornerShape(14.dp))
                         .clickable(onClick = onUnlockWithAd)
                         .testTag("unlock_level_${scenario.id}")
@@ -1173,29 +1273,39 @@ private fun LevelScenarioCard(
                             .background(
                                 Brush.verticalGradient(
                                     colors = listOf(
-                                        Color(0xFF92400E),
-                                        Color(0xFF78350F)
+                                        MenuBtnAmberTop,
+                                        MenuBtnAmberMid,
+                                        MenuBtnAmberBottom
                                     )
                                 )
                             ),
                         contentAlignment = Alignment.Center
                     ) {
+                        // Glossy top reflection
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(2.dp)
+                                .align(Alignment.TopCenter)
+                                .background(Color(0x66FFFFFF))
+                        )
+
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Icon(
-                                imageVector = Icons.Default.OndemandVideo,
-                                contentDescription = "Unlock with Video Ad",
-                                tint = GoldenBankGlow,
+                                imageVector = Icons.Default.LockOpen,
+                                contentDescription = "Unlock",
+                                tint = Color.White,
                                 modifier = Modifier.size(18.dp)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
                             Text(
-                                text = "WATCH AD TO UNLOCK • LEVEL ${scenario.levelNumber}",
+                                text = "UNLOCK LEVEL ${scenario.levelNumber} (WATCH AD)",
                                 fontWeight = FontWeight.ExtraBold,
                                 fontSize = 12.sp,
-                                color = GoldenBankGlow,
+                                color = Color.White,
                                 letterSpacing = 0.5.sp
                             )
                         }

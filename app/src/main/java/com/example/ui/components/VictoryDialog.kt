@@ -65,6 +65,9 @@ import com.example.model.LevelTheme
 import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -203,13 +206,8 @@ fun VictoryDialog(
         ) {
             Surface(
                 shape = RoundedCornerShape(26.dp),
-                color = Color(0xF5072449),
-                border = BorderStroke(
-                    2.dp,
-                    Brush.verticalGradient(
-                        listOf(Color(0xFF38BDF8), GoldenBankGlow, Color(0xFF0F4D8F))
-                    )
-                ),
+                color = Color(0xF62C1408),
+                border = BorderStroke(2.dp, GoldenBankGlow),
                 shadowElevation = 16.dp,
                 modifier = Modifier
                     .fillMaxWidth(0.94f)
@@ -451,8 +449,8 @@ fun VictoryDialog(
                         if (onNextLevel != null) {
                             Surface(
                                 shape = RoundedCornerShape(14.dp),
-                                color = Color(0xFF0284C7),
-                                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                                color = MenuBtnGreenBottom,
+                                border = BorderStroke(1.8.dp, GoldenBankGlow),
                                 shadowElevation = 6.dp,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -464,7 +462,7 @@ fun VictoryDialog(
                                         .fillMaxWidth()
                                         .background(
                                             Brush.verticalGradient(
-                                                listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                                             )
                                         )
                                         .padding(vertical = 12.dp),
@@ -478,14 +476,14 @@ fun VictoryDialog(
                                             "Next Level",
                                             fontSize = 15.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = GoldenBankGlow
+                                            color = Color.White
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Text(
                                             "➔",
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = GoldenBankGlow
+                                            color = Color.White
                                         )
                                     }
                                 }

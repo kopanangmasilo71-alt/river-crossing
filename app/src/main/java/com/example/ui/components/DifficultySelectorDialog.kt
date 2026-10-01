@@ -45,6 +45,22 @@ import androidx.compose.ui.unit.sp
 import com.example.model.DifficultyMode
 import com.example.model.DifficultyModifiers
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -78,8 +94,8 @@ fun DifficultySelectorDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = Color(0xFF0284C7),
-                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                color = MenuBtnGreenBottom,
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
@@ -106,7 +122,7 @@ fun DifficultySelectorDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                             )
                         )
                         .padding(vertical = 12.dp),
@@ -151,7 +167,7 @@ fun DifficultySelectorDialog(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Close",
-                        tint = Color(0xFFBAE6FD)
+                        tint = GoldenBankGlow
                     )
                 }
             }
@@ -166,25 +182,25 @@ fun DifficultySelectorDialog(
                 Text(
                     text = "Choose a challenge preset or toggle custom river rules:",
                     fontSize = 12.sp,
-                    color = Color(0xFFBAE6FD)
+                    color = Color(0xFFFDE68A)
                 )
 
-                // Presets
+                // Presets with vibrant difficulty accents
                 val presetModes = listOf(
-                    DifficultyMode.STANDARD,
-                    DifficultyMode.FOG_OF_WAR,
-                    DifficultyMode.RESTRICTED_COMBOS,
-                    DifficultyMode.EXTREME
+                    Triple(DifficultyMode.STANDARD, MenuBtnGreenBorder, listOf(Color(0xF012351A), Color(0xF00A200F))),
+                    Triple(DifficultyMode.FOG_OF_WAR, MenuBtnCyanBorder, listOf(Color(0xF00A263D), Color(0xF0071828))),
+                    Triple(DifficultyMode.RESTRICTED_COMBOS, MenuBtnAmberBorder, listOf(Color(0xF038220A), Color(0xF0241405))),
+                    Triple(DifficultyMode.EXTREME, MenuBtnRedBorder, listOf(Color(0xF03B1313), Color(0xF0220909)))
                 )
 
-                presetModes.forEach { mode ->
+                presetModes.forEach { (mode, accentBorder, gradientBg) ->
                     val isSelected = selectedMode == mode
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = if (isSelected) Color(0xFF0D3B73) else WoodInsetPanel,
+                        color = Color.Transparent,
                         border = BorderStroke(
-                            if (isSelected) 1.5.dp else 1.dp,
-                            if (isSelected) GoldenBankGlow else Color(0xFF38BDF8).copy(alpha = 0.4f)
+                            if (isSelected) 2.dp else 1.dp,
+                            if (isSelected) GoldenBankGlow else accentBorder.copy(alpha = 0.5f)
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -192,57 +208,69 @@ fun DifficultySelectorDialog(
                             .clickable { selectPreset(mode) }
                             .testTag("difficulty_mode_${mode.id}")
                     ) {
-                        Row(
+                        Box(
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(12.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
+                                .background(
+                                    Brush.horizontalGradient(
+                                        if (isSelected) {
+                                            listOf(gradientBg[0], Color(0xF03A1C08))
+                                        } else {
+                                            listOf(Color(0xDD231006), Color(0xDD180B04))
+                                        }
+                                    )
+                                )
+                                .padding(12.dp)
                         ) {
                             Row(
-                                modifier = Modifier.weight(1f),
-                                verticalAlignment = Alignment.CenterVertically
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
                             ) {
-                                Surface(
-                                    shape = CircleShape,
-                                    color = Color(0xFF072449),
-                                    border = BorderStroke(1.dp, if (isSelected) GoldenBankGlow else Color(0xFF38BDF8).copy(alpha = 0.4f)),
-                                    modifier = Modifier.size(36.dp)
+                                Row(
+                                    modifier = Modifier.weight(1f),
+                                    verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Box(contentAlignment = Alignment.Center) {
-                                        Text(text = mode.iconEmoji, fontSize = 18.sp)
+                                    Surface(
+                                        shape = CircleShape,
+                                        color = accentBorder.copy(alpha = 0.2f),
+                                        border = BorderStroke(1.2.dp, if (isSelected) GoldenBankGlow else accentBorder),
+                                        modifier = Modifier.size(36.dp)
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center) {
+                                            Text(text = mode.iconEmoji, fontSize = 18.sp)
+                                        }
+                                    }
+                                    Spacer(modifier = Modifier.width(10.dp))
+                                    Column {
+                                        Text(
+                                            text = mode.title,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            fontSize = 13.5.sp,
+                                            color = if (isSelected) GoldenBankGlow else Color.White
+                                        )
+                                        Text(
+                                            text = mode.subtitle,
+                                            fontSize = 11.sp,
+                                            color = Color(0xFFFDE68A),
+                                            lineHeight = 14.sp
+                                        )
                                     }
                                 }
-                                Spacer(modifier = Modifier.width(10.dp))
-                                Column {
-                                    Text(
-                                        text = mode.title,
-                                        fontWeight = FontWeight.ExtraBold,
-                                        fontSize = 13.sp,
-                                        color = if (isSelected) GoldenBankGlow else Color.White
-                                    )
-                                    Text(
-                                        text = mode.subtitle,
-                                        fontSize = 11.sp,
-                                        color = Color(0xFFBAE6FD),
-                                        lineHeight = 14.sp
-                                    )
-                                }
-                            }
 
-                            if (isSelected) {
-                                Surface(
-                                    shape = CircleShape,
-                                    color = GoldenBankGlow,
-                                    modifier = Modifier.size(22.dp)
-                                ) {
-                                    Box(contentAlignment = Alignment.Center) {
-                                        Icon(
-                                            imageVector = Icons.Default.Check,
-                                            contentDescription = "Selected",
-                                            tint = Color(0xFF072449),
-                                            modifier = Modifier.size(14.dp)
-                                        )
+                                if (isSelected) {
+                                    Surface(
+                                        shape = CircleShape,
+                                        color = GoldenBankGlow,
+                                        modifier = Modifier.size(22.dp)
+                                    ) {
+                                        Box(contentAlignment = Alignment.Center) {
+                                            Icon(
+                                                imageVector = Icons.Default.Check,
+                                                contentDescription = "Selected",
+                                                tint = Color(0xFF2B1307),
+                                                modifier = Modifier.size(14.dp)
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -263,8 +291,8 @@ fun DifficultySelectorDialog(
                 // Toggle 1: Hidden Items / Fog of War
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    color = Color(0xCC2A1308),
+                    border = BorderStroke(1.dp, MenuBtnCyanBorder.copy(alpha = 0.5f)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -288,7 +316,7 @@ fun DifficultySelectorDialog(
                             Text(
                                 text = "Opposite bank is veiled in fog until farmer arrives.",
                                 fontSize = 10.sp,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFDE68A)
                             )
                         }
                         Switch(
@@ -299,9 +327,9 @@ fun DifficultySelectorDialog(
                             },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = Color(0xFF0284C7),
+                                checkedTrackColor = MenuBtnGreenMid,
                                 uncheckedThumbColor = Color(0xFF94A3B8),
-                                uncheckedTrackColor = Color(0xFF072449)
+                                uncheckedTrackColor = Color(0x664A260E)
                             ),
                             modifier = Modifier.testTag("toggle_hidden_items_switch")
                         )
@@ -311,8 +339,8 @@ fun DifficultySelectorDialog(
                 // Toggle 2: Restricted Combinations
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    color = Color(0xCC2A1308),
+                    border = BorderStroke(1.dp, MenuBtnAmberBorder.copy(alpha = 0.5f)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -336,7 +364,7 @@ fun DifficultySelectorDialog(
                             Text(
                                 text = "Forbids conflicting predator or crop pairs in the boat.",
                                 fontSize = 10.sp,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFDE68A)
                             )
                         }
                         Switch(
@@ -347,9 +375,9 @@ fun DifficultySelectorDialog(
                             },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = Color(0xFF0284C7),
+                                checkedTrackColor = MenuBtnAmberMid,
                                 uncheckedThumbColor = Color(0xFF94A3B8),
-                                uncheckedTrackColor = Color(0xFF072449)
+                                uncheckedTrackColor = Color(0x664A260E)
                             ),
                             modifier = Modifier.testTag("toggle_restricted_combos_switch")
                         )
@@ -358,7 +386,7 @@ fun DifficultySelectorDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF2072449),
+        containerColor = Color(0xF62C1408),
         modifier = modifier.testTag("difficulty_dialog")
     )
 }

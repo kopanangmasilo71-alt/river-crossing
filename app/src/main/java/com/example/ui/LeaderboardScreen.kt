@@ -64,6 +64,26 @@ import com.example.ui.components.WoodInsetBox
 import com.example.ui.components.WoodScreenContainer
 import com.example.ui.components.WoodTopAppBar
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnBlueTop
+import com.example.ui.theme.MenuBtnBlueMid
+import com.example.ui.theme.MenuBtnBlueBottom
+import com.example.ui.theme.MenuBtnBlueBorder
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnPurpleTop
+import com.example.ui.theme.MenuBtnPurpleMid
+import com.example.ui.theme.MenuBtnPurpleBottom
+import com.example.ui.theme.MenuBtnPurpleBorder
+import com.example.ui.theme.MenuBtnRedTop
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedBorder
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -130,16 +150,18 @@ fun LeaderboardScreen(
                             Icon(
                                 imageVector = Icons.Default.DeleteOutline,
                                 contentDescription = "Clear Records",
-                                tint = WoodGoldenText
+                                tint = GoldenBankGlow
                             )
                         }
                     }
                 }
             )
 
-        // OVERALL STATS HEADER CARD
+        // OVERALL STATS HEADER CARD (Glossy multi-color stat capsules matching Main Menu)
         WoodCard(
             shape = RoundedCornerShape(20.dp),
+            gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
+            borderColor = GoldenBankGlow,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 6.dp)
@@ -148,73 +170,112 @@ fun LeaderboardScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(14.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                    .padding(horizontal = 10.dp, vertical = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Star,
-                            contentDescription = null,
-                            tint = GoldenBankGlow,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(3.dp))
+                // Capsule 1: Total Stars (Golden Amber)
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color(0xDD2A1506),
+                    border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Star,
+                                contentDescription = null,
+                                tint = GoldenBankGlow,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(modifier = Modifier.width(3.dp))
+                            Text(
+                                text = "$totalStars",
+                                fontWeight = FontWeight.Black,
+                                fontSize = 15.sp,
+                                color = Color.White
+                            )
+                        }
                         Text(
-                            text = "$totalStars / ${PuzzleScenarios.ALL.size * 3}",
+                            text = "TOTAL STARS",
+                            fontSize = 9.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            fontSize = 15.sp,
-                            color = GoldenBankGlow
+                            color = GoldenBankGlow,
+                            letterSpacing = 0.5.sp
                         )
                     }
-                    Text(
-                        text = "Total Stars",
-                        fontSize = 11.sp,
-                        color = WoodTextMuted
-                    )
                 }
 
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .height(28.dp)
-                        .background(WoodSignboardBorder)
-                )
-
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "$clearedCount / ${PuzzleScenarios.ALL.size}",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 15.sp,
-                        color = WoodGoldenText
-                    )
-                    Text(
-                        text = "Levels Cleared",
-                        fontSize = 11.sp,
-                        color = WoodTextMuted
-                    )
+                // Capsule 2: Levels Cleared (Lush Emerald)
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color(0xDD0D2612),
+                    border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "🏆",
+                                fontSize = 13.sp
+                            )
+                            Spacer(modifier = Modifier.width(3.dp))
+                            Text(
+                                text = "$clearedCount/50",
+                                fontWeight = FontWeight.Black,
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                        }
+                        Text(
+                            text = "CLEARED",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(0xFF4ADE80),
+                            letterSpacing = 0.5.sp
+                        )
+                    }
                 }
 
-                Box(
-                    modifier = Modifier
-                        .width(1.dp)
-                        .height(28.dp)
-                        .background(WoodSignboardBorder)
-                )
-
-                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        text = "$perfectCount",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 15.sp,
-                        color = GoldenBankGlow
-                    )
-                    Text(
-                        text = "Optimal Solves",
-                        fontSize = 11.sp,
-                        color = WoodTextMuted
-                    )
+                // Capsule 3: Optimal Solves (Royal Amethyst)
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color(0xDD230B33),
+                    border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
+                    modifier = Modifier.weight(1f)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(horizontal = 6.dp, vertical = 8.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = "👑",
+                                fontSize = 13.sp
+                            )
+                            Spacer(modifier = Modifier.width(3.dp))
+                            Text(
+                                text = "$perfectCount",
+                                fontWeight = FontWeight.Black,
+                                fontSize = 15.sp,
+                                color = Color.White
+                            )
+                        }
+                        Text(
+                            text = "OPTIMAL",
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = Color(0xFFC084FC),
+                            letterSpacing = 0.5.sp
+                        )
+                    }
                 }
             }
         }
@@ -230,18 +291,22 @@ fun LeaderboardScreen(
                 text = "${PuzzleScenarios.ALL.size} Levels Matrix",
                 selected = selectedTabIndex == 0,
                 onClick = { selectedTabIndex = 0 },
+                activeGradient = listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom),
+                activeBorder = MenuBtnPurpleBorder,
                 modifier = Modifier.weight(1f)
             )
             WoodFilterPill(
                 text = "Match History (${recentHistory.size})",
                 selected = selectedTabIndex == 1,
                 onClick = { selectedTabIndex = 1 },
+                activeGradient = listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom),
+                activeBorder = MenuBtnAmberBorder,
                 modifier = Modifier.weight(1f)
             )
         }
 
         if (selectedTabIndex == 0) {
-            // FILTER CHIPS FOR 30 LEVELS
+            // FILTER CHIPS FOR 50 LEVELS
             LazyRow(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 modifier = Modifier
@@ -252,7 +317,9 @@ fun LeaderboardScreen(
                     WoodFilterPill(
                         text = filter.title,
                         selected = selectedFilter == filter,
-                        onClick = { selectedFilter = filter }
+                        onClick = { selectedFilter = filter },
+                        activeGradient = filter.gradient,
+                        activeBorder = filter.border
                     )
                 }
             }
@@ -330,34 +397,42 @@ fun LeaderboardScreen(
     if (showClearConfirmDialog) {
         AlertDialog(
             onDismissRequest = { showClearConfirmDialog = false },
-            containerColor = Color(0xF2072449),
+            containerColor = Color(0xF4281206),
             title = {
                 Text(
                     "Reset Leaderboard Records?",
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
+                    color = GoldenBankGlow
                 )
             },
             text = {
                 Text(
                     "This will remove all saved runs and high score records from the local Room database. Are you sure?",
-                    color = Color(0xFFBAE6FD)
+                    color = Color(0xFFFEF3C7)
                 )
             },
             confirmButton = {
-                Button(
-                    onClick = {
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = MenuBtnRedTop,
+                    border = BorderStroke(1.2.dp, MenuBtnRedBorder),
+                    modifier = Modifier.clickable {
                         viewModel.clearHighScoreHistory(null)
                         showClearConfirmDialog = false
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDC2626))
+                    }
                 ) {
-                    Text("Clear All", fontWeight = FontWeight.Bold, color = Color.White)
+                    Box(
+                        modifier = Modifier
+                            .background(Brush.verticalGradient(listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom)))
+                            .padding(horizontal = 16.dp, vertical = 8.dp)
+                    ) {
+                        Text("Clear All", fontWeight = FontWeight.Bold, color = Color.White)
+                    }
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showClearConfirmDialog = false }) {
-                    Text("Cancel", color = Color(0xFFBAE6FD))
+                    Text("Cancel", color = Color(0xFFFEF3C7))
                 }
             }
         )
@@ -374,8 +449,18 @@ private fun LevelLeaderboardCard(
     val isCleared = bestScore != null
     val isOptimal = bestScore != null && bestScore.movesCount <= scenario.optimalMoves
 
+    val (cardGradient, cardBorder) = when (scenario.difficulty) {
+        com.example.model.Difficulty.EASY -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
+        com.example.model.Difficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
+        com.example.model.Difficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
+        com.example.model.Difficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
+        com.example.model.Difficulty.MASTER -> listOf(Color(0xF0481214), Color(0xF02A080A)) to MenuBtnRedBorder
+    }
+
     WoodCard(
         shape = RoundedCornerShape(16.dp),
+        gradientColors = cardGradient,
+        borderColor = cardBorder,
         modifier = modifier
             .fillMaxWidth()
             .clickable { onPlay() }
@@ -390,8 +475,8 @@ private fun LevelLeaderboardCard(
             // Level Number badge
             Surface(
                 shape = RoundedCornerShape(12.dp),
-                color = WoodInsetPanel,
-                border = BorderStroke(1.dp, if (isOptimal) GoldenBankGlow else WoodSignboardBorder),
+                color = Color(0xDD220F05),
+                border = BorderStroke(1.2.dp, if (isOptimal) GoldenBankGlow else cardBorder),
                 modifier = Modifier.size(46.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
@@ -400,7 +485,7 @@ private fun LevelLeaderboardCard(
                             text = "${scenario.levelNumber}",
                             fontWeight = FontWeight.ExtraBold,
                             fontSize = 14.sp,
-                            color = if (isOptimal) GoldenBankGlow else WoodGoldenText
+                            color = if (isOptimal) GoldenBankGlow else Color.White
                         )
                         Text(
                             text = scenario.difficulty.iconEmoji,
@@ -422,12 +507,12 @@ private fun LevelLeaderboardCard(
                         text = scenario.title,
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 14.sp,
-                        color = WoodGoldenText
+                        color = Color.White
                     )
                     if (isOptimal) {
                         Surface(
                             shape = RoundedCornerShape(6.dp),
-                            color = WoodInsetPanel,
+                            color = Color(0xDD220F05),
                             border = BorderStroke(1.dp, GoldenBankGlow)
                         ) {
                             Text(
@@ -457,7 +542,7 @@ private fun LevelLeaderboardCard(
                         Text(
                             text = "⏱️ ${bestScore.timeSeconds}s",
                             fontSize = 11.sp,
-                            color = WoodTextMuted
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                     Row(
@@ -473,7 +558,7 @@ private fun LevelLeaderboardCard(
                         Text(
                             text = "By ${bestScore.playerName}",
                             fontSize = 10.sp,
-                            color = WoodTextMuted
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                 } else {
@@ -481,14 +566,14 @@ private fun LevelLeaderboardCard(
                         Text(
                             text = "Optimal Target: ${scenario.optimalMoves} moves",
                             fontSize = 11.sp,
-                            color = WoodTextMuted
+                            color = Color(0xFFD4A373)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "• Unplayed",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
-                            color = WoodTextMuted
+                            color = Color(0xFFD4A373)
                         )
                     }
                 }
@@ -498,15 +583,20 @@ private fun LevelLeaderboardCard(
 
             Surface(
                 shape = CircleShape,
-                color = WoodButtonBottom,
-                border = BorderStroke(1.dp, GoldenBankGlow),
-                modifier = Modifier.size(34.dp)
+                color = MenuBtnGreenTop,
+                border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                modifier = Modifier.size(36.dp)
             ) {
-                Box(contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(Brush.verticalGradient(listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom))),
+                    contentAlignment = Alignment.Center
+                ) {
                     Icon(
                         imageVector = Icons.Default.PlayArrow,
                         contentDescription = "Play",
-                        tint = GoldenBankGlow,
+                        tint = Color.White,
                         modifier = Modifier.size(18.dp)
                     )
                 }
@@ -528,6 +618,8 @@ private fun HistoryItemCard(
 
     WoodCard(
         shape = RoundedCornerShape(14.dp),
+        gradientColors = listOf(Color(0xF03B1C08), Color(0xF0241004)),
+        borderColor = if (record.isOptimal) GoldenBankGlow else Color(0xFFD97706),
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
@@ -538,14 +630,14 @@ private fun HistoryItemCard(
         ) {
             Surface(
                 shape = RoundedCornerShape(10.dp),
-                color = WoodInsetPanel,
-                border = BorderStroke(1.dp, WoodSignboardBorder),
+                color = Color(0xDD220F05),
+                border = BorderStroke(1.2.dp, if (record.isOptimal) GoldenBankGlow else Color(0xFFD97706)),
                 modifier = Modifier.size(40.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Text(
                         text = "L${scenario.levelNumber}",
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.ExtraBold,
                         fontSize = 12.sp,
                         color = GoldenBankGlow
                     )
@@ -563,12 +655,12 @@ private fun HistoryItemCard(
                         text = scenario.title,
                         fontWeight = FontWeight.Bold,
                         fontSize = 13.sp,
-                        color = WoodGoldenText
+                        color = Color.White
                     )
                     Text(
                         text = dateStr,
                         fontSize = 10.sp,
-                        color = WoodTextMuted
+                        color = Color(0xFFFEF3C7)
                     )
                 }
                 Spacer(modifier = Modifier.height(2.dp))
@@ -580,12 +672,12 @@ private fun HistoryItemCard(
                         text = "Moves: ${record.movesCount} (${if (record.isOptimal) "★ Optimal" else "Target: ${scenario.optimalMoves}"})",
                         fontSize = 11.sp,
                         fontWeight = if (record.isOptimal) FontWeight.Bold else FontWeight.Normal,
-                        color = if (record.isOptimal) GoldenBankGlow else WoodGoldenText
+                        color = if (record.isOptimal) GoldenBankGlow else Color.White
                     )
                     Text(
-                        text = "Time: ${record.timeSeconds}s",
+                        text = "⏱️ ${record.timeSeconds}s",
                         fontSize = 11.sp,
-                        color = WoodTextMuted
+                        color = Color(0xFFFEF3C7)
                     )
                     Text(
                         text = "★".repeat(record.stars),

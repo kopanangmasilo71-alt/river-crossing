@@ -955,55 +955,34 @@ fun WoodScreenContainer(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        if (backgroundImageRes != null) {
-            Image(
-                painter = painterResource(id = backgroundImageRes),
-                contentDescription = "Screen Background",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-            // Vibrant scrim overlay
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0x2A000000),
-                                Color(0x40000000),
-                                Color(0x70000000)
-                            )
+        // Full bleed background image matching Main Menu sunny valley
+        Image(
+            painter = painterResource(id = backgroundImageRes ?: R.drawable.img_valley_bg_1790060103557),
+            contentDescription = "Screen Background",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        // Subtle gradient scrim at bottom to keep text ultra-crisp over landscape while preserving vibrant sunny valley
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color(0x10000000),
+                            Color(0x22000000),
+                            Color(0x55000000)
                         )
                     )
-            )
-        } else {
-            // Default to rich valley sky background drawable matching Main Menu
-            Image(
-                painter = painterResource(id = R.drawable.img_valley_bg_1790060103557),
-                contentDescription = "Screen Background",
-                contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize()
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0x33000000),
-                                Color(0x4D072147),
-                                Color(0x8004142B)
-                            )
-                        )
-                    )
-            )
-        }
+                )
+        )
         content()
     }
 }
 
 /**
- * Top App Bar with vibrant sapphire and cyan border.
+ * Top App Bar styled as a carved wooden signboard with 3D embossed borders,
+ * golden metallic rivets, and drop shadow matching the Main Menu's title logo.
  */
 @Composable
 fun WoodTopAppBar(
@@ -1014,119 +993,214 @@ fun WoodTopAppBar(
     modifier: Modifier = Modifier
 ) {
     Card(
-        shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp),
-        colors = CardDefaults.cardColors(containerColor = RiverDeepBlueDark),
+        shape = RoundedCornerShape(bottomStart = 18.dp, bottomEnd = 18.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF65330D)),
         border = BorderStroke(
-            1.8.dp,
-            Brush.horizontalGradient(
-                listOf(RiverTimberBorder, RiverWaterCyan, RiverTimberBorder)
+            2.dp,
+            Brush.verticalGradient(
+                listOf(Color(0xFFFBBF24), Color(0xFFD97706), Color(0xFF78350F))
             )
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         modifier = modifier
             .fillMaxWidth()
-            .shadow(6.dp, RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp))
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(RiverDeepBlueMid, RiverDeepBlueDark)
-                    )
-                )
-                .padding(horizontal = 12.dp, vertical = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.weight(1f)
-            ) {
-                if (onBack != null) {
-                    Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.2.dp, Color(0xFF38BDF8).copy(alpha = 0.6f)),
-                        modifier = Modifier
-                            .clickable(onClick = onBack)
-                            .testTag("wood_topbar_back_button")
-                    ) {
-                        Box(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Back",
-                                    tint = Color(0xFFE0F2FE),
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
-                        }
-                    }
-                    Spacer(modifier = Modifier.width(10.dp))
-                }
-
-                Column {
-                    Text(
-                        text = title,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = Color.White
-                    )
-                    if (subtitle != null) {
-                        Text(
-                            text = subtitle,
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = Color(0xFFBAE6FD)
-                        )
-                    }
-                }
-            }
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                actions()
-            }
-        }
-    }
-}
-
-/**
- * Vibrant card with sapphire blue backdrop and electric cyan border.
- */
-@Composable
-fun WoodCard(
-    modifier: Modifier = Modifier,
-    shape: RoundedCornerShape = RoundedCornerShape(16.dp),
-    content: @Composable () -> Unit
-) {
-    Card(
-        shape = shape,
-        colors = CardDefaults.cardColors(containerColor = RiverDeepBlueDark),
-        border = BorderStroke(1.5.dp, Brush.horizontalGradient(listOf(RiverTimberBorder, RiverWaterCyan, RiverTimberBorder))),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = modifier
+            .shadow(8.dp, RoundedCornerShape(bottomStart = 18.dp, bottomEnd = 18.dp))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(
-                            RiverDeepBlueMid,
-                            RiverDeepBlueDark
-                        )
+                        colors = listOf(Color(0xFF783E10), Color(0xFF5A2C08), Color(0xFF3F1D06))
                     )
                 )
         ) {
+            // Subtle 3D glossy highlight gleam at top edge
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.5.dp)
+                    .background(Color(0x55FFFFFF))
+            )
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    if (onBack != null) {
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0xCC072449),
+                            border = BorderStroke(1.5.dp, GoldenBankGlow),
+                            shadowElevation = 3.dp,
+                            modifier = Modifier
+                                .size(36.dp)
+                                .clickable(onClick = onBack)
+                                .testTag("wood_topbar_back_button")
+                        ) {
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = GoldenBankGlow,
+                                    modifier = Modifier.size(18.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                    }
+
+                    Column {
+                        Text(
+                            text = title,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = GoldenBankGlow,
+                            style = TextStyle(
+                                shadow = Shadow(
+                                    color = Color(0xCC000000),
+                                    offset = Offset(1f, 2f),
+                                    blurRadius = 3f
+                                )
+                            )
+                        )
+                        if (subtitle != null) {
+                            Text(
+                                text = subtitle,
+                                fontSize = 11.5.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color(0xFFFEF3C7)
+                            )
+                        }
+                    }
+                }
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    actions()
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Vibrant card with rich warm cedar/mahogany tones or custom rainbow gradients,
+ * 3D glossy highlight sheen, and beveled golden borders matching the Main Menu buttons.
+ */
+@Composable
+fun WoodCard(
+    modifier: Modifier = Modifier,
+    shape: RoundedCornerShape = RoundedCornerShape(18.dp),
+    gradientColors: List<Color>? = null,
+    borderColor: Color? = null,
+    content: @Composable () -> Unit
+) {
+    val bgColors = gradientColors ?: listOf(
+        Color(0xF04A260E),
+        Color(0xF0301706)
+    )
+    val borderCol = borderColor ?: Color(0xFFD97706)
+
+    Card(
+        shape = shape,
+        colors = CardDefaults.cardColors(containerColor = bgColors.first()),
+        border = BorderStroke(
+            1.8.dp,
+            Brush.verticalGradient(
+                listOf(borderCol.copy(alpha = 0.95f), borderCol.copy(alpha = 0.55f))
+            )
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        modifier = modifier.shadow(6.dp, shape)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Brush.verticalGradient(colors = bgColors))
+        ) {
+            // Subtle 3D glossy highlight gleam at top
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(Color.Transparent, Color.White.copy(alpha = 0.35f), Color.Transparent)
+                        )
+                    )
+            )
             content()
         }
+    }
+}
+
+/**
+ * Vibrant section header matching the "🧭 EXPEDITION MENU" signpost in MainMenuScreen.
+ */
+@Composable
+fun VibrantSectionHeader(
+    title: String,
+    icon: ImageVector? = null,
+    iconDrawableRes: Int? = null,
+    accentColor: Color = GoldenBankGlow,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier.padding(vertical = 4.dp, horizontal = 2.dp)
+    ) {
+        Surface(
+            shape = CircleShape,
+            color = Color(0xCC072449),
+            border = BorderStroke(1.2.dp, accentColor),
+            modifier = Modifier.size(24.dp)
+        ) {
+            Box(contentAlignment = Alignment.Center) {
+                if (iconDrawableRes != null) {
+                    Icon(
+                        painter = painterResource(id = iconDrawableRes),
+                        contentDescription = null,
+                        tint = accentColor,
+                        modifier = Modifier.size(13.dp)
+                    )
+                } else if (icon != null) {
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = null,
+                        tint = accentColor,
+                        modifier = Modifier.size(13.dp)
+                    )
+                }
+            }
+        }
+        Spacer(modifier = Modifier.width(8.dp))
+        Text(
+            text = title.uppercase(),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.ExtraBold,
+            letterSpacing = 1.2.sp,
+            color = accentColor,
+            style = TextStyle(
+                shadow = Shadow(
+                    color = Color(0x99000000),
+                    offset = Offset(1f, 1f),
+                    blurRadius = 2f
+                )
+            )
+        )
     }
 }
 
@@ -1141,8 +1215,8 @@ fun WoodInsetBox(
 ) {
     Surface(
         shape = shape,
-        color = Color(0xCC061A35),
-        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.45f)),
+        color = Color(0xCC1A0C04),
+        border = BorderStroke(1.dp, Color(0xFFD97706).copy(alpha = 0.55f)),
         modifier = modifier
     ) {
         content()
@@ -1160,15 +1234,21 @@ fun WoodMenuButton(
     testTag: String,
     onClick: () -> Unit,
     accentGlow: Boolean = false,
+    gradientColors: List<Color>? = null,
+    borderColor: Color? = null,
     modifier: Modifier = Modifier
 ) {
+    val bgColors = gradientColors ?: if (accentGlow) {
+        listOf(Color(0xFFF59E0B), Color(0xFFD97706), Color(0xFFB45309))
+    } else {
+        listOf(Color(0xFF5A2C08), Color(0xFF3F1D06))
+    }
+    val borderCol = borderColor ?: if (accentGlow) GoldenBankGlow else Color(0xFFD97706).copy(alpha = 0.8f)
+
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = if (accentGlow) Color(0xFF0F3E7A) else Color(0xEE09264E),
-        border = BorderStroke(
-            1.6.dp,
-            if (accentGlow) GoldenBankGlow else Color(0xFF38BDF8).copy(alpha = 0.7f)
-        ),
+        color = bgColors.first(),
+        border = BorderStroke(1.6.dp, borderCol),
         shadowElevation = if (accentGlow) 6.dp else 3.dp,
         modifier = modifier
             .fillMaxWidth()
@@ -1179,29 +1259,21 @@ fun WoodMenuButton(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = if (accentGlow) {
-                            listOf(Color(0xFF134E96), Color(0xFF0B2D58))
-                        } else {
-                            listOf(Color(0xFF0F3B72), Color(0xFF082245))
-                        }
-                    )
-                )
+                .background(Brush.verticalGradient(colors = bgColors))
                 .padding(horizontal = 14.dp, vertical = 12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
                 shape = RoundedCornerShape(12.dp),
-                color = if (accentGlow) Color(0x33F59E0B) else Color(0x3338BDF8),
-                border = BorderStroke(1.dp, if (accentGlow) Color(0x66F59E0B) else Color(0x4038BDF8)),
+                color = Color(0x33000000),
+                border = BorderStroke(1.dp, Color(0x40FFFFFF)),
                 modifier = Modifier.size(44.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-                        tint = if (accentGlow) GoldenBankGlow else Color(0xFFE0F2FE),
+                        tint = if (accentGlow) Color.White else GoldenBankGlow,
                         modifier = Modifier.size(24.dp)
                     )
                 }
@@ -1214,13 +1286,13 @@ fun WoodMenuButton(
                     text = title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = if (accentGlow) GoldenBankGlow else Color.White
+                    color = Color.White
                 )
                 Text(
                     text = subtitle,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium,
-                    color = if (accentGlow) Color(0xFFFDE68A) else Color(0xFFBAE6FD),
+                    color = Color(0xFFFEF3C7),
                     maxLines = 1
                 )
             }
@@ -1229,22 +1301,32 @@ fun WoodMenuButton(
 }
 
 /**
- * Filter pill / chip for level selections and category tabs.
+ * Filter pill / chip for level selections and category tabs with vibrant active coloring.
  */
 @Composable
 fun WoodFilterPill(
     text: String,
     selected: Boolean,
     onClick: () -> Unit,
+    activeGradient: List<Color>? = null,
+    activeBorder: Color? = null,
     modifier: Modifier = Modifier
 ) {
+    val bgGradient = if (selected) {
+        activeGradient ?: listOf(Color(0xFFFBBF24), Color(0xFFF59E0B), Color(0xFFD97706))
+    } else {
+        listOf(Color(0xDD3A1C08), Color(0xDD241004))
+    }
+    val borderCol = if (selected) {
+        activeBorder ?: Color(0xFFFDE68A)
+    } else {
+        Color(0x66D97706)
+    }
+
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = if (selected) RiverForestGreenMid else Color(0xCC09264E),
-        border = BorderStroke(
-            1.3.dp,
-            if (selected) RiverMeadowGrass else RiverTimberBorder.copy(alpha = 0.6f)
-        ),
+        color = bgGradient.first(),
+        border = BorderStroke(1.3.dp, borderCol),
         shadowElevation = if (selected) 4.dp else 1.dp,
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
@@ -1252,25 +1334,15 @@ fun WoodFilterPill(
     ) {
         Box(
             modifier = Modifier
-                .background(
-                    if (selected) {
-                        Brush.verticalGradient(
-                            listOf(RiverForestGreenMid, RiverForestGreenDark)
-                        )
-                    } else {
-                        Brush.verticalGradient(
-                            listOf(Color(0xE60A2B4E), Color(0xE6071F3B))
-                        )
-                    }
-                )
-                .padding(horizontal = 12.dp, vertical = 6.dp),
+                .background(Brush.verticalGradient(bgGradient))
+                .padding(horizontal = 13.dp, vertical = 7.dp),
             contentAlignment = Alignment.Center
         ) {
             Text(
                 text = text,
                 fontSize = 11.5.sp,
                 fontWeight = FontWeight.Bold,
-                color = if (selected) Color.White else Color(0xFFBAE6FD)
+                color = if (selected) Color.White else Color(0xFFFEF3C7)
             )
         }
     }

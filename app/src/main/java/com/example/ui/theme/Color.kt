@@ -152,37 +152,37 @@ val RiverGoldGlow    = Color(0xFFFACC15)         // Brilliant 24k gold for stars
 val RiverGoldLight   = Color(0xFFFEF08A)         // Champagne gold crest highlight
 val RiverGoldShadow  = Color(0x66D97706)
 
-// Backward-compatible Theme Tokens mapped to River-Themed Architecture
-val WoodSignboardBg          = Color(0xF00A2342)      // Deep river twilight sapphire card
-val WoodCardBg               = Color(0xF0092341)      // River themed card surface
-val WoodSignboardLight       = Color(0xFF1E528D)
-val WoodSignboardDark        = Color(0xFF07192F)
-val WoodSignboardBorder      = Color(0xFF38BDF8)      // Brilliant sky blue highlight rim
-val WoodInsetPanel           = Color(0xCC05172A)      // Rich dark river inset
-val WoodButtonTop            = Color(0xFF38BDF8)
-val WoodButtonBottom         = Color(0xFF0284C7)
-val WoodButtonBorder         = Color(0xFFBAE6FD)
+// Backward-compatible Theme Tokens mapped to Main Menu Casual Game Palette
+val WoodSignboardBg          = Color(0xF04A260E)      // Warm cedar/mahogany card
+val WoodCardBg               = Color(0xF03A1C08)      // Rich timber card surface
+val WoodSignboardLight       = Color(0xFF8B5A2B)      // Warm timber plank
+val WoodSignboardDark        = Color(0xFF2E1507)      // Deep carved mahogany
+val WoodSignboardBorder      = Color(0xFFD97706)      // Warm golden amber border rim
+val WoodInsetPanel           = Color(0xDD220F05)      // Deep carved mahogany inset
+val WoodButtonTop            = Color(0xFF4ADE80)      // Vibrant emerald top (matches Play Button)
+val WoodButtonBottom         = Color(0xFF22C55E)      // Lush emerald bottom
+val WoodButtonBorder         = Color(0xFF86EFAC)      // Emerald highlight rim
 val WoodGoldenText           = Color(0xFFFFFFFF)      // High-contrast clean white text
-val WoodPillBackground       = Color(0xD90A2B4E)
+val WoodPillBackground       = Color(0xDD3A1C08)      // Warm timber pill container
 val GoldenBankGlow           = Color(0xFFFACC15)      // Brilliant gold for stars and trophies
 val GoldenBankGlowContainer  = Color(0x33FACC15)
 val WoodScreenBg             = Color(0xFF07192F)
 val WoodScreenBgTop          = Color(0xFF0F325E)
-val WoodSurfaceCard          = Color(0xF00A2B4E)
-val WoodSurfaceCardBorder    = Color(0xFF38BDF8)
-val WoodTextMuted            = Color(0xFFBAE6FD)      // Soft vibrant sky blue
-val WoodTextSubtle           = Color(0xFF7DD3FC)
+val WoodSurfaceCard          = Color(0xF03A1C08)      // Warm timber card
+val WoodSurfaceCardBorder    = Color(0xFFD97706)      // Warm golden amber
+val WoodTextMuted            = Color(0xFFFEF3C7)      // Warm cream / champagne
+val WoodTextSubtle           = Color(0xFFFDE68A)      // Warm gold highlight
 val WoodGoldAccent           = Color(0xFFFACC15)
 
 // Vibrant Palette mapped to River Universe
 val VibrantBackground       = Color(0xFF07192F)      // Deep atmospheric river twilight
-val VibrantSurface          = Color(0xF20A2B4E)
-val VibrantSurfaceVariant   = Color(0xCC05172A)
-val VibrantSurfaceBorder    = Color(0xFF38BDF8)
+val VibrantSurface          = Color(0xF03A1C08)
+val VibrantSurfaceVariant   = Color(0xDD220F05)
+val VibrantSurfaceBorder    = Color(0xFFD97706)
 
 val VibrantTextPrimary      = Color(0xFFFFFFFF)
-val VibrantTextSecondary    = Color(0xFFE0F2FE)
-val VibrantTextTertiary     = Color(0xFFBAE6FD)
+val VibrantTextSecondary    = Color(0xFFFEF3C7)
+val VibrantTextTertiary     = Color(0xFFFDE68A)
 
 val VibrantPrimary          = Color(0xFF22724A)      // Forest green primary
 val VibrantPrimaryHover     = Color(0xFF2E8B57)

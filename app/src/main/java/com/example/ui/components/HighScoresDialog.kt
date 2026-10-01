@@ -57,6 +57,22 @@ import com.example.R
 import com.example.data.db.HighScoreEntity
 import com.example.model.PuzzleScenarios
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -97,8 +113,8 @@ fun HighScoresDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = Color(0xFF0284C7),
-                border = BorderStroke(1.dp, GoldenBankGlow),
+                color = MenuBtnAmberBottom,
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onDismiss)
@@ -109,13 +125,13 @@ fun HighScoresDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                listOf(Color(0xFF0284C7), Color(0xFF0369A1))
+                                listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
                             )
                         )
-                        .padding(vertical = 10.dp),
+                        .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Close Logbook", fontWeight = FontWeight.Bold, fontSize = 14.sp, color = GoldenBankGlow)
+                    Text("Close Logbook", fontWeight = FontWeight.ExtraBold, fontSize = 14.sp, color = Color.White)
                 }
             }
         },
@@ -123,8 +139,8 @@ fun HighScoresDialog(
             if (highScores.isNotEmpty()) {
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFFDC2626)),
+                    color = Color(0xCC2A1308),
+                    border = BorderStroke(1.2.dp, Color(0xFFEF4444)),
                     modifier = Modifier
                         .clickable { showConfirmClear = true }
                         .testTag("high_scores_clear_button")
@@ -157,7 +173,7 @@ fun HighScoresDialog(
                 ) {
                     Surface(
                         shape = CircleShape,
-                        color = WoodInsetPanel,
+                        color = Color(0xDD2A1308),
                         border = BorderStroke(1.5.dp, GoldenBankGlow),
                         modifier = Modifier.size(38.dp)
                     ) {
@@ -180,7 +196,7 @@ fun HighScoresDialog(
                         Text(
                             text = "Room Database Records",
                             fontSize = 11.sp,
-                            color = Color(0xFFBAE6FD)
+                            color = Color(0xFFFDE68A)
                         )
                     }
                 }
@@ -191,7 +207,7 @@ fun HighScoresDialog(
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = "Close",
-                        tint = Color(0xFFBAE6FD)
+                        tint = GoldenBankGlow
                     )
                 }
             }
@@ -210,8 +226,8 @@ fun HighScoresDialog(
                         val isAllSelected = selectedLevelId == null
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = if (isAllSelected) WoodButtonBottom else WoodInsetPanel,
-                            border = BorderStroke(1.dp, if (isAllSelected) GoldenBankGlow else WoodSignboardBorder),
+                            color = if (isAllSelected) MenuBtnAmberMid else Color(0xCC2A1308),
+                            border = BorderStroke(1.2.dp, if (isAllSelected) GoldenBankGlow else Color(0x40D4A373)),
                             modifier = Modifier
                                 .clip(RoundedCornerShape(10.dp))
                                 .clickable { selectedLevelId = null }
@@ -220,7 +236,7 @@ fun HighScoresDialog(
                                 text = "All Levels",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isAllSelected) GoldenBankGlow else WoodTextMuted,
+                                color = if (isAllSelected) Color.White else GoldenBankGlow,
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                             )
                         }
@@ -230,8 +246,8 @@ fun HighScoresDialog(
                         val isSelected = selectedLevelId == scenario.id
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = if (isSelected) WoodButtonBottom else WoodInsetPanel,
-                            border = BorderStroke(1.dp, if (isSelected) GoldenBankGlow else WoodSignboardBorder),
+                            color = if (isSelected) MenuBtnGreenMid else Color(0xCC2A1308),
+                            border = BorderStroke(1.2.dp, if (isSelected) GoldenBankGlow else Color(0x40D4A373)),
                             modifier = Modifier
                                 .clip(RoundedCornerShape(10.dp))
                                 .clickable { selectedLevelId = scenario.id }
@@ -240,7 +256,7 @@ fun HighScoresDialog(
                                 text = "Lvl ${scenario.levelNumber}",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isSelected) GoldenBankGlow else WoodTextMuted,
+                                color = if (isSelected) Color.White else WoodGoldenText,
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                             )
                         }
@@ -345,16 +361,16 @@ fun HighScoresDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF2072449),
+        containerColor = Color(0xF62C1408),
         modifier = modifier
     )
 
     if (showConfirmClear) {
         AlertDialog(
             onDismissRequest = { showConfirmClear = false },
-            containerColor = Color(0xF2072449),
+            containerColor = Color(0xF62C1408),
             title = { Text("Reset Leaderboard?", fontWeight = FontWeight.Bold, color = Color.White) },
-            text = { Text("Are you sure you want to delete all saved record times? This action cannot be undone.", color = Color(0xFFBAE6FD)) },
+            text = { Text("Are you sure you want to delete all saved record times? This action cannot be undone.", color = Color(0xFFFDE68A)) },
             confirmButton = {
                 Button(
                     onClick = {
@@ -368,7 +384,7 @@ fun HighScoresDialog(
             },
             dismissButton = {
                 OutlinedButton(onClick = { showConfirmClear = false }) {
-                    Text("Cancel", color = Color(0xFFBAE6FD))
+                    Text("Cancel", color = GoldenBankGlow)
                 }
             }
         )

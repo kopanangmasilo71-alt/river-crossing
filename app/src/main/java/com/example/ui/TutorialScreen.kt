@@ -64,6 +64,26 @@ import com.example.ui.components.WoodInsetBox
 import com.example.ui.components.WoodScreenContainer
 import com.example.ui.components.WoodTopAppBar
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnPurpleBorder
+import com.example.ui.theme.MenuBtnPurpleBottom
+import com.example.ui.theme.MenuBtnPurpleMid
+import com.example.ui.theme.MenuBtnPurpleTop
+import com.example.ui.theme.MenuBtnRedBorder
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -73,11 +93,36 @@ import com.example.ui.theme.WoodSignboardDark
 import com.example.ui.theme.WoodSignboardLight
 import com.example.ui.theme.WoodTextMuted
 
-private enum class TutorialTab(val title: String, val icon: ImageVector) {
-    WALKTHROUGH("Solution Guide", Icons.Default.School),
-    RULES("Core Rules", Icons.Default.Security),
-    STRATEGIES("Pro Tactics", Icons.Default.Lightbulb),
-    BESTIARY("Characters", Icons.Default.AutoAwesome)
+private enum class TutorialTab(
+    val title: String,
+    val icon: ImageVector,
+    val gradient: List<Color>,
+    val border: Color
+) {
+    WALKTHROUGH(
+        "Solution Guide",
+        Icons.Default.School,
+        listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom),
+        MenuBtnAmberBorder
+    ),
+    RULES(
+        "Core Rules",
+        Icons.Default.Security,
+        listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom),
+        MenuBtnGreenBorder
+    ),
+    STRATEGIES(
+        "Pro Tactics",
+        Icons.Default.Lightbulb,
+        listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom),
+        MenuBtnPurpleBorder
+    ),
+    BESTIARY(
+        "Characters",
+        Icons.Default.AutoAwesome,
+        listOf(MenuBtnCyanTop, MenuBtnCyanMid, MenuBtnCyanBottom),
+        MenuBtnCyanBorder
+    )
 }
 
 private data class WalkthroughStep(
@@ -108,34 +153,40 @@ fun TutorialScreen(
                 onBack = onBack,
                 actions = {
                     Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = WoodInsetPanel,
-                        border = BorderStroke(1.dp, GoldenBankGlow),
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color(0xF02B1307),
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
                         modifier = Modifier.clickable(onClick = onStartGame)
                     ) {
                         Row(
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 5.dp),
+                            modifier = Modifier
+                                .background(
+                                    Brush.horizontalGradient(
+                                        listOf(MenuBtnGreenTop, MenuBtnGreenMid)
+                                    )
+                                )
+                                .padding(horizontal = 10.dp, vertical = 6.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = "Play Level 1",
-                                tint = GoldenBankGlow,
+                                tint = Color.White,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             Text(
                                 text = "Play",
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = GoldenBankGlow
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                color = Color.White
                             )
                         }
                     }
                 }
             )
 
-            // Wood Filter Pill Tab Row
+            // Vibrant Multi-Color Tab Row
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,11 +194,48 @@ fun TutorialScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 items(TutorialTab.entries) { tab ->
-                    WoodFilterPill(
-                        text = tab.title,
-                        selected = selectedTab == tab,
-                        onClick = { selectedTab = tab }
-                    )
+                    val isSelected = selectedTab == tab
+                    Surface(
+                        shape = RoundedCornerShape(14.dp),
+                        color = if (isSelected) Color.Transparent else Color(0xCC2A1308),
+                        border = BorderStroke(
+                            if (isSelected) 1.8.dp else 1.dp,
+                            if (isSelected) tab.border else Color(0x40D4A373)
+                        ),
+                        modifier = Modifier
+                            .clip(RoundedCornerShape(14.dp))
+                            .clickable { selectedTab = tab }
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .then(
+                                    if (isSelected) {
+                                        Modifier.background(Brush.horizontalGradient(tab.gradient))
+                                    } else {
+                                        Modifier
+                                    }
+                                )
+                                .padding(horizontal = 12.dp, vertical = 8.dp)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                            ) {
+                                Icon(
+                                    imageVector = tab.icon,
+                                    contentDescription = null,
+                                    tint = if (isSelected) Color.White else WoodGoldenText,
+                                    modifier = Modifier.size(15.dp)
+                                )
+                                Text(
+                                    text = tab.title,
+                                    fontSize = 12.sp,
+                                    fontWeight = if (isSelected) FontWeight.ExtraBold else FontWeight.Bold,
+                                    color = if (isSelected) Color.White else WoodGoldenText
+                                )
+                            }
+                        }
+                    }
                 }
             }
 
@@ -358,13 +446,13 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                             .background(
                                 Brush.horizontalGradient(
                                     listOf(
-                                        Color(0xFF2E4E28), // Left Green Bank
-                                        Color(0xFF1E3A5F), // River Center
-                                        Color(0xFF2E4E28)  // Right Green Bank
+                                        Color(0xFF1B4D24), // Left Green Bank
+                                        Color(0xFF0284C7), // Sparkling Blue River
+                                        Color(0xFF1B4D24)  // Right Green Bank
                                     )
                                 )
                             )
-                            .border(1.5.dp, WoodSignboardBorder, RoundedCornerShape(16.dp))
+                            .border(1.5.dp, GoldenBankGlow, RoundedCornerShape(16.dp))
                             .padding(8.dp)
                     ) {
                         Row(
@@ -377,12 +465,13 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                 modifier = Modifier
                                     .width(90.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(WoodInsetPanel.copy(alpha = 0.9f))
+                                    .background(Color(0xE62A1308))
+                                    .border(1.dp, MenuBtnGreenBorder.copy(alpha = 0.6f), RoundedCornerShape(10.dp))
                                     .padding(6.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("LEFT BANK", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = GoldenBankGlow)
+                                Text("LEFT BANK", fontSize = 9.sp, fontWeight = FontWeight.ExtraBold, color = MenuBtnGreenBorder)
                                 if (currentStep.leftBank.isEmpty()) {
                                     Text("Empty", fontSize = 10.sp, color = WoodTextMuted)
                                 } else {
@@ -400,7 +489,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                             ) {
                                 Surface(
                                     shape = RoundedCornerShape(12.dp),
-                                    color = WoodButtonBottom,
+                                    color = Color(0xF23B1C08),
                                     border = BorderStroke(1.5.dp, GoldenBankGlow),
                                     modifier = Modifier.padding(horizontal = 6.dp)
                                 ) {
@@ -422,7 +511,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                             Text(
                                                 text = "Boat",
                                                 fontSize = 10.sp,
-                                                fontWeight = FontWeight.Bold,
+                                                fontWeight = FontWeight.ExtraBold,
                                                 color = GoldenBankGlow
                                             )
                                         }
@@ -442,12 +531,13 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                 modifier = Modifier
                                     .width(90.dp)
                                     .clip(RoundedCornerShape(10.dp))
-                                    .background(WoodInsetPanel.copy(alpha = 0.9f))
+                                    .background(Color(0xE62A1308))
+                                    .border(1.dp, GoldenBankGlow.copy(alpha = 0.6f), RoundedCornerShape(10.dp))
                                     .padding(6.dp),
                                 horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text("RIGHT BANK", fontSize = 9.sp, fontWeight = FontWeight.Bold, color = GoldenBankGlow)
+                                Text("RIGHT BANK", fontSize = 9.sp, fontWeight = FontWeight.ExtraBold, color = GoldenBankGlow)
                                 if (currentStep.rightBank.isEmpty()) {
                                     Text("Empty", fontSize = 10.sp, color = WoodTextMuted)
                                 } else {
@@ -477,7 +567,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                             Text(
                                 text = currentStep.explanation,
                                 fontSize = 12.sp,
-                                color = WoodGoldenText,
+                                color = Color(0xFFFDE68A),
                                 lineHeight = 17.sp
                             )
                         }
@@ -493,8 +583,8 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                     ) {
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = WoodInsetPanel,
-                            border = BorderStroke(1.dp, WoodSignboardBorder),
+                            color = Color(0xCC2A1308),
+                            border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.5f)),
                             modifier = Modifier
                                 .clickable(enabled = currentStepIdx > 0) {
                                     if (currentStepIdx > 0) currentStepIdx--
@@ -505,15 +595,15 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                 text = "Previous",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (currentStepIdx > 0) WoodGoldenText else WoodTextMuted,
+                                color = if (currentStepIdx > 0) GoldenBankGlow else WoodTextMuted,
                                 modifier = Modifier.padding(horizontal = 14.dp, vertical = 8.dp)
                             )
                         }
 
                         Surface(
                             shape = RoundedCornerShape(12.dp),
-                            color = WoodButtonBottom,
-                            border = BorderStroke(1.dp, GoldenBankGlow),
+                            color = MenuBtnGreenBottom,
+                            border = BorderStroke(1.5.dp, GoldenBankGlow),
                             modifier = Modifier
                                 .clickable {
                                     if (currentStepIdx < steps.size - 1) {
@@ -528,7 +618,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                 modifier = Modifier
                                     .background(
                                         Brush.verticalGradient(
-                                            listOf(WoodButtonTop, WoodButtonBottom)
+                                            listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                                         )
                                     )
                                     .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -537,7 +627,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                     text = if (currentStepIdx == steps.size - 1) "Play Game Now 🏆" else "Next Step ➡️",
                                     fontSize = 12.sp,
                                     fontWeight = FontWeight.ExtraBold,
-                                    color = GoldenBankGlow
+                                    color = Color.White
                                 )
                             }
                         }
@@ -554,8 +644,8 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
             ) {
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, WoodSignboardBorder),
+                    color = Color(0xCC2A1308),
+                    border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.5f)),
                     modifier = Modifier
                         .weight(1f)
                         .clickable { currentStepIdx = 0 }
@@ -568,7 +658,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
                             contentDescription = null,
-                            tint = WoodGoldenText,
+                            tint = GoldenBankGlow,
                             modifier = Modifier.size(16.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
@@ -576,15 +666,15 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                             text = "Restart",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            color = WoodGoldenText
+                            color = GoldenBankGlow
                         )
                     }
                 }
 
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = WoodButtonBottom,
-                    border = BorderStroke(1.dp, GoldenBankGlow),
+                    color = MenuBtnAmberBottom,
+                    border = BorderStroke(1.5.dp, GoldenBankGlow),
                     modifier = Modifier
                         .weight(1f)
                         .clickable(onClick = onStartGame)
@@ -593,7 +683,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                         modifier = Modifier
                             .background(
                                 Brush.verticalGradient(
-                                    listOf(WoodButtonTop, WoodButtonBottom)
+                                    listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
                                 )
                             )
                             .padding(vertical = 10.dp),
@@ -603,7 +693,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.PlayArrow,
                                 contentDescription = null,
-                                tint = GoldenBankGlow,
+                                tint = Color.White,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(6.dp))
@@ -611,7 +701,7 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
                                 text = "Start Level 1",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = GoldenBankGlow
+                                color = Color.White
                             )
                         }
                     }
@@ -625,8 +715,8 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
 private fun MiniItemBadge(item: GameItem, inBoat: Boolean = false) {
     Surface(
         shape = RoundedCornerShape(8.dp),
-        color = if (inBoat) WoodSignboardLight else WoodInsetPanel,
-        border = BorderStroke(1.dp, if (inBoat) GoldenBankGlow else WoodSignboardBorder),
+        color = if (inBoat) Color(0xF04A260E) else Color(0xDD1E0D05),
+        border = BorderStroke(1.dp, if (inBoat) GoldenBankGlow else Color(0x40D4A373)),
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(
@@ -664,7 +754,9 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
             RuleCard(
                 emoji = "👨‍🌾",
                 title = "Rule 1: The Helmsman Principle",
-                description = "The boat cannot cross the river alone. The Farmer (or Captain) MUST row the boat on every single trip from bank to bank."
+                description = "The boat cannot cross the river alone. The Farmer (or Captain) MUST row the boat on every single trip from bank to bank.",
+                accentColor = MenuBtnGreenBorder,
+                cardBg = listOf(Color(0xF012351A), Color(0xF00A200F))
             )
         }
 
@@ -672,7 +764,9 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
             RuleCard(
                 emoji = "⛵",
                 title = "Rule 2: Boat Capacity Limit",
-                description = "Standard riverboats hold the Farmer plus 1 passenger item (e.g. Wolf, Rabbit, or Cabbage). Advanced levels feature 2-seat and 3-seat vessels!"
+                description = "Standard riverboats hold the Farmer plus 1 passenger item (e.g. Wolf, Rabbit, or Cabbage). Advanced levels feature 2-seat and 3-seat vessels!",
+                accentColor = MenuBtnCyanBorder,
+                cardBg = listOf(Color(0xF00A263D), Color(0xF0071828))
             )
         }
 
@@ -680,7 +774,9 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
             RuleCard(
                 emoji = "⚠️",
                 title = "Rule 3: Predator & Prey Absence Rule",
-                description = "When the Farmer is on the same bank, all animals and items remain calm and behave. BUT the moment the Farmer leaves, predator pairs interact instantly:\n• Wolf eats Rabbit / Sheep\n• Rabbit / Sheep eats Cabbage\n• Fox eats Goose / Chicken\n• Goose eats Corn / Grain\n• Hawk hunts Mouse / Snake\n• Dog fights Wolf"
+                description = "When the Farmer is on the same bank, all animals and items remain calm and behave. BUT the moment the Farmer leaves, predator pairs interact instantly:\n• Wolf eats Rabbit / Sheep\n• Rabbit / Sheep eats Cabbage\n• Fox eats Goose / Chicken\n• Goose eats Corn / Grain\n• Hawk hunts Mouse / Snake\n• Dog fights Wolf",
+                accentColor = MenuBtnRedBorder,
+                cardBg = listOf(Color(0xF03B1313), Color(0xF0220909))
             )
         }
 
@@ -688,7 +784,9 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
             RuleCard(
                 emoji = "🔄",
                 title = "Rule 4: Multi-Directional Ferrying",
-                description = "Items can be transported in BOTH directions! You do not only take items to the right; taking an item BACK to the starting bank is often the key to solving the puzzle."
+                description = "Items can be transported in BOTH directions! You do not only take items to the right; taking an item BACK to the starting bank is often the key to solving the puzzle.",
+                accentColor = MenuBtnPurpleBorder,
+                cardBg = listOf(Color(0xF027123A), Color(0xF0190A26))
             )
         }
 
@@ -696,18 +794,20 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
             RuleCard(
                 emoji = "🏆",
                 title = "Rule 5: Victory Condition",
-                description = "A level is won when all items and the Farmer are safely on the Right Bank without any rule violations at any point in the journey."
+                description = "A level is won when all items and the Farmer are safely on the Right Bank without any rule violations at any point in the journey.",
+                accentColor = MenuBtnAmberBorder,
+                cardBg = listOf(Color(0xF038220A), Color(0xF0241405))
             )
         }
 
         item {
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = WoodButtonBottom,
-                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                color = MenuBtnGreenBottom,
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(52.dp)
                     .clickable(onClick = onStartGame)
             ) {
                 Box(
@@ -715,7 +815,7 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
                         .fillMaxSize()
                         .background(
                             Brush.verticalGradient(
-                                listOf(WoodButtonTop, WoodButtonBottom)
+                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
                             )
                         ),
                     contentAlignment = Alignment.Center
@@ -723,8 +823,8 @@ private fun CoreRulesTab(onStartGame: () -> Unit) {
                     Text(
                         "Understood! Let's Play Level 1 🎮",
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = 14.sp,
-                        color = GoldenBankGlow
+                        fontSize = 15.sp,
+                        color = Color.White
                     )
                 }
             }
@@ -744,7 +844,9 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
             StrategyCard(
                 badge = "STRATEGY 1",
                 title = "The Cargo Take-Back Technique",
-                explanation = "When you encounter a deadlock where any unloaded item would cause a fight with an item already on that bank, board the conflicting passenger into the boat with you on the return trip!"
+                explanation = "When you encounter a deadlock where any unloaded item would cause a fight with an item already on that bank, board the conflicting passenger into the boat with you on the return trip!",
+                accentColor = MenuBtnGreenBorder,
+                gradient = listOf(Color(0xF012351A), Color(0xF00A200F))
             )
         }
 
@@ -752,7 +854,9 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
             StrategyCard(
                 badge = "STRATEGY 2",
                 title = "Identify the 'Buffer' Item",
-                explanation = "In classic 3-item puzzles, the middle item (e.g. Rabbit or Sheep) is the buffer: it conflicts with both the predator and the food. It MUST always cross first and be swapped during return trips."
+                explanation = "In classic 3-item puzzles, the middle item (e.g. Rabbit or Sheep) is the buffer: it conflicts with both the predator and the food. It MUST always cross first and be swapped during return trips.",
+                accentColor = MenuBtnAmberBorder,
+                gradient = listOf(Color(0xF038220A), Color(0xF0241405))
             )
         }
 
@@ -760,7 +864,9 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
             StrategyCard(
                 badge = "STRATEGY 3",
                 title = "Least Moves Parity",
-                explanation = "Every round trip takes 2 moves (Forward + Return). To earn 3 Gold Stars, solve each scenario in the mathematical optimal move count (e.g., 7 moves for Classic 3-item, 11 moves for 4-item)."
+                explanation = "Every round trip takes 2 moves (Forward + Return). To earn 3 Gold Stars, solve each scenario in the mathematical optimal move count (e.g., 7 moves for Classic 3-item, 11 moves for 4-item).",
+                accentColor = MenuBtnCyanBorder,
+                gradient = listOf(Color(0xF00A263D), Color(0xF0071828))
             )
         }
 
@@ -768,18 +874,20 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
             StrategyCard(
                 badge = "STRATEGY 4",
                 title = "Use Unlimited Undo & AI BFS Hints",
-                explanation = "Made a wrong turn? Tap the Undo button freely without score penalties. Tap 'AI Hint' to receive the shortest-path graph search recommendation calculated in real-time."
+                explanation = "Made a wrong turn? Tap the Undo button freely without score penalties. Tap 'AI Hint' to receive the shortest-path graph search recommendation calculated in real-time.",
+                accentColor = MenuBtnPurpleBorder,
+                gradient = listOf(Color(0xF027123A), Color(0xF0190A26))
             )
         }
 
         item {
             Surface(
                 shape = RoundedCornerShape(16.dp),
-                color = WoodButtonBottom,
-                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                color = MenuBtnPurpleBottom,
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
+                    .height(52.dp)
                     .clickable(onClick = onStartGame)
             ) {
                 Box(
@@ -787,7 +895,7 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
                         .fillMaxSize()
                         .background(
                             Brush.verticalGradient(
-                                listOf(WoodButtonTop, WoodButtonBottom)
+                                listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom)
                             )
                         ),
                     contentAlignment = Alignment.Center
@@ -795,8 +903,8 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
                     Text(
                         "Put Strategies to the Test 🚀",
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = 14.sp,
-                        color = GoldenBankGlow
+                        fontSize = 15.sp,
+                        color = Color.White
                     )
                 }
             }
@@ -808,15 +916,15 @@ private fun ProStrategiesTab(onStartGame: () -> Unit) {
 private fun CharacterBestiaryTab() {
     val characters = remember {
         listOf(
-            Triple(GameItem.LION, "Apex Predator", "King of beasts! Attacks Wolves, Dogs & Sheep if left unattended."),
-            Triple(GameItem.WOLF, "Fierce Carnivore", "Attacks Sheep, Dogs & Rabbits if left alone without Farmer."),
-            Triple(GameItem.FOX, "Cunning Hunter", "Preys on Rabbits & fights with Dogs if left unattended."),
-            Triple(GameItem.DOG, "Loyal Guardian", "Guards against danger, but chases Rabbits/Sheep and fights Wolves/Foxes."),
-            Triple(GameItem.SHEEP, "Docile Grazer", "Gentle grazer that eats Hay, Corn & Cabbage, but is prey to Wolves & Lions."),
-            Triple(GameItem.RABBIT, "Quick Herbivore", "Eats Cabbage, Corn & Hay. The classic riddle buffer item!"),
-            Triple(GameItem.CABBAGE, "Fresh Crop", "Delicious cabbage heads eaten by Rabbits & Sheep if unattended."),
-            Triple(GameItem.CORN, "Golden Grain", "Fresh ear of sweet corn, vulnerable to hungry livestock."),
-            Triple(GameItem.HAY, "Dry Forage", "Sweet golden hay bales that feed Sheep & Rabbits.")
+            BestiaryEntry(GameItem.LION, "Apex Predator", "King of beasts! Attacks Wolves, Dogs & Sheep if left unattended.", MenuBtnRedBorder, Color(0xF03B1313)),
+            BestiaryEntry(GameItem.WOLF, "Fierce Carnivore", "Attacks Sheep, Dogs & Rabbits if left alone without Farmer.", MenuBtnPurpleBorder, Color(0xF027123A)),
+            BestiaryEntry(GameItem.FOX, "Cunning Hunter", "Preys on Rabbits & fights with Dogs if left unattended.", MenuBtnAmberBorder, Color(0xF038220A)),
+            BestiaryEntry(GameItem.DOG, "Loyal Guardian", "Guards against danger, but chases Rabbits/Sheep and fights Wolves/Foxes.", MenuBtnCyanBorder, Color(0xF00A263D)),
+            BestiaryEntry(GameItem.SHEEP, "Docile Grazer", "Gentle grazer that eats Hay, Corn & Cabbage, but is prey to Wolves & Lions.", MenuBtnGreenBorder, Color(0xF012351A)),
+            BestiaryEntry(GameItem.RABBIT, "Quick Herbivore", "Eats Cabbage, Corn & Hay. The classic riddle buffer item!", Color(0xFF4ADE80), Color(0xF0103017)),
+            BestiaryEntry(GameItem.CABBAGE, "Fresh Crop", "Delicious cabbage heads eaten by Rabbits & Sheep if unattended.", Color(0xFF2DD4BF), Color(0xF00B2925)),
+            BestiaryEntry(GameItem.CORN, "Golden Grain", "Fresh ear of sweet corn, vulnerable to hungry livestock.", GoldenBankGlow, Color(0xF0332208)),
+            BestiaryEntry(GameItem.HAY, "Dry Forage", "Sweet golden hay bales that feed Sheep & Rabbits.", Color(0xFFFBBF24), Color(0xF0332007))
         )
     }
 
@@ -826,8 +934,12 @@ private fun CharacterBestiaryTab() {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
-        items(characters) { (item, role, desc) ->
-            WoodCard(shape = RoundedCornerShape(18.dp)) {
+        items(characters) { entry ->
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(entry.bgTint, Color(0xF01A0D05)),
+                borderColor = entry.accentColor.copy(alpha = 0.8f)
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -835,13 +947,13 @@ private fun CharacterBestiaryTab() {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = item.drawableRes),
-                        contentDescription = item.displayName,
+                        painter = painterResource(id = entry.item.drawableRes),
+                        contentDescription = entry.item.displayName,
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(46.dp)
                             .clip(CircleShape)
-                            .border(1.5.dp, GoldenBankGlow, CircleShape)
+                            .border(1.5.dp, entry.accentColor, CircleShape)
                     )
                     Spacer(modifier = Modifier.width(12.dp))
                     Column(modifier = Modifier.weight(1f)) {
@@ -850,29 +962,30 @@ private fun CharacterBestiaryTab() {
                             horizontalArrangement = Arrangement.spacedBy(6.dp)
                         ) {
                             Text(
-                                text = item.displayName,
+                                text = entry.item.displayName,
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.ExtraBold,
-                                color = WoodGoldenText
+                                color = Color.White
                             )
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = WoodInsetPanel
+                                color = entry.accentColor.copy(alpha = 0.25f),
+                                border = BorderStroke(1.dp, entry.accentColor.copy(alpha = 0.7f))
                             ) {
                                 Text(
-                                    text = role,
+                                    text = entry.role,
                                     fontSize = 10.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = GoldenBankGlow,
+                                    fontWeight = FontWeight.Bold,
+                                    color = entry.accentColor,
                                     modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                                 )
                             }
                         }
                         Spacer(modifier = Modifier.height(3.dp))
                         Text(
-                            text = desc,
+                            text = entry.desc,
                             fontSize = 11.5.sp,
-                            color = WoodTextMuted,
+                            color = Color(0xFFFDE68A),
                             lineHeight = 16.sp
                         )
                     }
@@ -882,9 +995,27 @@ private fun CharacterBestiaryTab() {
     }
 }
 
+private data class BestiaryEntry(
+    val item: GameItem,
+    val role: String,
+    val desc: String,
+    val accentColor: Color,
+    val bgTint: Color
+)
+
 @Composable
-private fun RuleCard(emoji: String, title: String, description: String) {
-    WoodCard(shape = RoundedCornerShape(18.dp)) {
+private fun RuleCard(
+    emoji: String,
+    title: String,
+    description: String,
+    accentColor: Color = GoldenBankGlow,
+    cardBg: List<Color> = listOf(Color(0xF03A1C08), Color(0xF0220F04))
+) {
+    WoodCard(
+        shape = RoundedCornerShape(18.dp),
+        gradientColors = cardBg,
+        borderColor = accentColor.copy(alpha = 0.75f)
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -893,8 +1024,8 @@ private fun RuleCard(emoji: String, title: String, description: String) {
         ) {
             Surface(
                 shape = CircleShape,
-                color = WoodInsetPanel,
-                border = BorderStroke(1.5.dp, GoldenBankGlow),
+                color = accentColor.copy(alpha = 0.2f),
+                border = BorderStroke(1.5.dp, accentColor),
                 modifier = Modifier.size(40.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
@@ -907,13 +1038,13 @@ private fun RuleCard(emoji: String, title: String, description: String) {
                     text = title,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = WoodGoldenText
+                    color = Color.White
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = description,
                     fontSize = 12.sp,
-                    color = WoodTextMuted,
+                    color = Color(0xFFFDE68A),
                     lineHeight = 17.sp
                 )
             }
@@ -922,19 +1053,29 @@ private fun RuleCard(emoji: String, title: String, description: String) {
 }
 
 @Composable
-private fun StrategyCard(badge: String, title: String, explanation: String) {
-    WoodCard(shape = RoundedCornerShape(18.dp)) {
+private fun StrategyCard(
+    badge: String,
+    title: String,
+    explanation: String,
+    accentColor: Color = GoldenBankGlow,
+    gradient: List<Color> = listOf(Color(0xF03A1C08), Color(0xF0220F04))
+) {
+    WoodCard(
+        shape = RoundedCornerShape(18.dp),
+        gradientColors = gradient,
+        borderColor = accentColor.copy(alpha = 0.8f)
+    ) {
         Column(modifier = Modifier.padding(14.dp)) {
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = WoodInsetPanel,
-                border = BorderStroke(1.dp, GoldenBankGlow)
+                color = accentColor.copy(alpha = 0.25f),
+                border = BorderStroke(1.2.dp, accentColor)
             ) {
                 Text(
                     text = badge,
                     fontSize = 10.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = GoldenBankGlow,
+                    fontWeight = FontWeight.ExtraBold,
+                    color = accentColor,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
                 )
             }
@@ -943,13 +1084,13 @@ private fun StrategyCard(badge: String, title: String, explanation: String) {
                 text = title,
                 fontSize = 14.5.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = WoodGoldenText
+                color = Color.White
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = explanation,
                 fontSize = 12.sp,
-                color = WoodTextMuted,
+                color = Color(0xFFFDE68A),
                 lineHeight = 17.sp
             )
         }

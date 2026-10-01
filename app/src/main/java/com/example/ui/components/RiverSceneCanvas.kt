@@ -96,6 +96,8 @@ import com.example.model.Bank
 import com.example.model.GameItem
 import com.example.model.RiverState
 import com.example.model.SplashEvent
+import com.example.ui.components.spritesheet.SpriteSheetAnimation
+import com.example.ui.components.spritesheet.SpriteSheetSpec
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.VibrantRiverCanvasFrame
 import com.example.ui.theme.VibrantWaterGradientBottom
@@ -1186,15 +1188,37 @@ private fun GameObjectToken(
                     )
                 }
 
-                // AAA 3D Character Figurine (Full Body Standing Pose)
-                Image(
-                    painter = painterResource(id = item.drawableRes),
-                    contentDescription = item.displayName,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 2.dp)
-                )
+                // AAA 3D Character Figurine or Spritesheet Animated Creature
+                when (item) {
+                    GameItem.RABBIT -> {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.RABBIT_IDLE,
+                            isPlaying = true,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 2.dp)
+                        )
+                    }
+                    GameItem.DOG -> {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.DOG_IDLE,
+                            isPlaying = true,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 2.dp)
+                        )
+                    }
+                    else -> {
+                        Image(
+                            painter = painterResource(id = item.drawableRes),
+                            contentDescription = item.displayName,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 2.dp)
+                        )
+                    }
+                }
 
                 // Top-Right Badge: Victory Star or Interactive Board Icon
                 if (isVictory) {
@@ -1437,12 +1461,21 @@ fun BoundLogRaft(
                                         )
                                     )
                             )
-                            Image(
-                                painter = painterResource(id = R.drawable.img_farmer),
-                                contentDescription = "Farmer Captain",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier.fillMaxSize()
-                            )
+                            if (isRowing) {
+                                SpriteSheetAnimation(
+                                    spec = SpriteSheetSpec.FARMER_ROWING,
+                                    isPlaying = true,
+                                    flipX = !headingRight,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            } else {
+                                SpriteSheetAnimation(
+                                    spec = SpriteSheetSpec.FARMER_IDLE,
+                                    isPlaying = true,
+                                    flipX = !headingRight,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                            }
                         }
                         Spacer(modifier = Modifier.height(1.dp))
                         Text(
@@ -1696,14 +1729,38 @@ private fun RaftPassengerSlot(
                             )
                         )
                 )
-                Image(
-                    painter = painterResource(id = passenger.drawableRes),
-                    contentDescription = passenger.displayName,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 1.dp)
-                )
+                when (passenger) {
+                    GameItem.RABBIT -> {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.RABBIT_IDLE,
+                            isPlaying = true,
+                            flipX = !headingRight,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 1.dp)
+                        )
+                    }
+                    GameItem.DOG -> {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.DOG_IDLE,
+                            isPlaying = true,
+                            flipX = !headingRight,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 1.dp)
+                        )
+                    }
+                    else -> {
+                        Image(
+                            painter = painterResource(id = passenger.drawableRes),
+                            contentDescription = passenger.displayName,
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(bottom = 1.dp)
+                        )
+                    }
+                }
             }
             Text(
                 text = passenger.displayName.uppercase(),
@@ -1769,14 +1826,21 @@ private fun FarmerDockToken(isVictory: Boolean = false) {
             ) {
                 Box(
                     contentAlignment = Alignment.BottomCenter,
-                    modifier = Modifier.size(26.dp)
+                    modifier = Modifier.size(28.dp)
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.img_farmer),
-                        contentDescription = "Farmer Captain",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    if (isVictory) {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.FARMER_CHEER,
+                            isPlaying = true,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        SpriteSheetAnimation(
+                            spec = SpriteSheetSpec.FARMER_IDLE,
+                            isPlaying = true,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 Column {

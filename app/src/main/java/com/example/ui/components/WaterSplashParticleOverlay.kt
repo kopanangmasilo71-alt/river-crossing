@@ -5,13 +5,17 @@ import androidx.compose.animation.core.FastOutLinearInEasing
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -20,9 +24,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.unit.dp
 import com.example.model.Bank
 import com.example.model.SplashEvent
+import com.example.ui.components.spritesheet.SpriteSheetAnimation
+import com.example.ui.components.spritesheet.SpriteSheetSpec
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -172,11 +180,32 @@ fun WaterSplashParticleOverlay(
 
     val currentP = progress.value
     if (currentP < 1f && splashEvent != null) {
-        Canvas(
-            modifier = modifier
-                .fillMaxSize()
-                .testTag("water_splash_overlay")
-        ) {
+        val isRight = splashEvent.targetBank == Bank.RIGHT
+        Box(modifier = modifier.fillMaxSize()) {
+            // Spritesheet animated water splash frame burst
+            val splashAlignment = if (isRight) BiasAlignment(0.42f, 0.16f) else BiasAlignment(-0.42f, 0.16f)
+            Box(
+                modifier = Modifier
+                    .size(96.dp)
+                    .align(splashAlignment)
+                    .graphicsLayer {
+                        alpha = (1f - currentP * 0.75f).coerceIn(0f, 1f)
+                        scaleX = 0.85f + currentP * 0.35f
+                        scaleY = 0.85f + currentP * 0.35f
+                    }
+            ) {
+                SpriteSheetAnimation(
+                    spec = SpriteSheetSpec.WATER_SPLASH,
+                    isPlaying = true,
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
+
+            Canvas(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag("water_splash_overlay")
+            ) {
             val w = size.width
             val h = size.height
 
@@ -285,6 +314,7 @@ fun WaterSplashParticleOverlay(
             }
         }
     }
+}
 }
 
 /**
