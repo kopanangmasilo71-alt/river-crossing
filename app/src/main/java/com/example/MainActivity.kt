@@ -16,6 +16,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.example.ads.AdManager
 import com.example.ui.RiverGameScreen
 import com.example.ui.theme.MyApplicationTheme
 import com.example.viewmodel.RiverGameViewModel
@@ -27,6 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         hideSystemBottomBar()
+        AdManager.initialize(this)
 
         setContent {
             val configuration = LocalConfiguration.current

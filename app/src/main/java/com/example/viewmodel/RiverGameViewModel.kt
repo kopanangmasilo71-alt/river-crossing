@@ -17,6 +17,7 @@ import com.example.model.DifficultyModifiers
 import com.example.model.GameItem
 import com.example.model.GameStatus
 import com.example.model.ItemLocation
+import com.example.model.GameState
 import com.example.model.MoveRecord
 import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
@@ -31,6 +32,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -113,6 +115,14 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val _riverState = MutableStateFlow(RiverState(scenario = PuzzleScenarios.CLASSIC, difficultyModifiers = _difficultyModifiers.value))
     val riverState: StateFlow<RiverState> = _riverState.asStateFlow()
+
+    val gameState: StateFlow<GameState> = _riverState
+        .map { it.toGameState() }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = _riverState.value.toGameState()
+        )
 
     private val _gameStatus = MutableStateFlow(GameStatus.IDLE)
     val gameStatus: StateFlow<GameStatus> = _gameStatus.asStateFlow()

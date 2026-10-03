@@ -74,6 +74,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
@@ -140,6 +141,53 @@ fun WoodSignboardHeader(
     onOpenModifiers: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val infiniteTransition = rememberInfiniteTransition(label = "header_ambient_anim")
+    val headerSheenPhase by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(4200, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "header_sheen"
+    )
+    val clockPulse by infiniteTransition.animateFloat(
+        initialValue = 0.92f,
+        targetValue = 1.08f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "clock_pulse"
+    )
+    val starGlintAngle by infiniteTransition.animateFloat(
+        initialValue = -10f,
+        targetValue = 10f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1400, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "star_glint"
+    )
+    val starScale by infiniteTransition.animateFloat(
+        initialValue = 0.95f,
+        targetValue = 1.15f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1200, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "star_scale"
+    )
+    val warningWobble by infiniteTransition.animateFloat(
+        initialValue = -8f,
+        targetValue = 8f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "warning_wobble"
+    )
+
     Card(
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = RiverDeepBlueDark),
@@ -155,18 +203,37 @@ fun WoodSignboardHeader(
             .shadow(8.dp, RoundedCornerShape(18.dp))
             .testTag("wood_signboard_header")
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(RiverDeepBlueMid, RiverDeepBlueDark)
+        Box(modifier = Modifier.fillMaxWidth()) {
+            // Ambient light gleam traveling across the carved wooden signboard
+            Canvas(modifier = Modifier.matchParentSize()) {
+                val sheenW = size.width * 0.32f
+                val currX = -sheenW + (size.width + sheenW * 2f) * headerSheenPhase
+                drawRect(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.White.copy(alpha = 0.08f),
+                            Color(0xFFFFE082).copy(alpha = 0.12f),
+                            Color.Transparent
+                        ),
+                        start = Offset(currX, 0f),
+                        end = Offset(currX + sheenW, size.height)
                     )
                 )
-                .padding(horizontal = 10.dp, vertical = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(4.dp)
-        ) {
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(RiverDeepBlueMid, RiverDeepBlueDark)
+                        )
+                    )
+                    .padding(horizontal = 10.dp, vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
             // Top Bar: Back Button, Main Title, and Utility Icons
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -363,11 +430,16 @@ fun WoodSignboardHeader(
                 moveCount <= optimalMoves + 2 -> Color(0xFFFB923C) // Warm Orange: exceeding target
                 else -> Color(0xFFEF4444) // Urgent Crimson: exceeded target
             }
-            val progressRatio = if (optimalMoves > 0) {
+            val targetProgressRatio = if (optimalMoves > 0) {
                 (moveCount.toFloat() / optimalMoves).coerceIn(0f, 1f)
             } else {
                 0f
             }
+            val progressRatio by animateFloatAsState(
+                targetValue = targetProgressRatio,
+                animationSpec = spring(dampingRatio = 0.65f, stiffness = 420f),
+                label = "progress_ratio_anim"
+            )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -397,17 +469,21 @@ fun WoodSignboardHeader(
                     if (moveCount > optimalMoves) {
                         Text(
                             text = "⚠️",
-                            fontSize = 10.sp
+                            fontSize = 10.sp,
+                            modifier = Modifier.rotate(warningWobble)
                         )
                     } else if (moveCount > 0 && moveCount <= optimalMoves) {
                         Text(
                             text = "⭐",
-                            fontSize = 10.sp
+                            fontSize = 10.sp,
+                            modifier = Modifier
+                                .rotate(starGlintAngle)
+                                .scale(starScale)
                         )
                     }
                 }
 
-                // Subtle Strategic Progress Indicator Pill
+                // Subtle Strategic Progress Indicator Pill with smooth spring progression
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(5.dp)
@@ -437,15 +513,27 @@ fun WoodSignboardHeader(
                     )
                 }
 
-                Text(
-                    text = formatTime(elapsedSeconds),
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFFBAE6FD)
-                )
+                // Live Pulsing Timer
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(3.dp)
+                ) {
+                    Text(
+                        text = "⏱️",
+                        fontSize = 10.5.sp,
+                        modifier = Modifier.scale(clockPulse)
+                    )
+                    Text(
+                        text = formatTime(elapsedSeconds),
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFFBAE6FD)
+                    )
+                }
             }
         }
     }
+}
 }
 
 /**
@@ -526,10 +614,10 @@ fun WoodSetSailButton(
 
     // Gentle wave rock when rowing
     val rowingRockAngle by infiniteTransition.animateFloat(
-        initialValue = if (isRowing) -1.8f else 0f,
-        targetValue = if (isRowing) 1.8f else 0f,
+        initialValue = if (isRowing) -2.0f else 0f,
+        targetValue = if (isRowing) 2.0f else 0f,
         animationSpec = infiniteRepeatable(
-            animation = tween(450, easing = FastOutSlowInEasing),
+            animation = tween(420, easing = FastOutSlowInEasing),
             repeatMode = RepeatMode.Reverse
         ),
         label = "sailing_rock"
@@ -540,10 +628,41 @@ fun WoodSetSailButton(
         initialValue = 0f,
         targetValue = 1f,
         animationSpec = infiniteRepeatable(
-            animation = tween(2600, easing = LinearEasing),
+            animation = tween(2400, easing = LinearEasing),
             repeatMode = RepeatMode.Restart
         ),
         label = "sail_shimmer"
+    )
+
+    // Concentric nautical water wave pulses behind the button
+    val wakePulse by infiniteTransition.animateFloat(
+        initialValue = 1.0f,
+        targetValue = 1.09f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "wake_pulse"
+    )
+    val wakeAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.50f,
+        targetValue = 0.12f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(1500, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "wake_alpha"
+    )
+
+    // Oar dipping bobbing animation for the sailing emoji
+    val oarBob by infiniteTransition.animateFloat(
+        initialValue = -3.5f,
+        targetValue = 3.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(380, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "oar_bob"
     )
 
     // Tactile press response: spring dips down, then bounces back
@@ -584,103 +703,154 @@ fun WoodSetSailButton(
         )
     }
 
-    Surface(
-        shape = RoundedCornerShape(18.dp),
-        color = if (isConflict) Color(0xFF7F1D1D) else if (enabled) RiverForestGreenMid else Color(0xFF0A2B4E),
-        border = BorderStroke(if (isPressed || isConflict) 3.2.dp else 2.6.dp, borderBrush),
-        shadowElevation = shadowElevation,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = modifier
-            .graphicsLayer {
-                scaleX = buttonScale
-                scaleY = buttonScale
-                rotationZ = rowingRockAngle
-            }
-            .shadow(
-                elevation = shadowElevation,
-                shape = RoundedCornerShape(18.dp),
-                spotColor = if (enabled && !isConflict) Color(0x9922C55E) else Color(0x33000000)
-            )
-            .clip(RoundedCornerShape(18.dp))
-            .clickable(
-                interactionSource = interactionSource,
-                indication = null,
-                enabled = enabled && !isRowing,
-                onClick = onClick
-            )
-            .testTag("set_sail_button")
     ) {
-        Box(
+        // Subtle concentric aquatic wake ripples radiating behind the button when ready
+        if (enabled && !isRowing && !isConflict) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .graphicsLayer {
+                        scaleX = wakePulse
+                        scaleY = wakePulse
+                        alpha = wakeAlpha
+                    }
+                    .border(1.8.dp, Color(0xFF38BDF8), RoundedCornerShape(20.dp))
+            )
+        }
+
+        Surface(
+            shape = RoundedCornerShape(18.dp),
+            color = if (isConflict) Color(0xFF7F1D1D) else if (enabled) RiverForestGreenMid else Color(0xFF0A2B4E),
+            border = BorderStroke(if (isPressed || isConflict) 3.2.dp else 2.6.dp, borderBrush),
+            shadowElevation = shadowElevation,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Brush.verticalGradient(colors = buttonBg))
-        ) {
-            // Dynamic shimmering sunlight light gleam across button when ready to cross
-            if (enabled && !isRowing && !isConflict) {
-                Canvas(modifier = Modifier.matchParentSize()) {
-                    val shimmerW = size.width * 0.35f
-                    val currX = -shimmerW + (size.width + shimmerW * 2f) * shimmerPhase
-                    drawRect(
-                        brush = Brush.linearGradient(
-                            colors = listOf(
-                                Color.Transparent,
-                                Color.White.copy(alpha = 0.28f),
-                                Color(0xFFFFE082).copy(alpha = 0.22f),
-                                Color.Transparent
-                            ),
-                            start = Offset(currX, 0f),
-                            end = Offset(currX + shimmerW, size.height)
-                        )
-                    )
+                .graphicsLayer {
+                    scaleX = buttonScale
+                    scaleY = buttonScale
+                    rotationZ = rowingRockAngle
                 }
-            }
-
-            Column(
+                .shadow(
+                    elevation = shadowElevation,
+                    shape = RoundedCornerShape(18.dp),
+                    spotColor = if (enabled && !isConflict) Color(0x9922C55E) else Color(0x33000000)
+                )
+                .clip(RoundedCornerShape(18.dp))
+                .clickable(
+                    interactionSource = interactionSource,
+                    indication = null,
+                    enabled = enabled && !isRowing,
+                    onClick = onClick
+                )
+                .testTag("set_sail_button")
+        ) {
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 12.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                    .background(Brush.verticalGradient(colors = buttonBg))
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    if (isRowing) {
-                        Text(
-                            text = "⛵ ",
-                            fontSize = 20.sp
-                        )
-                    }
-                    Text(
-                        text = if (isRowing) "SAILING ACROSS..." else "S E T   S A I L",
-                        fontSize = if (isRowing) 17.sp else 19.sp,
-                        fontWeight = FontWeight.Black,
-                        letterSpacing = if (isRowing) 1.2.sp else 2.5.sp,
-                        color = if (isConflict) Color(0xFFFEE2E2) else if (enabled) Color.White else Color(0xFF7DD3FC).copy(alpha = 0.6f),
-                        style = TextStyle(
-                            shadow = Shadow(
-                                color = if (enabled && !isConflict) Color(0x66000000) else Color(0xAA000000),
-                                offset = Offset(0.5f, 1f),
-                                blurRadius = 2f
+                // Dynamic shimmering sunlight light gleam across button when ready to cross
+                if (enabled && !isRowing && !isConflict) {
+                    Canvas(modifier = Modifier.matchParentSize()) {
+                        val shimmerW = size.width * 0.35f
+                        val currX = -shimmerW + (size.width + shimmerW * 2f) * shimmerPhase
+                        drawRect(
+                            brush = Brush.linearGradient(
+                                colors = listOf(
+                                    Color.Transparent,
+                                    Color.White.copy(alpha = 0.28f),
+                                    Color(0xFFFFE082).copy(alpha = 0.22f),
+                                    Color.Transparent
+                                ),
+                                start = Offset(currX, 0f),
+                                end = Offset(currX + shimmerW, size.height)
                             )
-                        )
-                    )
-                    if (isRowing) {
-                        Text(
-                            text = " 🌊",
-                            fontSize = 18.sp
                         )
                     }
                 }
-                if (subtext != null && !isRowing) {
-                    Spacer(modifier = Modifier.height(2.dp))
-                    Text(
-                        text = subtext,
-                        fontSize = 10.5.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        letterSpacing = 1.0.sp,
-                        color = if (isConflict) Color(0xFFFECDD3) else if (enabled) Color(0xFFFEF08A) else Color(0xFF7DD3FC).copy(alpha = 0.5f)
-                    )
+
+                // Dynamic animated river wake and floating bubbles during sailing
+                if (isRowing) {
+                    Canvas(modifier = Modifier.matchParentSize()) {
+                        val w = size.width
+                        val h = size.height
+                        val streamPhase = (shimmerPhase * 3.5f) % 1.0f
+                        for (line in 0..3) {
+                            val ly = h * (0.35f + line * 0.16f)
+                            val startX = -w * 0.2f + (w * 1.4f) * ((streamPhase + line * 0.25f) % 1.0f)
+                            drawLine(
+                                color = Color(0x55BAE6FD),
+                                start = Offset(startX, ly),
+                                end = Offset(startX + 36f, ly),
+                                strokeWidth = 2.0f,
+                                cap = StrokeCap.Round
+                            )
+                        }
+                        for (b in 0..4) {
+                            val bx = w * (0.15f + b * 0.18f)
+                            val by = h - (h * ((streamPhase * 1.3f + b * 0.22f) % 1.0f))
+                            drawCircle(
+                                color = Color(0x44E0F2FE),
+                                radius = 2.4f + (b % 2),
+                                center = Offset(bx, by)
+                            )
+                        }
+                    }
+                }
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 12.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        if (isRowing) {
+                            Text(
+                                text = "⛵ ",
+                                fontSize = 20.sp,
+                                modifier = Modifier.offset(y = oarBob.dp)
+                            )
+                        }
+                        Text(
+                            text = if (isRowing) "SAILING ACROSS..." else "S E T   S A I L",
+                            fontSize = if (isRowing) 17.sp else 19.sp,
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = if (isRowing) 1.2.sp else 2.5.sp,
+                            color = if (isConflict) Color(0xFFFEE2E2) else if (enabled) Color.White else Color(0xFF7DD3FC).copy(alpha = 0.6f),
+                            style = TextStyle(
+                                shadow = Shadow(
+                                    color = if (enabled && !isConflict) Color(0x66000000) else Color(0xAA000000),
+                                    offset = Offset(0.5f, 1f),
+                                    blurRadius = 2f
+                                )
+                            )
+                        )
+                        if (isRowing) {
+                            Text(
+                                text = " 🌊",
+                                fontSize = 18.sp,
+                                modifier = Modifier.offset(y = (-oarBob).dp)
+                            )
+                        }
+                    }
+                    if (subtext != null && !isRowing) {
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = subtext,
+                            fontSize = 10.5.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            letterSpacing = 1.0.sp,
+                            color = if (isConflict) Color(0xFFFECDD3) else if (enabled) Color(0xFFFEF08A) else Color(0xFF7DD3FC).copy(alpha = 0.5f)
+                        )
+                    }
                 }
             }
         }
@@ -846,22 +1016,22 @@ fun WoodActionButton(
     val isHint = text.contains("HINT", ignoreCase = true)
 
     val iconRotation by animateFloatAsState(
-        targetValue = if (isReset && isPressed) 180f else 0f,
-        animationSpec = spring(dampingRatio = 0.5f, stiffness = 450f),
+        targetValue = if (isReset && isPressed) 360f else 0f,
+        animationSpec = spring(dampingRatio = 0.45f, stiffness = 520f),
         label = "icon_rotation"
     )
 
     val undoNudge by animateFloatAsState(
-        targetValue = if (isUndo && isPressed) -3f else 0f,
-        animationSpec = spring(dampingRatio = 0.45f, stiffness = 500f),
+        targetValue = if (isUndo && isPressed) -5f else 0f,
+        animationSpec = spring(dampingRatio = 0.42f, stiffness = 550f),
         label = "undo_nudge"
     )
 
     val hintGlowScale = if (isHint && enabled) {
         val infiniteTransition = rememberInfiniteTransition(label = "btn_pulse_$text")
         val anim by infiniteTransition.animateFloat(
-            initialValue = 1.0f,
-            targetValue = 1.14f,
+            initialValue = 0.95f,
+            targetValue = 1.16f,
             animationSpec = infiniteRepeatable(
                 animation = tween(750, easing = FastOutSlowInEasing),
                 repeatMode = RepeatMode.Reverse

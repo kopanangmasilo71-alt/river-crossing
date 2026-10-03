@@ -36,6 +36,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -247,6 +248,10 @@ private fun AAAPassengerQuickChip(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(2.dp)
+                        .graphicsLayer {
+                            scaleX = item.visualScale
+                            scaleY = item.visualScale
+                        }
                 )
             }
             Spacer(modifier = Modifier.height(4.dp))
@@ -366,6 +371,10 @@ fun AAAItemRowCard(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(3.dp)
+                            .graphicsLayer {
+                                scaleX = item.visualScale
+                                scaleY = item.visualScale
+                            }
                     )
                 }
 

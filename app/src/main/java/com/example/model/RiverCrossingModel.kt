@@ -15,7 +15,8 @@ enum class GameItem(
     val emoji: String,
     val description: String,
     val dangerTag: String,
-    val drawableRes: Int
+    val drawableRes: Int,
+    val visualScale: Float = 1.0f
 ) {
     DOG(
         id = "dog",
@@ -39,7 +40,8 @@ enum class GameItem(
         emoji = "🐇",
         description = "Eats Cabbage, Corn & Hay if left alone, but vulnerable to predators!",
         dangerTag = "Herbivore",
-        drawableRes = R.drawable.img_rabbit
+        drawableRes = R.drawable.img_rabbit,
+        visualScale = 1.08f
     ),
     CABBAGE(
         id = "cabbage",
@@ -1495,6 +1497,11 @@ data class RiverState(
     val lionLocation: ItemLocation get() = getItemLocation(GameItem.LION)
     val bearLocation: ItemLocation get() = getItemLocation(GameItem.BEAR)
     val berriesLocation: ItemLocation get() = getItemLocation(GameItem.BERRIES)
+
+    val bearPosition: ItemLocation get() = bearLocation
+    val berriesPosition: ItemLocation get() = berriesLocation
+
+    fun toGameState(): GameState = GameState.fromRiverState(this)
 
     fun isBankHidden(bank: Bank): Boolean {
         return difficultyModifiers.hideOppositeBankItems && farmerBank != bank

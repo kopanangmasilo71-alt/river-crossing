@@ -29,8 +29,6 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.example.model.Bank
 import com.example.model.SplashEvent
-import com.example.ui.components.spritesheet.SpriteSheetAnimation
-import com.example.ui.components.spritesheet.SpriteSheetSpec
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
@@ -182,25 +180,6 @@ fun WaterSplashParticleOverlay(
     if (currentP < 1f && splashEvent != null) {
         val isRight = splashEvent.targetBank == Bank.RIGHT
         Box(modifier = modifier.fillMaxSize()) {
-            // Spritesheet animated water splash frame burst
-            val splashAlignment = if (isRight) BiasAlignment(0.42f, 0.16f) else BiasAlignment(-0.42f, 0.16f)
-            Box(
-                modifier = Modifier
-                    .size(96.dp)
-                    .align(splashAlignment)
-                    .graphicsLayer {
-                        alpha = (1f - currentP * 0.75f).coerceIn(0f, 1f)
-                        scaleX = 0.85f + currentP * 0.35f
-                        scaleY = 0.85f + currentP * 0.35f
-                    }
-            ) {
-                SpriteSheetAnimation(
-                    spec = SpriteSheetSpec.WATER_SPLASH,
-                    isPlaying = true,
-                    modifier = Modifier.fillMaxSize()
-                )
-            }
-
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()

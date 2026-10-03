@@ -96,9 +96,10 @@ import com.example.model.Bank
 import com.example.model.GameItem
 import com.example.model.RiverState
 import com.example.model.SplashEvent
-import com.example.ui.components.spritesheet.SpriteSheetAnimation
-import com.example.ui.components.spritesheet.SpriteSheetSpec
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.RiverDeepBlueDark
+import com.example.ui.theme.RiverTimberBorder
+import com.example.ui.theme.RiverWaterCyan
 import com.example.ui.theme.VibrantRiverCanvasFrame
 import com.example.ui.theme.VibrantWaterGradientBottom
 import com.example.ui.theme.VibrantWaterGradientTop
@@ -205,9 +206,22 @@ fun RiverScene(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(22.dp))
-            .background(Color(0xFFE2E8F0))
-            .border(2.5.dp, Color(0xCCFFFFFF), RoundedCornerShape(22.dp))
-            .shadow(8.dp, RoundedCornerShape(22.dp))
+            .background(RiverDeepBlueDark)
+            .border(
+                BorderStroke(
+                    2.4.dp,
+                    Brush.verticalGradient(
+                        listOf(
+                            RiverWaterCyan.copy(alpha = 0.85f),
+                            RiverTimberBorder,
+                            GoldenBankGlow.copy(alpha = 0.65f),
+                            RiverTimberBorder
+                        )
+                    )
+                ),
+                RoundedCornerShape(22.dp)
+            )
+            .shadow(10.dp, RoundedCornerShape(22.dp))
     ) {
         val totalWidth = maxWidth
         val totalHeight = maxHeight
@@ -508,6 +522,44 @@ fun RiverScene(
                         style = Stroke(width = 1.2f)
                     )
                 }
+            }
+        }
+
+        // Ambient River Valley Fireflies & Atmospheric Floating Nature Motes
+        val natureInfiniteTransition = rememberInfiniteTransition(label = "nature_motes_anim")
+        val natureMotePhase by natureInfiniteTransition.animateFloat(
+            initialValue = 0f,
+            targetValue = 1f,
+            animationSpec = infiniteRepeatable(
+                animation = tween(6500, easing = LinearEasing),
+                repeatMode = RepeatMode.Restart
+            ),
+            label = "nature_mote_phase"
+        )
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val w = size.width
+            val h = size.height
+            for (i in 0..9) {
+                val seed = i * 49.37f
+                val p = (natureMotePhase + i * 0.10f) % 1.0f
+                val mx = (w * (0.06f + (i * 0.091f) % 0.88f) + kotlin.math.sin(p * Math.PI * 2.0 + seed) * 18f).toFloat()
+                val my = (h * (0.12f + ((i * 0.14f) % 0.72f)) - p * 32f + kotlin.math.cos(p * Math.PI * 1.5 + seed) * 14f).toFloat()
+                val pulse = (kotlin.math.sin(p * Math.PI * 2.0 + seed) + 1.0) * 0.5
+                val moteAlpha = (pulse * 0.60f).toFloat().coerceIn(0.08f, 0.70f)
+                val moteRadius = (2.0f + pulse * 1.6f).toFloat()
+
+                // Glow aura
+                drawCircle(
+                    color = Color(0xFFFEF08A).copy(alpha = moteAlpha * 0.35f),
+                    radius = moteRadius * 2.5f,
+                    center = Offset(mx, my)
+                )
+                // Core
+                drawCircle(
+                    color = Color(0xFFFFFBEB).copy(alpha = moteAlpha),
+                    radius = moteRadius,
+                    center = Offset(mx, my)
+                )
             }
         }
 
@@ -1188,37 +1240,19 @@ private fun GameObjectToken(
                     )
                 }
 
-                // AAA 3D Character Figurine or Spritesheet Animated Creature
-                when (item) {
-                    GameItem.RABBIT -> {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.RABBIT_IDLE,
-                            isPlaying = true,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 2.dp)
-                        )
-                    }
-                    GameItem.DOG -> {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.DOG_IDLE,
-                            isPlaying = true,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 2.dp)
-                        )
-                    }
-                    else -> {
-                        Image(
-                            painter = painterResource(id = item.drawableRes),
-                            contentDescription = item.displayName,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 2.dp)
-                        )
-                    }
-                }
+                // Static image figurine with balanced character scaling
+                Image(
+                    painter = painterResource(id = item.drawableRes),
+                    contentDescription = item.displayName,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 2.dp)
+                        .graphicsLayer {
+                            scaleX = item.visualScale
+                            scaleY = item.visualScale
+                        }
+                )
 
                 // Top-Right Badge: Victory Star or Interactive Board Icon
                 if (isVictory) {
@@ -1461,21 +1495,18 @@ fun BoundLogRaft(
                                         )
                                     )
                             )
-                            if (isRowing) {
-                                SpriteSheetAnimation(
-                                    spec = SpriteSheetSpec.FARMER_ROWING,
-                                    isPlaying = true,
-                                    flipX = !headingRight,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                            } else {
-                                SpriteSheetAnimation(
-                                    spec = SpriteSheetSpec.FARMER_IDLE,
-                                    isPlaying = true,
-                                    flipX = !headingRight,
-                                    modifier = Modifier.fillMaxSize()
-                                )
-                            }
+                            Image(
+                                painter = painterResource(id = R.drawable.img_farmer),
+                                contentDescription = "Farmer",
+                                contentScale = ContentScale.Fit,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .graphicsLayer {
+                                        if (!headingRight) {
+                                            rotationY = 180f
+                                        }
+                                    }
+                            )
                         }
                         Spacer(modifier = Modifier.height(1.dp))
                         Text(
@@ -1729,38 +1760,21 @@ private fun RaftPassengerSlot(
                             )
                         )
                 )
-                when (passenger) {
-                    GameItem.RABBIT -> {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.RABBIT_IDLE,
-                            isPlaying = true,
-                            flipX = !headingRight,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 1.dp)
-                        )
-                    }
-                    GameItem.DOG -> {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.DOG_IDLE,
-                            isPlaying = true,
-                            flipX = !headingRight,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 1.dp)
-                        )
-                    }
-                    else -> {
-                        Image(
-                            painter = painterResource(id = passenger.drawableRes),
-                            contentDescription = passenger.displayName,
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(bottom = 1.dp)
-                        )
-                    }
-                }
+                Image(
+                    painter = painterResource(id = passenger.drawableRes),
+                    contentDescription = passenger.displayName,
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(bottom = 1.dp)
+                        .graphicsLayer {
+                            scaleX = passenger.visualScale
+                            scaleY = passenger.visualScale
+                            if (!headingRight) {
+                                rotationY = 180f
+                            }
+                        }
+                )
             }
             Text(
                 text = passenger.displayName.uppercase(),
@@ -1828,19 +1842,12 @@ private fun FarmerDockToken(isVictory: Boolean = false) {
                     contentAlignment = Alignment.BottomCenter,
                     modifier = Modifier.size(28.dp)
                 ) {
-                    if (isVictory) {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.FARMER_CHEER,
-                            isPlaying = true,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    } else {
-                        SpriteSheetAnimation(
-                            spec = SpriteSheetSpec.FARMER_IDLE,
-                            isPlaying = true,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    }
+                    Image(
+                        painter = painterResource(id = R.drawable.img_farmer),
+                        contentDescription = "Farmer",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier.fillMaxSize()
+                    )
                 }
                 Spacer(modifier = Modifier.width(5.dp))
                 Column {
