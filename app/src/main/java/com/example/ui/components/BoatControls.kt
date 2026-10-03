@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.model.GameStatus
+import com.example.model.LevelTheme
 import com.example.model.RiverState
 import com.example.ui.theme.RiverForestGreenMid
 import com.example.ui.theme.RiverMeadowGrass
@@ -55,6 +56,7 @@ fun BoatControls(
     moveCount: Int,
     canUndo: Boolean,
     hintMessage: String?,
+    levelTheme: LevelTheme = LevelTheme.forScenario(riverState.scenario),
     onCrossRiver: () -> Unit,
     onUndo: () -> Unit,
     onRestart: () -> Unit,
@@ -123,17 +125,17 @@ fun BoatControls(
             }
         }
 
-        // Primary Cross River Button (River Forest Green & Gold)
+        // Primary Cross River Button (Theme-adaptive)
         Button(
             onClick = onCrossRiver,
             enabled = !isRowing && !isGameOver && !isVictory,
             shape = RoundedCornerShape(24.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = RiverForestGreenMid,
+                containerColor = levelTheme.sailButtonColors.getOrElse(1) { RiverForestGreenMid },
                 contentColor = Color.White,
                 disabledContainerColor = RiverDeepBlueDark
             ),
-            border = BorderStroke(1.5.dp, if (!isRowing && !isGameOver && !isVictory) RiverMeadowGrass else RiverTimberBorder.copy(alpha = 0.5f)),
+            border = BorderStroke(1.5.dp, if (!isRowing && !isGameOver && !isVictory) levelTheme.sailButtonGlow else RiverTimberBorder.copy(alpha = 0.5f)),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 2.dp),
             modifier = Modifier
                 .fillMaxWidth()

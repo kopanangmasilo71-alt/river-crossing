@@ -129,6 +129,7 @@ fun RiverScene(
     gameHaptics: GameHaptics? = null,
     onItemClick: (GameItem) -> Unit,
     isVictory: Boolean = false,
+    theme: LevelTheme? = null,
     modifier: Modifier = Modifier
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "living_river_anim")
@@ -198,7 +199,7 @@ fun RiverScene(
         label = "token_aura_glow"
     )
 
-    val levelTheme = remember(riverState.scenario.levelNumber) {
+    val levelTheme = theme ?: remember(riverState.scenario.levelNumber) {
         LevelTheme.forScenario(riverState.scenario)
     }
 
@@ -206,16 +207,16 @@ fun RiverScene(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(22.dp))
-            .background(RiverDeepBlueDark)
+            .background(levelTheme.waterGradientBottom.copy(alpha = 0.85f))
             .border(
                 BorderStroke(
                     2.4.dp,
                     Brush.verticalGradient(
                         listOf(
-                            RiverWaterCyan.copy(alpha = 0.85f),
-                            RiverTimberBorder,
+                            levelTheme.sailButtonGlow.copy(alpha = 0.85f),
+                            levelTheme.boatTrimColor,
                             GoldenBankGlow.copy(alpha = 0.65f),
-                            RiverTimberBorder
+                            levelTheme.boatTrimColor
                         )
                     )
                 ),
@@ -769,7 +770,7 @@ private fun BankZone(
             ) {
                 // Farmer Captain presence
                 if (isFarmerHere) {
-                    FarmerDockToken(isVictory = isCelebrating)
+                    FarmerDockToken(levelTheme = levelTheme, isVictory = isCelebrating)
                 }
 
                 // Characters on this bank
@@ -804,6 +805,7 @@ private fun BankZone(
                                             isHintTarget = isHintTarget,
                                             auraScale = if (isFarmerHere || isHintTarget) auraGlowScale else ({ 1.0f }),
                                             phaseOffset = globalIndex * 0.7f,
+                                            levelTheme = levelTheme,
                                             gameHaptics = gameHaptics,
                                             onDragStateChange = onDragStateChange,
                                             isVictory = isCelebrating,
@@ -833,6 +835,7 @@ private fun BankZone(
                                 isHintTarget = isHintTarget,
                                 auraScale = if (isFarmerHere || isHintTarget) auraGlowScale else ({ 1.0f }),
                                 phaseOffset = index * 0.7f,
+                                levelTheme = levelTheme,
                                 gameHaptics = gameHaptics,
                                 onDragStateChange = onDragStateChange,
                                 isVictory = isCelebrating,
@@ -888,6 +891,7 @@ private fun GameObjectToken(
     isHintTarget: Boolean,
     auraScale: () -> Float = { 1.0f },
     phaseOffset: Float,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     gameHaptics: GameHaptics? = null,
     onDragStateChange: ((Boolean) -> Unit)? = null,
     isVictory: Boolean = false,
@@ -1146,7 +1150,7 @@ private fun GameObjectToken(
                 )
             }
         }
-        // Pulsing Golden Spotlight Halo when selected by HINT
+        // Pulsing Spotlight Halo when selected by HINT or interactive
         if (isHintTarget) {
             Box(
                 modifier = Modifier
@@ -1157,7 +1161,7 @@ private fun GameObjectToken(
                         scaleY = s
                     }
                     .clip(CircleShape)
-                    .background(GoldenBankGlow.copy(alpha = 0.45f))
+                    .background(levelTheme.objectInteractGlow.copy(alpha = 0.45f))
             )
         } else if (canInteract) {
             Box(
@@ -1169,7 +1173,7 @@ private fun GameObjectToken(
                         scaleY = s
                     }
                     .clip(CircleShape)
-                    .background(GoldenBankGlow.copy(alpha = 0.20f))
+                    .background(levelTheme.objectInteractGlow.copy(alpha = 0.20f))
             )
         }
 
@@ -1231,9 +1235,9 @@ private fun GameObjectToken(
                             .background(
                                 Brush.horizontalGradient(
                                     listOf(
-                                        Color(0x44FDE68A),
-                                        GoldenBankGlow.copy(alpha = 0.85f),
-                                        Color(0x44FDE68A)
+                                        levelTheme.objectInteractGlow.copy(alpha = 0.25f),
+                                        levelTheme.objectInteractGlow.copy(alpha = 0.85f),
+                                        levelTheme.objectInteractGlow.copy(alpha = 0.25f)
                                     )
                                 )
                             )
@@ -1272,8 +1276,8 @@ private fun GameObjectToken(
                 } else if (canInteract) {
                     Surface(
                         shape = CircleShape,
-                        color = Color(0xFF16A34A),
-                        border = BorderStroke(1.2.dp, Color(0xFFBBF7D0)),
+                        color = levelTheme.objectAddBadgeColor,
+                        border = BorderStroke(1.2.dp, levelTheme.objectTokenBorderColor.copy(alpha = 0.9f)),
                         shadowElevation = 3.dp,
                         modifier = Modifier
                             .size(16.dp)
@@ -1296,10 +1300,10 @@ private fun GameObjectToken(
             // Sleek Carved Wooden Nametag Plaque (Dog, Rabbit, Cabbage)
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = if (canInteract) WoodSignboardDark else Color(0xEE090D16),
+                color = if (canInteract) levelTheme.objectPlaqueColor.copy(alpha = 0.85f) else Color(0xBB090D16),
                 border = BorderStroke(
                     1.2.dp,
-                    if (isHintTarget || canInteract) GoldenBankGlow else WoodSignboardBorder
+                    if (isHintTarget || canInteract) levelTheme.objectPlaqueBorderColor else levelTheme.dockBorder.copy(alpha = 0.4f)
                 ),
                 shadowElevation = 3.dp
             ) {
@@ -1316,7 +1320,7 @@ private fun GameObjectToken(
                         text = item.displayName,
                         fontSize = 9.5.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = if (isHintTarget || canInteract) GoldenBankGlow else Color(0xFFD4B89B),
+                        color = if (isHintTarget || canInteract) levelTheme.objectNameColor else Color(0xFFD4B89B),
                         maxLines = 1
                     )
                 }
@@ -1355,7 +1359,7 @@ fun BoundLogRaft(
                 modifier = Modifier
                     .size(width = raftWidth + 16.dp, height = 76.dp)
                     .clip(RoundedCornerShape(20.dp))
-                    .background(GoldenBankGlow.copy(alpha = 0.35f))
+                    .background(levelTheme.boatAccentGlow.copy(alpha = 0.35f))
             )
         }
 
@@ -1363,8 +1367,8 @@ fun BoundLogRaft(
         // Port Oar
         Surface(
             shape = RoundedCornerShape(2.dp),
-            color = levelTheme.dockWoodBottom,
-            border = BorderStroke(0.8.dp, Color(0x770F172A)),
+            color = levelTheme.boatOarColor,
+            border = BorderStroke(0.8.dp, levelTheme.boatTrimColor.copy(alpha = 0.8f)),
             modifier = Modifier
                 .offset(x = (-raftWidth / 2) + 14.dp, y = 14.dp)
                 .width(38.dp)
@@ -1374,15 +1378,15 @@ fun BoundLogRaft(
             Box(
                 modifier = Modifier
                     .size(width = 11.dp, height = 6.dp)
-                    .background(levelTheme.raftWoodTone)
+                    .background(levelTheme.boatTrimColor)
             )
         }
 
         // Starboard Oar
         Surface(
             shape = RoundedCornerShape(2.dp),
-            color = levelTheme.dockWoodBottom,
-            border = BorderStroke(0.8.dp, Color(0x770F172A)),
+            color = levelTheme.boatOarColor,
+            border = BorderStroke(0.8.dp, levelTheme.boatTrimColor.copy(alpha = 0.8f)),
             modifier = Modifier
                 .offset(x = (raftWidth / 2) - 14.dp, y = 14.dp)
                 .width(38.dp)
@@ -1392,15 +1396,15 @@ fun BoundLogRaft(
             Box(
                 modifier = Modifier
                     .size(width = 11.dp, height = 6.dp)
-                    .background(levelTheme.raftWoodTone)
+                    .background(levelTheme.boatTrimColor)
             )
         }
 
         // Main Bound Wooden Logs Hull with Biome Wood Tone
         Surface(
             shape = RoundedCornerShape(16.dp),
-            color = levelTheme.raftWoodTone,
-            border = BorderStroke(2.2.dp, if (isHintHighlighted) GoldenBankGlow else levelTheme.dockBorder),
+            color = levelTheme.boatHullColors.first(),
+            border = BorderStroke(2.2.dp, if (isHintHighlighted) GoldenBankGlow else levelTheme.boatTrimColor),
             shadowElevation = 12.dp,
             modifier = Modifier
                 .width(raftWidth)
@@ -1411,11 +1415,7 @@ fun BoundLogRaft(
                     .fillMaxSize()
                     .background(
                         Brush.verticalGradient(
-                            colors = listOf(
-                                levelTheme.raftWoodTone,
-                                levelTheme.dockWoodBottom,
-                                levelTheme.raftWoodTone.copy(alpha = 0.85f)
-                            )
+                            colors = levelTheme.boatHullColors
                         )
                     )
             ) {
@@ -1447,13 +1447,13 @@ fun BoundLogRaft(
                         modifier = Modifier
                             .width(5.dp)
                             .fillMaxHeight()
-                            .background(levelTheme.raftRopeColor.copy(alpha = 0.75f))
+                            .background(levelTheme.boatTrimColor.copy(alpha = 0.85f))
                     )
                     Box(
                         modifier = Modifier
                             .width(5.dp)
                             .fillMaxHeight()
-                            .background(levelTheme.raftRopeColor.copy(alpha = 0.75f))
+                            .background(levelTheme.boatTrimColor.copy(alpha = 0.85f))
                     )
                 }
 
@@ -1512,7 +1512,7 @@ fun BoundLogRaft(
                         Text(
                             text = if (isRowing) "SAILING" else "FARMER",
                             fontSize = 7.sp,
-                            color = GoldenBankGlow,
+                            color = levelTheme.farmerNameColor,
                             fontWeight = FontWeight.ExtraBold
                         )
                     }
@@ -1526,6 +1526,7 @@ fun BoundLogRaft(
                                 isRowing = isRowing,
                                 headingRight = headingRight,
                                 oarAngle = oarAngle,
+                                levelTheme = levelTheme,
                                 gameHaptics = gameHaptics,
                                 onPassengerClick = onPassengerClick
                             )
@@ -1561,9 +1562,9 @@ fun BoundLogRaft(
                             )
 
                             val borderStroke = if (isDropActive) {
-                                BorderStroke(2.6.dp, Color(0xFFFDE047))
+                                BorderStroke(2.6.dp, levelTheme.boatTrimColor)
                             } else {
-                                BorderStroke(1.4.dp, GoldenBankGlow.copy(alpha = 0.85f * slotScale))
+                                BorderStroke(1.4.dp, levelTheme.boatTrimColor.copy(alpha = 0.85f * slotScale))
                             }
 
                             Box(
@@ -1576,13 +1577,13 @@ fun BoundLogRaft(
                                             .size(width = 38.dp, height = 42.dp)
                                             .scale(activePulseScale * 1.08f)
                                             .clip(RoundedCornerShape(12.dp))
-                                            .background(Color(0x55FDE047))
+                                            .background(levelTheme.boatAccentGlow.copy(alpha = 0.35f))
                                     )
                                 }
 
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
-                                    color = if (isDropActive) Color(0xDD3D2600) else Color(0x880B101D),
+                                    color = if (isDropActive) levelTheme.boatHullColors.last().copy(alpha = 0.9f) else Color(0x880B101D),
                                     border = borderStroke,
                                     shadowElevation = if (isDropActive) 6.dp else 1.dp,
                                     modifier = Modifier
@@ -1597,7 +1598,7 @@ fun BoundLogRaft(
                                         Icon(
                                             imageVector = Icons.Default.Add,
                                             contentDescription = "Drop slot",
-                                            tint = if (isDropActive) Color(0xFFFFFBEB) else GoldenBankGlow,
+                                            tint = if (isDropActive) Color.White else levelTheme.boatTrimColor,
                                             modifier = Modifier
                                                 .size(if (isDropActive) 15.dp else 13.dp)
                                                 .offset(y = slotIconBounce.dp)
@@ -1605,7 +1606,7 @@ fun BoundLogRaft(
                                         Text(
                                             text = "DROP",
                                             fontSize = if (isDropActive) 7.5.sp else 7.sp,
-                                            color = if (isDropActive) Color(0xFFFFFBEB) else GoldenBankGlow,
+                                            color = if (isDropActive) Color.White else levelTheme.boatTrimColor,
                                             fontWeight = FontWeight.Black,
                                             letterSpacing = 0.5.sp
                                         )
@@ -1629,6 +1630,7 @@ private fun RaftPassengerSlot(
     isRowing: Boolean,
     headingRight: Boolean,
     oarAngle: () -> Float = { 0f },
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     gameHaptics: GameHaptics? = null,
     onPassengerClick: (GameItem) -> Unit
 ) {
@@ -1740,7 +1742,7 @@ private fun RaftPassengerSlot(
                         listOf(WoodButtonTop, WoodButtonBottom)
                     )
                 )
-                .border(1.4.dp, GoldenBankGlow, RoundedCornerShape(10.dp))
+                .border(1.4.dp, levelTheme.boatTrimColor, RoundedCornerShape(10.dp))
                 .padding(horizontal = 4.dp, vertical = 2.dp)
                 .testTag("boat_passenger_${passenger.id}")
         ) {
@@ -1779,7 +1781,7 @@ private fun RaftPassengerSlot(
             Text(
                 text = passenger.displayName.uppercase(),
                 fontSize = 7.sp,
-                color = GoldenBankGlow,
+                color = levelTheme.objectNameColor,
                 fontWeight = FontWeight.ExtraBold,
                 maxLines = 1
             )
@@ -1791,7 +1793,10 @@ private fun RaftPassengerSlot(
  * Animated Farmer Captain Dock Token on the River Bank.
  */
 @Composable
-private fun FarmerDockToken(isVictory: Boolean = false) {
+private fun FarmerDockToken(
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
+    isVictory: Boolean = false
+) {
     val infiniteTransition = rememberInfiniteTransition(label = "farmer_idle")
     val farmerBobState = infiniteTransition.animateFloat(
         initialValue = -1.5f,
@@ -1812,10 +1817,19 @@ private fun FarmerDockToken(isVictory: Boolean = false) {
         label = "farmer_victory_hop"
     )
 
+    val bgColors = if (isVictory) {
+        listOf(Color(0xFFEAB308), Color(0xFFCA8A04))
+    } else {
+        levelTheme.farmerTokenBackgroundColors
+    }
+    val borderColor = if (isVictory) Color(0xFFFDE047) else levelTheme.farmerTokenBorderColor
+    val nameColor = if (isVictory) Color(0xFFFEF08A) else levelTheme.farmerNameColor
+    val statusColor = if (isVictory) Color(0xFFFEF08A) else levelTheme.farmerStatusColor
+
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = WoodButtonBottom,
-        border = BorderStroke(1.5.dp, if (isVictory) Color(0xFFFDE047) else GoldenBankGlow),
+        color = bgColors.last().copy(alpha = 0.85f),
+        border = BorderStroke(1.5.dp, borderColor),
         shadowElevation = 4.dp,
         modifier = Modifier
             .fillMaxWidth()
@@ -1828,7 +1842,7 @@ private fun FarmerDockToken(isVictory: Boolean = false) {
                 .fillMaxWidth()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(WoodButtonTop, WoodButtonBottom)
+                        colors = bgColors.map { it.copy(alpha = 0.85f) }
                     )
                 )
                 .padding(horizontal = 5.dp, vertical = 3.dp)
@@ -1855,14 +1869,14 @@ private fun FarmerDockToken(isVictory: Boolean = false) {
                         text = if (isVictory) "HOORAY!" else "FARMER",
                         fontSize = 9.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = if (isVictory) Color(0xFFFEF08A) else GoldenBankGlow,
+                        color = nameColor,
                         letterSpacing = 0.5.sp
                     )
                     Text(
                         text = if (isVictory) "Safe Across" else "Docked",
                         fontSize = 7.5.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = Color(0xFF94A3B8)
+                        color = statusColor
                     )
                 }
             }

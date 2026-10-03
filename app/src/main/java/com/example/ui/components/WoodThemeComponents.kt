@@ -139,6 +139,7 @@ fun WoodSignboardHeader(
     onOpenRules: () -> Unit,
     onToggleMute: () -> Unit,
     onOpenModifiers: () -> Unit,
+    levelTheme: LevelTheme = LevelTheme.forScenario(scenario),
     modifier: Modifier = Modifier
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "header_ambient_anim")
@@ -190,20 +191,25 @@ fun WoodSignboardHeader(
 
     Card(
         shape = RoundedCornerShape(18.dp),
-        colors = CardDefaults.cardColors(containerColor = RiverDeepBlueDark),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         border = BorderStroke(
             1.8.dp,
-            Brush.horizontalGradient(
-                listOf(RiverTimberBorder, RiverWaterCyan, RiverTimberBorder)
-            )
+            Brush.horizontalGradient(levelTheme.headerBorderColors.map { it.copy(alpha = 0.85f) })
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         modifier = modifier
             .fillMaxWidth()
-            .shadow(8.dp, RoundedCornerShape(18.dp))
             .testTag("wood_signboard_header")
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    Brush.verticalGradient(
+                        colors = levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.58f) }
+                    )
+                )
+        ) {
             // Ambient light gleam traveling across the carved wooden signboard
             Canvas(modifier = Modifier.matchParentSize()) {
                 val sheenW = size.width * 0.32f
@@ -225,11 +231,6 @@ fun WoodSignboardHeader(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(RiverDeepBlueMid, RiverDeepBlueDark)
-                        )
-                    )
                     .padding(horizontal = 10.dp, vertical = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -250,8 +251,8 @@ fun WoodSignboardHeader(
                 )
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.2.dp, Color(0xFF38BDF8).copy(alpha = 0.6f)),
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.2.dp, levelTheme.headerAccentColor.copy(alpha = 0.7f)),
                     modifier = Modifier
                         .scale(backScale)
                         .clickable(
@@ -269,7 +270,7 @@ fun WoodSignboardHeader(
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = "Back to Levels",
-                                tint = Color(0xFFE0F2FE),
+                                tint = levelTheme.headerAccentColor,
                                 modifier = Modifier.size(16.dp)
                             )
                             Spacer(modifier = Modifier.width(3.dp))
@@ -277,7 +278,7 @@ fun WoodSignboardHeader(
                                 text = "LEVELS",
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFFE0F2FE)
+                                color = levelTheme.headerAccentColor
                             )
                         }
                     }
@@ -285,7 +286,6 @@ fun WoodSignboardHeader(
 
                 // Main Title & Biome Theme Badge
                 val displayTitle = if (scenario.title.startsWith("Level ")) scenario.title else "Level ${scenario.levelNumber}: ${scenario.title}"
-                val theme = LevelTheme.forScenario(scenario)
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.spacedBy(1.dp)
@@ -299,14 +299,14 @@ fun WoodSignboardHeader(
                     )
                     Surface(
                         shape = RoundedCornerShape(8.dp),
-                        color = Color(0x35000000),
-                        border = BorderStroke(0.8.dp, Color(0xFF38BDF8).copy(alpha = 0.7f))
+                        color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                        border = BorderStroke(0.8.dp, levelTheme.headerAccentColor.copy(alpha = 0.7f))
                     ) {
                         Text(
-                            text = "${theme.iconEmoji} ${theme.name}",
+                            text = "${levelTheme.iconEmoji} ${levelTheme.name}",
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFBAE6FD),
+                            color = levelTheme.headerTextColor,
                             modifier = Modifier.padding(horizontal = 6.dp, vertical = 1.dp)
                         )
                     }
@@ -343,7 +343,7 @@ fun WoodSignboardHeader(
                         Icon(
                             imageVector = if (isMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp,
                             contentDescription = if (isMuted) "Unmute Sound" else "Mute Sound",
-                            tint = if (isMuted) Color(0xFFEF4444) else Color(0xFFE0F2FE),
+                            tint = if (isMuted) Color(0xFFEF4444) else levelTheme.headerAccentColor,
                             modifier = Modifier.size(19.dp)
                         )
                     }
@@ -359,7 +359,7 @@ fun WoodSignboardHeader(
                             Icon(
                                 imageVector = Icons.Default.MoreVert,
                                 contentDescription = "Game Menu",
-                                tint = Color(0xFFE0F2FE),
+                                tint = levelTheme.headerAccentColor,
                                 modifier = Modifier.size(19.dp)
                             )
                         }
@@ -368,8 +368,8 @@ fun WoodSignboardHeader(
                             expanded = isMenuExpanded,
                             onDismissRequest = { isMenuExpanded = false },
                             modifier = Modifier
-                                .background(Color(0xFF072449))
-                                .border(1.2.dp, Color(0xFF38BDF8).copy(alpha = 0.7f), RoundedCornerShape(8.dp))
+                                .background(levelTheme.headerBackgroundColors.first().copy(alpha = 0.90f))
+                                .border(1.2.dp, levelTheme.headerAccentColor.copy(alpha = 0.7f), RoundedCornerShape(8.dp))
                         ) {
                             DropdownMenuItem(
                                 text = {
@@ -493,8 +493,8 @@ fun WoodSignboardHeader(
                             .width(46.dp)
                             .height(5.dp)
                             .clip(RoundedCornerShape(3.dp))
-                            .background(Color(0x88080C14))
-                            .border(0.6.dp, ClassyGoldPrimary.copy(alpha = 0.35f), RoundedCornerShape(3.dp))
+                            .background(Color(0x88000000))
+                            .border(0.6.dp, levelTheme.headerAccentColor.copy(alpha = 0.45f), RoundedCornerShape(3.dp))
                     ) {
                         Box(
                             modifier = Modifier
@@ -509,7 +509,7 @@ fun WoodSignboardHeader(
                         text = "Goal: ${scenario.optimalMoves} moves",
                         fontSize = 11.5.sp,
                         fontWeight = FontWeight.Medium,
-                        color = if (moveCount > optimalMoves) Color(0xFFFCA5A5) else Color(0xFFE5D5C5)
+                        color = if (moveCount > optimalMoves) Color(0xFFFCA5A5) else levelTheme.headerTextColor.copy(alpha = 0.9f)
                     )
                 }
 
@@ -527,7 +527,7 @@ fun WoodSignboardHeader(
                         text = formatTime(elapsedSeconds),
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFBAE6FD)
+                        color = levelTheme.headerTimerColor
                     )
                 }
             }
@@ -543,12 +543,13 @@ fun WoodSignboardHeader(
 fun WoodCargoBadge(
     passengers: List<GameItem>,
     boatCapacity: Int,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     modifier: Modifier = Modifier
 ) {
     Surface(
         shape = RoundedCornerShape(14.dp),
-        color = WoodPillBackground,
-        border = BorderStroke(1.5.dp, WoodButtonBorder),
+        color = levelTheme.headerBackgroundColors.first().copy(alpha = 0.85f),
+        border = BorderStroke(1.5.dp, levelTheme.headerBorderColors.first().copy(alpha = 0.75f)),
         shadowElevation = 4.dp,
         modifier = modifier.testTag("wood_cargo_badge")
     ) {
@@ -566,7 +567,7 @@ fun WoodCargoBadge(
                 text = cargoText,
                 fontSize = 13.5.sp,
                 fontWeight = FontWeight.Bold,
-                color = WoodGoldenText,
+                color = levelTheme.headerTextColor,
                 style = TextStyle(
                     shadow = Shadow(
                         color = Color(0x88000000),
@@ -593,6 +594,7 @@ fun WoodSetSailButton(
     enabled: Boolean,
     subtext: String? = null,
     isConflict: Boolean = false,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -681,33 +683,29 @@ fun WoodSetSailButton(
     val buttonBg = when {
         isConflict -> listOf(Color(0xFF7F1D1D), Color(0xFF450A0A))
         !enabled -> listOf(Color(0xE60A2B4E), Color(0xCC061A30))
-        isPressed -> listOf(Color(0xFF15803D), Color(0xFF14532D))
-        else -> listOf(
-            Color(0xFF4ADE80), // Forest Meadow Green top
-            Color(0xFF22C55E), // Lush Emerald core
-            Color(0xFF16A34A), // Rich Forest Green
-            Color(0xFF15803D)  // Deep Pine Green bevel
+        isPressed -> listOf(
+            levelTheme.sailButtonColors.last(),
+            levelTheme.sailButtonColors.last()
         )
+        else -> levelTheme.sailButtonColors
     }
     val borderBrush = when {
         isConflict -> Brush.verticalGradient(listOf(Color(0xFFEF4444), Color(0xFF991B1B)))
         !enabled -> Brush.verticalGradient(listOf(Color(0xFF1E4976), Color(0xFF0F2B48)))
-        isPressed -> Brush.verticalGradient(listOf(Color(0xFF86EFAC), Color(0xFF22C55E)))
-        else -> Brush.verticalGradient(
+        isPressed -> Brush.verticalGradient(
             listOf(
-                Color(0xFFFEF08A), // Sunlit Gold highlight
-                Color(0xFFFACC15), // 24k Gold
-                RiverTimberBorder, // Earthy timber bevel
-                RiverEarthBrownMid // Deep carved wood
+                levelTheme.sailButtonBorderColors.getOrElse(1) { Color(0xFF86EFAC) },
+                levelTheme.sailButtonColors.first()
             )
         )
+        else -> Brush.verticalGradient(levelTheme.sailButtonBorderColors)
     }
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        // Subtle concentric aquatic wake ripples radiating behind the button when ready
+        // Subtle concentric aquatic wake ripples radiating behind the button adapting to levelTheme
         if (enabled && !isRowing && !isConflict) {
             Box(
                 modifier = Modifier
@@ -717,13 +715,13 @@ fun WoodSetSailButton(
                         scaleY = wakePulse
                         alpha = wakeAlpha
                     }
-                    .border(1.8.dp, Color(0xFF38BDF8), RoundedCornerShape(20.dp))
+                    .border(1.8.dp, levelTheme.sailButtonGlow.copy(alpha = 0.85f), RoundedCornerShape(20.dp))
             )
         }
 
         Surface(
             shape = RoundedCornerShape(18.dp),
-            color = if (isConflict) Color(0xFF7F1D1D) else if (enabled) RiverForestGreenMid else Color(0xFF0A2B4E),
+            color = if (isConflict) Color(0xFF7F1D1D) else if (enabled) levelTheme.sailButtonColors.getOrElse(1) { RiverForestGreenMid } else Color(0xFF0A2B4E),
             border = BorderStroke(if (isPressed || isConflict) 3.2.dp else 2.6.dp, borderBrush),
             shadowElevation = shadowElevation,
             modifier = Modifier
@@ -736,7 +734,7 @@ fun WoodSetSailButton(
                 .shadow(
                     elevation = shadowElevation,
                     shape = RoundedCornerShape(18.dp),
-                    spotColor = if (enabled && !isConflict) Color(0x9922C55E) else Color(0x33000000)
+                    spotColor = if (enabled && !isConflict) levelTheme.sailButtonGlow else Color(0x33000000)
                 )
                 .clip(RoundedCornerShape(18.dp))
                 .clickable(
@@ -812,13 +810,11 @@ fun WoodSetSailButton(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        if (isRowing) {
-                            Text(
-                                text = "⛵ ",
-                                fontSize = 20.sp,
-                                modifier = Modifier.offset(y = oarBob.dp)
-                            )
-                        }
+                        Text(
+                            text = "⛵ ",
+                            fontSize = 20.sp,
+                            modifier = Modifier.offset(y = if (isRowing) oarBob.dp else 0.dp)
+                        )
                         Text(
                             text = if (isRowing) "SAILING ACROSS..." else "S E T   S A I L",
                             fontSize = if (isRowing) 17.sp else 19.sp,
@@ -867,12 +863,13 @@ fun FloatingSkyCargoBadge(
     farmerBank: Bank,
     passengers: List<GameItem>,
     scenario: PuzzleScenario,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     modifier: Modifier = Modifier
 ) {
     Surface(
         shape = RoundedCornerShape(18.dp),
-        color = Color(0xDD0A2A54),
-        border = BorderStroke(1.5.dp, Color(0xFF38BDF8).copy(alpha = 0.7f)),
+        color = levelTheme.headerBackgroundColors.first().copy(alpha = 0.80f),
+        border = BorderStroke(1.5.dp, levelTheme.headerBorderColors.first().copy(alpha = 0.7f)),
         shadowElevation = 6.dp,
         modifier = modifier.testTag("floating_sky_cargo_badge")
     ) {
@@ -893,19 +890,19 @@ fun FloatingSkyCargoBadge(
                     modifier = Modifier
                         .size(32.dp)
                         .clip(CircleShape)
-                        .border(1.5.dp, GoldenBankGlow, CircleShape)
+                        .border(1.5.dp, levelTheme.farmerTokenBorderColor, CircleShape)
                 )
                 Text(
                     text = "FARMER",
                     fontSize = 8.5.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = levelTheme.farmerNameColor
                 )
                 Text(
                     text = "Present",
                     fontSize = 8.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF4ADE80)
+                    color = levelTheme.farmerStatusColor
                 )
             }
 
@@ -926,7 +923,7 @@ fun FloatingSkyCargoBadge(
                                 .clip(CircleShape)
                                 .border(
                                     1.5.dp,
-                                    if (isLoaded) GoldenBankGlow else Color(0x4038BDF8),
+                                    if (isLoaded) levelTheme.headerAccentColor else levelTheme.objectTokenBorderColor.copy(alpha = 0.40f),
                                     CircleShape
                                 )
                         )
@@ -935,13 +932,13 @@ fun FloatingSkyCargoBadge(
                         text = item.displayName.uppercase(),
                         fontSize = 8.5.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color.White
+                        color = levelTheme.objectNameColor
                     )
                     Text(
                         text = if (isLoaded) "Loaded" else "Waiting",
                         fontSize = 8.sp,
                         fontWeight = FontWeight.Bold,
-                        color = if (isLoaded) GoldenBankGlow else Color(0xFF94A3B8)
+                        color = if (isLoaded) levelTheme.headerAccentColor else Color(0xFF94A3B8)
                     )
                 }
             }
@@ -992,6 +989,7 @@ fun WoodActionButton(
     icon: ImageVector? = null,
     enabled: Boolean = true,
     testTag: String,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -1043,14 +1041,17 @@ fun WoodActionButton(
         1.0f
     }
 
+    val primaryBg = levelTheme.actionButtonColors.first()
+    val secondaryBg = if (levelTheme.actionButtonColors.size > 1) levelTheme.actionButtonColors[1] else primaryBg
+
     Surface(
         shape = RoundedCornerShape(11.dp),
-        color = if (isPressed) Color(0xFF0F3666) else if (enabled) Color(0xEA09244B) else Color(0x6609244B),
+        color = if (isPressed) secondaryBg.copy(alpha = 0.70f) else if (enabled) primaryBg.copy(alpha = 0.55f) else primaryBg.copy(alpha = 0.25f),
         border = BorderStroke(
             1.4.dp,
-            if (isPressed) GoldenBankGlow else if (isHint) Color(0xFFFBBF24) else if (enabled) Color(0xFF38BDF8).copy(alpha = 0.8f) else Color(0x3338BDF8)
+            if (isPressed) GoldenBankGlow else if (isHint) Color(0xFFFBBF24) else if (enabled) levelTheme.actionButtonBorder.copy(alpha = 0.85f) else levelTheme.actionButtonBorder.copy(alpha = 0.25f)
         ),
-        shadowElevation = if (isPressed) 1.dp else if (enabled) 3.dp else 1.dp,
+        shadowElevation = if (isPressed) 1.dp else if (enabled) 2.dp else 1.dp,
         modifier = modifier
             .graphicsLayer {
                 scaleX = buttonScale
@@ -1071,16 +1072,16 @@ fun WoodActionButton(
                     if (enabled) {
                         Brush.verticalGradient(
                             if (isPressed) {
-                                listOf(Color(0xFF0D3768), Color(0xFF082040))
+                                listOf(secondaryBg.copy(alpha = 0.75f), primaryBg.copy(alpha = 0.75f))
                             } else if (isHint) {
-                                listOf(Color(0xFF78350F), Color(0xFF451A03))
+                                listOf(Color(0xC078350F), Color(0xC0451A03))
                             } else {
-                                listOf(Color(0xF00D3C77), Color(0xF007234A))
+                                levelTheme.actionButtonColors.map { it.copy(alpha = 0.60f) }
                             }
                         )
                     } else {
                         Brush.verticalGradient(
-                            colors = listOf(Color(0x66082246), Color(0x4405162E))
+                            colors = listOf(primaryBg.copy(alpha = 0.25f), secondaryBg.copy(alpha = 0.20f))
                         )
                     }
                 )
@@ -1092,7 +1093,7 @@ fun WoodActionButton(
                 Icon(
                     imageVector = icon,
                     contentDescription = text,
-                    tint = if (isHint) Color(0xFFFDE047) else if (enabled) Color(0xFFBAE6FD) else Color(0xFF64748B),
+                    tint = if (isHint) Color(0xFFFDE047) else if (enabled) levelTheme.actionButtonTextColor else Color(0xFF94A3B8),
                     modifier = Modifier
                         .size(13.dp)
                         .rotate(iconRotation)
@@ -1107,7 +1108,7 @@ fun WoodActionButton(
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
                 softWrap = false,
-                color = if (isHint) Color(0xFFFEF08A) else if (enabled) Color.White else Color(0xFF64748B)
+                color = if (isHint) Color(0xFFFEF08A) else if (enabled) levelTheme.actionButtonTextColor else Color(0xFF94A3B8)
             )
         }
     }

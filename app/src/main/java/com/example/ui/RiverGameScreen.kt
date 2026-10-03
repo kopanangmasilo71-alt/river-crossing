@@ -21,6 +21,7 @@ import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,6 +40,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.AccountTree
@@ -81,6 +84,7 @@ import androidx.compose.material.icons.filled.Tune
 import kotlinx.coroutines.delay
 import com.example.model.DifficultyMode
 import com.example.model.GameStatus
+import com.example.model.LevelTheme
 import com.example.model.PuzzleScenarios
 import com.example.ads.AdManager
 import com.example.ads.AdMobBanner
@@ -310,6 +314,9 @@ private fun GameplayScreenContent(
     }
 
     val currentScenario = riverState.scenario
+    val levelTheme = remember(currentScenario.levelNumber) {
+        LevelTheme.forScenario(currentScenario)
+    }
 
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -333,8 +340,32 @@ private fun GameplayScreenContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(VibrantBackground)
+            .background(
+                Brush.verticalGradient(
+                    colors = listOf(
+                        levelTheme.waterGradientTop,
+                        levelTheme.waterGradientBottom
+                    )
+                )
+            )
     ) {
+        // Fullscreen level theme background image matching the game panel
+        Image(
+            painter = painterResource(id = levelTheme.backgroundDrawableRes),
+            contentDescription = "${levelTheme.name} Fullscreen Background",
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        // Thematic atmospheric color grading overlay matching the level theme
+        if (levelTheme.atmosphericOverlayColor != Color.Transparent) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(levelTheme.atmosphericOverlayColor)
+            )
+        }
+
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -355,7 +386,8 @@ private fun GameplayScreenContent(
                     onOpenTutorial = { showComicVignette = true },
                     onOpenRules = { showRulesDialog = true },
                     onToggleMute = { viewModel.toggleMute() },
-                    onOpenModifiers = { showDifficultyDialog = true }
+                    onOpenModifiers = { showDifficultyDialog = true },
+                    levelTheme = levelTheme
                 )
             } else {
                 CompactLandscapeHeader(
@@ -366,7 +398,8 @@ private fun GameplayScreenContent(
                     onBack = { viewModel.navigateToLevelSelect() },
                     onOpenStory = { showComicVignette = true },
                     onOpenRules = { showRulesDialog = true },
-                    onToggleMute = { viewModel.toggleMute() }
+                    onToggleMute = { viewModel.toggleMute() },
+                    levelTheme = levelTheme
                 )
             }
 
@@ -386,6 +419,7 @@ private fun GameplayScreenContent(
                     gameHaptics = gameHaptics,
                     onItemClick = { viewModel.toggleItem(it) },
                     isVictory = gameStatus == GameStatus.VICTORY,
+                    theme = levelTheme,
                     modifier = Modifier.fillMaxSize()
                 )
 
@@ -400,9 +434,9 @@ private fun GameplayScreenContent(
                 ) {
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = RiverDeepBlueDark,
-                        border = BorderStroke(1.5.dp, Color(0xFFF59E0B)),
-                        shadowElevation = 8.dp,
+                        color = levelTheme.headerSurfaceColor.copy(alpha = 0.75f),
+                        border = BorderStroke(1.5.dp, levelTheme.headerAccentColor),
+                        shadowElevation = 4.dp,
                         modifier = Modifier.testTag("boat_full_alert_banner")
                     ) {
                         Row(
@@ -411,14 +445,14 @@ private fun GameplayScreenContent(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color(0x33F59E0B),
+                                color = levelTheme.headerAccentColor.copy(alpha = 0.25f),
                                 modifier = Modifier.size(26.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.Warning,
                                         contentDescription = null,
-                                        tint = Color(0xFFFBBF24),
+                                        tint = levelTheme.headerAccentColor,
                                         modifier = Modifier.size(16.dp)
                                     )
                                 }
@@ -428,7 +462,7 @@ private fun GameplayScreenContent(
                                 text = boatFullAlert ?: "",
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFFFDE68A),
+                                color = levelTheme.headerTextColor,
                                 modifier = Modifier.weight(1f)
                             )
                             IconButton(
@@ -438,7 +472,7 @@ private fun GameplayScreenContent(
                                 Icon(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "Dismiss Alert",
-                                    tint = Color(0xFFFBBF24),
+                                    tint = levelTheme.headerAccentColor,
                                     modifier = Modifier.size(15.dp)
                                 )
                             }
@@ -457,9 +491,9 @@ private fun GameplayScreenContent(
                 ) {
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = RiverDeepBlueDark,
-                        border = BorderStroke(1.5.dp, GoldenBankGlow),
-                        shadowElevation = 8.dp,
+                        color = levelTheme.headerSurfaceColor.copy(alpha = 0.75f),
+                        border = BorderStroke(1.5.dp, levelTheme.headerAccentColor),
+                        shadowElevation = 4.dp,
                         modifier = Modifier.testTag("floating_hint_bubble")
                     ) {
                         Row(
@@ -472,7 +506,7 @@ private fun GameplayScreenContent(
                                 text = hintMessage ?: "",
                                 fontSize = 11.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = GoldenBankGlow,
+                                color = levelTheme.headerTextColor,
                                 modifier = Modifier.weight(1f)
                             )
                             IconButton(
@@ -482,7 +516,7 @@ private fun GameplayScreenContent(
                                 Icon(
                                     imageVector = Icons.Default.Close,
                                     contentDescription = "Dismiss Hint",
-                                    tint = Color(0xFFBAE6FD),
+                                    tint = levelTheme.headerAccentColor,
                                     modifier = Modifier.size(15.dp)
                                 )
                             }
@@ -502,6 +536,7 @@ private fun GameplayScreenContent(
                     WoodSetSailButton(
                         isRowing = gameStatus == GameStatus.ROWING,
                         enabled = gameStatus != GameStatus.GAME_OVER && gameStatus != GameStatus.VICTORY,
+                        levelTheme = levelTheme,
                         onClick = { viewModel.crossRiver() }
                     )
 
@@ -516,6 +551,7 @@ private fun GameplayScreenContent(
                             text = "RESET",
                             icon = Icons.Default.Refresh,
                             testTag = "wood_reset_button",
+                            levelTheme = levelTheme,
                             onClick = { viewModel.restartGame() },
                             modifier = Modifier.weight(1f)
                         )
@@ -525,6 +561,7 @@ private fun GameplayScreenContent(
                             icon = Icons.Default.Undo,
                             enabled = moveHistory.isNotEmpty(),
                             testTag = "wood_undo_button",
+                            levelTheme = levelTheme,
                             onClick = { viewModel.undoMove() },
                             modifier = Modifier.weight(1f)
                         )
@@ -534,6 +571,7 @@ private fun GameplayScreenContent(
                                 text = "HINT",
                                 icon = Icons.Default.Lightbulb,
                                 testTag = "wood_hint_button",
+                                levelTheme = levelTheme,
                                 onClick = { viewModel.provideHint() },
                                 modifier = Modifier.weight(1f)
                             )
@@ -560,6 +598,7 @@ private fun GameplayScreenContent(
                         text = "RESET",
                         icon = Icons.Default.Refresh,
                         testTag = "wood_reset_button",
+                        levelTheme = levelTheme,
                         onClick = { viewModel.restartGame() },
                         modifier = Modifier.widthIn(max = 110.dp)
                     )
@@ -567,6 +606,7 @@ private fun GameplayScreenContent(
                     WoodSetSailButton(
                         isRowing = gameStatus == GameStatus.ROWING,
                         enabled = gameStatus != GameStatus.GAME_OVER && gameStatus != GameStatus.VICTORY,
+                        levelTheme = levelTheme,
                         onClick = { viewModel.crossRiver() },
                         modifier = Modifier
                             .widthIn(max = 240.dp)
@@ -578,6 +618,7 @@ private fun GameplayScreenContent(
                         icon = Icons.Default.Undo,
                         enabled = moveHistory.isNotEmpty(),
                         testTag = "wood_undo_button",
+                        levelTheme = levelTheme,
                         onClick = { viewModel.undoMove() },
                         modifier = Modifier.widthIn(max = 110.dp)
                     )
@@ -587,6 +628,7 @@ private fun GameplayScreenContent(
                             text = "HINT",
                             icon = Icons.Default.Lightbulb,
                             testTag = "wood_hint_button",
+                            levelTheme = levelTheme,
                             onClick = { viewModel.provideHint() },
                             modifier = Modifier.widthIn(max = 100.dp)
                         )
@@ -721,22 +763,21 @@ private fun CompactLandscapeHeader(
     onOpenStory: () -> Unit,
     onOpenRules: () -> Unit,
     onToggleMute: () -> Unit,
+    levelTheme: LevelTheme = LevelTheme.forScenario(scenario),
     modifier: Modifier = Modifier
 ) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = RiverDeepBlueDark,
-        border = BorderStroke(1.5.dp, RiverTimberBorder),
-        shadowElevation = 4.dp,
+        color = Color.Transparent,
+        border = BorderStroke(1.5.dp, levelTheme.headerBorderColors.first().copy(alpha = 0.85f)),
+        shadowElevation = 0.dp,
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
-                    Brush.horizontalGradient(
-                        listOf(RiverDeepBlueMid, RiverDeepBlueDark, RiverDeepBlueMid)
-                    )
+                    Brush.horizontalGradient(levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.58f) })
                 )
                 .padding(horizontal = 8.dp, vertical = 3.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -746,8 +787,8 @@ private fun CompactLandscapeHeader(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.6f)),
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.6f)),
                     modifier = Modifier.clickable(onClick = onBack)
                 ) {
                     Row(
@@ -757,7 +798,7 @@ private fun CompactLandscapeHeader(
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = "Back",
-                            tint = Color(0xFFE0F2FE),
+                            tint = levelTheme.headerAccentColor,
                             modifier = Modifier.size(13.dp)
                         )
                         Spacer(modifier = Modifier.width(3.dp))
@@ -765,7 +806,7 @@ private fun CompactLandscapeHeader(
                             text = "LEVELS",
                             fontSize = 9.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFE0F2FE)
+                            color = levelTheme.headerAccentColor
                         )
                     }
                 }
@@ -796,8 +837,8 @@ private fun CompactLandscapeHeader(
             ) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f))
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.4f))
                 ) {
                     Text(
                         text = "MOVES: $moveCount / $optimalMoves",
@@ -812,22 +853,22 @@ private fun CompactLandscapeHeader(
                 val secs = elapsedSeconds % 60
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f))
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.4f))
                 ) {
                     Text(
                         text = String.format("%02d:%02d", mins, secs),
                         fontSize = 9.5.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFF86EFAC),
+                        color = levelTheme.headerTimerColor,
                         modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
                     )
                 }
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.4f)),
                     modifier = Modifier.clickable(onClick = onOpenStory)
                 ) {
                     Box(
@@ -843,8 +884,8 @@ private fun CompactLandscapeHeader(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.4f)),
                     modifier = Modifier.clickable(onClick = onOpenRules)
                 ) {
                     Box(
@@ -854,7 +895,7 @@ private fun CompactLandscapeHeader(
                         Icon(
                             imageVector = Icons.Default.HelpOutline,
                             contentDescription = "Rules",
-                            tint = Color(0xFFE0F2FE),
+                            tint = levelTheme.headerAccentColor,
                             modifier = Modifier.size(13.dp)
                         )
                     }
@@ -862,8 +903,8 @@ private fun CompactLandscapeHeader(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    color = levelTheme.headerSurfaceColor.copy(alpha = 0.50f),
+                    border = BorderStroke(1.dp, levelTheme.headerAccentColor.copy(alpha = 0.4f)),
                     modifier = Modifier.clickable(onClick = onToggleMute)
                 ) {
                     Box(
@@ -873,7 +914,7 @@ private fun CompactLandscapeHeader(
                         Icon(
                             imageVector = if (isMuted) Icons.Default.VolumeOff else Icons.Default.VolumeUp,
                             contentDescription = if (isMuted) "Unmute" else "Mute",
-                            tint = if (isMuted) Color(0xFFEF4444) else Color(0xFFE0F2FE),
+                            tint = if (isMuted) Color(0xFFEF4444) else levelTheme.headerAccentColor,
                             modifier = Modifier.size(13.dp)
                         )
                     }
