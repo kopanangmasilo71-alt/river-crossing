@@ -649,6 +649,7 @@ private fun GameplayScreenContent(
     if (gameStatus == GameStatus.GAME_OVER && activeViolation != null) {
         GameOverDialog(
             violation = activeViolation!!,
+            levelTheme = levelTheme,
             onUndo = { viewModel.undoMove() },
             onRestart = { viewModel.restartGame() }
         )
@@ -664,6 +665,7 @@ private fun GameplayScreenContent(
             moveCount = moveCount,
             timeSeconds = elapsedSeconds,
             scenario = currentScenario,
+            levelTheme = levelTheme,
             isNewBestTime = isNewBestTime,
             bestMoves = bestMoves,
             onPlayAgain = {
@@ -705,6 +707,7 @@ private fun GameplayScreenContent(
             highScores = highScores,
             bestTimeSeconds = bestTimeSeconds,
             initialLevelId = currentScenario.id,
+            levelTheme = levelTheme,
             onDismiss = { showLeaderboard = false },
             onClearScores = { viewModel.clearHighScoreHistory() }
         )
@@ -714,6 +717,7 @@ private fun GameplayScreenContent(
     if (showComicVignette) {
         ComicVignetteDialog(
             scenario = currentScenario,
+            levelTheme = levelTheme,
             onDismiss = { showComicVignette = false }
         )
     }
@@ -722,6 +726,7 @@ private fun GameplayScreenContent(
     if (showRulesDialog) {
         RulesDialog(
             scenario = currentScenario,
+            levelTheme = levelTheme,
             onDismiss = { showRulesDialog = false }
         )
     }
@@ -730,6 +735,7 @@ private fun GameplayScreenContent(
     if (showDifficultyDialog) {
         DifficultySelectorDialog(
             currentModifiers = difficultyModifiers,
+            levelTheme = levelTheme,
             onApplyModifiers = { newMods ->
                 viewModel.updateModifiers(newMods)
             },
@@ -742,6 +748,7 @@ private fun GameplayScreenContent(
         StateGraphVisualizerDialog(
             currentState = riverState,
             isAutoSolving = isAutoSolving,
+            levelTheme = levelTheme,
             onStartAutoSolve = { viewModel.startAutoSolver() },
             onStopAutoSolve = { viewModel.stopAutoSolver() },
             onDismiss = { showGraphDialog = false }

@@ -34,6 +34,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.model.LevelTheme
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuBtnAmberBorder
 import com.example.ui.theme.MenuBtnAmberBottom
@@ -62,20 +63,22 @@ import com.example.ui.theme.WoodTextMuted
 @Composable
 fun RulesDialog(
     scenario: com.example.model.PuzzleScenario? = null,
+    levelTheme: LevelTheme? = null,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val scrollState = rememberScrollState()
 
     val currentScenario = scenario ?: com.example.model.PuzzleScenarios.CLASSIC
+    val activeTheme = levelTheme ?: LevelTheme.forScenario(currentScenario)
 
     AlertDialog(
         onDismissRequest = onDismiss,
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = MenuBtnGreenBottom,
-                border = BorderStroke(1.8.dp, GoldenBankGlow),
+                color = activeTheme.sailButtonColors.last(),
+                border = BorderStroke(1.8.dp, activeTheme.sailButtonBorderColors.first()),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onDismiss)
@@ -85,9 +88,7 @@ fun RulesDialog(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(
-                            Brush.verticalGradient(
-                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
-                            )
+                            Brush.verticalGradient(activeTheme.sailButtonColors)
                         )
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
@@ -106,7 +107,7 @@ fun RulesDialog(
                     Icon(
                         imageVector = Icons.Default.MenuBook,
                         contentDescription = null,
-                        tint = GoldenBankGlow,
+                        tint = activeTheme.headerAccentColor,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -114,11 +115,11 @@ fun RulesDialog(
                         text = "Level ${currentScenario.levelNumber}: Rules & Lore",
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 17.sp,
-                        color = Color.White
+                        color = activeTheme.headerTextColor
                     )
                 }
                 IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = GoldenBankGlow)
+                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = activeTheme.headerAccentColor)
                 }
             }
         },
@@ -209,7 +210,7 @@ fun RulesDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF62C1408),
+        containerColor = activeTheme.headerBackgroundColors.last().copy(alpha = 0.97f),
         modifier = modifier
     )
 }

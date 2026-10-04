@@ -55,6 +55,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.data.db.HighScoreEntity
+import com.example.model.LevelTheme
 import com.example.model.PuzzleScenarios
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuBtnAmberBorder
@@ -89,6 +90,7 @@ fun HighScoresDialog(
     highScores: List<HighScoreEntity>,
     bestTimeSeconds: Long? = null,
     initialLevelId: String? = null,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onDismiss: () -> Unit,
     onClearScores: () -> Unit,
     modifier: Modifier = Modifier
@@ -113,8 +115,8 @@ fun HighScoresDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = MenuBtnAmberBottom,
-                border = BorderStroke(1.8.dp, GoldenBankGlow),
+                color = levelTheme.sailButtonColors.first(),
+                border = BorderStroke(1.8.dp, levelTheme.sailButtonBorderColors.first()),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onDismiss)
@@ -125,7 +127,7 @@ fun HighScoresDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
+                                levelTheme.sailButtonColors
                             )
                         )
                         .padding(vertical = 12.dp),
@@ -361,7 +363,7 @@ fun HighScoresDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF62C1408),
+        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
         modifier = modifier
     )
 

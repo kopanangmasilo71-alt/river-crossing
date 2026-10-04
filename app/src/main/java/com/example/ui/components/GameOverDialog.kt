@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.R
+import com.example.model.LevelTheme
 import com.example.model.ViolationType
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuBtnAmberBorder
@@ -67,6 +68,7 @@ import com.example.ui.theme.WoodSignboardBorder
 @Composable
 fun GameOverDialog(
     violation: ViolationType,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onUndo: () -> Unit,
     onRestart: () -> Unit,
     modifier: Modifier = Modifier
@@ -89,13 +91,13 @@ fun GameOverDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(26.dp),
-            color = Color(0xF62C1408),
+            color = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
             border = BorderStroke(
                 2.dp,
                 Brush.verticalGradient(
                     listOf(
                         Color(0xFFEF4444),
-                        GoldenBankGlow,
+                        levelTheme.headerAccentColor,
                         Color(0xFFB91C1C)
                     )
                 )
@@ -111,11 +113,7 @@ fun GameOverDialog(
                 modifier = Modifier
                     .background(
                         Brush.verticalGradient(
-                            listOf(
-                                Color(0xF43A1608),
-                                Color(0xF4250E05),
-                                Color(0xF41A0A04)
-                            )
+                            levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.95f) }
                         )
                     )
                     .padding(horizontal = 20.dp, vertical = 22.dp)
@@ -323,11 +321,11 @@ fun GameOverDialog(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        // Undo Move Button (Primary Recovery - Vibrant 3D Golden Amber)
+                        // Undo Move Button (Primary Recovery - Thematic 3D Pill)
                         Surface(
                             shape = RoundedCornerShape(14.dp),
-                            color = MenuBtnAmberBottom,
-                            border = BorderStroke(1.8.dp, GoldenBankGlow),
+                            color = levelTheme.sailButtonColors.last(),
+                            border = BorderStroke(1.8.dp, levelTheme.sailButtonBorderColors.first()),
                             shadowElevation = 6.dp,
                             modifier = Modifier
                                 .weight(1.1f)
@@ -338,9 +336,7 @@ fun GameOverDialog(
                             Box(
                                 modifier = Modifier
                                     .background(
-                                        Brush.verticalGradient(
-                                            listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
-                                        )
+                                        Brush.verticalGradient(levelTheme.sailButtonColors)
                                     ),
                                 contentAlignment = Alignment.Center
                             ) {
@@ -365,10 +361,10 @@ fun GameOverDialog(
                             }
                         }
 
-                        // Restart Button (Reset - Warm Timber Pill with Crimson border)
+                        // Restart Button (Reset - Thematic Timber Pill with Crimson border)
                         Surface(
                             shape = RoundedCornerShape(14.dp),
-                            color = Color(0xCC2A1308),
+                            color = levelTheme.actionButtonColors.first().copy(alpha = 0.85f),
                             border = BorderStroke(1.2.dp, Color(0xFFEF4444)),
                             shadowElevation = 2.dp,
                             modifier = Modifier

@@ -768,11 +768,6 @@ private fun BankZone(
                 verticalArrangement = Arrangement.spacedBy(5.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // Farmer Captain presence
-                if (isFarmerHere) {
-                    FarmerDockToken(levelTheme = levelTheme, isVictory = isCelebrating)
-                }
-
                 // Characters on this bank
                 val itemsOnBank = riverState.scenario.items.filter {
                     riverState.isItemOnBank(it, bank)
@@ -1583,7 +1578,7 @@ fun BoundLogRaft(
 
                                 Surface(
                                     shape = RoundedCornerShape(10.dp),
-                                    color = if (isDropActive) levelTheme.boatHullColors.last().copy(alpha = 0.9f) else Color(0x880B101D),
+                                    color = if (isDropActive) levelTheme.passengerBerthBackgroundColors.last().copy(alpha = 0.95f) else Color(0x660B101D),
                                     border = borderStroke,
                                     shadowElevation = if (isDropActive) 6.dp else 1.dp,
                                     modifier = Modifier
@@ -1739,10 +1734,13 @@ private fun RaftPassengerSlot(
                 .clip(RoundedCornerShape(10.dp))
                 .background(
                     Brush.verticalGradient(
-                        listOf(WoodButtonTop, WoodButtonBottom)
+                        listOf(
+                            levelTheme.passengerBerthBackgroundColors.first().copy(alpha = 0.92f),
+                            levelTheme.passengerBerthBackgroundColors.last().copy(alpha = 0.96f)
+                        )
                     )
                 )
-                .border(1.4.dp, levelTheme.boatTrimColor, RoundedCornerShape(10.dp))
+                .border(1.4.dp, levelTheme.passengerBerthBorderColor, RoundedCornerShape(10.dp))
                 .padding(horizontal = 4.dp, vertical = 2.dp)
                 .testTag("boat_passenger_${passenger.id}")
         ) {
@@ -1785,101 +1783,6 @@ private fun RaftPassengerSlot(
                 fontWeight = FontWeight.ExtraBold,
                 maxLines = 1
             )
-        }
-    }
-}
-
-/**
- * Animated Farmer Captain Dock Token on the River Bank.
- */
-@Composable
-private fun FarmerDockToken(
-    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
-    isVictory: Boolean = false
-) {
-    val infiniteTransition = rememberInfiniteTransition(label = "farmer_idle")
-    val farmerBobState = infiniteTransition.animateFloat(
-        initialValue = -1.5f,
-        targetValue = 1.5f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(1200, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "farmer_bob"
-    )
-    val victoryHopState = infiniteTransition.animateFloat(
-        initialValue = 0f,
-        targetValue = if (isVictory) -12f else 0f,
-        animationSpec = infiniteRepeatable(
-            animation = tween(360, easing = FastOutSlowInEasing),
-            repeatMode = RepeatMode.Reverse
-        ),
-        label = "farmer_victory_hop"
-    )
-
-    val bgColors = if (isVictory) {
-        listOf(Color(0xFFEAB308), Color(0xFFCA8A04))
-    } else {
-        levelTheme.farmerTokenBackgroundColors
-    }
-    val borderColor = if (isVictory) Color(0xFFFDE047) else levelTheme.farmerTokenBorderColor
-    val nameColor = if (isVictory) Color(0xFFFEF08A) else levelTheme.farmerNameColor
-    val statusColor = if (isVictory) Color(0xFFFEF08A) else levelTheme.farmerStatusColor
-
-    Surface(
-        shape = RoundedCornerShape(12.dp),
-        color = bgColors.last().copy(alpha = 0.85f),
-        border = BorderStroke(1.5.dp, borderColor),
-        shadowElevation = 4.dp,
-        modifier = Modifier
-            .fillMaxWidth()
-            .graphicsLayer {
-                translationY = (farmerBobState.value + victoryHopState.value).dp.toPx()
-            }
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = bgColors.map { it.copy(alpha = 0.85f) }
-                    )
-                )
-                .padding(horizontal = 5.dp, vertical = 3.dp)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Box(
-                    contentAlignment = Alignment.BottomCenter,
-                    modifier = Modifier.size(28.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.img_farmer),
-                        contentDescription = "Farmer",
-                        contentScale = ContentScale.Fit,
-                        modifier = Modifier.fillMaxSize()
-                    )
-                }
-                Spacer(modifier = Modifier.width(5.dp))
-                Column {
-                    Text(
-                        text = if (isVictory) "HOORAY!" else "FARMER",
-                        fontSize = 9.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        color = nameColor,
-                        letterSpacing = 0.5.sp
-                    )
-                    Text(
-                        text = if (isVictory) "Safe Across" else "Docked",
-                        fontSize = 7.5.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = statusColor
-                    )
-                }
-            }
         }
     }
 }

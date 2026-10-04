@@ -86,6 +86,7 @@ fun VictoryDialog(
     moveCount: Int,
     timeSeconds: Long,
     scenario: PuzzleScenario = PuzzleScenarios.CLASSIC,
+    levelTheme: LevelTheme? = null,
     isNewBestTime: Boolean = false,
     bestMoves: Int? = null,
     onPlayAgain: () -> Unit,
@@ -96,6 +97,7 @@ fun VictoryDialog(
     onStarPop: ((Int) -> Unit)? = null,
     modifier: Modifier = Modifier
 ) {
+    val theme = levelTheme ?: remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
     val dialogScale = remember { Animatable(0.4f) }
     val star1Scale = remember { Animatable(0f) }
     val star2Scale = remember { Animatable(0f) }
@@ -200,14 +202,14 @@ fun VictoryDialog(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color(0x99031226))
+                .background(theme.headerBackgroundColors.first().copy(alpha = 0.70f))
                 .padding(horizontal = 16.dp, vertical = 20.dp),
             contentAlignment = Alignment.Center
         ) {
             Surface(
                 shape = RoundedCornerShape(26.dp),
-                color = Color(0xF62C1408),
-                border = BorderStroke(2.dp, GoldenBankGlow),
+                color = theme.headerBackgroundColors.last().copy(alpha = 0.96f),
+                border = BorderStroke(2.dp, Brush.verticalGradient(theme.headerBorderColors)),
                 shadowElevation = 16.dp,
                 modifier = Modifier
                     .fillMaxWidth(0.94f)
@@ -449,8 +451,8 @@ fun VictoryDialog(
                         if (onNextLevel != null) {
                             Surface(
                                 shape = RoundedCornerShape(14.dp),
-                                color = MenuBtnGreenBottom,
-                                border = BorderStroke(1.8.dp, GoldenBankGlow),
+                                color = theme.sailButtonColors.first(),
+                                border = BorderStroke(1.8.dp, theme.sailButtonBorderColors.first()),
                                 shadowElevation = 6.dp,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -462,7 +464,7 @@ fun VictoryDialog(
                                         .fillMaxWidth()
                                         .background(
                                             Brush.verticalGradient(
-                                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
+                                                theme.sailButtonColors
                                             )
                                         )
                                         .padding(vertical = 12.dp),

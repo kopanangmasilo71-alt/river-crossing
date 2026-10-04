@@ -85,7 +85,10 @@ data class LevelTheme(
     val farmerTokenBackgroundColors: List<Color> = listOf(dockWoodTop.copy(alpha = 0.95f), dockWoodBottom.copy(alpha = 0.92f)),
     val farmerTokenBorderColor: Color = bankAccentColor,
     val farmerNameColor: Color = badgeTextColor,
-    val farmerStatusColor: Color = bankAccentColor
+    val farmerStatusColor: Color = bankAccentColor,
+    // Seated boat cargo passenger berth theming
+    val passengerBerthBackgroundColors: List<Color> = listOf(dockWoodBottom.copy(alpha = 0.92f), raftWoodTone.copy(alpha = 0.88f)),
+    val passengerBerthBorderColor: Color = boatTrimColor
 ) {
     companion object {
         val SPRING_VALLEY = LevelTheme(
@@ -136,7 +139,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF018442E), Color(0xF00B2619)),
             farmerTokenBorderColor = Color(0xFF4ADE80),
             farmerNameColor = Color(0xFFD1FAE5),
-            farmerStatusColor = Color(0xFF86EFAC)
+            farmerStatusColor = Color(0xFF86EFAC),
+            passengerBerthBackgroundColors = listOf(Color(0xFF5A3519), Color(0xFF3E220D)),
+            passengerBerthBorderColor = Color(0xFFFACC15)
         )
 
         val AUTUMN_HARVEST = LevelTheme(
@@ -187,7 +192,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF05C2B0C), Color(0xF0381604)),
             farmerTokenBorderColor = Color(0xFFFBBF24),
             farmerNameColor = Color(0xFFFEF3C7),
-            farmerStatusColor = Color(0xFFFDE68A)
+            farmerStatusColor = Color(0xFFFDE68A),
+            passengerBerthBackgroundColors = listOf(Color(0xFF451A03), Color(0xFF2E0F02)),
+            passengerBerthBorderColor = Color(0xFFF59E0B)
         )
 
         val ALPINE_PEAKS = LevelTheme(
@@ -238,7 +245,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF01A4B75), Color(0xF00D2D49)),
             farmerTokenBorderColor = Color(0xFF7DD3FC),
             farmerNameColor = Color(0xFFE0F2FE),
-            farmerStatusColor = Color(0xFF7DD3FC)
+            farmerStatusColor = Color(0xFF7DD3FC),
+            passengerBerthBackgroundColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A)),
+            passengerBerthBorderColor = Color(0xFF38BDF8)
         )
 
         val SAVANNAH_SUN = LevelTheme(
@@ -289,7 +298,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF0662208), Color(0xF03D1204)),
             farmerTokenBorderColor = Color(0xFFFDE047),
             farmerNameColor = Color(0xFFFFEDD5),
-            farmerStatusColor = Color(0xFFFED7AA)
+            farmerStatusColor = Color(0xFFFED7AA),
+            passengerBerthBackgroundColors = listOf(Color(0xFF5E1B07), Color(0xFF3D1104)),
+            passengerBerthBorderColor = Color(0xFFF97316)
         )
 
         val MIDNIGHT_STARLIGHT = LevelTheme(
@@ -340,7 +351,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF02A367B), Color(0xF0161C45)),
             farmerTokenBorderColor = Color(0xFF67E8F9),
             farmerNameColor = Color(0xFFE0E7FF),
-            farmerStatusColor = Color(0xFFA5B4FC)
+            farmerStatusColor = Color(0xFFA5B4FC),
+            passengerBerthBackgroundColors = listOf(Color(0xFF0F172A), Color(0xFF090D18)),
+            passengerBerthBorderColor = Color(0xFF818CF8)
         )
 
         val TWILIGHT_RAPIDS = LevelTheme(
@@ -391,7 +404,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF054166E), Color(0xF0310B42)),
             farmerTokenBorderColor = Color(0xFFF472B6),
             farmerNameColor = Color(0xFFF5D0FE),
-            farmerStatusColor = Color(0xFFF0ABFC)
+            farmerStatusColor = Color(0xFFF0ABFC),
+            passengerBerthBackgroundColors = listOf(Color(0xFF2E1065), Color(0xFF1B073D)),
+            passengerBerthBorderColor = Color(0xFFA855F7)
         )
 
         val DESERT_OASIS = LevelTheme(
@@ -442,7 +457,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF018504B), Color(0xF00D332F)),
             farmerTokenBorderColor = Color(0xFF5EEAD4),
             farmerNameColor = Color(0xFFCCFBF1),
-            farmerStatusColor = Color(0xFF5EEAD4)
+            farmerStatusColor = Color(0xFF5EEAD4),
+            passengerBerthBackgroundColors = listOf(Color(0xFF133633), Color(0xFF0A201E)),
+            passengerBerthBorderColor = Color(0xFF2DD4BF)
         )
 
         val AURORA_BOREALIS = LevelTheme(
@@ -462,15 +479,15 @@ data class LevelTheme(
             dockBorder = Color(0xFFE5C158),
             dockLanternGlow = Color(0xFF6EE7B7),
             bankAccentColor = Color(0xFF10B981),
-            raftWoodTone = Color(0xFF064E3B),
-            raftRopeColor = Color(0xFF34D399),
+            raftWoodTone = Color(0xFF1E293B),
+            raftRopeColor = Color(0xFF67E8F9),
             badgeBgColor = Color(0xFF081C1D),
             badgeTextColor = Color(0xFFA7F3D0),
             atmosphericOverlayColor = Color(0x1A059669),
-            boatHullColors = listOf(Color(0xFF064E3B), Color(0xFF0F172A), Color(0xFF065F46)),
-            boatTrimColor = Color(0xFFA7F3D0),
-            boatAccentGlow = Color(0xFF10B981),
-            boatOarColor = Color(0xFF064E3B),
+            boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF172554)),
+            boatTrimColor = Color(0xFF67E8F9),
+            boatAccentGlow = Color(0xFF34D399),
+            boatOarColor = Color(0xFF1E293B),
             sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857)),
             sailButtonBorderColors = listOf(Color(0xFFD1FAE5), Color(0xFF6EE7B7), Color(0xFF047857), Color(0xFF064E3B)),
             sailButtonGlow = Color(0x9910B981),
@@ -493,7 +510,9 @@ data class LevelTheme(
             farmerTokenBackgroundColors = listOf(Color(0xF0125444), Color(0xF009362A)),
             farmerTokenBorderColor = Color(0xFFA7F3D0),
             farmerNameColor = Color(0xFFD1FAE5),
-            farmerStatusColor = Color(0xFFA7F3D0)
+            farmerStatusColor = Color(0xFFA7F3D0),
+            passengerBerthBackgroundColors = listOf(Color(0xFF0B192C), Color(0xFF07111E)),
+            passengerBerthBorderColor = Color(0xFF67E8F9)
         )
 
         @DrawableRes

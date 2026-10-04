@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.model.DifficultyMode
 import com.example.model.DifficultyModifiers
+import com.example.model.LevelTheme
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuBtnAmberBorder
 import com.example.ui.theme.MenuBtnAmberBottom
@@ -72,6 +73,7 @@ import com.example.ui.theme.WoodTextMuted
 @Composable
 fun DifficultySelectorDialog(
     currentModifiers: DifficultyModifiers,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onApplyModifiers: (DifficultyModifiers) -> Unit,
     onDismiss: () -> Unit,
     modifier: Modifier = Modifier
@@ -94,8 +96,8 @@ fun DifficultySelectorDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = MenuBtnGreenBottom,
-                border = BorderStroke(1.8.dp, GoldenBankGlow),
+                color = levelTheme.sailButtonColors.first(),
+                border = BorderStroke(1.8.dp, levelTheme.sailButtonBorderColors.first()),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable {
@@ -122,7 +124,7 @@ fun DifficultySelectorDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
+                                levelTheme.sailButtonColors
                             )
                         )
                         .padding(vertical = 12.dp),
@@ -386,7 +388,7 @@ fun DifficultySelectorDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF62C1408),
+        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
         modifier = modifier.testTag("difficulty_dialog")
     )
 }

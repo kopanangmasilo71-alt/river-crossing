@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.example.algorithm.DiscreteState
 import com.example.algorithm.RiverCrossingSolver
 import com.example.model.GameItem
+import com.example.model.LevelTheme
 import com.example.model.RiverState
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.WoodButtonBottom
@@ -63,6 +64,7 @@ import com.example.ui.theme.WoodTextMuted
 fun StateGraphVisualizerDialog(
     currentState: RiverState,
     isAutoSolving: Boolean,
+    levelTheme: LevelTheme = LevelTheme.SPRING_VALLEY,
     onStartAutoSolve: () -> Unit,
     onStopAutoSolve: () -> Unit,
     onDismiss: () -> Unit,
@@ -100,8 +102,8 @@ fun StateGraphVisualizerDialog(
                 } else {
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = WoodButtonBottom,
-                        border = BorderStroke(1.5.dp, GoldenBankGlow),
+                        color = levelTheme.sailButtonColors.first(),
+                        border = BorderStroke(1.5.dp, levelTheme.sailButtonBorderColors.first()),
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
@@ -114,16 +116,16 @@ fun StateGraphVisualizerDialog(
                                 .fillMaxWidth()
                                 .background(
                                     Brush.verticalGradient(
-                                        listOf(WoodButtonTop, WoodButtonBottom)
+                                        levelTheme.sailButtonColors
                                     )
                                 )
                                 .padding(vertical = 12.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Auto Solve", tint = GoldenBankGlow)
+                                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Auto Solve", tint = Color.White)
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Demonstrate BFS", fontWeight = FontWeight.ExtraBold, color = GoldenBankGlow, fontSize = 13.sp)
+                                Text("Demonstrate BFS", fontWeight = FontWeight.ExtraBold, color = Color.White, fontSize = 13.sp)
                             }
                         }
                     }
@@ -230,7 +232,7 @@ fun StateGraphVisualizerDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = Color(0xF2072449),
+        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
         modifier = modifier
     )
 }

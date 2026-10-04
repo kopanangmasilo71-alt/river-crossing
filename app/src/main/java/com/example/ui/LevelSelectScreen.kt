@@ -593,25 +593,18 @@ private fun QuickLevelGridDialog(
                             val stars = best?.stars ?: 0
                             val isCleared = best != null
                             val isUnlocked = unlockedLevelIds.contains(scenario.id)
+                            val levelTheme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
 
                             val tileGradient = when {
-                                isCleared -> listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
+                                isCleared -> levelTheme.sailButtonColors
                                 !isUnlocked -> listOf(Color(0xDD241106), Color(0xDD180A03))
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xFF166534), Color(0xFF14532D))
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xFF0369A1), Color(0xFF075985))
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xFFB45309), Color(0xFF92400E))
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xFF7E22CE), Color(0xFF6B21A8))
-                                else -> listOf(Color(0xFFB91C1C), Color(0xFF991B1B))
+                                else -> levelTheme.headerBackgroundColors
                             }
 
                             val tileBorder = when {
-                                isCleared -> MenuBtnGreenBorder
+                                isCleared -> levelTheme.sailButtonBorderColors.first()
                                 !isUnlocked -> Color(0x44D97706)
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> MenuBtnGreenBorder
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> MenuBtnBlueBorder
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> MenuBtnAmberBorder
-                                scenario.difficulty == com.example.model.PuzzleDifficulty.EXPERT -> MenuBtnPurpleBorder
-                                else -> MenuBtnRedBorder
+                                else -> levelTheme.bankAccentColor
                             }
 
                             Surface(
@@ -807,13 +800,13 @@ private fun LevelScenarioCard(
     modifier: Modifier = Modifier
 ) {
     var isRulesExpanded by remember { mutableStateOf(false) }
+    val theme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
 
-    val (cardGradient, cardBorder) = when (scenario.difficulty) {
-        com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
-        com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
-        com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
-        com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
-    }
+    val cardGradient = listOf(
+        theme.headerBackgroundColors.first().copy(alpha = 0.94f),
+        theme.headerBackgroundColors.last().copy(alpha = 0.98f)
+    )
+    val cardBorder = theme.headerBorderColors.first()
 
     WoodCard(
         shape = RoundedCornerShape(20.dp),
@@ -923,7 +916,6 @@ private fun LevelScenarioCard(
             Spacer(modifier = Modifier.height(10.dp))
 
             // Thematic Scenic Biome Preview Banner
-            val theme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -1188,11 +1180,11 @@ private fun LevelScenarioCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             if (isUnlocked) {
-                // Play Button (Lush Emerald Green Pill matching Main Menu button 1)
+                // Play Button (styled with level theme sail button colors)
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = MenuBtnGreenTop,
-                    border = BorderStroke(1.8.dp, MenuBtnGreenBorder),
+                    color = theme.sailButtonColors.first(),
+                    border = BorderStroke(1.8.dp, theme.sailButtonBorderColors.first()),
                     shadowElevation = 4.dp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1206,11 +1198,7 @@ private fun LevelScenarioCard(
                             .fillMaxSize()
                             .background(
                                 Brush.verticalGradient(
-                                    colors = listOf(
-                                        MenuBtnGreenTop,
-                                        MenuBtnGreenMid,
-                                        MenuBtnGreenBottom
-                                    )
+                                    colors = theme.sailButtonColors
                                 )
                             ),
                         contentAlignment = Alignment.Center

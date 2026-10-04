@@ -40,6 +40,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -61,6 +62,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.R
 import com.example.model.GameItem
+import com.example.model.LevelTheme
 import com.example.model.PuzzleScenario
 
 /**
@@ -70,8 +72,10 @@ import com.example.model.PuzzleScenario
 @Composable
 fun ComicVignetteDialog(
     scenario: PuzzleScenario,
+    levelTheme: LevelTheme? = null,
     onDismiss: () -> Unit
 ) {
+    val activeTheme = levelTheme ?: remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
     val scrollState = rememberScrollState()
     val infiniteTransition = rememberInfiniteTransition(label = "comic_bounce")
     val comicWiggle by infiniteTransition.animateFloat(
@@ -87,8 +91,8 @@ fun ComicVignetteDialog(
     Dialog(onDismissRequest = onDismiss) {
         Card(
             shape = RoundedCornerShape(22.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xF5072449)),
-            border = BorderStroke(2.dp, Color(0xFF38BDF8)),
+            colors = CardDefaults.cardColors(containerColor = activeTheme.headerBackgroundColors.last().copy(alpha = 0.96f)),
+            border = BorderStroke(2.dp, activeTheme.headerBorderColors.first()),
             elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -100,11 +104,7 @@ fun ComicVignetteDialog(
                     .fillMaxWidth()
                     .background(
                         Brush.verticalGradient(
-                            colors = listOf(
-                                Color(0xF00D3B73),
-                                Color(0xF00A2D58),
-                                Color(0xF0072449)
-                            )
+                            colors = activeTheme.headerBackgroundColors.map { it.copy(alpha = 0.95f) }
                         )
                     )
                     .padding(14.dp),
@@ -120,7 +120,7 @@ fun ComicVignetteDialog(
                         modifier = Modifier
                             .rotate(comicWiggle)
                             .background(
-                                color = Color(0xFF0284C7),
+                                color = activeTheme.bankAccentColor,
                                 shape = RoundedCornerShape(8.dp)
                             )
                             .padding(horizontal = 8.dp, vertical = 3.dp)
@@ -292,8 +292,8 @@ fun ComicVignetteDialog(
                 // Play / Dismiss Button
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = Color(0xFFD97706),
-                    border = BorderStroke(2.dp, Color(0xFFFDE68A)),
+                    color = activeTheme.sailButtonColors.first(),
+                    border = BorderStroke(2.dp, activeTheme.sailButtonBorderColors.first()),
                     shadowElevation = 6.dp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -305,7 +305,7 @@ fun ComicVignetteDialog(
                         modifier = Modifier
                             .background(
                                 Brush.verticalGradient(
-                                    colors = listOf(Color(0xFFF59E0B), Color(0xFFB45309))
+                                    colors = activeTheme.sailButtonColors
                                 )
                             )
                             .padding(vertical = 10.dp),
