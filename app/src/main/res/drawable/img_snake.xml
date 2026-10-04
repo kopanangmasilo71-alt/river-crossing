@@ -1,0 +1,60 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Snake: Coiled emerald viper with yellow underbelly and piercing eyes -->
+    <!-- Soft toxic/mystic aura -->
+    <path
+        android:pathData="M54,12 A42,42 0 1,1 53.9,12 Z"
+        android:fillColor="#25059669" />
+    <!-- Coiled Body Lower Loop -->
+    <path
+        android:pathData="M30,80 C24,68 32,56 50,56 C68,56 86,66 84,80 C82,92 56,96 36,92 C28,90 26,84 30,80 Z"
+        android:fillColor="#047857" />
+    <!-- Underbelly scales lower -->
+    <path
+        android:pathData="M38,84 C34,74 42,66 54,66 C66,66 76,74 74,84 C66,88 48,88 38,84 Z"
+        android:fillColor="#A7F3D0" />
+    <!-- Middle S-curve Body -->
+    <path
+        android:pathData="M48,64 C42,50 46,38 58,34 C68,30 76,40 70,52 C66,60 54,64 48,64 Z"
+        android:fillColor="#059669" />
+    <!-- Rattle / Tail Tip -->
+    <path
+        android:pathData="M78,82 C86,84 94,80 92,72 C90,66 82,68 84,74 Z"
+        android:fillColor="#D97706" />
+    <!-- Neck rising -->
+    <path
+        android:pathData="M52,42 C50,32 54,26 62,24 C68,24 72,28 66,36 C62,42 56,44 52,42 Z"
+        android:fillColor="#10B981" />
+    <!-- Snake Head -->
+    <path
+        android:pathData="M60,26 C54,24 48,18 52,14 C56,10 68,10 74,16 C78,20 74,26 66,28 Z"
+        android:fillColor="#047857" />
+    <!-- Head Crest / Brow -->
+    <path
+        android:pathData="M54,16 C58,12 66,12 70,16 C68,22 58,22 54,16 Z"
+        android:fillColor="#10B981" />
+    <!-- Piercing Yellow Eye -->
+    <path
+        android:pathData="M62,17 A3,3 0 1,1 61.9,17 Z"
+        android:fillColor="#FACC15" />
+    <!-- Slit Pupil -->
+    <path
+        android:pathData="M62,15 L62,19"
+        android:strokeColor="#0F172A"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round" />
+    <!-- Forked Red Tongue -->
+    <path
+        android:pathData="M48,15 L40,14 M40,14 L34,10 M40,14 L34,17"
+        android:strokeColor="#EF4444"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <!-- Scale diamond patterns -->
+    <path
+        android:pathData="M48,74 L52,70 L56,74 L52,78 Z M62,72 L65,68 L68,72 L65,76 Z"
+        android:fillColor="#065F46" />
+</vector>

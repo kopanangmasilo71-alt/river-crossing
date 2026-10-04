@@ -43,10 +43,10 @@ class ExampleRobolectricTest {
     @Test
     fun testAllLevelsConfiguredCorrectly() {
         val scenarios = PuzzleScenarios.ALL
-        assertEquals(50, scenarios.size)
+        assertEquals(90, scenarios.size)
 
-        // Verify each level from 1 to 50 exists and has valid configuration
-        for (i in 1..50) {
+        // Verify each level from 1 to 90 exists and has valid configuration
+        for (i in 1..90) {
             val level = scenarios[i - 1]
             assertEquals(i, level.levelNumber)
             assertTrue(level.items.isNotEmpty())

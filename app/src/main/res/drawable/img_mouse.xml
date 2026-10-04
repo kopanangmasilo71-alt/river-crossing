@@ -1,0 +1,67 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Mouse: Cute nimble gray field mouse with pink nose and curved tail -->
+    <!-- Soft Aura -->
+    <path
+        android:pathData="M54,14 A40,40 0 1,1 53.9,14 Z"
+        android:fillColor="#2564748B" />
+    <!-- Tail -->
+    <path
+        android:pathData="M78,82 C92,86 98,74 94,62 C92,54 84,52 86,60 C88,68 84,74 74,74"
+        android:strokeColor="#F472B6"
+        android:strokeWidth="2.5" />
+    <!-- Body -->
+    <path
+        android:pathData="M38,88 C26,88 28,68 44,60 C64,52 82,66 82,82 C82,88 44,88 38,88 Z"
+        android:fillColor="#94A3B8" />
+    <!-- Belly Soft Patch -->
+    <path
+        android:pathData="M40,86 C34,86 36,72 46,68 C58,64 68,74 68,84 Z"
+        android:fillColor="#CBD5E1" />
+    <!-- Head -->
+    <path
+        android:pathData="M38,62 C30,58 20,68 18,72 C22,76 36,80 44,74 Z"
+        android:fillColor="#94A3B8" />
+    <!-- Left Large Ear Outer -->
+    <path
+        android:pathData="M38,50 A10,12 0 1,1 37.9,50 Z"
+        android:fillColor="#64748B" />
+    <!-- Left Ear Inner -->
+    <path
+        android:pathData="M38,50 A7,9 0 1,1 37.9,50 Z"
+        android:fillColor="#F472B6" />
+    <!-- Right Ear Outer -->
+    <path
+        android:pathData="M54,46 A10,12 0 1,1 53.9,46 Z"
+        android:fillColor="#64748B" />
+    <!-- Right Ear Inner -->
+    <path
+        android:pathData="M54,46 A7,9 0 1,1 53.9,46 Z"
+        android:fillColor="#F472B6" />
+    <!-- Eye -->
+    <path
+        android:pathData="M30,68 A3,3 0 1,1 29.9,68 Z"
+        android:fillColor="#0F172A" />
+    <path
+        android:pathData="M29,67 A1,1 0 1,1 28.9,67 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- Nose -->
+    <path
+        android:pathData="M16,72 A2.5,2.5 0 1,1 15.9,72 Z"
+        android:fillColor="#FB7185" />
+    <!-- Whiskers -->
+    <path
+        android:pathData="M18,70 L4,66 M18,72 L4,72 M18,74 L6,78"
+        android:strokeColor="#E2E8F0"
+        android:strokeWidth="1.2" />
+    <!-- Paws -->
+    <path
+        android:pathData="M34,88 A4,2.5 0 1,1 33.9,88 Z"
+        android:fillColor="#F472B6" />
+    <path
+        android:pathData="M52,88 A4,2.5 0 1,1 51.9,88 Z"
+        android:fillColor="#F472B6" />
+</vector>

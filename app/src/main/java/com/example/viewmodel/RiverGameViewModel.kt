@@ -80,8 +80,8 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
     private val prefs = application.getSharedPreferences("river_crossing_prefs", Context.MODE_PRIVATE)
     private val isFirstLaunch = !prefs.getBoolean("has_completed_first_launch", false)
 
-    // Unlocked levels state: Levels 1, 2, 3 unlocked by default. Further levels are locked until completed or unlocked via Rewarded Ad.
-    private val defaultUnlockedLevels = setOf("level_1_basics", "level_2_classic", "level_3_the_market")
+    // Unlocked levels state: Level 1 unlocked by default. Further levels can ONLY be unlocked by completing levels below them or via Rewarded Ad.
+    private val defaultUnlockedLevels = setOf("level_1_basics")
     private val _unlockedLevelIds = MutableStateFlow<Set<String>>(
         prefs.getStringSet("unlocked_levels", null) ?: defaultUnlockedLevels
     )
@@ -361,7 +361,15 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
     fun clearHighScoreHistory(levelId: String? = null) {
         viewModelScope.launch {
             repository.clearHistory(levelId)
+            if (levelId == null) {
+                resetUnlockedLevelsToDefault()
+            }
         }
+    }
+
+    fun resetUnlockedLevelsToDefault() {
+        _unlockedLevelIds.value = defaultUnlockedLevels
+        prefs.edit().putStringSet("unlocked_levels", defaultUnlockedLevels).apply()
     }
 
     fun toggleMute() {

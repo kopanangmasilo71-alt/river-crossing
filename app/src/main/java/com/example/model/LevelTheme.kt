@@ -568,6 +568,46 @@ data class LevelTheme(
                 48 -> R.drawable.img_level_48_bg
                 49 -> R.drawable.img_level_49_bg
                 50 -> R.drawable.img_level_50_bg
+                51 -> R.drawable.img_level_51_bg
+                52 -> R.drawable.img_level_52_bg
+                53 -> R.drawable.img_level_53_bg
+                54 -> R.drawable.img_level_54_bg
+                55 -> R.drawable.img_level_55_bg
+                56 -> R.drawable.img_level_56_bg
+                57 -> R.drawable.img_level_57_bg
+                58 -> R.drawable.img_level_58_bg
+                59 -> R.drawable.img_level_59_bg
+                60 -> R.drawable.img_level_60_bg
+                61 -> R.drawable.img_level_61_bg
+                62 -> R.drawable.img_level_62_bg
+                63 -> R.drawable.img_level_63_bg
+                64 -> R.drawable.img_level_64_bg
+                65 -> R.drawable.img_level_65_bg
+                66 -> R.drawable.img_level_66_bg
+                67 -> R.drawable.img_level_67_bg
+                68 -> R.drawable.img_level_68_bg
+                69 -> R.drawable.img_level_69_bg
+                70 -> R.drawable.img_level_70_bg
+                71 -> R.drawable.img_level_71_bg
+                72 -> R.drawable.img_level_72_bg
+                73 -> R.drawable.img_level_73_bg
+                74 -> R.drawable.img_level_74_bg
+                75 -> R.drawable.img_level_75_bg
+                76 -> R.drawable.img_level_76_bg
+                77 -> R.drawable.img_level_77_bg
+                78 -> R.drawable.img_level_78_bg
+                79 -> R.drawable.img_level_79_bg
+                80 -> R.drawable.img_level_80_bg
+                81 -> R.drawable.img_level_81_bg
+                82 -> R.drawable.img_level_82_bg
+                83 -> R.drawable.img_level_83_bg
+                84 -> R.drawable.img_level_84_bg
+                85 -> R.drawable.img_level_85_bg
+                86 -> R.drawable.img_level_86_bg
+                87 -> R.drawable.img_level_87_bg
+                88 -> R.drawable.img_level_88_bg
+                89 -> R.drawable.img_level_89_bg
+                90 -> R.drawable.img_level_90_bg
                 else -> R.drawable.img_level_1_bg
             }
         }
@@ -928,6 +968,326 @@ data class LevelTheme(
                     tagline = "Triumphal golden palace gates spanning an epic legendary river",
                     iconEmoji = "👑",
                     backgroundDrawableRes = bg
+                )
+                51 -> SPRING_VALLEY.copy(
+                    id = "lvl_51_bamboo_grove",
+                    name = "Bamboo Grove",
+                    tagline = "Towering jade stalks and misty koi streams",
+                    iconEmoji = "🎋",
+                    backgroundDrawableRes = bg
+                )
+                52 -> DESERT_OASIS.copy(
+                    id = "lvl_52_savannah_dunes",
+                    name = "Golden Savannah Dunes",
+                    tagline = "Amber rolling sands and acacia mirages at noon",
+                    iconEmoji = "🏜️",
+                    backgroundDrawableRes = bg
+                )
+                53 -> ALPINE_PEAKS.copy(
+                    id = "lvl_53_coral_archipelago",
+                    name = "Coral Archipelago",
+                    tagline = "Turquoise waves lapping powdered coral reefs",
+                    iconEmoji = "🏝️",
+                    backgroundDrawableRes = bg
+                )
+                54 -> SAVANNAH_SUN.copy(
+                    id = "lvl_54_volcanic_caldera",
+                    name = "Volcanic Caldera",
+                    tagline = "Obsidian basalt cliffs and glowing magma streams",
+                    iconEmoji = "🌋",
+                    backgroundDrawableRes = bg
+                )
+                55 -> SPRING_VALLEY.copy(
+                    id = "lvl_55_cherry_blossom",
+                    name = "Cherry Blossom Pagoda",
+                    tagline = "Sakura petals drifting past ancient pagoda bridges",
+                    iconEmoji = "🌸",
+                    backgroundDrawableRes = bg
+                )
+                56 -> SPRING_VALLEY.copy(
+                    id = "lvl_56_deep_rainforest",
+                    name = "Deep Rainforest Sanctuary",
+                    tagline = "Lush emerald canopy and roaring jungle cascades",
+                    iconEmoji = "🦜",
+                    backgroundDrawableRes = bg
+                )
+                57 -> ALPINE_PEAKS.copy(
+                    id = "lvl_57_glacial_fjord",
+                    name = "Glacial Fjord",
+                    tagline = "Towering blue icebergs mirrored in crystal waters",
+                    iconEmoji = "🧊",
+                    backgroundDrawableRes = bg
+                )
+                58 -> AUTUMN_HARVEST.copy(
+                    id = "lvl_58_redwood_valley",
+                    name = "Twilight Redwood Valley",
+                    tagline = "Ancient timber giants glowing in golden twilight",
+                    iconEmoji = "🌲",
+                    backgroundDrawableRes = bg
+                )
+                59 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_59_bioluminescent_cavern",
+                    name = "Bioluminescent Cavern",
+                    tagline = "Subterranean azure glow reflecting off crystal pools",
+                    iconEmoji = "🌌",
+                    backgroundDrawableRes = bg
+                )
+                60 -> DESERT_OASIS.copy(
+                    id = "lvl_60_atlantis_ruins",
+                    name = "Sunken Atlantis Ruins",
+                    tagline = "Submerged golden aqueducts and marble archways",
+                    iconEmoji = "🏛️",
+                    backgroundDrawableRes = bg
+                )
+                61 -> TWILIGHT_RAPIDS.copy(
+                    id = "lvl_61_heather_moors",
+                    name = "Highland Heather Moors",
+                    tagline = "Purple heather valleys and mysterious highland mist",
+                    iconEmoji = "🪻",
+                    backgroundDrawableRes = bg
+                )
+                62 -> AUTUMN_HARVEST.copy(
+                    id = "lvl_62_maple_gorge",
+                    name = "Autumn Maple Gorge",
+                    tagline = "Scarlet maple leaves rushing over foaming rapids",
+                    iconEmoji = "🍁",
+                    backgroundDrawableRes = bg
+                )
+                63 -> SPRING_VALLEY.copy(
+                    id = "lvl_63_rice_terraces",
+                    name = "Emerald Rice Terraces",
+                    tagline = "Mirrored sky waters cascading down emerald stairways",
+                    iconEmoji = "🌾",
+                    backgroundDrawableRes = bg
+                )
+                64 -> TWILIGHT_RAPIDS.copy(
+                    id = "lvl_64_dragon_peak",
+                    name = "Dragon's Tooth Peak",
+                    tagline = "Jagged alpine spires piercing lightning-lit clouds",
+                    iconEmoji = "🐉",
+                    backgroundDrawableRes = bg
+                )
+                65 -> SAVANNAH_SUN.copy(
+                    id = "lvl_65_mangrove_swamp",
+                    name = "Whispering Mangrove Swamp",
+                    tagline = "Winding swamp waterways under dense mangrove arches",
+                    iconEmoji = "🐊",
+                    backgroundDrawableRes = bg
+                )
+                66 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_66_moonlit_willow",
+                    name = "Moonlit Willow Haven",
+                    tagline = "Silvery lunar light dancing upon calm willow shores",
+                    iconEmoji = "🌕",
+                    backgroundDrawableRes = bg
+                )
+                67 -> SAVANNAH_SUN.copy(
+                    id = "lvl_67_sun_temple",
+                    name = "Golden Sun Temple",
+                    tagline = "Sun-baked sandstone monuments reflecting in holy river",
+                    iconEmoji = "☀️",
+                    backgroundDrawableRes = bg
+                )
+                68 -> AURORA_BOREALIS.copy(
+                    id = "lvl_68_geode_grotto",
+                    name = "Crystal Geode Grotto",
+                    tagline = "Prismatic amethyst chambers refracting radiant colors",
+                    iconEmoji = "💎",
+                    backgroundDrawableRes = bg
+                )
+                69 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_69_starfall_canyon",
+                    name = "Starfall Astral Canyon",
+                    tagline = "Shooting stars streaking across a deep indigo sky",
+                    iconEmoji = "🌠",
+                    backgroundDrawableRes = bg
+                )
+                70 -> AURORA_BOREALIS.copy(
+                    id = "lvl_70_emperors_elysium",
+                    name = "The Grand Emperor's Elysium",
+                    tagline = "Supreme monumental river gateway of legendary grandmasters",
+                    iconEmoji = "👑",
+                    backgroundDrawableRes = bg
+                )
+                71 -> SPRING_VALLEY.copy(
+                    id = "lvl_71_monkey_canopy",
+                    name = "Monkey River Canopy",
+                    tagline = "Vibrant emerald rainforest canopy with hanging vines",
+                    iconEmoji = "🐒",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.LILY_PADS
+                )
+                72 -> SPRING_VALLEY.copy(
+                    id = "lvl_72_panda_sanctuary",
+                    name = "Misty Bamboo Sanctuary",
+                    tagline = "Misty mountain bamboo grove with cascading stone falls",
+                    iconEmoji = "🐼",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.ALPINE_MIST,
+                    flotsamType = FlotsamType.PINE_SPRIGS
+                )
+                73 -> TWILIGHT_RAPIDS.copy(
+                    id = "lvl_73_highland_steed",
+                    name = "Highland Steed Pastures",
+                    tagline = "Purple heather winds drifting across mountain lochs",
+                    iconEmoji = "🐎",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
+                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                )
+                74 -> AUTUMN_HARVEST.copy(
+                    id = "lvl_74_honeycomb_glade",
+                    name = "Honeycomb Forest Glade",
+                    tagline = "Sun-dappled ancient woodland with golden wildflower breezes",
+                    iconEmoji = "🍯",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
+                    flotsamType = FlotsamType.AUTUMN_LEAVES
+                )
+                75 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_75_emerald_marsh",
+                    name = "Bioluminescent Marsh",
+                    tagline = "Glowing cypress swamps with floating water lilies",
+                    iconEmoji = "🐸",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                )
+                76 -> SAVANNAH_SUN.copy(
+                    id = "lvl_76_raptors_crag",
+                    name = "Raptor's Sunset Crag",
+                    tagline = "Towering alpine spires ablaze in golden evening light",
+                    iconEmoji = "🦅",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                )
+                77 -> ALPINE_PEAKS.copy(
+                    id = "lvl_77_polar_drift",
+                    name = "Polar Glacial Drift",
+                    tagline = "Deep azure fjord waters with floating sea ice",
+                    iconEmoji = "🐧",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.ALPINE_MIST,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS
+                )
+                78 -> DESERT_OASIS.copy(
+                    id = "lvl_78_oasis_bazaar",
+                    name = "Golden Oasis Bazaar",
+                    tagline = "Silken sand dunes and tranquil moonlit reflection pools",
+                    iconEmoji = "🏝️",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.OASIS_MIRAGE,
+                    flotsamType = FlotsamType.OASIS_BLOOMS
+                )
+                79 -> SPRING_VALLEY.copy(
+                    id = "lvl_79_serpent_temple",
+                    name = "Forbidden Serpent Temple",
+                    tagline = "Ancient stepped pyramid reflecting on holy emerald river",
+                    iconEmoji = "🐍",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.LILY_PADS
+                )
+                80 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_80_moonlit_waterfall",
+                    name = "Moonlit Twin Waterfall",
+                    tagline = "Silvery lunar currents surging beneath mist-crowned falls",
+                    iconEmoji = "🌕",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                )
+                81 -> AUTUMN_HARVEST.copy(
+                    id = "lvl_81_autumn_orchard",
+                    name = "Whispering Apple Orchard",
+                    tagline = "Scarlet and amber leaves drifting beside a peaceful millstream",
+                    iconEmoji = "🍎",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
+                    flotsamType = FlotsamType.AUTUMN_LEAVES
+                )
+                82 -> TWILIGHT_RAPIDS.copy(
+                    id = "lvl_82_geyser_basin",
+                    name = "Prismatic Geyser Basin",
+                    tagline = "Rainbow geothermal mineral waters and volcanic steam",
+                    iconEmoji = "♨️",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
+                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                )
+                83 -> SAVANNAH_SUN.copy(
+                    id = "lvl_83_savannah_twilight",
+                    name = "Savannah Twilight Haven",
+                    tagline = "Crimson African horizon with acacia silhouettes over the river",
+                    iconEmoji = "🌅",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                )
+                84 -> AURORA_BOREALIS.copy(
+                    id = "lvl_84_polar_aurora",
+                    name = "Polar Aurora Sanctuary",
+                    tagline = "Luminescent emerald ribbons dancing over frosty iceberg waters",
+                    iconEmoji = "🌌",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AURORA_SHIMMER,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS
+                )
+                85 -> TWILIGHT_RAPIDS.copy(
+                    id = "lvl_85_lotus_lagoon",
+                    name = "Enchanted Lotus Lagoon",
+                    tagline = "Giant glowing pink lotus flowers and turquoise twilight waters",
+                    iconEmoji = "🪷",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
+                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                )
+                86 -> SPRING_VALLEY.copy(
+                    id = "lvl_86_redwood_rapids",
+                    name = "Redwood Canyon Rapids",
+                    tagline = "Colossal mossy timber giants rising through morning mountain fog",
+                    iconEmoji = "🌲",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.ALPINE_MIST,
+                    flotsamType = FlotsamType.PINE_SPRIGS
+                )
+                87 -> MIDNIGHT_STARLIGHT.copy(
+                    id = "lvl_87_starfall_fjord",
+                    name = "Celestial Starfall Fjord",
+                    tagline = "Showers of shooting stars illuminating mirror-smooth fjord currents",
+                    iconEmoji = "🌠",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                )
+                88 -> DESERT_OASIS.copy(
+                    id = "lvl_88_atlantis_aqueduct",
+                    name = "Sunken Atlantis Aqueduct",
+                    tagline = "Submerged marble archways and turquoise tides among lost ruins",
+                    iconEmoji = "🏛️",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.OASIS_MIRAGE,
+                    flotsamType = FlotsamType.OASIS_BLOOMS
+                )
+                89 -> SAVANNAH_SUN.copy(
+                    id = "lvl_89_volcanic_dragon",
+                    name = "Volcanic Dragon Fjord",
+                    tagline = "Fiery obsidian basalt cliffs and glowing magma river streams",
+                    iconEmoji = "🌋",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                )
+                90 -> AURORA_BOREALIS.copy(
+                    id = "lvl_90_celestial_sovereign",
+                    name = "The Grand Celestial Sovereign",
+                    tagline = "The supreme pinnacle! Celestial golden palaces spanning legendary waters",
+                    iconEmoji = "👑",
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AURORA_SHIMMER,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS
                 )
                 else -> SPRING_VALLEY.copy(
                     id = "lvl_${levelNumber}_custom",

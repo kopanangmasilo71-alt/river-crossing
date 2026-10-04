@@ -1,0 +1,61 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Panda: Fluffy giant panda with iconic black eye patches and cute round ears -->
+    <!-- Soft serene bamboo aura -->
+    <path
+        android:pathData="M54,12 A42,42 0 1,1 53.9,12 Z"
+        android:fillColor="#2010B981" />
+    <!-- Black Ears -->
+    <path
+        android:pathData="M34,28 A9,9 0 1,1 33.9,28 Z"
+        android:fillColor="#1F2937" />
+    <path
+        android:pathData="M74,28 A9,9 0 1,1 73.9,28 Z"
+        android:fillColor="#1F2937" />
+    <!-- White Body Base -->
+    <path
+        android:pathData="M34,92 C32,70 38,62 54,62 C70,62 76,70 74,92 C74,96 34,96 34,92 Z"
+        android:fillColor="#F8FAFC" />
+    <!-- Black Shoulders & Arms -->
+    <path
+        android:pathData="M30,86 C28,68 36,60 54,60 C72,60 80,68 78,86 C74,88 70,80 66,74 C60,68 48,68 42,74 C38,80 34,88 30,86 Z"
+        android:fillColor="#1F2937" />
+    <!-- Panda White Head -->
+    <path
+        android:pathData="M54,26 C36,26 32,38 32,52 C32,66 40,74 54,74 C68,74 76,66 76,52 C76,38 72,26 54,26 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- Black Eye Patches (Angled teardrop oval) -->
+    <path
+        android:pathData="M44,48 C40,42 42,36 47,38 C51,40 51,48 48,52 C45,54 42,52 44,48 Z"
+        android:fillColor="#1F2937" />
+    <path
+        android:pathData="M64,48 C68,42 66,36 61,38 C57,40 57,48 60,52 C63,54 66,52 64,48 Z"
+        android:fillColor="#1F2937" />
+    <!-- Left Eye Pupil -->
+    <path
+        android:pathData="M46,45 A2.5,2.5 0 1,1 45.9,45 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M46,45 A1.5,1.5 0 1,1 45.9,45 Z"
+        android:fillColor="#0F172A" />
+    <!-- Right Eye Pupil -->
+    <path
+        android:pathData="M62,45 A2.5,2.5 0 1,1 61.9,45 Z"
+        android:fillColor="#FFFFFF" />
+    <path
+        android:pathData="M62,45 A1.5,1.5 0 1,1 61.9,45 Z"
+        android:fillColor="#0F172A" />
+    <!-- Black Button Nose -->
+    <path
+        android:pathData="M51,56 C51,53 57,53 57,56 C57,59 51,59 51,56 Z"
+        android:fillColor="#1F2937" />
+    <!-- Sweet Smile -->
+    <path
+        android:pathData="M49,61 Q54,64 59,61"
+        android:strokeColor="#1F2937"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+</vector>

@@ -143,6 +143,31 @@ data class GenericDiscreteState(
             }
         }
 
+        // 4. Farmer crosses with 3 items (if boatCapacity >= 3)
+        if (scenario.boatCapacity >= 3 && availableOnBank.size >= 3) {
+            for (i in 0 until availableOnBank.size) {
+                for (j in i + 1 until availableOnBank.size) {
+                    for (k in j + 1 until availableOnBank.size) {
+                        val item1 = availableOnBank[i]
+                        val item2 = availableOnBank[j]
+                        val item3 = availableOnBank[k]
+                        val triplet = listOf(item1, item2, item3)
+
+                        if (difficultyModifiers.isBoatCombinationAllowed(triplet)) {
+                            val nextMap = itemBanks.toMutableMap()
+                            nextMap[item1] = nextFarmer
+                            nextMap[item2] = nextFarmer
+                            nextMap[item3] = nextFarmer
+                            val nextState = copy(farmer = nextFarmer, itemBanks = nextMap)
+                            if (nextState.isValid(scenario)) {
+                                nextStates.add(Pair(nextState, triplet))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         return nextStates
     }
 }
@@ -384,6 +409,13 @@ object RiverCrossingSolver {
             }
             null -> {
                 "Farmer rows alone back to the other bank."
+            }
+            else -> {
+                if (fromBank == Bank.LEFT) {
+                    "Transport the ${item.displayName} across to the Right Bank safely."
+                } else {
+                    "Bring the ${item.displayName} back across safely."
+                }
             }
         }
     }

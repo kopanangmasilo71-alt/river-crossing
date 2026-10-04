@@ -230,6 +230,107 @@ class GameAudio {
         }
     }
 
+    /** Cat Meow: Playful, melodic feline purr and meow */
+    fun playCatSound() {
+        playCustomSound(durationMs = 280, volume = 0.45f) { t, p ->
+            val freq = 480f + sin(p * PI.toFloat() * 1.8f) * 160f
+            val tone = sin(2.0 * PI * freq * t).toFloat() * 0.65f
+            val harmonic = sin(2.0 * PI * (freq * 2f) * t).toFloat() * 0.25f
+            val breath = (Random.nextFloat() * 2f - 1f) * (1f - p) * 0.1f
+            (tone + harmonic + breath)
+        }
+    }
+
+    /** Fish Splash: Gentle aquatic ripple and bubbly flutter */
+    fun playFishSound() {
+        playCustomSound(durationMs = 200, volume = 0.42f) { t, p ->
+            val splashFreq = 420f + sin(p * 28f) * 150f
+            val water = sin(2.0 * PI * splashFreq * t).toFloat() * 0.6f
+            val droplets = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.8f) * 0.4f
+            (water + droplets)
+        }
+    }
+
+    /** Mouse Squeak: Fast, lively high-pitched rodent squeaks */
+    fun playMouseSound() {
+        playCustomSound(durationMs = 150, volume = 0.38f) { t, p ->
+            val freq = 1400f + sin(p * PI.toFloat() * 2f) * 400f
+            val squeak = sin(2.0 * PI * freq * t).toFloat() * 0.75f
+            val overtone = sin(2.0 * PI * (freq * 1.5f) * t).toFloat() * 0.25f
+            (squeak + overtone) * (1f - p * 0.5f)
+        }
+    }
+
+    /** Cheese Plop: Soft, creamy dairy bounce tone */
+    fun playCheeseSound() {
+        playCustomSound(durationMs = 120, volume = 0.35f) { t, p ->
+            val freq = 340f - p * 80f
+            val tone = sin(2.0 * PI * freq * t).toFloat() * 0.7f
+            val squish = (Random.nextFloat() * 2f - 1f) * (1f - p) * 0.3f
+            (tone + squish)
+        }
+    }
+
+    /** Crocodile Hiss: Deep low reptilian bellow and snap */
+    fun playCrocodileSound() {
+        playCustomSound(durationMs = 340, volume = 0.50f) { t, p ->
+            val freq = 80f + sin(p * PI.toFloat()) * 40f
+            val bellow = sin(2.0 * PI * freq * t).toFloat() * 0.65f
+            val hiss = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.6f) * 0.35f
+            (bellow + hiss)
+        }
+    }
+
+    /** Goat Bleat: Vibrato mountain goat bleat */
+    fun playGoatSound() {
+        playCustomSound(durationMs = 300, volume = 0.45f) { t, p ->
+            val vibrato = sin(p * 32f) * 45f
+            val freq = 360f + vibrato
+            val bleat = sin(2.0 * PI * freq * t).toFloat() * 0.7f
+            val buzz = sin(2.0 * PI * (freq * 2.2f) * t).toFloat() * 0.3f
+            (bleat + buzz) * (1f - p * 0.4f)
+        }
+    }
+
+    /** Carrot Crunch: Crisp satisfying garden snap */
+    fun playCarrotSound() {
+        playCustomSound(durationMs = 110, volume = 0.42f) { t, p ->
+            val pop = sin(2.0 * PI * (540f - p * 220f) * t).toFloat() * 0.45f
+            val crunch = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.9f) * 0.55f
+            (pop + crunch)
+        }
+    }
+
+    /** Chicken Cluck: Rhythmic farm hen cluck */
+    fun playChickenSound() {
+        playCustomSound(durationMs = 220, volume = 0.44f) { t, p ->
+            val cluckFreq = if (p < 0.5f) 520f else 410f
+            val tone = sin(2.0 * PI * cluckFreq * t).toFloat() * 0.75f
+            val chirp = sin(2.0 * PI * (cluckFreq * 2.5f) * t).toFloat() * 0.25f
+            (tone + chirp) * (1f - p * 0.3f)
+        }
+    }
+
+    /** Grain Rustle: Dry golden seed pouring and sifting */
+    fun playGrainSound() {
+        playCustomSound(durationMs = 150, volume = 0.36f) { t, p ->
+            val hiss = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.7f) * 0.7f
+            val seedTone = sin(2.0 * PI * (620f - p * 180f) * t).toFloat() * 0.3f
+            (hiss + seedTone)
+        }
+    }
+
+    /** Tiger Roar: Powerful predatory roar with savage harmonics */
+    fun playTigerSound() {
+        playCustomSound(durationMs = 380, volume = 0.52f) { t, p ->
+            val freq = 120f + sin(p * PI.toFloat() * 1.6f) * 85f
+            val roar = sin(2.0 * PI * freq * t).toFloat() * 0.65f
+            val sub = sin(2.0 * PI * (freq * 0.5f) * t).toFloat() * 0.25f
+            val snarl = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.4f) * 0.3f
+            (roar + sub + snarl)
+        }
+    }
+
     /** Context-aware character sound */
     fun playCharacterSound(item: GameItem) {
         when (item) {
@@ -244,6 +345,17 @@ class GameAudio {
             GameItem.LION -> playLionSound()
             GameItem.BEAR -> playBearSound()
             GameItem.BERRIES -> playBerriesSound()
+            GameItem.CAT -> playCatSound()
+            GameItem.FISH -> playFishSound()
+            GameItem.MOUSE -> playMouseSound()
+            GameItem.CHEESE -> playCheeseSound()
+            GameItem.CROCODILE -> playCrocodileSound()
+            GameItem.GOAT -> playGoatSound()
+            GameItem.CARROT -> playCarrotSound()
+            GameItem.CHICKEN -> playChickenSound()
+            GameItem.GRAIN -> playGrainSound()
+            GameItem.TIGER -> playTigerSound()
+            else -> playWaterRippleSound()
         }
     }
 

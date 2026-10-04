@@ -917,14 +917,29 @@ private fun CharacterBestiaryTab() {
     val characters = remember {
         listOf(
             BestiaryEntry(GameItem.LION, "Apex Predator", "King of beasts! Attacks Wolves, Dogs & Sheep if left unattended.", MenuBtnRedBorder, Color(0xF03B1313)),
+            BestiaryEntry(GameItem.TIGER, "Apex Stalker", "Fierce predator that hunts Goats, Sheep, Chickens & Pandas.", MenuBtnAmberBorder, Color(0xF03B1C08)),
+            BestiaryEntry(GameItem.BEAR, "Forest Titan", "Forest titan that devours Honey, Berries & Fish, and fights Wolves.", Color(0xFFB45309), Color(0xF038220A)),
+            BestiaryEntry(GameItem.CROCODILE, "River Stalker", "Armored river reptile that strikes at Fish, Cats, and Penguins.", Color(0xFF0D9488), Color(0xF0062E2A)),
+            BestiaryEntry(GameItem.EAGLE, "Aerial Apex", "Soaring raptor that dives for Snakes, Frogs, Fish & Monkeys.", Color(0xFF38BDF8), Color(0xF008273D)),
             BestiaryEntry(GameItem.WOLF, "Fierce Carnivore", "Attacks Sheep, Dogs & Rabbits if left alone without Farmer.", MenuBtnPurpleBorder, Color(0xF027123A)),
             BestiaryEntry(GameItem.FOX, "Cunning Hunter", "Preys on Rabbits & fights with Dogs if left unattended.", MenuBtnAmberBorder, Color(0xF038220A)),
+            BestiaryEntry(GameItem.SNAKE, "Venomous Stalker", "Stealthy serpent that strikes at Frogs, Mice & Chickens.", Color(0xFF10B981), Color(0xF00A2C1D)),
             BestiaryEntry(GameItem.DOG, "Loyal Guardian", "Guards against danger, but chases Rabbits/Sheep and fights Wolves/Foxes.", MenuBtnCyanBorder, Color(0xF00A263D)),
+            BestiaryEntry(GameItem.HORSE, "Noble Steed", "Majestic runner that munches Apples & Hay, but spooked by Wolves.", Color(0xFFEA580C), Color(0xF038180A)),
+            BestiaryEntry(GameItem.PANDA, "Gentle Giant", "Gentle bear that munches Bamboo shoots, but vulnerable to Tigers.", Color(0xFF10B981), Color(0xF00F291E)),
+            BestiaryEntry(GameItem.MONKEY, "Agile Primate", "Playful jungle acrobat that grabs Bananas & Apples, wary of Snakes.", Color(0xFFF59E0B), Color(0xF0332208)),
+            BestiaryEntry(GameItem.PENGUIN, "Polar Swimmer", "Aquatic swimmer that feasts on Fish, prey to Bears & Crocodiles.", Color(0xFF0284C7), Color(0xF008283D)),
+            BestiaryEntry(GameItem.FROG, "Marsh Hopper", "Nimble wetland hopper that catches Dragonflies, but prey to Snakes.", Color(0xFF22C55E), Color(0xF00F2C18)),
             BestiaryEntry(GameItem.SHEEP, "Docile Grazer", "Gentle grazer that eats Hay, Corn & Cabbage, but is prey to Wolves & Lions.", MenuBtnGreenBorder, Color(0xF012351A)),
             BestiaryEntry(GameItem.RABBIT, "Quick Herbivore", "Eats Cabbage, Corn & Hay. The classic riddle buffer item!", Color(0xFF4ADE80), Color(0xF0103017)),
+            BestiaryEntry(GameItem.BAMBOO, "Crisp Shoots", "Fresh green bamboo stalks that Pandas and Goats feast upon.", Color(0xFF4ADE80), Color(0xF00B2917)),
+            BestiaryEntry(GameItem.BANANA, "Tropical Fruit", "Sweet golden banana bunch craved by Monkeys and Bears.", GoldenBankGlow, Color(0xF0332208)),
+            BestiaryEntry(GameItem.HONEY, "Golden Nectar", "Pot of sweet wildflower honey that Bears and Monkeys love.", Color(0xFFF59E0B), Color(0xF03B2208)),
+            BestiaryEntry(GameItem.APPLE, "Crisp Fruit", "Crisp orchard fruit that Horses, Rabbits and Monkeys will devour.", Color(0xFFEF4444), Color(0xF0350D0D)),
             BestiaryEntry(GameItem.CABBAGE, "Fresh Crop", "Delicious cabbage heads eaten by Rabbits & Sheep if unattended.", Color(0xFF2DD4BF), Color(0xF00B2925)),
             BestiaryEntry(GameItem.CORN, "Golden Grain", "Fresh ear of sweet corn, vulnerable to hungry livestock.", GoldenBankGlow, Color(0xF0332208)),
-            BestiaryEntry(GameItem.HAY, "Dry Forage", "Sweet golden hay bales that feed Sheep & Rabbits.", Color(0xFFFBBF24), Color(0xF0332007))
+            BestiaryEntry(GameItem.HAY, "Dry Forage", "Sweet golden hay bales that feed Sheep & Rabbits.", Color(0xFFFBBF24), Color(0xF0332007)),
+            BestiaryEntry(GameItem.DRAGONFLY, "Swamp Insect", "Iridescent wetland insect that Frogs and Chickens catch.", Color(0xFF38BDF8), Color(0xF00A2338))
         )
     }
 

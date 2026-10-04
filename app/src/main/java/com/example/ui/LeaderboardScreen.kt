@@ -228,7 +228,7 @@ fun LeaderboardScreen(
                             )
                             Spacer(modifier = Modifier.width(3.dp))
                             Text(
-                                text = "$clearedCount/50",
+                                text = "$clearedCount/${PuzzleScenarios.ALL.size}",
                                 fontWeight = FontWeight.Black,
                                 fontSize = 14.sp,
                                 color = Color.White

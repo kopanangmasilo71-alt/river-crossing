@@ -1,0 +1,48 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Banana: Bunch of golden ripe yellow bananas with brown tips -->
+    <!-- Soft warm glow -->
+    <path
+        android:pathData="M54,14 A40,40 0 1,1 53.9,14 Z"
+        android:fillColor="#25FACC15" />
+    <!-- Crown Stem -->
+    <path
+        android:pathData="M50,22 C48,18 56,18 58,22 C58,26 50,26 50,22 Z"
+        android:fillColor="#65A30D" />
+    <path
+        android:pathData="M51,18 L55,18 L54,23 L51,23 Z"
+        android:fillColor="#78350F" />
+    <!-- Rear Banana -->
+    <path
+        android:pathData="M54,24 C44,30 36,46 38,68 C40,78 48,84 56,86 C50,80 46,70 46,58 C46,42 52,30 54,24 Z"
+        android:fillColor="#EAB308" />
+    <!-- Rear Tip -->
+    <path
+        android:pathData="M56,86 L59,88 L55,90 Z"
+        android:fillColor="#78350F" />
+    <!-- Center Banana -->
+    <path
+        android:pathData="M54,24 C62,34 68,48 68,64 C68,76 60,84 50,88 C62,84 76,74 76,58 C76,40 64,28 54,24 Z"
+        android:fillColor="#FDE047" />
+    <!-- Center Tip -->
+    <path
+        android:pathData="M50,88 L46,90 L49,92 Z"
+        android:fillColor="#78350F" />
+    <!-- Front Banana -->
+    <path
+        android:pathData="M52,24 C40,36 34,54 40,74 C44,84 54,90 66,90 C56,86 48,78 46,64 C44,48 50,34 52,24 Z"
+        android:fillColor="#FACC15" />
+    <!-- Front Ridge Highlight -->
+    <path
+        android:pathData="M51,28 C42,40 38,56 43,72 C46,80 54,86 64,88"
+        android:strokeColor="#FEF08A"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round" />
+    <!-- Front Tip -->
+    <path
+        android:pathData="M66,90 L70,92 L67,94 Z"
+        android:fillColor="#78350F" />
+</vector>

@@ -163,12 +163,12 @@ enum class LevelFilter(
     val gradient: List<Color>,
     val border: Color
 ) {
-    ALL("All (50)", 1, 50, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
-    NOVICE("Novice (1-10)", 1, 10, listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom), MenuBtnGreenBorder),
-    SKILLED("Skilled (11-20)", 11, 20, listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom), MenuBtnBlueBorder),
-    EXPERT("Expert (21-35)", 21, 35, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
-    CHAMPION("Champion (36-45)", 36, 45, listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom), MenuBtnPurpleBorder),
-    GRANDMASTER("Grandmaster (46-50)", 46, 50, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder)
+    ALL("All (90)", 1, 90, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
+    NOVICE("Novice (1-15)", 1, 15, listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom), MenuBtnGreenBorder),
+    SKILLED("Skilled (16-35)", 16, 35, listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom), MenuBtnBlueBorder),
+    EXPERT("Expert (36-55)", 36, 55, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
+    CHAMPION("Champion (56-75)", 56, 75, listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom), MenuBtnPurpleBorder),
+    GRANDMASTER("Grandmaster (76-90)", 76, 90, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -210,7 +210,7 @@ fun LevelSelectScreen(
         Column(modifier = Modifier.fillMaxSize()) {
             WoodTopAppBar(
                 title = "Levels Menu",
-                subtitle = "50 Handcrafted River Puzzles",
+                subtitle = "${PuzzleScenarios.ALL.size} Handcrafted River Puzzles",
                 onBack = onNavigateToMainMenu,
                 actions = {
                     Surface(

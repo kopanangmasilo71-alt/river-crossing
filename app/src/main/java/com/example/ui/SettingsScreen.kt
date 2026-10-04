@@ -123,7 +123,6 @@ fun SettingsScreen(
 
     var nameInput by remember(playerName) { mutableStateOf(playerName) }
     var showClearDialog by remember { mutableStateOf(false) }
-    var showUnlockAllDialog by remember { mutableStateOf(false) }
 
     WoodScreenContainer(modifier = modifier) {
         Column(modifier = Modifier.fillMaxSize()) {
@@ -497,52 +496,6 @@ fun SettingsScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    // Unlock All Levels with Rewarded Ad (Vibrant Golden Amber 3D pill)
-                    Surface(
-                        shape = RoundedCornerShape(14.dp),
-                        color = MenuBtnAmberTop,
-                        border = BorderStroke(1.8.dp, MenuBtnAmberBorder),
-                        shadowElevation = 4.dp,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clickable { showUnlockAllDialog = true }
-                            .testTag("settings_unlock_all_levels_button")
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    Brush.verticalGradient(
-                                        listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
-                                    )
-                                )
-                                .padding(vertical = 11.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.LockOpen,
-                                    contentDescription = null,
-                                    tint = Color.White,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                                Spacer(modifier = Modifier.width(8.dp))
-                                Text(
-                                    "Unlock All ${PuzzleScenarios.ALL.size} Levels (${unlockedLevelIds.size}/${PuzzleScenarios.ALL.size} Unlocked)",
-                                    fontSize = 12.5.sp,
-                                    fontWeight = FontWeight.Black,
-                                    color = Color.White,
-                                    letterSpacing = 0.5.sp
-                                )
-                            }
-                        }
-                    }
-
                     Spacer(modifier = Modifier.height(10.dp))
 
                     // Reset High Scores Database (Vibrant Ruby Red 3D pill)
@@ -625,71 +578,6 @@ fun SettingsScreen(
         }
     }
 }
-
-    if (showUnlockAllDialog) {
-        AlertDialog(
-            onDismissRequest = { showUnlockAllDialog = false },
-            containerColor = Color(0xF4281206),
-            shape = RoundedCornerShape(20.dp),
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.LockOpen,
-                        contentDescription = "Unlock All Levels",
-                        tint = GoldenBankGlow,
-                        modifier = Modifier.size(22.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        "Unlock All ${PuzzleScenarios.ALL.size} Levels?",
-                        fontWeight = FontWeight.ExtraBold,
-                        color = GoldenBankGlow
-                    )
-                }
-            },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        "Unlock all ${PuzzleScenarios.ALL.size} handcrafted levels at once for complete access to the expedition!",
-                        color = Color(0xFFFEF3C7),
-                        fontSize = 13.sp
-                    )
-                }
-            },
-            confirmButton = {
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = MenuBtnAmberTop,
-                    border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
-                    modifier = Modifier.clickable {
-                        showUnlockAllDialog = false
-                        viewModel.unlockAllLevels()
-                    }
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .background(Brush.verticalGradient(listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)))
-                            .padding(horizontal = 14.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.LockOpen,
-                            contentDescription = null,
-                            tint = Color.White,
-                            modifier = Modifier.size(16.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text("Unlock All", fontWeight = FontWeight.Bold, color = Color.White)
-                    }
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { showUnlockAllDialog = false }) {
-                    Text("Cancel", color = Color(0xFFFEF3C7))
-                }
-            }
-        )
-    }
 
     if (showClearDialog) {
         AlertDialog(

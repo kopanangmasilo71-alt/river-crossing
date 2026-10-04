@@ -1,0 +1,78 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Monkey: Playful brown primate with tan face, curved tail and cheeky smile -->
+    <!-- Soft aura -->
+    <path
+        android:pathData="M54,12 A42,42 0 1,1 53.9,12 Z"
+        android:fillColor="#25D97706" />
+    <!-- Monkey Body -->
+    <path
+        android:pathData="M38,94 C38,72 44,62 54,62 C64,62 70,72 70,94 C70,97 38,97 38,94 Z"
+        android:fillColor="#854D0E" />
+    <!-- Chest / Belly tan patch -->
+    <path
+        android:pathData="M46,94 C46,76 49,68 54,68 C59,68 62,76 62,94 Z"
+        android:fillColor="#FDE68A" />
+    <!-- Curly Tail -->
+    <path
+        android:pathData="M68,88 C82,88 92,78 90,66 C88,58 78,58 80,66 C82,72 76,78 68,80 Z"
+        android:fillColor="#713F12" />
+    <!-- Left Ear Outer -->
+    <path
+        android:pathData="M32,46 A9,9 0 1,1 31.9,46 Z"
+        android:fillColor="#854D0E" />
+    <!-- Left Ear Inner -->
+    <path
+        android:pathData="M33,46 A5,5 0 1,1 32.9,46 Z"
+        android:fillColor="#FDE68A" />
+    <!-- Right Ear Outer -->
+    <path
+        android:pathData="M76,46 A9,9 0 1,1 75.9,46 Z"
+        android:fillColor="#854D0E" />
+    <!-- Right Ear Inner -->
+    <path
+        android:pathData="M75,46 A5,5 0 1,1 74.9,46 Z"
+        android:fillColor="#FDE68A" />
+    <!-- Monkey Head Base -->
+    <path
+        android:pathData="M54,26 C40,26 36,36 36,50 C36,64 42,70 54,70 C66,70 72,64 72,50 C72,36 68,26 54,26 Z"
+        android:fillColor="#854D0E" />
+    <!-- Face mask tan -->
+    <path
+        android:pathData="M54,34 C44,34 42,42 42,50 C42,62 46,66 54,66 C62,66 66,62 66,50 C66,42 64,34 54,34 Z"
+        android:fillColor="#FDE68A" />
+    <!-- Brow lobes -->
+    <path
+        android:pathData="M48,40 A6,6 0 1,1 47.9,40 Z"
+        android:fillColor="#FDE68A" />
+    <path
+        android:pathData="M60,40 A6,6 0 1,1 59.9,40 Z"
+        android:fillColor="#FDE68A" />
+    <!-- Left Eye -->
+    <path
+        android:pathData="M47,44 A3,3 0 1,1 46.9,44 Z"
+        android:fillColor="#1F2937" />
+    <path
+        android:pathData="M46.5,43 A1,1 0 1,1 46.4,43 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- Right Eye -->
+    <path
+        android:pathData="M61,44 A3,3 0 1,1 60.9,44 Z"
+        android:fillColor="#1F2937" />
+    <path
+        android:pathData="M60.5,43 A1,1 0 1,1 60.4,43 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- Muzzle / Nose -->
+    <path
+        android:pathData="M51,52 C51,50 57,50 57,52 C57,55 51,55 51,52 Z"
+        android:fillColor="#78350F" />
+    <!-- Playful Smile -->
+    <path
+        android:pathData="M48,58 Q54,63 60,58"
+        android:strokeColor="#78350F"
+        android:strokeWidth="2"
+        android:strokeLineCap="round" />
+</vector>

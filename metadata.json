@@ -1,6 +1,6 @@
 {
   "name": "River Crossing",
-  "description": "Interactive River Crossing logic puzzle with 50 handcrafted levels, Bear & Berries game objects, difficulty modifiers, procedural audio sound effects, state-space AI solver, and high scores.",
+  "description": "Interactive River Crossing logic puzzle with 90 handcrafted levels, new animals and game objects across custom biomes, difficulty modifiers, procedural audio sound effects, state-space AI solver, and high scores.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

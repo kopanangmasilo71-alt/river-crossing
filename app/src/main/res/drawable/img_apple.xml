@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Apple: Shiny crisp red orchard apple with green leaf and brown stem -->
+    <!-- Soft sweet aura -->
+    <path
+        android:pathData="M54,14 A40,40 0 1,1 53.9,14 Z"
+        android:fillColor="#25EF4444" />
+    <!-- Apple Body -->
+    <path
+        android:pathData="M54,34 C42,24 24,34 24,56 C24,78 40,94 54,92 C68,94 84,78 84,56 C84,34 66,24 54,34 Z"
+        android:fillColor="#DC2626" />
+    <!-- Apple Bottom Dimple -->
+    <path
+        android:pathData="M50,92 C52,90 56,90 58,92 C56,93 52,93 50,92 Z"
+        android:fillColor="#991B1B" />
+    <!-- Apple Top Indentation -->
+    <path
+        android:pathData="M50,34 C52,36 56,36 58,34 C56,33 52,33 50,34 Z"
+        android:fillColor="#991B1B" />
+    <!-- Shiny Light Reflection -->
+    <path
+        android:pathData="M34,44 C30,52 30,64 36,72 C34,64 34,54 38,46 Z"
+        android:fillColor="#FCA5A5" />
+    <path
+        android:pathData="M40,40 A3,3 0 1,1 39.9,40 Z"
+        android:fillColor="#FFFFFF" />
+    <!-- Brown Stem -->
+    <path
+        android:pathData="M54,34 C54,26 58,20 64,16"
+        android:strokeColor="#78350F"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round" />
+    <!-- Green Leaf -->
+    <path
+        android:pathData="M56,30 C64,22 74,22 80,24 C78,32 70,36 58,32 Z"
+        android:fillColor="#22C55E" />
+    <!-- Leaf Vein -->
+    <path
+        android:pathData="M58,30 C66,26 74,25 78,25"
+        android:strokeColor="#15803D"
+        android:strokeWidth="1.2"
+        android:strokeLineCap="round" />
+</vector>

@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -213,25 +214,26 @@ fun MainMenuScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 8.dp),
-                verticalAlignment = Alignment.Top,
+                    .padding(top = 6.dp),
+                verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Game Title Logo Banner (Wooden signboard with 3D embossed lettering)
+                // Game Title Logo Banner using img_game_logo_1790060116623
                 Box(
                     modifier = Modifier
-                        .weight(1f)
+                        .weight(1.12f)
                         .offset(y = gentleFloat.dp)
                 ) {
                     RiverCrossingTitleLogo()
                 }
 
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 // Tagline & Quick Action Buttons (Sound, Rules, Close)
                 Column(
+                    modifier = Modifier.weight(0.88f),
                     horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     // Quick Action Buttons Row (Circular 3D glossy blue pills)
                     Row(
@@ -368,9 +370,9 @@ fun MainMenuScreen(
             // 2. LEVELS MENU (BRILLIANT SKY / OCEAN BLUE)
             MainMenuPillButton(
                 title = "Levels Menu",
-                subtitle = "Browse all 50 handcrafted river puzzles",
+                subtitle = "Browse all ${PuzzleScenarios.ALL.size} handcrafted river puzzles",
                 drawableIconRes = R.drawable.ic_map_treasure,
-                badgeText = "$clearedCount/50",
+                badgeText = "$clearedCount/${PuzzleScenarios.ALL.size}",
                 gradientColors = listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom),
                 borderColor = MenuBtnBlueBorder,
                 testTag = "main_menu_levels_button",
@@ -434,110 +436,24 @@ fun MainMenuScreen(
 }
 
 /**
- * Authentic wooden signboard title logo with 3D embossed lettering and metallic corner rivets
+ * River Crossing title logo asset (img_game_logo_1790060116623)
  */
 @Composable
 private fun RiverCrossingTitleLogo(modifier: Modifier = Modifier) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF65330D)),
-        border = BorderStroke(
-            2.dp,
-            Brush.verticalGradient(
-                listOf(Color(0xFFD97706), Color(0xFF92400E), Color(0xFF5A2603))
-            )
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        modifier = modifier.padding(end = 4.dp)
+    Box(
+        modifier = modifier
+            .testTag("main_menu_game_logo")
+            .padding(end = 4.dp),
+        contentAlignment = Alignment.CenterStart
     ) {
-        Box(
+        Image(
+            painter = painterResource(id = R.drawable.img_game_logo_1790060116623),
+            contentDescription = "River Crossing Logo",
             modifier = Modifier
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            Color(0xFF8B4513),
-                            Color(0xFF6B3209),
-                            Color(0xFF4D2205)
-                        )
-                    )
-                )
-                .padding(horizontal = 14.dp, vertical = 8.dp)
-        ) {
-            // Metallic screw accents in corners
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFFDE68A))
-                    .align(Alignment.TopStart)
-            )
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFFDE68A))
-                    .align(Alignment.TopEnd)
-            )
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFB45309))
-                    .align(Alignment.BottomStart)
-            )
-            Box(
-                modifier = Modifier
-                    .size(6.dp)
-                    .clip(CircleShape)
-                    .background(Color(0xFFB45309))
-                    .align(Alignment.BottomEnd)
-            )
-
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier.align(Alignment.Center)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(5.dp)
-                ) {
-                    Text(
-                        text = "⛵",
-                        fontSize = 19.sp
-                    )
-                    Text(
-                        text = "RIVER",
-                        fontSize = 22.sp,
-                        fontWeight = FontWeight.Black,
-                        color = Color.White,
-                        letterSpacing = 1.5.sp,
-                        style = androidx.compose.ui.text.TextStyle(
-                            shadow = androidx.compose.ui.graphics.Shadow(
-                                color = Color(0xFF2E1202),
-                                offset = androidx.compose.ui.geometry.Offset(2f, 2f),
-                                blurRadius = 2f
-                            )
-                        )
-                    )
-                }
-
-                Text(
-                    text = "CROSSING",
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Black,
-                    color = GoldenBankGlow,
-                    letterSpacing = 1.2.sp,
-                    style = androidx.compose.ui.text.TextStyle(
-                        shadow = androidx.compose.ui.graphics.Shadow(
-                            color = Color(0xFF522103),
-                            offset = androidx.compose.ui.geometry.Offset(2f, 2f),
-                            blurRadius = 2f
-                        )
-                    )
-                )
-            }
-        }
+                .fillMaxWidth()
+                .heightIn(min = 68.dp, max = 96.dp),
+            contentScale = ContentScale.Fit
+        )
     }
 }
 
