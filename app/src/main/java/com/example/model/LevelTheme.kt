@@ -974,140 +974,401 @@ data class LevelTheme(
                     name = "Bamboo Grove",
                     tagline = "Towering jade stalks and misty koi streams",
                     iconEmoji = "🎋",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.LILY_PADS,
+                    waterGradientTop = Color(0xFF047857),
+                    waterGradientBottom = Color(0xFF064E3B),
+                    waveColor = Color(0xFFA7F3D0),
+                    flotsamColor = Color(0xFF34D399),
+                    dockWoodTop = Color(0xFF3F6212),
+                    dockWoodBottom = Color(0xFF14532D),
+                    dockBorder = Color(0xFF86EFAC),
+                    bankAccentColor = Color(0xFF10B981),
+                    boatHullColors = listOf(Color(0xFF365314), Color(0xFF14532D), Color(0xFF166534)),
+                    boatTrimColor = Color(0xFF86EFAC),
+                    sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857))
                 )
                 52 -> DESERT_OASIS.copy(
                     id = "lvl_52_savannah_dunes",
                     name = "Golden Savannah Dunes",
                     tagline = "Amber rolling sands and acacia mirages at noon",
                     iconEmoji = "🏜️",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFF0284C7),
+                    waterGradientBottom = Color(0xFFB45309),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFD97706),
+                    dockWoodTop = Color(0xFFB45309),
+                    dockWoodBottom = Color(0xFF78350F),
+                    dockBorder = Color(0xFFFDE68A),
+                    bankAccentColor = Color(0xFFF59E0B),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF78350F), Color(0xFF451A03)),
+                    boatTrimColor = Color(0xFFFDE68A),
+                    sailButtonColors = listOf(Color(0xFFFBBF24), Color(0xFFF59E0B), Color(0xFFD97706), Color(0xFFB45309))
                 )
                 53 -> ALPINE_PEAKS.copy(
                     id = "lvl_53_coral_archipelago",
                     name = "Coral Archipelago",
                     tagline = "Turquoise waves lapping powdered coral reefs",
                     iconEmoji = "🏝️",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.OASIS_MIRAGE,
+                    flotsamType = FlotsamType.OASIS_BLOOMS,
+                    waterGradientTop = Color(0xFF06B6D4),
+                    waterGradientBottom = Color(0xFF0F766E),
+                    waveColor = Color(0xFFCCFBF1),
+                    flotsamColor = Color(0xFFF43F5E),
+                    dockWoodTop = Color(0xFFE2E8F0),
+                    dockWoodBottom = Color(0xFF94A3B8),
+                    dockBorder = Color(0xFF38BDF8),
+                    bankAccentColor = Color(0xFF06B6D4),
+                    boatHullColors = listOf(Color(0xFFF1F5F9), Color(0xFFCBD5E1), Color(0xFF0891B2)),
+                    boatTrimColor = Color(0xFF38BDF8),
+                    sailButtonColors = listOf(Color(0xFF38BDF8), Color(0xFF0EA5E9), Color(0xFF0284C7), Color(0xFF0369A1))
                 )
                 54 -> SAVANNAH_SUN.copy(
                     id = "lvl_54_volcanic_caldera",
                     name = "Volcanic Caldera",
                     tagline = "Obsidian basalt cliffs and glowing magma streams",
                     iconEmoji = "🌋",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFFDC2626),
+                    waterGradientBottom = Color(0xFF450A0A),
+                    waveColor = Color(0xFFFDBA74),
+                    flotsamColor = Color(0xFFEF4444),
+                    dockWoodTop = Color(0xFF262626),
+                    dockWoodBottom = Color(0xFF0A0A0A),
+                    dockBorder = Color(0xFFEF4444),
+                    dockLanternGlow = Color(0xFFF97316),
+                    bankAccentColor = Color(0xFFF97316),
+                    boatHullColors = listOf(Color(0xFF450A0A), Color(0xFF171717), Color(0xFF7F1D1D)),
+                    boatTrimColor = Color(0xFFF97316),
+                    sailButtonColors = listOf(Color(0xFFF97316), Color(0xFFEA580C), Color(0xFFC2410C), Color(0xFF9A3412))
                 )
                 55 -> SPRING_VALLEY.copy(
                     id = "lvl_55_cherry_blossom",
                     name = "Cherry Blossom Pagoda",
                     tagline = "Sakura petals drifting past ancient pagoda bridges",
                     iconEmoji = "🌸",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.TWILIGHT_PETALS,
+                    waterGradientTop = Color(0xFFEC4899),
+                    waterGradientBottom = Color(0xFF831843),
+                    waveColor = Color(0xFFFCE7F3),
+                    flotsamColor = Color(0xFFF472B6),
+                    dockWoodTop = Color(0xFF991B1B),
+                    dockWoodBottom = Color(0xFF450A0A),
+                    dockBorder = Color(0xFFFBCFE8),
+                    bankAccentColor = Color(0xFFF472B6),
+                    boatHullColors = listOf(Color(0xFF881337), Color(0xFF4C0519), Color(0xFFBE123C)),
+                    boatTrimColor = Color(0xFFFBCFE8),
+                    sailButtonColors = listOf(Color(0xFFF472B6), Color(0xFFEC4899), Color(0xFFDB2777), Color(0xFFBE185D))
                 )
                 56 -> SPRING_VALLEY.copy(
                     id = "lvl_56_deep_rainforest",
                     name = "Deep Rainforest Sanctuary",
                     tagline = "Lush emerald canopy and roaring jungle cascades",
                     iconEmoji = "🦜",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.LILY_PADS,
+                    waterGradientTop = Color(0xFF059669),
+                    waterGradientBottom = Color(0xFF064E3B),
+                    waveColor = Color(0xFFD1FAE5),
+                    flotsamColor = Color(0xFF10B981),
+                    dockWoodTop = Color(0xFF14532D),
+                    dockWoodBottom = Color(0xFF052E16),
+                    dockBorder = Color(0xFF6EE7B7),
+                    bankAccentColor = Color(0xFF34D399),
+                    boatHullColors = listOf(Color(0xFF166534), Color(0xFF14532D), Color(0xFF052E16)),
+                    boatTrimColor = Color(0xFF6EE7B7),
+                    sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857))
                 )
                 57 -> ALPINE_PEAKS.copy(
                     id = "lvl_57_glacial_fjord",
                     name = "Glacial Fjord",
                     tagline = "Towering blue icebergs mirrored in crystal waters",
                     iconEmoji = "🧊",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.ALPINE_MIST,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFF0284C7),
+                    waterGradientBottom = Color(0xFF0C4A6E),
+                    waveColor = Color(0xFFE0F2FE),
+                    flotsamColor = Color(0xFF38BDF8),
+                    dockWoodTop = Color(0xFF334155),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFFBAE6FD),
+                    bankAccentColor = Color(0xFF38BDF8),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF334155)),
+                    boatTrimColor = Color(0xFF7DD3FC),
+                    sailButtonColors = listOf(Color(0xFF38BDF8), Color(0xFF0EA5E9), Color(0xFF0284C7), Color(0xFF0369A1))
                 )
                 58 -> AUTUMN_HARVEST.copy(
                     id = "lvl_58_redwood_valley",
                     name = "Twilight Redwood Valley",
                     tagline = "Ancient timber giants glowing in golden twilight",
                     iconEmoji = "🌲",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
+                    flotsamType = FlotsamType.PINE_SPRIGS,
+                    waterGradientTop = Color(0xFFB45309),
+                    waterGradientBottom = Color(0xFF451A03),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFD97706),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFDE68A),
+                    bankAccentColor = Color(0xFFF59E0B),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF78350F), Color(0xFF451A03)),
+                    boatTrimColor = Color(0xFFFDE68A),
+                    sailButtonColors = listOf(Color(0xFFFBBF24), Color(0xFFF59E0B), Color(0xFFD97706), Color(0xFFB45309))
                 )
                 59 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_59_bioluminescent_cavern",
                     name = "Bioluminescent Cavern",
                     tagline = "Subterranean azure glow reflecting off crystal pools",
                     iconEmoji = "🌌",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF0E7490),
+                    waterGradientBottom = Color(0xFF082F49),
+                    waveColor = Color(0xFF67E8F9),
+                    flotsamColor = Color(0xFF22D3EE),
+                    dockWoodTop = Color(0xFF164E63),
+                    dockWoodBottom = Color(0xFF082F49),
+                    dockBorder = Color(0xFF67E8F9),
+                    bankAccentColor = Color(0xFF06B6D4),
+                    boatHullColors = listOf(Color(0xFF0E7490), Color(0xFF155E75), Color(0xFF082F49)),
+                    boatTrimColor = Color(0xFF67E8F9),
+                    sailButtonColors = listOf(Color(0xFF22D3EE), Color(0xFF06B6D4), Color(0xFF0891B2), Color(0xFF0E7490))
                 )
                 60 -> DESERT_OASIS.copy(
                     id = "lvl_60_atlantis_ruins",
                     name = "Sunken Atlantis Ruins",
                     tagline = "Submerged golden aqueducts and marble archways",
                     iconEmoji = "🏛️",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.OASIS_MIRAGE,
+                    flotsamType = FlotsamType.OASIS_BLOOMS,
+                    waterGradientTop = Color(0xFF0D9488),
+                    waterGradientBottom = Color(0xFF115E59),
+                    waveColor = Color(0xFFCCFBF1),
+                    flotsamColor = Color(0xFF2DD4BF),
+                    dockWoodTop = Color(0xFFF1F5F9),
+                    dockWoodBottom = Color(0xFF64748B),
+                    dockBorder = Color(0xFFFDE047),
+                    bankAccentColor = Color(0xFF14B8A6),
+                    boatHullColors = listOf(Color(0xFFE2E8F0), Color(0xFF94A3B8), Color(0xFF0F766E)),
+                    boatTrimColor = Color(0xFFFDE047),
+                    sailButtonColors = listOf(Color(0xFF2DD4BF), Color(0xFF14B8A6), Color(0xFF0D9488), Color(0xFF0F766E))
                 )
                 61 -> TWILIGHT_RAPIDS.copy(
                     id = "lvl_61_heather_moors",
                     name = "Highland Heather Moors",
                     tagline = "Purple heather valleys and mysterious highland mist",
                     iconEmoji = "🪻",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
+                    flotsamType = FlotsamType.TWILIGHT_PETALS,
+                    waterGradientTop = Color(0xFF7E22CE),
+                    waterGradientBottom = Color(0xFF3B0764),
+                    waveColor = Color(0xFFF3E8FF),
+                    flotsamColor = Color(0xFFC084FC),
+                    dockWoodTop = Color(0xFF581C87),
+                    dockWoodBottom = Color(0xFF3B0764),
+                    dockBorder = Color(0xFFE9D5FF),
+                    bankAccentColor = Color(0xFFA855F7),
+                    boatHullColors = listOf(Color(0xFF6B21A8), Color(0xFF3B0764), Color(0xFF581C87)),
+                    boatTrimColor = Color(0xFFE9D5FF),
+                    sailButtonColors = listOf(Color(0xFFC084FC), Color(0xFFA855F7), Color(0xFF9333EA), Color(0xFF7E22CE))
                 )
                 62 -> AUTUMN_HARVEST.copy(
                     id = "lvl_62_maple_gorge",
                     name = "Autumn Maple Gorge",
                     tagline = "Scarlet maple leaves rushing over foaming rapids",
                     iconEmoji = "🍁",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
+                    flotsamType = FlotsamType.AUTUMN_LEAVES,
+                    waterGradientTop = Color(0xFFDC2626),
+                    waterGradientBottom = Color(0xFF7C2D12),
+                    waveColor = Color(0xFFFEE2E2),
+                    flotsamColor = Color(0xFFEF4444),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFCA5A5),
+                    bankAccentColor = Color(0xFFEF4444),
+                    boatHullColors = listOf(Color(0xFF991B1B), Color(0xFF451A03), Color(0xFF78350F)),
+                    boatTrimColor = Color(0xFFFCA5A5),
+                    sailButtonColors = listOf(Color(0xFFF87171), Color(0xFFEF4444), Color(0xFFDC2626), Color(0xFFB91C1C))
                 )
                 63 -> SPRING_VALLEY.copy(
                     id = "lvl_63_rice_terraces",
                     name = "Emerald Rice Terraces",
                     tagline = "Mirrored sky waters cascading down emerald stairways",
                     iconEmoji = "🌾",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SPRING_PETALS,
+                    flotsamType = FlotsamType.LILY_PADS,
+                    waterGradientTop = Color(0xFF10B981),
+                    waterGradientBottom = Color(0xFF047857),
+                    waveColor = Color(0xFFD1FAE5),
+                    flotsamColor = Color(0xFF34D399),
+                    dockWoodTop = Color(0xFF4D7C0F),
+                    dockWoodBottom = Color(0xFF1A2E05),
+                    dockBorder = Color(0xFFA3E635),
+                    bankAccentColor = Color(0xFF84CC16),
+                    boatHullColors = listOf(Color(0xFF3F6212), Color(0xFF1A2E05), Color(0xFF4D7C0F)),
+                    boatTrimColor = Color(0xFFA3E635),
+                    sailButtonColors = listOf(Color(0xFFA3E635), Color(0xFF84CC16), Color(0xFF65A30D), Color(0xFF4D7C0F))
                 )
                 64 -> TWILIGHT_RAPIDS.copy(
                     id = "lvl_64_dragon_peak",
                     name = "Dragon's Tooth Peak",
                     tagline = "Jagged alpine spires piercing lightning-lit clouds",
                     iconEmoji = "🐉",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF4338CA),
+                    waterGradientBottom = Color(0xFF1E1B4B),
+                    waveColor = Color(0xFFC7D2FE),
+                    flotsamColor = Color(0xFF818CF8),
+                    dockWoodTop = Color(0xFF312E81),
+                    dockWoodBottom = Color(0xFF1E1B4B),
+                    dockBorder = Color(0xFFA5B4FC),
+                    bankAccentColor = Color(0xFF6366F1),
+                    boatHullColors = listOf(Color(0xFF3730A3), Color(0xFF1E1B4B), Color(0xFF312E81)),
+                    boatTrimColor = Color(0xFFA5B4FC),
+                    sailButtonColors = listOf(Color(0xFF818CF8), Color(0xFF6366F1), Color(0xFF4F46E5), Color(0xFF3730A3))
                 )
                 65 -> SAVANNAH_SUN.copy(
                     id = "lvl_65_mangrove_swamp",
                     name = "Whispering Mangrove Swamp",
                     tagline = "Winding swamp waterways under dense mangrove arches",
                     iconEmoji = "🐊",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFF0F766E),
+                    waterGradientBottom = Color(0xFF134E4A),
+                    waveColor = Color(0xFFCCFBF1),
+                    flotsamColor = Color(0xFF2DD4BF),
+                    dockWoodTop = Color(0xFF451A03),
+                    dockWoodBottom = Color(0xFF1C0B03),
+                    dockBorder = Color(0xFFFDE68A),
+                    bankAccentColor = Color(0xFF14B8A6),
+                    boatHullColors = listOf(Color(0xFF78350F), Color(0xFF1C0B03), Color(0xFF451A03)),
+                    boatTrimColor = Color(0xFF2DD4BF),
+                    sailButtonColors = listOf(Color(0xFF2DD4BF), Color(0xFF14B8A6), Color(0xFF0D9488), Color(0xFF0F766E))
                 )
                 66 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_66_moonlit_willow",
                     name = "Moonlit Willow Haven",
                     tagline = "Silvery lunar light dancing upon calm willow shores",
                     iconEmoji = "🌕",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF1E293B),
+                    waterGradientBottom = Color(0xFF020617),
+                    waveColor = Color(0xFFE2E8F0),
+                    flotsamColor = Color(0xFF94A3B8),
+                    dockWoodTop = Color(0xFF334155),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFFCBD5E1),
+                    bankAccentColor = Color(0xFF94A3B8),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF334155)),
+                    boatTrimColor = Color(0xFFE2E8F0),
+                    sailButtonColors = listOf(Color(0xFF94A3B8), Color(0xFF64748B), Color(0xFF475569), Color(0xFF334155))
                 )
                 67 -> SAVANNAH_SUN.copy(
                     id = "lvl_67_sun_temple",
                     name = "Golden Sun Temple",
                     tagline = "Sun-baked sandstone monuments reflecting in holy river",
                     iconEmoji = "☀️",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.SAVANNAH_DUST,
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFFD97706),
+                    waterGradientBottom = Color(0xFF92400E),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFFBBF24),
+                    dockWoodTop = Color(0xFFB45309),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFEF08A),
+                    bankAccentColor = Color(0xFFF59E0B),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF451A03), Color(0xFF78350F)),
+                    boatTrimColor = Color(0xFFFEF08A),
+                    sailButtonColors = listOf(Color(0xFFFDE047), Color(0xFFEAB308), Color(0xFFCA8A04), Color(0xFFA16207))
                 )
                 68 -> AURORA_BOREALIS.copy(
                     id = "lvl_68_geode_grotto",
                     name = "Crystal Geode Grotto",
                     tagline = "Prismatic amethyst chambers refracting radiant colors",
                     iconEmoji = "💎",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AURORA_SHIMMER,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFF9333EA),
+                    waterGradientBottom = Color(0xFF3B0764),
+                    waveColor = Color(0xFFF3E8FF),
+                    flotsamColor = Color(0xFFE9D5FF),
+                    dockWoodTop = Color(0xFF581C87),
+                    dockWoodBottom = Color(0xFF2E1065),
+                    dockBorder = Color(0xFFE9D5FF),
+                    bankAccentColor = Color(0xFFA855F7),
+                    boatHullColors = listOf(Color(0xFF6B21A8), Color(0xFF2E1065), Color(0xFF581C87)),
+                    boatTrimColor = Color(0xFFE9D5FF),
+                    sailButtonColors = listOf(Color(0xFFC084FC), Color(0xFFA855F7), Color(0xFF9333EA), Color(0xFF7E22CE))
                 )
                 69 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_69_starfall_canyon",
                     name = "Starfall Astral Canyon",
                     tagline = "Shooting stars streaking across a deep indigo sky",
                     iconEmoji = "🌠",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF312E81),
+                    waterGradientBottom = Color(0xFF1E1B4B),
+                    waveColor = Color(0xFFC7D2FE),
+                    flotsamColor = Color(0xFF818CF8),
+                    dockWoodTop = Color(0xFF1E1B4B),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFFC7D2FE),
+                    bankAccentColor = Color(0xFF6366F1),
+                    boatHullColors = listOf(Color(0xFF312E81), Color(0xFF1E1B4B), Color(0xFF1E293B)),
+                    boatTrimColor = Color(0xFFC7D2FE),
+                    sailButtonColors = listOf(Color(0xFF818CF8), Color(0xFF6366F1), Color(0xFF4F46E5), Color(0xFF3730A3))
                 )
                 70 -> AURORA_BOREALIS.copy(
                     id = "lvl_70_emperors_elysium",
                     name = "The Grand Emperor's Elysium",
                     tagline = "Supreme monumental river gateway of legendary grandmasters",
                     iconEmoji = "👑",
-                    backgroundDrawableRes = bg
+                    backgroundDrawableRes = bg,
+                    weatherEffect = WeatherEffectType.AURORA_SHIMMER,
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFFEAB308),
+                    waterGradientBottom = Color(0xFF451A03),
+                    waveColor = Color(0xFFFEF08A),
+                    flotsamColor = Color(0xFFFDE047),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFEF08A),
+                    bankAccentColor = Color(0xFFFACC15),
+                    boatHullColors = listOf(Color(0xFFB45309), Color(0xFF451A03), Color(0xFF92400E)),
+                    boatTrimColor = Color(0xFFFEF08A),
+                    sailButtonColors = listOf(Color(0xFFFEF08A), Color(0xFFFACC15), Color(0xFFEAB308), Color(0xFFCA8A04))
                 )
                 71 -> SPRING_VALLEY.copy(
                     id = "lvl_71_monkey_canopy",
@@ -1116,7 +1377,18 @@ data class LevelTheme(
                     iconEmoji = "🐒",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.SPRING_PETALS,
-                    flotsamType = FlotsamType.LILY_PADS
+                    flotsamType = FlotsamType.LILY_PADS,
+                    waterGradientTop = Color(0xFF15803D),
+                    waterGradientBottom = Color(0xFF14532D),
+                    waveColor = Color(0xFFDCFCE7),
+                    flotsamColor = Color(0xFF4ADE80),
+                    dockWoodTop = Color(0xFF451A03),
+                    dockWoodBottom = Color(0xFF1C0B03),
+                    dockBorder = Color(0xFF86EFAC),
+                    bankAccentColor = Color(0xFF22C55E),
+                    boatHullColors = listOf(Color(0xFF78350F), Color(0xFF451A03), Color(0xFF92400E)),
+                    boatTrimColor = Color(0xFF86EFAC),
+                    sailButtonColors = listOf(Color(0xFF4ADE80), Color(0xFF22C55E), Color(0xFF16A34A), Color(0xFF15803D))
                 )
                 72 -> SPRING_VALLEY.copy(
                     id = "lvl_72_panda_sanctuary",
@@ -1125,7 +1397,18 @@ data class LevelTheme(
                     iconEmoji = "🐼",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.ALPINE_MIST,
-                    flotsamType = FlotsamType.PINE_SPRIGS
+                    flotsamType = FlotsamType.PINE_SPRIGS,
+                    waterGradientTop = Color(0xFF0F766E),
+                    waterGradientBottom = Color(0xFF115E59),
+                    waveColor = Color(0xFFCCFBF1),
+                    flotsamColor = Color(0xFF2DD4BF),
+                    dockWoodTop = Color(0xFF3F6212),
+                    dockWoodBottom = Color(0xFF14532D),
+                    dockBorder = Color(0xFF5EEAD4),
+                    bankAccentColor = Color(0xFF14B8A6),
+                    boatHullColors = listOf(Color(0xFF365314), Color(0xFF14532D), Color(0xFF166534)),
+                    boatTrimColor = Color(0xFF5EEAD4),
+                    sailButtonColors = listOf(Color(0xFF2DD4BF), Color(0xFF14B8A6), Color(0xFF0D9488), Color(0xFF0F766E))
                 )
                 73 -> TWILIGHT_RAPIDS.copy(
                     id = "lvl_73_highland_steed",
@@ -1134,7 +1417,18 @@ data class LevelTheme(
                     iconEmoji = "🐎",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
-                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                    flotsamType = FlotsamType.TWILIGHT_PETALS,
+                    waterGradientTop = Color(0xFF6B21A8),
+                    waterGradientBottom = Color(0xFF3B0764),
+                    waveColor = Color(0xFFF3E8FF),
+                    flotsamColor = Color(0xFFD8B4FE),
+                    dockWoodTop = Color(0xFF475569),
+                    dockWoodBottom = Color(0xFF1E293B),
+                    dockBorder = Color(0xFFE9D5FF),
+                    bankAccentColor = Color(0xFFA855F7),
+                    boatHullColors = listOf(Color(0xFF581C87), Color(0xFF2E1065), Color(0xFF4C1D95)),
+                    boatTrimColor = Color(0xFFD8B4FE),
+                    sailButtonColors = listOf(Color(0xFFC084FC), Color(0xFFA855F7), Color(0xFF9333EA), Color(0xFF7E22CE))
                 )
                 74 -> AUTUMN_HARVEST.copy(
                     id = "lvl_74_honeycomb_glade",
@@ -1143,7 +1437,18 @@ data class LevelTheme(
                     iconEmoji = "🍯",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
-                    flotsamType = FlotsamType.AUTUMN_LEAVES
+                    flotsamType = FlotsamType.AUTUMN_LEAVES,
+                    waterGradientTop = Color(0xFFD97706),
+                    waterGradientBottom = Color(0xFF78350F),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFFBBF24),
+                    dockWoodTop = Color(0xFF92400E),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFEF08A),
+                    bankAccentColor = Color(0xFFF59E0B),
+                    boatHullColors = listOf(Color(0xFFB45309), Color(0xFF451A03), Color(0xFF92400E)),
+                    boatTrimColor = Color(0xFFFEF08A),
+                    sailButtonColors = listOf(Color(0xFFFDE047), Color(0xFFEAB308), Color(0xFFCA8A04), Color(0xFFA16207))
                 )
                 75 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_75_emerald_marsh",
@@ -1152,7 +1457,18 @@ data class LevelTheme(
                     iconEmoji = "🐸",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
-                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF047857),
+                    waterGradientBottom = Color(0xFF022C22),
+                    waveColor = Color(0xFF6EE7B7),
+                    flotsamColor = Color(0xFF34D399),
+                    dockWoodTop = Color(0xFF14532D),
+                    dockWoodBottom = Color(0xFF052E16),
+                    dockBorder = Color(0xFF6EE7B7),
+                    bankAccentColor = Color(0xFF10B981),
+                    boatHullColors = listOf(Color(0xFF065F46), Color(0xFF022C22), Color(0xFF047857)),
+                    boatTrimColor = Color(0xFF6EE7B7),
+                    sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857))
                 )
                 76 -> SAVANNAH_SUN.copy(
                     id = "lvl_76_raptors_crag",
@@ -1161,7 +1477,18 @@ data class LevelTheme(
                     iconEmoji = "🦅",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.SAVANNAH_DUST,
-                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFFEA580C),
+                    waterGradientBottom = Color(0xFF7C2D12),
+                    waveColor = Color(0xFFFFEDD5),
+                    flotsamColor = Color(0xFFFB923C),
+                    dockWoodTop = Color(0xFF9A3412),
+                    dockWoodBottom = Color(0xFF431407),
+                    dockBorder = Color(0xFFFDBA74),
+                    bankAccentColor = Color(0xFFEA580C),
+                    boatHullColors = listOf(Color(0xFFC2410C), Color(0xFF431407), Color(0xFF7C2D12)),
+                    boatTrimColor = Color(0xFFFDBA74),
+                    sailButtonColors = listOf(Color(0xFFFB923C), Color(0xFFEA580C), Color(0xFFC2410C), Color(0xFF9A3412))
                 )
                 77 -> ALPINE_PEAKS.copy(
                     id = "lvl_77_polar_drift",
@@ -1170,7 +1497,18 @@ data class LevelTheme(
                     iconEmoji = "🐧",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.ALPINE_MIST,
-                    flotsamType = FlotsamType.AURORA_CRYSTALS
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFF0369A1),
+                    waterGradientBottom = Color(0xFF082F49),
+                    waveColor = Color(0xFFE0F2FE),
+                    flotsamColor = Color(0xFF7DD3FC),
+                    dockWoodTop = Color(0xFF334155),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFFBAE6FD),
+                    bankAccentColor = Color(0xFF38BDF8),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF082F49), Color(0xFF0C4A6E)),
+                    boatTrimColor = Color(0xFFBAE6FD),
+                    sailButtonColors = listOf(Color(0xFF38BDF8), Color(0xFF0EA5E9), Color(0xFF0284C7), Color(0xFF0369A1))
                 )
                 78 -> DESERT_OASIS.copy(
                     id = "lvl_78_oasis_bazaar",
@@ -1179,7 +1517,18 @@ data class LevelTheme(
                     iconEmoji = "🏝️",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.OASIS_MIRAGE,
-                    flotsamType = FlotsamType.OASIS_BLOOMS
+                    flotsamType = FlotsamType.OASIS_BLOOMS,
+                    waterGradientTop = Color(0xFF0D9488),
+                    waterGradientBottom = Color(0xFF134E4A),
+                    waveColor = Color(0xFFCCFBF1),
+                    flotsamColor = Color(0xFF2DD4BF),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFDE68A),
+                    bankAccentColor = Color(0xFF14B8A6),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF451A03), Color(0xFF78350F)),
+                    boatTrimColor = Color(0xFF2DD4BF),
+                    sailButtonColors = listOf(Color(0xFF2DD4BF), Color(0xFF14B8A6), Color(0xFF0D9488), Color(0xFF0F766E))
                 )
                 79 -> SPRING_VALLEY.copy(
                     id = "lvl_79_serpent_temple",
@@ -1188,7 +1537,18 @@ data class LevelTheme(
                     iconEmoji = "🐍",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.SPRING_PETALS,
-                    flotsamType = FlotsamType.LILY_PADS
+                    flotsamType = FlotsamType.LILY_PADS,
+                    waterGradientTop = Color(0xFF059669),
+                    waterGradientBottom = Color(0xFF064E3B),
+                    waveColor = Color(0xFFD1FAE5),
+                    flotsamColor = Color(0xFF34D399),
+                    dockWoodTop = Color(0xFF1F2937),
+                    dockWoodBottom = Color(0xFF111827),
+                    dockBorder = Color(0xFF6EE7B7),
+                    bankAccentColor = Color(0xFF10B981),
+                    boatHullColors = listOf(Color(0xFF374151), Color(0xFF111827), Color(0xFF1F2937)),
+                    boatTrimColor = Color(0xFF6EE7B7),
+                    sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857))
                 )
                 80 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_80_moonlit_waterfall",
@@ -1197,7 +1557,18 @@ data class LevelTheme(
                     iconEmoji = "🌕",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
-                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF1E293B),
+                    waterGradientBottom = Color(0xFF090D16),
+                    waveColor = Color(0xFFE2E8F0),
+                    flotsamColor = Color(0xFF38BDF8),
+                    dockWoodTop = Color(0xFF334155),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFFE2E8F0),
+                    bankAccentColor = Color(0xFF67E8F9),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF334155)),
+                    boatTrimColor = Color(0xFFE2E8F0),
+                    sailButtonColors = listOf(Color(0xFF67E8F9), Color(0xFF38BDF8), Color(0xFF0284C7), Color(0xFF0369A1))
                 )
                 81 -> AUTUMN_HARVEST.copy(
                     id = "lvl_81_autumn_orchard",
@@ -1206,7 +1577,18 @@ data class LevelTheme(
                     iconEmoji = "🍎",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.AUTUMN_LEAVES,
-                    flotsamType = FlotsamType.AUTUMN_LEAVES
+                    flotsamType = FlotsamType.AUTUMN_LEAVES,
+                    waterGradientTop = Color(0xFFB45309),
+                    waterGradientBottom = Color(0xFF78350F),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFEF4444),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFCA5A5),
+                    bankAccentColor = Color(0xFFEA580C),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF451A03), Color(0xFF78350F)),
+                    boatTrimColor = Color(0xFFFDE68A),
+                    sailButtonColors = listOf(Color(0xFFF87171), Color(0xFFEF4444), Color(0xFFDC2626), Color(0xFFB91C1C))
                 )
                 82 -> TWILIGHT_RAPIDS.copy(
                     id = "lvl_82_geyser_basin",
@@ -1215,7 +1597,18 @@ data class LevelTheme(
                     iconEmoji = "♨️",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
-                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                    flotsamType = FlotsamType.TWILIGHT_PETALS,
+                    waterGradientTop = Color(0xFF0891B2),
+                    waterGradientBottom = Color(0xFF4338CA),
+                    waveColor = Color(0xFFFEF08A),
+                    flotsamColor = Color(0xFFF472B6),
+                    dockWoodTop = Color(0xFF475569),
+                    dockWoodBottom = Color(0xFF1E293B),
+                    dockBorder = Color(0xFFFDE047),
+                    bankAccentColor = Color(0xFF06B6D4),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF334155)),
+                    boatTrimColor = Color(0xFFFDE047),
+                    sailButtonColors = listOf(Color(0xFF22D3EE), Color(0xFF06B6D4), Color(0xFF0891B2), Color(0xFF0E7490))
                 )
                 83 -> SAVANNAH_SUN.copy(
                     id = "lvl_83_savannah_twilight",
@@ -1224,7 +1617,18 @@ data class LevelTheme(
                     iconEmoji = "🌅",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.SAVANNAH_DUST,
-                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFFC2410C),
+                    waterGradientBottom = Color(0xFF581C87),
+                    waveColor = Color(0xFFFFEDD5),
+                    flotsamColor = Color(0xFFFB923C),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF3B0764),
+                    dockBorder = Color(0xFFFED7AA),
+                    bankAccentColor = Color(0xFFEA580C),
+                    boatHullColors = listOf(Color(0xFF9A3412), Color(0xFF3B0764), Color(0xFF7C2D12)),
+                    boatTrimColor = Color(0xFFFED7AA),
+                    sailButtonColors = listOf(Color(0xFFFB923C), Color(0xFFEA580C), Color(0xFFC2410C), Color(0xFF9A3412))
                 )
                 84 -> AURORA_BOREALIS.copy(
                     id = "lvl_84_polar_aurora",
@@ -1233,7 +1637,18 @@ data class LevelTheme(
                     iconEmoji = "🌌",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.AURORA_SHIMMER,
-                    flotsamType = FlotsamType.AURORA_CRYSTALS
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFF047857),
+                    waterGradientBottom = Color(0xFF1E1B4B),
+                    waveColor = Color(0xFF6EE7B7),
+                    flotsamColor = Color(0xFFA7F3D0),
+                    dockWoodTop = Color(0xFF1E293B),
+                    dockWoodBottom = Color(0xFF0F172A),
+                    dockBorder = Color(0xFF6EE7B7),
+                    bankAccentColor = Color(0xFF10B981),
+                    boatHullColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A), Color(0xFF172554)),
+                    boatTrimColor = Color(0xFF6EE7B7),
+                    sailButtonColors = listOf(Color(0xFF34D399), Color(0xFF10B981), Color(0xFF059669), Color(0xFF047857))
                 )
                 85 -> TWILIGHT_RAPIDS.copy(
                     id = "lvl_85_lotus_lagoon",
@@ -1242,7 +1657,18 @@ data class LevelTheme(
                     iconEmoji = "🪷",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.TWILIGHT_MOTES,
-                    flotsamType = FlotsamType.TWILIGHT_PETALS
+                    flotsamType = FlotsamType.TWILIGHT_PETALS,
+                    waterGradientTop = Color(0xFF0F766E),
+                    waterGradientBottom = Color(0xFF701A75),
+                    waveColor = Color(0xFFFCE7F3),
+                    flotsamColor = Color(0xFFF472B6),
+                    dockWoodTop = Color(0xFF4C1D95),
+                    dockWoodBottom = Color(0xFF1E1B4B),
+                    dockBorder = Color(0xFFFBCFE8),
+                    bankAccentColor = Color(0xFFEC4899),
+                    boatHullColors = listOf(Color(0xFF581C87), Color(0xFF1E1B4B), Color(0xFF701A75)),
+                    boatTrimColor = Color(0xFFFBCFE8),
+                    sailButtonColors = listOf(Color(0xFFF472B6), Color(0xFFEC4899), Color(0xFFDB2777), Color(0xFFBE185D))
                 )
                 86 -> SPRING_VALLEY.copy(
                     id = "lvl_86_redwood_rapids",
@@ -1251,7 +1677,18 @@ data class LevelTheme(
                     iconEmoji = "🌲",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.ALPINE_MIST,
-                    flotsamType = FlotsamType.PINE_SPRIGS
+                    flotsamType = FlotsamType.PINE_SPRIGS,
+                    waterGradientTop = Color(0xFF065F46),
+                    waterGradientBottom = Color(0xFF451A03),
+                    waveColor = Color(0xFFD1FAE5),
+                    flotsamColor = Color(0xFF34D399),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF451A03),
+                    dockBorder = Color(0xFFFDE68A),
+                    bankAccentColor = Color(0xFF10B981),
+                    boatHullColors = listOf(Color(0xFF92400E), Color(0xFF451A03), Color(0xFF78350F)),
+                    boatTrimColor = Color(0xFF86EFAC),
+                    sailButtonColors = listOf(Color(0xFF4ADE80), Color(0xFF22C55E), Color(0xFF16A34A), Color(0xFF15803D))
                 )
                 87 -> MIDNIGHT_STARLIGHT.copy(
                     id = "lvl_87_starfall_fjord",
@@ -1260,7 +1697,18 @@ data class LevelTheme(
                     iconEmoji = "🌠",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.MIDNIGHT_FIREFLIES,
-                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS
+                    flotsamType = FlotsamType.BIOLUMINESCENT_SPARKS,
+                    waterGradientTop = Color(0xFF1E1B4B),
+                    waterGradientBottom = Color(0xFF030712),
+                    waveColor = Color(0xFFC7D2FE),
+                    flotsamColor = Color(0xFF818CF8),
+                    dockWoodTop = Color(0xFF1E293B),
+                    dockWoodBottom = Color(0xFF030712),
+                    dockBorder = Color(0xFFA5B4FC),
+                    bankAccentColor = Color(0xFF6366F1),
+                    boatHullColors = listOf(Color(0xFF312E81), Color(0xFF030712), Color(0xFF1E1B4B)),
+                    boatTrimColor = Color(0xFFA5B4FC),
+                    sailButtonColors = listOf(Color(0xFF818CF8), Color(0xFF6366F1), Color(0xFF4F46E5), Color(0xFF3730A3))
                 )
                 88 -> DESERT_OASIS.copy(
                     id = "lvl_88_atlantis_aqueduct",
@@ -1269,7 +1717,18 @@ data class LevelTheme(
                     iconEmoji = "🏛️",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.OASIS_MIRAGE,
-                    flotsamType = FlotsamType.OASIS_BLOOMS
+                    flotsamType = FlotsamType.OASIS_BLOOMS,
+                    waterGradientTop = Color(0xFF0891B2),
+                    waterGradientBottom = Color(0xFF0E7490),
+                    waveColor = Color(0xFFE0F2FE),
+                    flotsamColor = Color(0xFF22D3EE),
+                    dockWoodTop = Color(0xFFF1F5F9),
+                    dockWoodBottom = Color(0xFF64748B),
+                    dockBorder = Color(0xFFFDE047),
+                    bankAccentColor = Color(0xFF06B6D4),
+                    boatHullColors = listOf(Color(0xFFE2E8F0), Color(0xFF64748B), Color(0xFF0E7490)),
+                    boatTrimColor = Color(0xFFFDE047),
+                    sailButtonColors = listOf(Color(0xFF22D3EE), Color(0xFF06B6D4), Color(0xFF0891B2), Color(0xFF0E7490))
                 )
                 89 -> SAVANNAH_SUN.copy(
                     id = "lvl_89_volcanic_dragon",
@@ -1278,7 +1737,18 @@ data class LevelTheme(
                     iconEmoji = "🌋",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.SAVANNAH_DUST,
-                    flotsamType = FlotsamType.SAVANNAH_REEDS
+                    flotsamType = FlotsamType.SAVANNAH_REEDS,
+                    waterGradientTop = Color(0xFFB91C1C),
+                    waterGradientBottom = Color(0xFF450A0A),
+                    waveColor = Color(0xFFFDBA74),
+                    flotsamColor = Color(0xFFEF4444),
+                    dockWoodTop = Color(0xFF171717),
+                    dockWoodBottom = Color(0xFF0A0A0A),
+                    dockBorder = Color(0xFFEF4444),
+                    bankAccentColor = Color(0xFFF97316),
+                    boatHullColors = listOf(Color(0xFF450A0A), Color(0xFF0A0A0A), Color(0xFF7F1D1D)),
+                    boatTrimColor = Color(0xFFF97316),
+                    sailButtonColors = listOf(Color(0xFFF97316), Color(0xFFEA580C), Color(0xFFC2410C), Color(0xFF9A3412))
                 )
                 90 -> AURORA_BOREALIS.copy(
                     id = "lvl_90_celestial_sovereign",
@@ -1287,7 +1757,18 @@ data class LevelTheme(
                     iconEmoji = "👑",
                     backgroundDrawableRes = bg,
                     weatherEffect = WeatherEffectType.AURORA_SHIMMER,
-                    flotsamType = FlotsamType.AURORA_CRYSTALS
+                    flotsamType = FlotsamType.AURORA_CRYSTALS,
+                    waterGradientTop = Color(0xFFF59E0B),
+                    waterGradientBottom = Color(0xFF312E81),
+                    waveColor = Color(0xFFFEF3C7),
+                    flotsamColor = Color(0xFFFDE047),
+                    dockWoodTop = Color(0xFF78350F),
+                    dockWoodBottom = Color(0xFF1E1B4B),
+                    dockBorder = Color(0xFFFDE047),
+                    bankAccentColor = Color(0xFFFACC15),
+                    boatHullColors = listOf(Color(0xFFB45309), Color(0xFF1E1B4B), Color(0xFF92400E)),
+                    boatTrimColor = Color(0xFFFDE047),
+                    sailButtonColors = listOf(Color(0xFFFDE047), Color(0xFFFACC15), Color(0xFFEAB308), Color(0xFFCA8A04))
                 )
                 else -> SPRING_VALLEY.copy(
                     id = "lvl_${levelNumber}_custom",

@@ -86,6 +86,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -313,11 +314,10 @@ fun LevelSelectScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(14.dp)
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item {
-                    Spacer(modifier = Modifier.height(4.dp))
-                    // Hero Banner Card
+                    Spacer(modifier = Modifier.height(2.dp))
                     LevelSelectHeroCard(
                         totalStars = totalStarsEarned,
                         completedLevels = bestRecordsByScenario.size,
@@ -328,7 +328,7 @@ fun LevelSelectScreen(
 
                 // Chapter Filter Chips
                 item {
-                    Column {
+                    Column(modifier = Modifier.padding(vertical = 2.dp)) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
@@ -350,7 +350,7 @@ fun LevelSelectScreen(
                             )
                         }
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(6.dp))
 
                         LazyRow(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -386,18 +386,12 @@ fun LevelSelectScreen(
                             } else {
                                 scenarioToUnlock = scenario
                             }
-                        },
-                        onUnlockWithAd = {
-                            scenarioToUnlock = scenario
-                        },
-                        onPreviewStory = {
-                            storyScenarioToPreview = scenario
                         }
                     )
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(20.dp))
                 }
             }
         }
@@ -684,102 +678,98 @@ private fun LevelSelectHeroCard(
     modifier: Modifier = Modifier
 ) {
     WoodCard(
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(14.dp),
         gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
-        borderColor = GoldenBankGlow,
+        borderColor = GoldenBankGlow.copy(alpha = 0.8f),
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(horizontal = 14.dp, vertical = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(
-                        text = "⭐ Ferry Master Academy",
-                        fontWeight = FontWeight.ExtraBold,
-                        fontSize = 17.sp,
-                        color = GoldenBankGlow
-                    )
-                }
-                Spacer(modifier = Modifier.height(3.dp))
-                Text(
-                    text = "50 unique river landscapes with distinct challenges. Conquer every crossing!",
-                    fontSize = 12.sp,
-                    color = Color(0xFFFEF3C7),
-                    lineHeight = 16.sp
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = Color(0xCC1A0C04),
-                        border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.8f))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = Color(0xCC1A0C04),
+                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.7f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.Star,
-                                contentDescription = "Stars",
-                                tint = GoldenBankGlow,
-                                modifier = Modifier.size(15.dp)
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "$totalStars / ${totalLevels * 3} Stars",
-                                fontSize = 11.5.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                color = GoldenBankGlow
-                            )
-                        }
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Stars",
+                            tint = GoldenBankGlow,
+                            modifier = Modifier.size(14.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "$totalStars / ${totalLevels * 3}",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.ExtraBold,
+                            color = GoldenBankGlow
+                        )
                     }
+                }
 
-                    Surface(
-                        shape = RoundedCornerShape(10.dp),
-                        color = Color(0xCC1A0C04),
-                        border = BorderStroke(1.2.dp, Color(0xFF22C55E).copy(alpha = 0.8f))
+                Surface(
+                    shape = RoundedCornerShape(8.dp),
+                    color = Color(0xCC1A0C04),
+                    border = BorderStroke(1.dp, Color(0xFF22C55E).copy(alpha = 0.7f))
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Text(
-                                text = "🏆 $completedLevels/$totalLevels Solved",
-                                fontSize = 11.5.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFF4ADE80)
-                            )
-                        }
+                        Icon(
+                            imageVector = Icons.Default.EmojiEvents,
+                            contentDescription = "Solved",
+                            tint = Color(0xFF4ADE80),
+                            modifier = Modifier.size(13.dp)
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = "$completedLevels / $totalLevels Solved",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF4ADE80)
+                        )
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.width(12.dp))
-
             Surface(
-                shape = CircleShape,
-                color = Color(0xDD220F05),
-                border = BorderStroke(2.dp, GoldenBankGlow),
+                shape = RoundedCornerShape(8.dp),
+                color = MenuBtnAmberTop,
+                border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
                 modifier = Modifier
-                    .size(62.dp)
-                    .clickable { onOpenGrid() },
-                shadowElevation = 5.dp
+                    .clip(RoundedCornerShape(8.dp))
+                    .clickable { onOpenGrid() }
+                    .testTag("open_quick_grid")
             ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Image(
-                        painter = painterResource(id = R.drawable.img_farmer),
-                        contentDescription = "Farmer",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .clip(CircleShape)
+                Row(
+                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Apps,
+                        contentDescription = "Grid",
+                        tint = Color.White,
+                        modifier = Modifier.size(14.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = "Grid",
+                        fontSize = 11.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
                     )
                 }
             }
@@ -795,507 +785,232 @@ private fun LevelScenarioCard(
     starsEarned: Int,
     isUnlocked: Boolean,
     onPlay: () -> Unit,
-    onUnlockWithAd: () -> Unit,
-    onPreviewStory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isRulesExpanded by remember { mutableStateOf(false) }
     val theme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
-
     val cardGradient = listOf(
-        theme.headerBackgroundColors.first().copy(alpha = 0.94f),
+        theme.headerBackgroundColors.first().copy(alpha = 0.95f),
         theme.headerBackgroundColors.last().copy(alpha = 0.98f)
     )
-    val cardBorder = theme.headerBorderColors.first()
+    val cardBorder = if (isUnlocked) theme.headerBorderColors.first() else Color(0x44D97706)
 
     WoodCard(
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(14.dp),
         gradientColors = cardGradient,
         borderColor = cardBorder,
         modifier = modifier
             .fillMaxWidth()
-            .alpha(if (isUnlocked) 1f else 0.88f)
+            .clip(RoundedCornerShape(14.dp))
+            .clickable(onClick = onPlay)
+            .alpha(if (isUnlocked) 1f else 0.85f)
             .testTag("scenario_card_${scenario.id}")
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(horizontal = 12.dp, vertical = 10.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            // Header Row: Level Number + Difficulty Badge + Lock / Capacity Badge
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+            // Left: Level Number Badge & Stars
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.width(44.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = if (isUnlocked) Color(0xDD220F05) else Color(0x66220F05),
-                        border = BorderStroke(1.dp, if (isUnlocked) GoldenBankGlow else Color(0x44D97706)),
-                        modifier = Modifier.size(26.dp)
-                    ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            if (!isUnlocked) {
-                                Icon(
-                                    imageVector = Icons.Default.Lock,
-                                    contentDescription = "Locked",
-                                    tint = Color(0xFFF87171),
-                                    modifier = Modifier.size(14.dp)
-                                )
-                            } else {
-                                Text(
-                                    text = "${scenario.levelNumber}",
-                                    color = GoldenBankGlow,
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.ExtraBold
-                                )
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.width(8.dp))
-
-                    Surface(
-                        shape = RoundedCornerShape(12.dp),
-                        color = Color(scenario.difficulty.badgeColorHex)
-                    ) {
-                        Text(
-                            text = "${scenario.difficulty.iconEmoji} ${scenario.difficulty.title}",
-                            color = Color(scenario.difficulty.badgeTextColorHex),
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp)
-                        )
-                    }
-                }
-
-                // Boat capacity pill or Locked status tag
                 Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = if (isUnlocked) Color(0xDD220F05) else Color(0x66220F05),
-                    border = BorderStroke(1.dp, if (isUnlocked) cardBorder.copy(alpha = 0.7f) else Color(0x33D97706))
+                    shape = RoundedCornerShape(10.dp),
+                    color = if (isUnlocked) theme.dockWoodTop else Color(0x88220F05),
+                    border = BorderStroke(1.2.dp, if (isUnlocked) GoldenBankGlow else Color(0x55F87171)),
+                    shadowElevation = 2.dp,
+                    modifier = Modifier.size(38.dp)
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    Box(contentAlignment = Alignment.Center) {
                         if (!isUnlocked) {
                             Icon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = "Locked",
-                                tint = Color(0xFFEF4444),
-                                modifier = Modifier.size(12.dp)
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
-                            Text(
-                                text = "LOCKED",
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Color(0xFFEF4444)
+                                tint = Color(0xFFFCA5A5),
+                                modifier = Modifier.size(16.dp)
                             )
                         } else {
-                            Icon(
-                                imageVector = Icons.Default.DirectionsBoat,
-                                contentDescription = "Boat",
-                                tint = cardBorder,
-                                modifier = Modifier.size(12.dp)
-                            )
-                            Spacer(modifier = Modifier.width(4.dp))
                             Text(
-                                text = "Boat Cap: ${scenario.boatCapacity + 1}",
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.SemiBold,
-                                color = Color(0xFFFEF3C7)
+                                text = "${scenario.levelNumber}",
+                                color = GoldenBankGlow,
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.Black
                             )
                         }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(2.dp))
 
-            // Thematic Scenic Biome Preview Banner
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(84.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .border(1.2.dp, cardBorder.copy(alpha = 0.6f), RoundedCornerShape(14.dp))
-            ) {
-                Image(
-                    painter = painterResource(id = theme.backgroundDrawableRes),
-                    contentDescription = theme.name,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize()
-                )
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            Brush.verticalGradient(
-                                colors = listOf(
-                                    Color(0x15000000),
-                                    Color(0x95000000)
-                                )
-                            )
-                        )
-                )
-                Surface(
-                    shape = RoundedCornerShape(10.dp),
-                    color = theme.badgeBgColor.copy(alpha = 0.92f),
-                    border = BorderStroke(1.dp, theme.bankAccentColor.copy(alpha = 0.65f)),
-                    modifier = Modifier
-                        .align(Alignment.BottomStart)
-                        .padding(8.dp)
+                // 3 Stars Indicator
+                Row(
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 3.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+                    repeat(3) { index ->
                         Text(
-                            text = "${theme.iconEmoji} ${theme.name}",
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = theme.badgeTextColor
-                        )
-                        Text(
-                            text = " • ${theme.tagline}",
+                            text = "★",
                             fontSize = 10.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = theme.badgeTextColor.copy(alpha = 0.85f)
+                            color = if (index < starsEarned) Color(0xFFFBBF24) else Color(0x44FFFFFF)
                         )
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.width(10.dp))
 
-            // Title and Subtitle
-            Text(
-                text = scenario.title,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = Color.White
-            )
-            Text(
-                text = scenario.subtitle,
-                fontSize = 12.sp,
-                color = Color(0xFFFEF3C7)
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            // Items avatar chip row
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+            // Center: Title, Difficulty Badge, Items preview, Optimal moves
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "Items:",
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-                Spacer(modifier = Modifier.width(6.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                    scenario.items.forEach { item ->
-                        Surface(
-                            shape = RoundedCornerShape(16.dp),
-                            color = Color(0xDD220F05),
-                            border = BorderStroke(1.dp, cardBorder.copy(alpha = 0.5f))
-                        ) {
-                            Row(
-                                modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = scenario.title,
+                        fontSize = 13.5.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color(scenario.difficulty.badgeColorHex)
+                    ) {
+                        Text(
+                            text = scenario.difficulty.title,
+                            color = Color(scenario.difficulty.badgeTextColorHex),
+                            fontSize = 9.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // Compact items avatar stack
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        scenario.items.take(4).forEach { item ->
+                            Surface(
+                                shape = CircleShape,
+                                color = Color(0x88000000),
+                                border = BorderStroke(0.8.dp, GoldenBankGlow.copy(alpha = 0.5f)),
+                                modifier = Modifier.size(20.dp)
                             ) {
                                 Image(
                                     painter = painterResource(id = item.drawableRes),
                                     contentDescription = item.displayName,
                                     contentScale = ContentScale.Crop,
-                                    modifier = Modifier
-                                        .size(18.dp)
-                                        .clip(CircleShape)
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(
-                                    text = item.displayName,
-                                    fontSize = 10.sp,
-                                    fontWeight = FontWeight.SemiBold,
-                                    color = Color.White
+                                    modifier = Modifier.fillMaxSize()
                                 )
                             }
                         }
+                        if (scenario.items.size > 4) {
+                            Text(
+                                text = "+${scenario.items.size - 4}",
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFFEF3C7)
+                            )
+                        }
                     }
-                }
-            }
 
-            Spacer(modifier = Modifier.height(10.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
 
-            // Target moves & Best score banner
-            WoodInsetBox(
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 12.dp, vertical = 8.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
                     Text(
-                        text = "🎯 Optimal: ${scenario.optimalMoves} moves",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = GoldenBankGlow
+                        text = "🎯 ${scenario.optimalMoves} moves",
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = GoldenBankGlow.copy(alpha = 0.9f)
                     )
 
-                    if (bestRecordTime != null && bestRecordMoves != null) {
+                    if (bestRecordMoves != null) {
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "⭐ $starsEarned  ⏱️ ${bestRecordTime}s",
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = GoldenBankGlow
-                        )
-                    } else {
-                        Text(
-                            text = "Not Cleared",
-                            fontSize = 11.sp,
-                            color = Color(0xFFD4A373),
-                            fontWeight = FontWeight.Medium
-                        )
-                    }
-                }
-            }
-
-            // Expandable rules section toggle & Comic Story button
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    modifier = Modifier
-                        .weight(1f)
-                        .clip(RoundedCornerShape(8.dp))
-                        .clickable { isRulesExpanded = !isRulesExpanded }
-                        .padding(vertical = 4.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = "Rules",
-                            tint = GoldenBankGlow,
-                            modifier = Modifier.size(14.dp)
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = if (isRulesExpanded) "Hide Rules" else "Rules & Danger",
-                            fontSize = 11.sp,
+                            text = "• Best: ${bestRecordMoves}m",
+                            fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = GoldenBankGlow
-                        )
-                    }
-                    Icon(
-                        imageVector = if (isRulesExpanded) Icons.Default.ExpandLess else Icons.Default.ExpandMore,
-                        contentDescription = null,
-                        tint = GoldenBankGlow,
-                        modifier = Modifier.size(16.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Surface(
-                    shape = RoundedCornerShape(8.dp),
-                    color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.6f)),
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(8.dp))
-                        .clickable(onClick = onPreviewStory)
-                        .testTag("preview_story_${scenario.id}")
-                ) {
-                    Row(
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "📖 Story Comic",
-                            fontSize = 10.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = GoldenBankGlow
+                            color = Color(0xFF86EFAC)
                         )
                     }
                 }
             }
 
-            AnimatedVisibility(visible = isRulesExpanded) {
-                WoodInsetBox(
-                    shape = RoundedCornerShape(12.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 6.dp)
-                ) {
-                    Column(
-                        modifier = Modifier.padding(10.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
-                        Text(
-                            text = "RULES:",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = GoldenBankGlow
-                        )
-                        scenario.rules.forEach { rule ->
-                            Text(
-                                text = "• $rule",
-                                fontSize = 11.sp,
-                                color = Color.White,
-                                lineHeight = 14.sp
-                            )
-                        }
+            Spacer(modifier = Modifier.width(10.dp))
 
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = "DANGER PAIRS:",
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color(0xFFFF7A7A)
-                        )
-                        scenario.dangerRules.forEach { danger ->
-                            Text(
-                                text = "${danger.emoji} ${danger.predator.displayName} + ${danger.prey.displayName}",
-                                fontSize = 11.sp,
-                                color = Color(0xFFFDE8E8)
-                            )
-                        }
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-
+            // Right: Play Action Button / Lock Indicator
             if (isUnlocked) {
-                // Play Button (styled with level theme sail button colors)
                 Surface(
-                    shape = RoundedCornerShape(14.dp),
+                    shape = CircleShape,
                     color = theme.sailButtonColors.first(),
-                    border = BorderStroke(1.8.dp, theme.sailButtonBorderColors.first()),
-                    shadowElevation = 4.dp,
+                    border = BorderStroke(1.5.dp, theme.sailButtonBorderColors.first()),
+                    shadowElevation = 3.dp,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp)
-                        .clip(RoundedCornerShape(14.dp))
+                        .size(38.dp)
+                        .clip(CircleShape)
                         .clickable(onClick = onPlay)
                         .testTag("play_level_${scenario.id}")
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = theme.sailButtonColors
-                                )
-                            ),
+                            .background(Brush.verticalGradient(theme.sailButtonColors)),
                         contentAlignment = Alignment.Center
                     ) {
-                        // Glossy top reflection
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(2.dp)
-                                .align(Alignment.TopCenter)
-                                .background(Color(0x66FFFFFF))
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = "Play",
+                            tint = Color.White,
+                            modifier = Modifier.size(20.dp)
                         )
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.PlayArrow,
-                                contentDescription = "Play",
-                                tint = Color.White,
-                                modifier = Modifier.size(20.dp)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = "SET SAIL • LEVEL ${scenario.levelNumber}",
-                                fontWeight = FontWeight.Black,
-                                fontSize = 13.5.sp,
-                                color = Color.White,
-                                letterSpacing = 0.8.sp,
-                                style = androidx.compose.ui.text.TextStyle(
-                                    shadow = androidx.compose.ui.graphics.Shadow(
-                                        color = Color(0x66000000),
-                                        offset = androidx.compose.ui.geometry.Offset(1f, 1f),
-                                        blurRadius = 2f
-                                    )
-                                )
-                            )
-                        }
                     }
                 }
             } else {
-                // Locked State: Tap to Unlock with Rewarded Ad Button (Golden Amber Pill)
                 Surface(
-                    shape = RoundedCornerShape(14.dp),
-                    color = MenuBtnAmberTop,
-                    border = BorderStroke(1.8.dp, MenuBtnAmberBorder),
-                    shadowElevation = 4.dp,
+                    shape = RoundedCornerShape(10.dp),
+                    color = Color(0xDD220F05),
+                    border = BorderStroke(1.2.dp, Color(0xFFEF4444).copy(alpha = 0.8f)),
+                    shadowElevation = 2.dp,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(48.dp)
-                        .clip(RoundedCornerShape(14.dp))
-                        .clickable(onClick = onUnlockWithAd)
+                        .clip(RoundedCornerShape(10.dp))
+                        .clickable(onClick = onPlay)
                         .testTag("unlock_level_${scenario.id}")
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = listOf(
-                                        MenuBtnAmberTop,
-                                        MenuBtnAmberMid,
-                                        MenuBtnAmberBottom
-                                    )
-                                )
-                            ),
-                        contentAlignment = Alignment.Center
+                    Row(
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // Glossy top reflection
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(2.dp)
-                                .align(Alignment.TopCenter)
-                                .background(Color(0x66FFFFFF))
+                        Icon(
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = "Locked",
+                            tint = Color(0xFFFCA5A5),
+                            modifier = Modifier.size(14.dp)
                         )
-
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.LockOpen,
-                                contentDescription = "Unlock",
-                                tint = Color.White,
-                                modifier = Modifier.size(18.dp)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = "UNLOCK LEVEL ${scenario.levelNumber} (WATCH AD)",
-                                fontWeight = FontWeight.ExtraBold,
-                                fontSize = 12.sp,
-                                color = Color.White,
-                                letterSpacing = 0.5.sp
-                            )
-                        }
+                        Spacer(modifier = Modifier.width(3.dp))
+                        Text(
+                            text = "Unlock",
+                            fontSize = 10.5.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFFFCA5A5)
+                        )
                     }
                 }
             }
