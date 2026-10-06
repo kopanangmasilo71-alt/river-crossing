@@ -47,6 +47,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.model.LevelTheme
 import kotlinx.coroutines.isActive
 import kotlin.math.PI
 import kotlin.math.cos
@@ -99,6 +100,8 @@ private data class FireworkParticle(
 fun CelebrationConfettiOverlay(
     isVictory: Boolean,
     showBanner: Boolean = true,
+    theme: LevelTheme? = null,
+    customColors: List<Color>? = null,
     modifier: Modifier = Modifier
 ) {
     val progress = remember { Animatable(0f) }
@@ -129,53 +132,67 @@ fun CelebrationConfettiOverlay(
 
     val reusableRayPath = remember { Path() }
 
-    val confettiColors = remember {
-        listOf(
-            Color(0xFFFFD700), // Pure Gold
-            Color(0xFFF59E0B), // Vibrant Amber
-            Color(0xFF10B981), // Emerald Green
-            Color(0xFF3B82F6), // Electric Blue
-            Color(0xFF8B5CF6), // Royal Purple
-            Color(0xFFEC4899), // Hot Pink
-            Color(0xFFEF4444), // Crimson Red
-            Color(0xFF06B6D4), // Cyan
-            Color(0xFFF97316), // Bright Orange
-            Color(0xFFFFFFFF)  // Sparkling White
-        )
+    // Particle colors strictly matching the current level theme palette
+    val confettiColors = remember(theme, customColors) {
+        when {
+            !customColors.isNullOrEmpty() -> customColors
+            theme != null -> theme.getEffectiveConfettiColors()
+            else -> listOf(
+                Color(0xFFFFD700), // Pure Gold
+                Color(0xFFF59E0B), // Vibrant Amber
+                Color(0xFF10B981), // Emerald Green
+                Color(0xFF3B82F6), // Electric Blue
+                Color(0xFF8B5CF6), // Royal Purple
+                Color(0xFFEC4899), // Hot Pink
+                Color(0xFFEF4444), // Crimson Red
+                Color(0xFF06B6D4), // Cyan
+                Color(0xFFF97316), // Bright Orange
+                Color(0xFFFFFFFF)  // Sparkling White
+            )
+        }
     }
 
-    LaunchedEffect(isVictory) {
+    LaunchedEffect(isVictory, confettiColors) {
         if (isVictory) {
             val rng = Random(System.currentTimeMillis())
-            val count = 140
+            val count = 160
 
-            // 1. Generate Confetti from Cannons & Sky
+            // 1. Generate Confetti from Cannons, Fountain Geyser & Sky Shower
             val newConfetti = List(count) { i ->
-                val originType = i % 3
+                val originType = i % 4
                 val (startX, startY, vx, vy) = when (originType) {
                     0 -> {
-                        // Left cannon burst (shoots up & right)
+                        // Left cannon burst (shoots up & right across river)
                         val angleDeg = rng.nextFloat() * 45f + 30f // 30° to 75° upwards
-                        val speed = rng.nextFloat() * 800f + 580f
+                        val speed = rng.nextFloat() * 820f + 590f
                         val rad = Math.toRadians(angleDeg.toDouble())
                         val vX = (cos(rad) * speed).toFloat()
                         val vY = (-sin(rad) * speed).toFloat()
                         Quadruple(0.04f, 0.96f, vX, vY)
                     }
                     1 -> {
-                        // Right cannon burst (shoots up & left)
+                        // Right cannon burst (shoots up & left across river)
                         val angleDeg = rng.nextFloat() * 45f + 105f // 105° to 150° upwards
-                        val speed = rng.nextFloat() * 800f + 580f
+                        val speed = rng.nextFloat() * 820f + 590f
                         val rad = Math.toRadians(angleDeg.toDouble())
                         val vX = (cos(rad) * speed).toFloat()
                         val vY = (-sin(rad) * speed).toFloat()
                         Quadruple(0.96f, 0.96f, vX, vY)
                     }
+                    2 -> {
+                        // Center victory fountain geyser (shoots straight up in a wide fan)
+                        val angleDeg = rng.nextFloat() * 50f + 65f // 65° to 115° vertical fan
+                        val speed = rng.nextFloat() * 750f + 520f
+                        val rad = Math.toRadians(angleDeg.toDouble())
+                        val vX = (cos(rad) * speed).toFloat()
+                        val vY = (-sin(rad) * speed).toFloat()
+                        Quadruple(0.50f, 0.97f, vX, vY)
+                    }
                     else -> {
-                        // Top shower confetti (rains across the top)
+                        // Top celestial shower confetti (rains across the entire width)
                         val startXF = rng.nextFloat()
-                        val vX = (rng.nextFloat() - 0.5f) * 180f
-                        val vY = rng.nextFloat() * 140f + 70f
+                        val vX = (rng.nextFloat() - 0.5f) * 190f
+                        val vY = rng.nextFloat() * 150f + 70f
                         Quadruple(startXF, -0.05f, vX, vY)
                     }
                 }
@@ -217,11 +234,11 @@ fun CelebrationConfettiOverlay(
                     width = w,
                     height = h,
                     shape = shape,
-                    delayFraction = if (originType == 2) rng.nextFloat() * 0.22f else rng.nextFloat() * 0.08f
+                    delayFraction = if (originType == 3) rng.nextFloat() * 0.22f else rng.nextFloat() * 0.08f
                 )
             }
 
-            // 2. Generate Firework Bursts (4 distinct bursts at staggered delays)
+            // 2. Generate Firework Bursts (staggered bursts with level-themed sparks)
             val bursts = listOf(
                 Triple(0.25f, 0.28f, 0.08f),
                 Triple(0.75f, 0.24f, 0.28f),
@@ -284,19 +301,22 @@ fun CelebrationConfettiOverlay(
                 .fillMaxSize()
                 .testTag("celebration_confetti_overlay")
         ) {
-            // 1. Radiant Golden Victory Aura & Rotating Starburst Rays
+            // 1. Radiant Themed Victory Aura & Rotating Starburst Rays
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val sunRayAngle = sunRayAngleState.value
                 val cx = size.width / 2f
                 val cy = size.height * 0.35f
                 val maxDim = maxOf(size.width, size.height)
 
-                // Golden radial background sheen
+                val auraPrimary = theme?.bankAccentColor ?: Color(0xFFFFD700)
+                val auraSecondary = theme?.waterGradientTop ?: Color(0xFFF59E0B)
+
+                // Themed radial background sheen matching level theme
                 drawCircle(
                     brush = Brush.radialGradient(
                         colors = listOf(
-                            Color(0xFFFFD700).copy(alpha = 0.22f),
-                            Color(0xFFF59E0B).copy(alpha = 0.10f),
+                            auraPrimary.copy(alpha = 0.24f),
+                            auraSecondary.copy(alpha = 0.12f),
                             Color.Transparent
                         ),
                         center = Offset(cx, cy),
@@ -323,7 +343,7 @@ fun CelebrationConfettiOverlay(
 
                     drawPath(
                         path = reusableRayPath,
-                        color = Color(0xFFFFE082).copy(alpha = 0.06f)
+                        color = (theme?.headerAccentColor ?: Color(0xFFFFE082)).copy(alpha = 0.07f)
                     )
                 }
             }
@@ -441,8 +461,11 @@ fun CelebrationConfettiOverlay(
             ) {
                 Surface(
                     shape = RoundedCornerShape(24.dp),
-                    color = Color(0xFFFFFBEB),
-                    border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFFFBBF24)),
+                    color = theme?.headerSurfaceColor ?: Color(0xFFFFFBEB),
+                    border = androidx.compose.foundation.BorderStroke(
+                        2.dp,
+                        theme?.headerAccentColor ?: Color(0xFFFBBF24)
+                    ),
                     shadowElevation = 10.dp,
                     modifier = Modifier
                         .graphicsLayer {
@@ -456,21 +479,21 @@ fun CelebrationConfettiOverlay(
                         modifier = Modifier.padding(horizontal = 22.dp, vertical = 10.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(text = "🎉", fontSize = 22.sp)
+                        Text(text = theme?.iconEmoji ?: "🎉", fontSize = 22.sp)
                         Spacer(modifier = Modifier.width(8.dp))
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
                             Text(
-                                text = "ALL ITEMS TRANSFERRED SAFELY!",
+                                text = "LEVEL OBJECTIVES COMPLETED!",
                                 fontWeight = FontWeight.ExtraBold,
                                 fontSize = 14.sp,
-                                color = Color(0xFFB45309),
+                                color = theme?.headerTextColor ?: Color(0xFFB45309),
                                 letterSpacing = 1.2.sp
                             )
                             Text(
                                 text = "All travelers arrived safely on the bank!",
                                 fontWeight = FontWeight.Medium,
                                 fontSize = 11.5.sp,
-                                color = Color(0xFF92400E)
+                                color = theme?.headerTimerColor ?: Color(0xFF92400E)
                             )
                         }
                         Spacer(modifier = Modifier.width(8.dp))

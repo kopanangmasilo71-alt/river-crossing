@@ -2756,6 +2756,28 @@ data class RiverState(
         return null
     }
 
+    /**
+     * Checks if an item is an unattended prey co-located with its predator on the same bank.
+     */
+    fun isItemThreatened(item: GameItem, bank: Bank): Boolean {
+        if (farmerBank == bank) return false
+        val bankItems = itemsOnBank(bank)
+        return scenario.dangerRules.any { rule ->
+            rule.prey == item && rule.predator in bankItems
+        }
+    }
+
+    /**
+     * Checks if an item is an unattended predator co-located with its prey on the same bank.
+     */
+    fun isItemPredatorReady(item: GameItem, bank: Bank): Boolean {
+        if (farmerBank == bank) return false
+        val bankItems = itemsOnBank(bank)
+        return scenario.dangerRules.any { rule ->
+            rule.predator == item && rule.prey in bankItems
+        }
+    }
+
     fun isGoal(): Boolean {
         return farmerBank == Bank.RIGHT &&
                 scenario.items.all { getItemLocation(it) == ItemLocation.RIGHT_BANK } &&

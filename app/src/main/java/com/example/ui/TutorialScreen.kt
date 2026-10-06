@@ -58,6 +58,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.model.GameItem
+import com.example.model.LevelTheme
+import com.example.ui.components.CelebrationConfettiOverlay
 import com.example.ui.components.WoodCard
 import com.example.ui.components.WoodFilterPill
 import com.example.ui.components.WoodInsetBox
@@ -197,10 +199,10 @@ fun TutorialScreen(
                     val isSelected = selectedTab == tab
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = if (isSelected) Color.Transparent else Color(0xCC2A1308),
+                        color = if (isSelected) Color.Transparent else Color(0xDD072449),
                         border = BorderStroke(
-                            if (isSelected) 1.8.dp else 1.dp,
-                            if (isSelected) tab.border else Color(0x40D4A373)
+                            if (isSelected) 1.8.dp else 1.2.dp,
+                            if (isSelected) tab.border else Color(0x5538BDF8)
                         ),
                         modifier = Modifier
                             .clip(RoundedCornerShape(14.dp))
@@ -343,12 +345,13 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
     var currentStepIdx by remember { mutableIntStateOf(0) }
     val currentStep = steps[currentStepIdx]
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(14.dp)
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(14.dp)
+        ) {
         item {
             WoodCard(shape = RoundedCornerShape(20.dp)) {
                 Row(
@@ -709,6 +712,15 @@ private fun InteractiveWalkthroughTab(onStartGame: () -> Unit) {
             }
         }
     }
+
+    // Particle confetti animation matching Spring Valley theme upon completing final walkthrough step
+    CelebrationConfettiOverlay(
+        isVictory = currentStepIdx == steps.size - 1,
+        showBanner = false,
+        theme = LevelTheme.SPRING_VALLEY,
+        modifier = Modifier.fillMaxSize()
+    )
+}
 }
 
 @Composable

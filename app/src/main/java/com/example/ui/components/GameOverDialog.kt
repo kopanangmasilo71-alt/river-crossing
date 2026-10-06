@@ -1,9 +1,17 @@
 package com.example.ui.components
 
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -29,14 +37,19 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
@@ -60,9 +73,9 @@ import com.example.ui.theme.WoodGoldenText
 import com.example.ui.theme.WoodSignboardBorder
 
 /**
- * Polished, high-craft Game Over Dialog.
+ * Polished, high-craft Game Over Dialog with dramatic animated clash effects.
  * Elevates the visual atmosphere with rustic carved timber borders,
- * character confrontation medallions, clear readable typography,
+ * animated character confrontation medallions, expanding shockwaves,
  * and prominent, tactile rescue/restart controls.
  */
 @Composable
@@ -85,6 +98,83 @@ fun GameOverDialog(
         )
     }
 
+    val infiniteTransition = rememberInfiniteTransition(label = "game_over_alarm_anim")
+
+    // Pulsing danger warning aura
+    val alarmPulse by infiniteTransition.animateFloat(
+        initialValue = 0.85f,
+        targetValue = 1.15f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(650, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "alarm_pulse"
+    )
+
+    // Clash emblem shockwave expansion
+    val shockwaveScale by infiniteTransition.animateFloat(
+        initialValue = 1.0f,
+        targetValue = 1.7f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(850, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "shockwave_scale"
+    )
+    val shockwaveAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.75f,
+        targetValue = 0.0f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(850, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "shockwave_alpha"
+    )
+
+    // Clash emblem rotational wobble
+    val clashWobble by infiniteTransition.animateFloat(
+        initialValue = -12f,
+        targetValue = 12f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(220, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "clash_wobble"
+    )
+
+    // Predator eager lunge forward
+    val predatorLunge by infiniteTransition.animateFloat(
+        initialValue = -2f,
+        targetValue = 4f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(400, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "predator_lunge"
+    )
+
+    // Prey nervous shudder tremor
+    val preyTremor by infiniteTransition.animateFloat(
+        initialValue = -3.5f,
+        targetValue = 3.5f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(90, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse
+        ),
+        label = "prey_tremor"
+    )
+
+    // Button shimmer sweep
+    val buttonSheen by infiniteTransition.animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(2200, easing = LinearEasing),
+            repeatMode = RepeatMode.Restart
+        ),
+        label = "btn_sheen"
+    )
+
     Dialog(
         onDismissRequest = {},
         properties = DialogProperties(usePlatformDefaultWidth = false)
@@ -96,13 +186,13 @@ fun GameOverDialog(
                 2.dp,
                 Brush.verticalGradient(
                     listOf(
-                        Color(0xFFEF4444),
+                        Color(0xFFEF4444).copy(alpha = alarmPulse.coerceIn(0.6f, 1f)),
                         levelTheme.headerAccentColor,
                         Color(0xFFB91C1C)
                     )
                 )
             ),
-            shadowElevation = 16.dp,
+            shadowElevation = 18.dp,
             modifier = modifier
                 .fillMaxWidth(0.92f)
                 .widthIn(max = 420.dp)
@@ -127,7 +217,8 @@ fun GameOverDialog(
                         shape = RoundedCornerShape(12.dp),
                         color = Color(0x33EF4444),
                         border = BorderStroke(1.2.dp, Color(0xFFEF4444)),
-                        shadowElevation = 2.dp
+                        shadowElevation = 2.dp,
+                        modifier = Modifier.graphicsLayer { scaleX = alarmPulse; scaleY = alarmPulse }
                     ) {
                         Row(
                             modifier = Modifier.padding(horizontal = 12.dp, vertical = 4.dp),
@@ -174,8 +265,15 @@ fun GameOverDialog(
                         horizontalArrangement = Arrangement.Center,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        // Left character medallion
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        // Left character medallion (Predator - animated leaning forward)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.graphicsLayer {
+                                translationX = predatorLunge
+                                scaleX = 1.04f
+                                scaleY = 1.04f
+                            }
+                        ) {
                             Box(
                                 modifier = Modifier
                                     .size(62.dp)
@@ -207,26 +305,50 @@ fun GameOverDialog(
                             }
                         }
 
-                        // Center Clash Emblem
+                        // Center Clash Emblem with Expanding Shockwave
                         Box(
                             contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .padding(horizontal = 14.dp)
-                                .size(40.dp)
-                                .shadow(6.dp, CircleShape)
-                                .clip(CircleShape)
-                                .background(
-                                    Brush.radialGradient(
-                                        listOf(Color(0xFF7F1D1D), Color(0xFF450A0A))
-                                    )
-                                )
-                                .border(1.8.dp, Color(0xFFEF4444), CircleShape)
+                            modifier = Modifier.padding(horizontal = 10.dp)
                         ) {
-                            Text(text = "💥", fontSize = 18.sp)
+                            // Expanding Shockwave Ring
+                            Canvas(modifier = Modifier.size(54.dp)) {
+                                drawCircle(
+                                    color = Color(0xFFEF4444).copy(alpha = shockwaveAlpha),
+                                    radius = (size.minDimension / 2f) * shockwaveScale,
+                                    style = Stroke(width = 2.5f)
+                                )
+                            }
+
+                            Box(
+                                contentAlignment = Alignment.Center,
+                                modifier = Modifier
+                                    .size(42.dp)
+                                    .shadow(6.dp, CircleShape)
+                                    .clip(CircleShape)
+                                    .background(
+                                        Brush.radialGradient(
+                                            listOf(Color(0xFFB91C1C), Color(0xFF450A0A))
+                                        )
+                                    )
+                                    .border(2.dp, Color(0xFFEF4444), CircleShape)
+                                    .graphicsLayer {
+                                        rotationZ = clashWobble
+                                        scaleX = 1.08f
+                                        scaleY = 1.08f
+                                    }
+                            ) {
+                                Text(text = "💥", fontSize = 20.sp)
+                            }
                         }
 
-                        // Right character medallion
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        // Right character medallion (Prey - animated shivering tremor)
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.graphicsLayer {
+                                rotationZ = preyTremor
+                                translationX = -predatorLunge * 0.5f
+                            }
+                        ) {
                             Box(
                                 modifier = Modifier
                                     .size(62.dp)
@@ -321,7 +443,7 @@ fun GameOverDialog(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        // Undo Move Button (Primary Recovery - Thematic 3D Pill)
+                        // Undo Move Button (Primary Recovery - Thematic 3D Pill with Shimmer)
                         Surface(
                             shape = RoundedCornerShape(14.dp),
                             color = levelTheme.sailButtonColors.last(),
@@ -340,6 +462,23 @@ fun GameOverDialog(
                                     ),
                                 contentAlignment = Alignment.Center
                             ) {
+                                // Animated gleam across undo button
+                                Canvas(modifier = Modifier.matchParentSize()) {
+                                    val sheenWidth = size.width * 0.35f
+                                    val startX = -sheenWidth + (size.width + sheenWidth * 2f) * buttonSheen
+                                    drawRect(
+                                        brush = Brush.linearGradient(
+                                            colors = listOf(
+                                                Color.Transparent,
+                                                Color.White.copy(alpha = 0.20f),
+                                                Color.Transparent
+                                            ),
+                                            start = Offset(startX, 0f),
+                                            end = Offset(startX + sheenWidth, size.height)
+                                        )
+                                    )
+                                }
+
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.Center

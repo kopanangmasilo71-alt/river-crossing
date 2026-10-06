@@ -64,6 +64,9 @@ import com.example.ui.components.WoodInsetBox
 import com.example.ui.components.WoodScreenContainer
 import com.example.ui.components.WoodTopAppBar
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuStatBarBgTop
+import com.example.ui.theme.MenuStatBarBgBottom
+import com.example.ui.theme.MenuStatBarBorder
 import com.example.ui.theme.MenuBtnGreenTop
 import com.example.ui.theme.MenuBtnGreenMid
 import com.example.ui.theme.MenuBtnGreenBottom
@@ -160,8 +163,8 @@ fun LeaderboardScreen(
         // OVERALL STATS HEADER CARD (Glossy multi-color stat capsules matching Main Menu)
         WoodCard(
             shape = RoundedCornerShape(20.dp),
-            gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
-            borderColor = GoldenBankGlow,
+            gradientColors = listOf(MenuStatBarBgTop, MenuStatBarBgBottom),
+            borderColor = MenuStatBarBorder,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 6.dp)

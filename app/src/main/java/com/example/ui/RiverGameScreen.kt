@@ -641,7 +641,8 @@ private fun GameplayScreenContent(
         // Active only in Phase 1 before dialog opens, ensuring confetti NEVER runs in the background behind the dialog!
         CelebrationConfettiOverlay(
             isVictory = gameStatus == GameStatus.VICTORY && !showVictoryDialog,
-            showBanner = true
+            showBanner = true,
+            theme = levelTheme
         )
     }
 

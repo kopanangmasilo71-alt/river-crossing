@@ -109,6 +109,9 @@ import com.example.ui.theme.VibrantSurfaceVariant
 import com.example.ui.theme.VibrantTextPrimary
 import com.example.ui.theme.VibrantTextSecondary
 import com.example.ui.theme.GoldenBankGlow
+import com.example.ui.theme.MenuStatBarBgTop
+import com.example.ui.theme.MenuStatBarBgBottom
+import com.example.ui.theme.MenuStatBarBorder
 import com.example.ui.theme.MenuBtnGreenTop
 import com.example.ui.theme.MenuBtnGreenMid
 import com.example.ui.theme.MenuBtnGreenBottom
@@ -679,8 +682,8 @@ private fun LevelSelectHeroCard(
 ) {
     WoodCard(
         shape = RoundedCornerShape(14.dp),
-        gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
-        borderColor = GoldenBankGlow.copy(alpha = 0.8f),
+        gradientColors = listOf(MenuStatBarBgTop, MenuStatBarBgBottom),
+        borderColor = MenuStatBarBorder,
         modifier = modifier.fillMaxWidth()
     ) {
         Row(
@@ -696,8 +699,8 @@ private fun LevelSelectHeroCard(
             ) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xCC1A0C04),
-                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.7f))
+                    color = Color(0xDD072449),
+                    border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.8f))
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -721,8 +724,8 @@ private fun LevelSelectHeroCard(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xCC1A0C04),
-                    border = BorderStroke(1.dp, Color(0xFF22C55E).copy(alpha = 0.7f))
+                    color = Color(0xDD072449),
+                    border = BorderStroke(1.2.dp, Color(0xFF22C55E).copy(alpha = 0.8f))
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),

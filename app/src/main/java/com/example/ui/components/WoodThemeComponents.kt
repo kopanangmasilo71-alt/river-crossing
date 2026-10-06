@@ -122,6 +122,36 @@ import com.example.ui.theme.ClassyObsidianSurface
 import com.example.ui.theme.GlassAccentGold
 import com.example.ui.theme.GlassTextPrimary
 import com.example.ui.theme.GlassTextMuted
+import com.example.ui.theme.MenuQuickActionBgTop
+import com.example.ui.theme.MenuQuickActionBgBottom
+import com.example.ui.theme.MenuQuickActionBorder
+import com.example.ui.theme.MenuStatBarBgTop
+import com.example.ui.theme.MenuStatBarBgBottom
+import com.example.ui.theme.MenuStatBarBorder
+import com.example.ui.theme.MenuBtnGreenTop
+import com.example.ui.theme.MenuBtnGreenMid
+import com.example.ui.theme.MenuBtnGreenBottom
+import com.example.ui.theme.MenuBtnGreenBorder
+import com.example.ui.theme.MenuBtnBlueTop
+import com.example.ui.theme.MenuBtnBlueMid
+import com.example.ui.theme.MenuBtnBlueBottom
+import com.example.ui.theme.MenuBtnBlueBorder
+import com.example.ui.theme.MenuBtnAmberTop
+import com.example.ui.theme.MenuBtnAmberMid
+import com.example.ui.theme.MenuBtnAmberBottom
+import com.example.ui.theme.MenuBtnAmberBorder
+import com.example.ui.theme.MenuBtnPurpleTop
+import com.example.ui.theme.MenuBtnPurpleMid
+import com.example.ui.theme.MenuBtnPurpleBottom
+import com.example.ui.theme.MenuBtnPurpleBorder
+import com.example.ui.theme.MenuBtnCyanTop
+import com.example.ui.theme.MenuBtnCyanMid
+import com.example.ui.theme.MenuBtnCyanBottom
+import com.example.ui.theme.MenuBtnCyanBorder
+import com.example.ui.theme.MenuBtnRedTop
+import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.theme.MenuBtnRedBottom
+import com.example.ui.theme.MenuBtnRedBorder
 
 /**
  * Authentic carved wooden signboard header matching the provided reference image.
@@ -1152,8 +1182,74 @@ fun WoodScreenContainer(
 }
 
 /**
- * Top App Bar styled as a carved wooden signboard with 3D embossed borders,
- * golden metallic rivets, and drop shadow matching the Main Menu's title logo.
+ * Circular Quick Action Button matching the Main Menu top buttons
+ * (3D glossy ocean blue gradient pill with cyan border, interactive spring press, and crisp white icon)
+ */
+@Composable
+fun WoodQuickActionButton(
+    icon: ImageVector? = null,
+    drawableRes: Int? = null,
+    contentDescription: String,
+    testTag: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed by interactionSource.collectIsPressedAsState()
+    val scale by animateFloatAsState(
+        targetValue = if (isPressed) 0.88f else 1.0f,
+        animationSpec = spring(dampingRatio = 0.52f, stiffness = 600f),
+        label = "wood_quick_act_scale"
+    )
+
+    Surface(
+        shape = CircleShape,
+        color = MenuQuickActionBgTop,
+        border = BorderStroke(1.5.dp, MenuQuickActionBorder),
+        shadowElevation = 4.dp,
+        modifier = modifier
+            .size(36.dp)
+            .scale(scale)
+            .clip(CircleShape)
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+                onClick = onClick
+            )
+            .testTag(testTag)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.verticalGradient(
+                        listOf(MenuQuickActionBgTop, MenuQuickActionBgBottom)
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            if (icon != null) {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = contentDescription,
+                    tint = Color.White,
+                    modifier = Modifier.size(19.dp)
+                )
+            } else if (drawableRes != null) {
+                Icon(
+                    painter = painterResource(id = drawableRes),
+                    contentDescription = contentDescription,
+                    tint = Color.White,
+                    modifier = Modifier.size(19.dp)
+                )
+            }
+        }
+    }
+}
+
+/**
+ * Top App Bar styled with the Main Menu's signature deep ocean blue and warm golden amber aesthetic.
+ * Features 3D glossy highlight gleam, gold border accent, high-res game logo badge, and circular quick action buttons.
  */
 @Composable
 fun WoodTopAppBar(
@@ -1163,26 +1259,26 @@ fun WoodTopAppBar(
     actions: @Composable () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    Card(
-        shape = RoundedCornerShape(bottomStart = 18.dp, bottomEnd = 18.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF65330D)),
+    Surface(
+        shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),
+        color = MenuStatBarBgBottom,
         border = BorderStroke(
-            2.dp,
+            1.8.dp,
             Brush.verticalGradient(
-                listOf(Color(0xFFFBBF24), Color(0xFFD97706), Color(0xFF78350F))
+                listOf(MenuStatBarBorder, Color(0xFF0F325E), GoldenBankGlow.copy(alpha = 0.6f))
             )
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        shadowElevation = 8.dp,
         modifier = modifier
             .fillMaxWidth()
-            .shadow(8.dp, RoundedCornerShape(bottomStart = 18.dp, bottomEnd = 18.dp))
+            .shadow(8.dp, RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(
                     Brush.verticalGradient(
-                        colors = listOf(Color(0xFF783E10), Color(0xFF5A2C08), Color(0xFF3F1D06))
+                        colors = listOf(MenuStatBarBgTop, MenuStatBarBgBottom, Color(0xFF041730))
                     )
                 )
         ) {
@@ -1190,14 +1286,18 @@ fun WoodTopAppBar(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(1.5.dp)
-                    .background(Color(0x55FFFFFF))
+                    .height(2.dp)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(Color.Transparent, Color.White.copy(alpha = 0.45f), Color.Transparent)
+                        )
+                    )
             )
 
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 14.dp, vertical = 12.dp),
+                    .padding(horizontal = 14.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -1206,41 +1306,44 @@ fun WoodTopAppBar(
                     modifier = Modifier.weight(1f)
                 ) {
                     if (onBack != null) {
-                        Surface(
-                            shape = CircleShape,
-                            color = Color(0xCC072449),
-                            border = BorderStroke(1.5.dp, GoldenBankGlow),
-                            shadowElevation = 3.dp,
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clickable(onClick = onBack)
-                                .testTag("wood_topbar_back_button")
-                        ) {
-                            Box(
-                                modifier = Modifier.fillMaxSize(),
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Back",
-                                    tint = GoldenBankGlow,
-                                    modifier = Modifier.size(18.dp)
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.width(12.dp))
+                        WoodQuickActionButton(
+                            icon = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            testTag = "wood_topbar_back_button",
+                            onClick = onBack
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
                     }
+
+                    // Mini Game Logo Accent to bind all screens directly to Main Menu visual identity
+                    Surface(
+                        shape = RoundedCornerShape(8.dp),
+                        color = Color(0x33000000),
+                        border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.65f)),
+                        modifier = Modifier.size(34.dp)
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.img_game_logo_1790060116623),
+                            contentDescription = "Game Logo",
+                            contentScale = ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(2.dp)
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.width(10.dp))
 
                     Column {
                         Text(
                             text = title,
-                            fontSize = 18.sp,
+                            fontSize = 17.5.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            color = GoldenBankGlow,
+                            color = Color.White,
                             style = TextStyle(
                                 shadow = Shadow(
                                     color = Color(0xCC000000),
-                                    offset = Offset(1f, 2f),
+                                    offset = Offset(1f, 1.5f),
                                     blurRadius = 3f
                                 )
                             )
@@ -1248,9 +1351,9 @@ fun WoodTopAppBar(
                         if (subtitle != null) {
                             Text(
                                 text = subtitle,
-                                fontSize = 11.5.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Color(0xFFFEF3C7)
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color(0xFFBAE6FD)
                             )
                         }
                     }
@@ -1280,10 +1383,10 @@ fun WoodCard(
     content: @Composable () -> Unit
 ) {
     val bgColors = gradientColors ?: listOf(
-        Color(0xF04A260E),
-        Color(0xF0301706)
+        Color(0xF00A2346),
+        Color(0xF005162D)
     )
-    val borderCol = borderColor ?: Color(0xFFD97706)
+    val borderCol = borderColor ?: MenuStatBarBorder
 
     Card(
         shape = shape,
@@ -1377,17 +1480,18 @@ fun VibrantSectionHeader(
 
 /**
  * Vibrant inset panel for content groupings, stats, or text descriptions.
+ * Styled in the Main Menu's deep ocean-blue inset container with subtle cyan/amber border.
  */
 @Composable
 fun WoodInsetBox(
     modifier: Modifier = Modifier,
-    shape: RoundedCornerShape = RoundedCornerShape(10.dp),
+    shape: RoundedCornerShape = RoundedCornerShape(12.dp),
     content: @Composable () -> Unit
 ) {
     Surface(
         shape = shape,
-        color = Color(0xCC1A0C04),
-        border = BorderStroke(1.dp, Color(0xFFD97706).copy(alpha = 0.55f)),
+        color = Color(0xCC05162E),
+        border = BorderStroke(1.2.dp, Color(0x5538BDF8)),
         modifier = modifier
     ) {
         content()
@@ -1410,17 +1514,17 @@ fun WoodMenuButton(
     modifier: Modifier = Modifier
 ) {
     val bgColors = gradientColors ?: if (accentGlow) {
-        listOf(Color(0xFFF59E0B), Color(0xFFD97706), Color(0xFFB45309))
+        listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
     } else {
-        listOf(Color(0xFF5A2C08), Color(0xFF3F1D06))
+        listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom)
     }
-    val borderCol = borderColor ?: if (accentGlow) GoldenBankGlow else Color(0xFFD97706).copy(alpha = 0.8f)
+    val borderCol = borderColor ?: if (accentGlow) MenuBtnAmberBorder else MenuBtnBlueBorder
 
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = bgColors.first(),
-        border = BorderStroke(1.6.dp, borderCol),
-        shadowElevation = if (accentGlow) 6.dp else 3.dp,
+        border = BorderStroke(1.8.dp, borderCol),
+        shadowElevation = if (accentGlow) 6.dp else 4.dp,
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
@@ -1435,16 +1539,16 @@ fun WoodMenuButton(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Surface(
-                shape = RoundedCornerShape(12.dp),
-                color = Color(0x33000000),
-                border = BorderStroke(1.dp, Color(0x40FFFFFF)),
+                shape = CircleShape,
+                color = Color(0x35000000),
+                border = BorderStroke(1.2.dp, Color.White.copy(alpha = 0.65f)),
                 modifier = Modifier.size(44.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
                     Icon(
                         imageVector = icon,
                         contentDescription = null,
-                        tint = if (accentGlow) Color.White else GoldenBankGlow,
+                        tint = Color.White,
                         modifier = Modifier.size(24.dp)
                     )
                 }
@@ -1457,13 +1561,20 @@ fun WoodMenuButton(
                     text = title,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Color.White
+                    color = Color.White,
+                    style = TextStyle(
+                        shadow = Shadow(
+                            color = Color(0x99000000),
+                            offset = Offset(1f, 1f),
+                            blurRadius = 2f
+                        )
+                    )
                 )
                 Text(
                     text = subtitle,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Color(0xFFFEF3C7),
+                    color = Color(0xE6FFFFFF),
                     maxLines = 1
                 )
             }
@@ -1484,20 +1595,20 @@ fun WoodFilterPill(
     modifier: Modifier = Modifier
 ) {
     val bgGradient = if (selected) {
-        activeGradient ?: listOf(Color(0xFFFBBF24), Color(0xFFF59E0B), Color(0xFFD97706))
+        activeGradient ?: listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
     } else {
-        listOf(Color(0xDD3A1C08), Color(0xDD241004))
+        listOf(Color(0xE60A264D), Color(0xE6051731))
     }
     val borderCol = if (selected) {
-        activeBorder ?: Color(0xFFFDE68A)
+        activeBorder ?: MenuBtnAmberBorder
     } else {
-        Color(0x66D97706)
+        Color(0x5538BDF8)
     }
 
     Surface(
         shape = RoundedCornerShape(12.dp),
         color = bgGradient.first(),
-        border = BorderStroke(1.3.dp, borderCol),
+        border = BorderStroke(1.4.dp, borderCol),
         shadowElevation = if (selected) 4.dp else 1.dp,
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
@@ -1512,8 +1623,8 @@ fun WoodFilterPill(
             Text(
                 text = text,
                 fontSize = 11.5.sp,
-                fontWeight = FontWeight.Bold,
-                color = if (selected) Color.White else Color(0xFFFEF3C7)
+                fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold,
+                color = if (selected) Color.White else Color(0xFFBAE6FD)
             )
         }
     }

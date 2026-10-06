@@ -600,6 +600,7 @@ fun VictoryDialog(
             CelebrationConfettiOverlay(
                 isVictory = true,
                 showBanner = false,
+                theme = levelTheme,
                 modifier = Modifier.fillMaxSize()
             )
         }

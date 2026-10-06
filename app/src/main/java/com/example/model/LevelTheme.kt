@@ -88,8 +88,30 @@ data class LevelTheme(
     val farmerStatusColor: Color = bankAccentColor,
     // Seated boat cargo passenger berth theming
     val passengerBerthBackgroundColors: List<Color> = listOf(dockWoodBottom.copy(alpha = 0.92f), raftWoodTone.copy(alpha = 0.88f)),
-    val passengerBerthBorderColor: Color = boatTrimColor
+    val passengerBerthBorderColor: Color = boatTrimColor,
+    // Particle-based celebration confetti palette matching this level's visual identity
+    val confettiColors: List<Color> = emptyList()
 ) {
+    /**
+     * Resolves the complete particle celebration palette matching this level's theme.
+     * If explicit confettiColors are provided, returns them; otherwise dynamically extracts
+     * a harmonious palette from the level's waters, banks, boat trims, and accents.
+     */
+    fun getEffectiveConfettiColors(): List<Color> {
+        if (confettiColors.isNotEmpty()) return confettiColors
+        return listOfNotNull(
+            bankAccentColor,
+            waterGradientTop,
+            boatTrimColor,
+            dockBorder,
+            flotsamColor,
+            headerAccentColor,
+            sailButtonGlow,
+            Color(0xFFFFD700), // Pure Gold
+            Color(0xFFFFFFFF)  // Sparkling White
+        ).distinct()
+    }
+
     companion object {
         val SPRING_VALLEY = LevelTheme(
             id = "spring_valley",
@@ -141,7 +163,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFD1FAE5),
             farmerStatusColor = Color(0xFF86EFAC),
             passengerBerthBackgroundColors = listOf(Color(0xFF5A3519), Color(0xFF3E220D)),
-            passengerBerthBorderColor = Color(0xFFFACC15)
+            passengerBerthBorderColor = Color(0xFFFACC15),
+            confettiColors = listOf(
+                Color(0xFF10B981), // Emerald Green
+                Color(0xFF22C55E), // Spring Leaf
+                Color(0xFF34D399), // Mint Green
+                Color(0xFF4ADE80), // Bright Lime
+                Color(0xFFFFD700), // Sunlit Gold
+                Color(0xFFF59E0B), // Warm Amber
+                Color(0xFFF472B6), // Blossom Pink
+                Color(0xFF38BDF8), // Clear Stream Blue
+                Color(0xFFFFFFFF)  // Sparkling White
+            )
         )
 
         val AUTUMN_HARVEST = LevelTheme(
@@ -194,7 +227,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFFEF3C7),
             farmerStatusColor = Color(0xFFFDE68A),
             passengerBerthBackgroundColors = listOf(Color(0xFF451A03), Color(0xFF2E0F02)),
-            passengerBerthBorderColor = Color(0xFFF59E0B)
+            passengerBerthBorderColor = Color(0xFFF59E0B),
+            confettiColors = listOf(
+                Color(0xFFEA580C), // Maple Orange
+                Color(0xFFF59E0B), // Golden Amber
+                Color(0xFFDC2626), // Autumn Crimson
+                Color(0xFFD97706), // Russet Orange
+                Color(0xFFFBBF24), // Harvest Gold
+                Color(0xFFFFD700), // Pure Gold
+                Color(0xFFB45309), // Copper Brown
+                Color(0xFFFEF3C7), // Warm Champagne
+                Color(0xFFFFFFFF)  // Sparkle White
+            )
         )
 
         val ALPINE_PEAKS = LevelTheme(
@@ -247,7 +291,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFE0F2FE),
             farmerStatusColor = Color(0xFF7DD3FC),
             passengerBerthBackgroundColors = listOf(Color(0xFF1E293B), Color(0xFF0F172A)),
-            passengerBerthBorderColor = Color(0xFF38BDF8)
+            passengerBerthBorderColor = Color(0xFF38BDF8),
+            confettiColors = listOf(
+                Color(0xFF06B6D4), // Glacial Cyan
+                Color(0xFF38BDF8), // Ice Blue
+                Color(0xFF0EA5E9), // Bright Cerulean
+                Color(0xFF67E8F9), // Pale Frost
+                Color(0xFF0284C7), // Alpine Sapphire
+                Color(0xFF7DD3FC), // Sky Frost
+                Color(0xFFA7F3D0), // Glacial Mint
+                Color(0xFFFFFFFF), // Snowflake White
+                Color(0xFFFFD700)  // Golden Sun Star
+            )
         )
 
         val SAVANNAH_SUN = LevelTheme(
@@ -300,7 +355,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFFFEDD5),
             farmerStatusColor = Color(0xFFFED7AA),
             passengerBerthBackgroundColors = listOf(Color(0xFF5E1B07), Color(0xFF3D1104)),
-            passengerBerthBorderColor = Color(0xFFF97316)
+            passengerBerthBorderColor = Color(0xFFF97316),
+            confettiColors = listOf(
+                Color(0xFFF97316), // Savannah Orange
+                Color(0xFFEA580C), // Terracotta Red
+                Color(0xFFF59E0B), // Warm Sun Amber
+                Color(0xFFFDE047), // Golden Yellow
+                Color(0xFFFB923C), // Sunlit Coral
+                Color(0xFFFFD700), // Pure Gold
+                Color(0xFFC2410C), // Deep Ochre
+                Color(0xFFFFFBEB), // Sahara Ivory
+                Color(0xFFFFFFFF)  // Sparkle White
+            )
         )
 
         val MIDNIGHT_STARLIGHT = LevelTheme(
@@ -353,7 +419,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFE0E7FF),
             farmerStatusColor = Color(0xFFA5B4FC),
             passengerBerthBackgroundColors = listOf(Color(0xFF0F172A), Color(0xFF090D18)),
-            passengerBerthBorderColor = Color(0xFF818CF8)
+            passengerBerthBorderColor = Color(0xFF818CF8),
+            confettiColors = listOf(
+                Color(0xFF8B5CF6), // Royal Purple
+                Color(0xFF6366F1), // Electric Indigo
+                Color(0xFF67E8F9), // Bioluminescent Cyan
+                Color(0xFF38BDF8), // Starlight Blue
+                Color(0xFFD946EF), // Neon Magenta
+                Color(0xFFA5B4FC), // Lavender Spark
+                Color(0xFFFFD700), // Golden Star
+                Color(0xFFFDE047), // Celestial Yellow
+                Color(0xFFFFFFFF)  // Brilliant White
+            )
         )
 
         val TWILIGHT_RAPIDS = LevelTheme(
@@ -406,7 +483,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFF5D0FE),
             farmerStatusColor = Color(0xFFF0ABFC),
             passengerBerthBackgroundColors = listOf(Color(0xFF2E1065), Color(0xFF1B073D)),
-            passengerBerthBorderColor = Color(0xFFA855F7)
+            passengerBerthBorderColor = Color(0xFFA855F7),
+            confettiColors = listOf(
+                Color(0xFFA855F7), // Mystic Purple
+                Color(0xFFD946EF), // Twilight Magenta
+                Color(0xFFC084FC), // Orchid Glow
+                Color(0xFFF472B6), // Twilight Rose
+                Color(0xFFF59E0B), // Sunset Amber
+                Color(0xFF9333EA), // Royal Violet
+                Color(0xFFFB7185), // Sunset Coral
+                Color(0xFFFFFFFF), // Sparkling White
+                Color(0xFFFFD700)  // Golden Ember
+            )
         )
 
         val DESERT_OASIS = LevelTheme(
@@ -459,7 +547,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFCCFBF1),
             farmerStatusColor = Color(0xFF5EEAD4),
             passengerBerthBackgroundColors = listOf(Color(0xFF133633), Color(0xFF0A201E)),
-            passengerBerthBorderColor = Color(0xFF2DD4BF)
+            passengerBerthBorderColor = Color(0xFF2DD4BF),
+            confettiColors = listOf(
+                Color(0xFF14B8A6), // Lagoon Turquoise
+                Color(0xFF2DD4BF), // Seafoam Mint
+                Color(0xFF0D9488), // Deep Teal
+                Color(0xFFF43F5E), // Oasis Rose
+                Color(0xFFFACC15), // Palm Gold
+                Color(0xFFFB7185), // Tropical Coral
+                Color(0xFF5EEAD4), // Pale Turquoise
+                Color(0xFFFFFFFF), // Sparkling Sand White
+                Color(0xFFFFD700)  // Golden Sun
+            )
         )
 
         val AURORA_BOREALIS = LevelTheme(
@@ -512,7 +611,18 @@ data class LevelTheme(
             farmerNameColor = Color(0xFFD1FAE5),
             farmerStatusColor = Color(0xFFA7F3D0),
             passengerBerthBackgroundColors = listOf(Color(0xFF0B192C), Color(0xFF07111E)),
-            passengerBerthBorderColor = Color(0xFF67E8F9)
+            passengerBerthBorderColor = Color(0xFF67E8F9),
+            confettiColors = listOf(
+                Color(0xFF10B981), // Aurora Emerald
+                Color(0xFF34D399), // Radiant Mint
+                Color(0xFF8B5CF6), // Prismatic Violet
+                Color(0xFF06B6D4), // Polar Cyan
+                Color(0xFF67E8F9), // Ice Sparkle
+                Color(0xFFEC4899), // Aurora Magenta
+                Color(0xFFA78BFA), // Lavender Shimmer
+                Color(0xFF6EE7B7), // Seafoam Aurora
+                Color(0xFFFFFFFF)  // Glacial White
+            )
         )
 
         @DrawableRes

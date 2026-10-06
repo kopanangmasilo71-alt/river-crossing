@@ -153,8 +153,8 @@ fun SettingsScreen(
             VibrantSectionHeader(title = "Captain Profile", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
-                borderColor = GoldenBankGlow
+                gradientColors = listOf(Color(0xF00D3560), Color(0xF007203A)),
+                borderColor = MenuBtnBlueBorder
             ) {
                 Row(
                     modifier = Modifier
@@ -164,7 +164,7 @@ fun SettingsScreen(
                 ) {
                     Surface(
                         shape = CircleShape,
-                        color = Color(0xDD220F05),
+                        color = Color(0xDD072449),
                         border = BorderStroke(2.dp, GoldenBankGlow),
                         modifier = Modifier.size(54.dp),
                         shadowElevation = 4.dp
@@ -186,7 +186,7 @@ fun SettingsScreen(
                             text = "Captain Name",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFFFEF3C7)
+                            color = Color(0xFFBAE6FD)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
@@ -198,11 +198,11 @@ fun SettingsScreen(
                             singleLine = true,
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = GoldenBankGlow,
-                                unfocusedBorderColor = Color(0xFFD97706),
+                                unfocusedBorderColor = MenuBtnBlueBorder,
                                 focusedTextColor = GoldenBankGlow,
                                 unfocusedTextColor = Color.White,
-                                focusedContainerColor = Color(0xDD220F05),
-                                unfocusedContainerColor = Color(0xDD220F05)
+                                focusedContainerColor = Color(0xDD072449),
+                                unfocusedContainerColor = Color(0xDD072449)
                             ),
                             shape = RoundedCornerShape(10.dp),
                             modifier = Modifier
@@ -219,8 +219,8 @@ fun SettingsScreen(
             VibrantSectionHeader(title = "Boat Speed & Animation", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF02B1D0E), Color(0xF0180F06)),
-                borderColor = GoldenBankGlow
+                gradientColors = listOf(Color(0xF04A2A08), Color(0xF02C1704)),
+                borderColor = MenuBtnAmberBorder
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Row(
@@ -229,7 +229,7 @@ fun SettingsScreen(
                     ) {
                         Surface(
                             shape = CircleShape,
-                            color = Color(0xDD220F05),
+                            color = Color(0xDD2A1506),
                             border = BorderStroke(1.2.dp, GoldenBankGlow),
                             modifier = Modifier.size(38.dp)
                         ) {
@@ -270,7 +270,7 @@ fun SettingsScreen(
                             val isSelected = currentBoatSpeed == speed
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = if (isSelected) MenuBtnAmberTop else Color(0xDD1E1006),
+                                color = if (isSelected) MenuBtnAmberTop else Color(0xDD2A1506),
                                 border = BorderStroke(
                                     if (isSelected) 1.8.dp else 1.dp,
                                     if (isSelected) GoldenBankGlow else Color(0x55D97706)
@@ -648,8 +648,8 @@ fun SettingsScreen(
             SettingsSectionHeader(title = "ABOUT")
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF04A260E), Color(0xF02B1405)),
-                borderColor = GoldenBankGlow
+                gradientColors = listOf(Color(0xF00D3560), Color(0xF007203A)),
+                borderColor = MenuBtnBlueBorder
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -664,7 +664,7 @@ fun SettingsScreen(
                     Text(
                         text = "${PuzzleScenarios.ALL.size} Handcrafted Logic Levels • Room Database High Scores • State-Space AI Solver • Procedural Audio Engine",
                         fontSize = 11.sp,
-                        color = Color(0xFFFEF3C7)
+                        color = Color(0xFFBAE6FD)
                     )
                     Text(
                         text = "Version 1.0.0 • River Academy Edition",
