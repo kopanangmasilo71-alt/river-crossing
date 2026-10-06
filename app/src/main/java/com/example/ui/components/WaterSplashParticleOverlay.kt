@@ -105,57 +105,57 @@ fun WaterSplashParticleOverlay(
             // Bias the horizontal burst spray slightly towards the river center
             val sprayDir = if (isRightBank) -1f else 1f
 
-            val newDroplets = List(38) {
-                val speed = rng.nextFloat() * 260f + 140f
+            val newDroplets = List(52) {
+                val speed = rng.nextFloat() * 340f + 200f
                 val angleDeg = if (isRightBank) {
-                    // Spray arc upwards and leftwards into river (110° to 175°)
-                    rng.nextFloat() * 65f + 110f
+                    // Spray arc upwards and leftwards into river (105° to 175°)
+                    rng.nextFloat() * 70f + 105f
                 } else {
-                    // Spray arc upwards and rightwards into river (5° to 70°)
-                    rng.nextFloat() * 65f + 5f
+                    // Spray arc upwards and rightwards into river (5° to 75°)
+                    rng.nextFloat() * 70f + 5f
                 }
                 val angleRad = Math.toRadians(angleDeg.toDouble())
-                val vx = (cos(angleRad) * speed).toFloat() + (sprayDir * rng.nextFloat() * 40f)
-                val vy = (-sin(angleRad) * speed * 1.35f).toFloat() // Strong upward impulse
+                val vx = (cos(angleRad) * speed).toFloat() + (sprayDir * rng.nextFloat() * 65f)
+                val vy = (-sin(angleRad) * speed * 1.55f).toFloat() // Strong upward impulse
 
                 SplashDroplet(
                     vx = vx,
                     vy = vy,
-                    radius = rng.nextFloat() * 5.5f + 3f,
+                    radius = rng.nextFloat() * 16f + 14f, // Extra large prominent water droplet (14px - 30px)
                     color = dropletColors[rng.nextInt(dropletColors.size)],
-                    gravity = rng.nextFloat() * 450f + 750f, // Gravity px/s^2
+                    gravity = rng.nextFloat() * 450f + 720f, // Gravity px/s^2
                     delayFraction = rng.nextFloat() * 0.12f,
                     lifeFraction = rng.nextFloat() * 0.35f + 0.65f
                 )
             }
 
-            val newSparkles = List(10) {
+            val newSparkles = List(18) {
                 SparkleStar(
-                    vx = (rng.nextFloat() - 0.5f) * 160f + (sprayDir * 50f),
-                    vy = -(rng.nextFloat() * 180f + 100f),
-                    size = rng.nextFloat() * 7f + 5f,
+                    vx = (rng.nextFloat() - 0.5f) * 220f + (sprayDir * 70f),
+                    vy = -(rng.nextFloat() * 240f + 130f),
+                    size = rng.nextFloat() * 18f + 18f, // Extra large glistening sparkle star (18px - 36px)
                     rotationSpeed = (rng.nextFloat() - 0.5f) * 720f,
                     initialAngle = rng.nextFloat() * 360f,
                     color = if (rng.nextBoolean()) Color(0xFFFFFFFF) else Color(0xFFE0F7FA)
                 )
             }
 
-            val newRipples = List(4) { i ->
+            val newRipples = List(5) { i ->
                 RippleWave(
-                    maxRadiusX = (i + 1) * 24f + 35f,
-                    maxRadiusY = ((i + 1) * 24f + 35f) * 0.42f, // Perspective oval
-                    delayFraction = i * 0.08f,
-                    color = if (i % 2 == 0) Color.White.copy(alpha = 0.85f) else Color(0xFF7DD3FC).copy(alpha = 0.7f),
-                    strokeWidth = (3.5f - i * 0.5f).coerceAtLeast(1.5f)
+                    maxRadiusX = (i + 1) * 65f + 80f, // Giant expansive landing ripples (145px - 405px)
+                    maxRadiusY = ((i + 1) * 65f + 80f) * 0.44f, // Perspective oval
+                    delayFraction = i * 0.07f,
+                    color = if (i % 2 == 0) Color.White.copy(alpha = 0.92f) else Color(0xFF7DD3FC).copy(alpha = 0.80f),
+                    strokeWidth = (8.0f - i * 0.9f).coerceAtLeast(3.5f)
                 )
             }
 
-            val newFoam = List(14) {
+            val newFoam = List(22) {
                 FoamBubble(
-                    offsetX = (rng.nextFloat() - 0.5f) * 70f,
-                    offsetY = (rng.nextFloat() - 0.5f) * 20f,
-                    maxRadius = rng.nextFloat() * 6f + 3.5f,
-                    color = Color.White.copy(alpha = rng.nextFloat() * 0.3f + 0.6f)
+                    offsetX = (rng.nextFloat() - 0.5f) * 120f,
+                    offsetY = (rng.nextFloat() - 0.5f) * 36f,
+                    maxRadius = rng.nextFloat() * 18f + 14f, // Giant foaming bubbles (14px - 32px)
+                    color = Color.White.copy(alpha = rng.nextFloat() * 0.3f + 0.70f)
                 )
             }
 

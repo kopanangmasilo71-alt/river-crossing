@@ -21,6 +21,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteOutline
+import androidx.compose.material.icons.filled.DirectionsBoat
 import androidx.compose.material.icons.filled.LockOpen
 import androidx.compose.material.icons.filled.OndemandVideo
 import androidx.compose.material.icons.filled.Security
@@ -62,6 +63,7 @@ import android.app.Activity
 import com.example.R
 import com.example.ads.AdManager
 import com.example.ads.AdMobBanner
+import com.example.model.BoatSpeed
 import com.example.model.GameItem
 import com.example.model.PuzzleScenarios
 import com.example.ui.components.WoodCard
@@ -211,7 +213,105 @@ fun SettingsScreen(
                 }
             }
 
-            // 2. AUDIO & HAPTICS SETTINGS (Vibrant Cyan / Teal)
+            // 2. BOAT ROWING SPEED & ANIMATION (Nautical Golden Amber)
+            val currentBoatSpeed by viewModel.boatSpeed.collectAsState()
+
+            VibrantSectionHeader(title = "Boat Speed & Animation", accentColor = GoldenBankGlow)
+            WoodCard(
+                shape = RoundedCornerShape(18.dp),
+                gradientColors = listOf(Color(0xF02B1D0E), Color(0xF0180F06)),
+                borderColor = GoldenBankGlow
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0xDD220F05),
+                            border = BorderStroke(1.2.dp, GoldenBankGlow),
+                            modifier = Modifier.size(38.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    imageVector = Icons.Default.DirectionsBoat,
+                                    contentDescription = null,
+                                    tint = GoldenBankGlow,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(12.dp))
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "Crossing Speed",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 14.sp,
+                                color = Color.White
+                            )
+                            Text(
+                                text = currentBoatSpeed.description,
+                                fontSize = 11.5.sp,
+                                color = GoldenBankGlow,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // 4-choice segmented speed selector
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        BoatSpeed.values().forEach { speed ->
+                            val isSelected = currentBoatSpeed == speed
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = if (isSelected) MenuBtnAmberTop else Color(0xDD1E1006),
+                                border = BorderStroke(
+                                    if (isSelected) 1.8.dp else 1.dp,
+                                    if (isSelected) GoldenBankGlow else Color(0x55D97706)
+                                ),
+                                shadowElevation = if (isSelected) 4.dp else 1.dp,
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .clickable { viewModel.setBoatSpeed(speed) }
+                                    .testTag("settings_boat_speed_${speed.id}")
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 8.dp, horizontal = 2.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    verticalArrangement = Arrangement.Center
+                                ) {
+                                    Text(
+                                        text = speed.iconEmoji,
+                                        fontSize = 16.sp
+                                    )
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = speed.title,
+                                        fontSize = 11.sp,
+                                        fontWeight = if (isSelected) FontWeight.Black else FontWeight.Bold,
+                                        color = if (isSelected) Color.White else Color(0xFFFEF3C7)
+                                    )
+                                    Text(
+                                        text = "${speed.durationMs / 1000.0}s",
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = if (isSelected) GoldenBankGlow else Color(0x99D4A373)
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 3. AUDIO & HAPTICS SETTINGS (Vibrant Cyan / Teal)
             VibrantSectionHeader(title = "Audio & Feedback", accentColor = MenuBtnCyanTop)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),

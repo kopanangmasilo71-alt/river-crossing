@@ -422,105 +422,196 @@ fun RiverScene(
 
             if (isRowing) {
                 val isHeadingRight = riverState.farmerBank == Bank.LEFT
-                val wakeSternX = if (isHeadingRight) boatCenterX - 46f else boatCenterX + 46f
-                val bowApexX = if (isHeadingRight) boatCenterX + 56f else boatCenterX - 56f
+                val wakeSternX = if (isHeadingRight) boatCenterX - 48f else boatCenterX + 48f
+                val bowApexX = if (isHeadingRight) boatCenterX + 60f else boatCenterX - 60f
                 val bowDir = if (isHeadingRight) 1f else -1f
 
-                // 1. Bow Wave (Foaming V-shaped spray cutting through the water at the prow)
-                val bowWaveSweep = (wavePhase * 0.35f) % 14f
-                val bowPath = Path()
-                bowPath.moveTo(bowApexX + (bowDir * 4f), boatCenterY)
-                bowPath.quadraticBezierTo(
-                    bowApexX - (bowDir * 14f), boatCenterY - 12f,
-                    bowApexX - (bowDir * (34f + bowWaveSweep)), boatCenterY - (20f + bowWaveSweep * 0.45f)
+                // 1. DYNAMIC BILLOWING BOW WAVE (Wide Foaming V-shaped Prow Wake)
+                val bowWaveSweep = (wavePhase * 0.45f) % 28f
+                val bowPortPath = Path()
+                bowPortPath.moveTo(bowApexX + (bowDir * 8f), boatCenterY)
+                bowPortPath.quadraticBezierTo(
+                    bowApexX - (bowDir * 24f), boatCenterY - 26f,
+                    bowApexX - (bowDir * (64f + bowWaveSweep)), boatCenterY - (42f + bowWaveSweep * 0.7f)
                 )
+                // Outer vibrant cyan/aqua froth wave
                 drawPath(
-                    path = bowPath,
-                    color = Color.White.copy(alpha = 0.58f),
-                    style = Stroke(width = 2.4f, cap = StrokeCap.Round)
+                    path = bowPortPath,
+                    color = Color(0xFFBAE6FD).copy(alpha = 0.85f),
+                    style = Stroke(width = 12.0f, cap = StrokeCap.Round)
+                )
+                // Inner glistening white foam crest
+                drawPath(
+                    path = bowPortPath,
+                    color = Color.White.copy(alpha = 0.98f),
+                    style = Stroke(width = 6.5f, cap = StrokeCap.Round)
                 )
 
-                bowPath.reset()
-                bowPath.moveTo(bowApexX + (bowDir * 4f), boatCenterY)
-                bowPath.quadraticBezierTo(
-                    bowApexX - (bowDir * 14f), boatCenterY + 12f,
-                    bowApexX - (bowDir * (34f + bowWaveSweep)), boatCenterY + (20f + bowWaveSweep * 0.45f)
+                val bowStarboardPath = Path()
+                bowStarboardPath.moveTo(bowApexX + (bowDir * 8f), boatCenterY)
+                bowStarboardPath.quadraticBezierTo(
+                    bowApexX - (bowDir * 24f), boatCenterY + 26f,
+                    bowApexX - (bowDir * (64f + bowWaveSweep)), boatCenterY + (42f + bowWaveSweep * 0.7f)
                 )
                 drawPath(
-                    path = bowPath,
-                    color = Color.White.copy(alpha = 0.58f),
-                    style = Stroke(width = 2.4f, cap = StrokeCap.Round)
+                    path = bowStarboardPath,
+                    color = Color(0xFFBAE6FD).copy(alpha = 0.85f),
+                    style = Stroke(width = 12.0f, cap = StrokeCap.Round)
+                )
+                drawPath(
+                    path = bowStarboardPath,
+                    color = Color.White.copy(alpha = 0.98f),
+                    style = Stroke(width = 6.5f, cap = StrokeCap.Round)
                 )
 
-                // Dynamic water spray droplets kicked up at the bow
-                for (drop in 0..3) {
-                    val dropOffset = (drop * 7f + (wavePhase * 0.6f) % 14f)
-                    val dx = bowApexX + (bowDir * dropOffset * 0.35f)
-                    val dy = boatCenterY + (if (drop % 2 == 0) -1f else 1f) * (6f + drop * 5f)
+                // 2. EXTRA LARGE DYNAMIC BOW WATER SPRAY PARTICLES & DROPLETS
+                for (drop in 0..9) {
+                    val dropCycle = (drop * 14f + (wavePhase * 0.9f)) % 46f
+                    val dx = bowApexX + (bowDir * (12f + dropCycle * 0.95f))
+                    val spreadY = (if (drop % 2 == 0) -1f else 1f) * (10f + drop * 9.5f + (dropCycle * 0.45f))
+                    val dy = boatCenterY + spreadY
+                    val dropAlpha = (1f - (dropCycle / 46f)).coerceIn(0f, 1f) * 0.90f
+                    val dropRadius = (26f - drop * 1.8f + sin(drop + wavePhase * 0.1) * 4f).toFloat().coerceIn(12f, 34f)
+
+                    // Outer watery glow halo
                     drawCircle(
-                        color = Color.White.copy(alpha = 0.68f),
-                        radius = (2.6f - drop * 0.4f).coerceAtLeast(1.1f),
+                        color = Color(0xFF7DD3FC).copy(alpha = dropAlpha * 0.50f),
+                        radius = dropRadius * 1.7f,
                         center = Offset(dx, dy)
                     )
-                }
-
-                // 2. Oar dip water ripples at power stroke peak
-                val oarDipIntensity = (kotlin.math.abs(oarSweepState.value) / 24f).coerceIn(0f, 1f)
-                if (oarDipIntensity > 0.42f) {
-                    val dipPulse = (oarDipIntensity - 0.42f) / 0.58f
-                    val oarPortTipY = boatCenterY - 32f
-                    val oarStarboardTipY = boatCenterY + 32f
-                    val oarRippleRadius = 6f + (dipPulse * 15f)
-                    val oarRippleAlpha = (1f - dipPulse) * 0.60f
-
-                    drawOval(
-                        color = Color.White.copy(alpha = oarRippleAlpha),
-                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.3f, oarPortTipY - oarRippleRadius * 0.5f),
-                        size = Size(oarRippleRadius * 2.6f, oarRippleRadius * 1.0f),
-                        style = Stroke(width = 1.6f)
-                    )
-                    drawOval(
-                        color = Color.White.copy(alpha = oarRippleAlpha),
-                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.3f, oarStarboardTipY - oarRippleRadius * 0.5f),
-                        size = Size(oarRippleRadius * 2.6f, oarRippleRadius * 1.0f),
-                        style = Stroke(width = 1.6f)
-                    )
-                }
-
-                // 3. Concentric expanding foam rings at stern
-                for (ring in 1..4) {
-                    val ringRadius = 10f * ring + ((wavePhase * 0.40f) % 22f)
-                    val ringAlpha = (0.45f - ring * 0.09f).coerceAtLeast(0.06f)
-                    drawOval(
-                        color = Color.White.copy(alpha = ringAlpha),
-                        topLeft = Offset(wakeSternX - ringRadius * 1.6f, boatCenterY - ringRadius * 0.6f),
-                        size = Size(ringRadius * 3.2f, ringRadius * 1.2f),
-                        style = Stroke(width = 2.0f)
-                    )
-                }
-
-                // 4. Trailing wake foam froth bubbles
-                for (bubble in 0..5) {
-                    val bubbleOffset = (bubble * 14f) + ((wavePhase * 0.5f) % 18f)
-                    val bx = if (isHeadingRight) wakeSternX - bubbleOffset else wakeSternX + bubbleOffset
-                    val by = boatCenterY + (sin(bubble * 1.5 + rad) * 6f).toFloat()
+                    // Core glistening water droplet
                     drawCircle(
-                        color = Color.White.copy(alpha = 0.40f),
-                        radius = (3.4f - bubble * 0.42f).coerceAtLeast(1.2f),
+                        color = Color.White.copy(alpha = dropAlpha),
+                        radius = dropRadius,
+                        center = Offset(dx, dy)
+                    )
+                    // Specular highlight gleam
+                    drawCircle(
+                        color = Color.White,
+                        radius = (dropRadius * 0.38f).coerceAtLeast(3f),
+                        center = Offset(dx - dropRadius * 0.28f, dy - dropRadius * 0.28f)
+                    )
+                }
+
+                // 3. EXTRA LARGE OAR SPLASH RIPPLES & DIP SPRAY
+                val oarDipIntensity = (kotlin.math.abs(oarSweepState.value) / 24f).coerceIn(0f, 1f)
+                if (oarDipIntensity > 0.30f) {
+                    val dipPulse = (oarDipIntensity - 0.30f) / 0.70f
+                    val oarPortTipY = boatCenterY - 46f
+                    val oarStarboardTipY = boatCenterY + 46f
+                    val oarRippleRadius = 24f + (dipPulse * 54f) // 24px to 78px ripple
+                    val oarRippleAlpha = (1f - dipPulse) * 0.90f
+
+                    // Port oar splash oval & spray
+                    drawOval(
+                        color = Color(0xFFE0F2FE).copy(alpha = oarRippleAlpha),
+                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.5f, oarPortTipY - oarRippleRadius * 0.6f),
+                        size = Size(oarRippleRadius * 3.0f, oarRippleRadius * 1.2f),
+                        style = Stroke(width = 6.0f)
+                    )
+                    drawCircle(
+                        color = Color.White.copy(alpha = oarRippleAlpha),
+                        radius = 16f * dipPulse + 8f, // Big 8px to 24px splash droplet
+                        center = Offset(boatCenterX, oarPortTipY)
+                    )
+
+                    // Starboard oar splash oval & spray
+                    drawOval(
+                        color = Color(0xFFE0F2FE).copy(alpha = oarRippleAlpha),
+                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.5f, oarStarboardTipY - oarRippleRadius * 0.6f),
+                        size = Size(oarRippleRadius * 3.0f, oarRippleRadius * 1.2f),
+                        style = Stroke(width = 6.0f)
+                    )
+                    drawCircle(
+                        color = Color.White.copy(alpha = oarRippleAlpha),
+                        radius = 16f * dipPulse + 8f,
+                        center = Offset(boatCenterX, oarStarboardTipY)
+                    )
+                }
+
+                // 4. EXTRA LARGE CONCENTRIC EXPANDING STERN FOAM RINGS
+                for (ring in 1..5) {
+                    val ringRadius = 32f * ring + ((wavePhase * 0.65f) % 48f)
+                    val ringAlpha = (0.65f - ring * 0.10f).coerceIn(0.10f, 0.65f)
+                    drawOval(
+                        color = Color(0xFFE0F2FE).copy(alpha = ringAlpha),
+                        topLeft = Offset(wakeSternX - ringRadius * 1.8f, boatCenterY - ringRadius * 0.7f),
+                        size = Size(ringRadius * 3.6f, ringRadius * 1.4f),
+                        style = Stroke(width = 6.5f)
+                    )
+                }
+
+                // 5. EXTRA LARGE VOLUMETRIC TRAILING WAKE FOAM BUBBLES
+                for (bubble in 0..11) {
+                    val bubbleOffset = (bubble * 28f) + ((wavePhase * 0.8f) % 34f)
+                    val bx = if (isHeadingRight) wakeSternX - bubbleOffset else wakeSternX + bubbleOffset
+                    val by = boatCenterY + (sin(bubble * 1.8 + rad) * 16f).toFloat()
+                    val bubbleRadius = (30f - bubble * 1.8f).coerceIn(12f, 38f) // Giant foam bubbles (12px to 38px)
+                    val bubbleAlpha = (0.75f - bubble * 0.05f).coerceIn(0.18f, 0.75f)
+
+                    // Frothy bubble base
+                    drawCircle(
+                        color = Color(0xFFBAE6FD).copy(alpha = bubbleAlpha * 0.6f),
+                        radius = bubbleRadius * 1.4f,
                         center = Offset(bx, by)
+                    )
+                    // Solid white froth orb
+                    drawCircle(
+                        color = Color.White.copy(alpha = bubbleAlpha),
+                        radius = bubbleRadius,
+                        center = Offset(bx, by)
+                    )
+                    // Specular highlight spot
+                    drawCircle(
+                        color = Color.White,
+                        radius = (bubbleRadius * 0.38f).coerceAtLeast(2.5f),
+                        center = Offset(bx - bubbleRadius * 0.3f, by - bubbleRadius * 0.3f)
+                    )
+                }
+
+                // 6. FLANK WATER CHURNING SPRAY (Dynamic Bubbles Along Raft Sides)
+                for (flank in 0..7) {
+                    val flankOffset = (flank * 20f - 40f)
+                    val fx = boatCenterX + flankOffset
+                    val fyTop = boatCenterY - 32f + (sin(flank * 2.2 + rad) * 7f).toFloat()
+                    val fyBot = boatCenterY + 32f + (cos(flank * 2.2 + rad) * 7f).toFloat()
+                    val fRadius = (18f - flank * 1.2f).coerceIn(8f, 22f) // Enlarged flank churn bubbles (8px - 22px)
+
+                    drawCircle(
+                        color = Color.White.copy(alpha = 0.65f),
+                        radius = fRadius,
+                        center = Offset(fx, fyTop)
+                    )
+                    drawCircle(
+                        color = Color.White.copy(alpha = 0.65f),
+                        radius = fRadius,
+                        center = Offset(fx, fyBot)
                     )
                 }
             } else {
-                // Subtle resting water ripples around raft
+                // Dynamic multi-ring resting water ripples & gentle breathing dock waves
                 val ripplePulse = (wavePhase % 180f) / 180f
-                for (r in 0..1) {
-                    val rRadius = 45f + (r * 22f) + (ripplePulse * 16f)
-                    val rAlpha = (0.24f - (r * 0.08f) - (ripplePulse * 0.12f)).coerceAtLeast(0.04f)
+                for (r in 0..4) {
+                    val rRadius = 65f + (r * 32f) + (ripplePulse * 28f)
+                    val rAlpha = (0.42f - (r * 0.08f) - (ripplePulse * 0.10f)).coerceIn(0.04f, 0.45f)
                     drawOval(
-                        color = Color.White.copy(alpha = rAlpha),
-                        topLeft = Offset(boatCenterX - rRadius, boatCenterY - (rRadius * 0.28f)),
-                        size = Size(rRadius * 2f, rRadius * 0.56f),
-                        style = Stroke(width = 1.2f)
+                        color = Color(0xFFE0F2FE).copy(alpha = rAlpha),
+                        topLeft = Offset(boatCenterX - rRadius * 1.2f, boatCenterY - (rRadius * 0.32f)),
+                        size = Size(rRadius * 2.4f, rRadius * 0.64f),
+                        style = Stroke(width = (3.2f - r * 0.4f).coerceAtLeast(1.5f))
+                    )
+                }
+
+                // Glistening gentle water lap crests around boat hull
+                for (crest in 0..3) {
+                    val cAngle = (wavePhase * 0.8f + crest * 90f) * (PI / 180f)
+                    val cx = boatCenterX + cos(cAngle).toFloat() * 48f
+                    val cy = boatCenterY + sin(cAngle).toFloat() * 22f
+                    val cAlpha = (0.35f + sin(cAngle * 2.0).toFloat() * 0.25f).coerceIn(0.1f, 0.6f)
+                    drawCircle(
+                        color = Color.White.copy(alpha = cAlpha),
+                        radius = 4.5f,
+                        center = Offset(cx, cy)
                     )
                 }
             }
@@ -1358,39 +1449,39 @@ fun BoundLogRaft(
             )
         }
 
-        // Dynamic Wooden Oars with Water Dipping
+        // Dynamic Wooden Oars with Water Dipping (Substantial oars with large paddle blades)
         // Port Oar
         Surface(
-            shape = RoundedCornerShape(2.dp),
+            shape = RoundedCornerShape(3.dp),
             color = levelTheme.boatOarColor,
-            border = BorderStroke(0.8.dp, levelTheme.boatTrimColor.copy(alpha = 0.8f)),
+            border = BorderStroke(1.2.dp, levelTheme.boatTrimColor.copy(alpha = 0.9f)),
             modifier = Modifier
-                .offset(x = (-raftWidth / 2) + 14.dp, y = 14.dp)
-                .width(38.dp)
-                .height(6.dp)
-                .graphicsLayer { rotationZ = -32f + oarAngle() }
+                .offset(x = (-raftWidth / 2) + 10.dp, y = 14.dp)
+                .width(48.dp)
+                .height(8.dp)
+                .graphicsLayer { rotationZ = -34f + oarAngle() }
         ) {
             Box(
                 modifier = Modifier
-                    .size(width = 11.dp, height = 6.dp)
+                    .size(width = 16.dp, height = 8.dp)
                     .background(levelTheme.boatTrimColor)
             )
         }
 
         // Starboard Oar
         Surface(
-            shape = RoundedCornerShape(2.dp),
+            shape = RoundedCornerShape(3.dp),
             color = levelTheme.boatOarColor,
-            border = BorderStroke(0.8.dp, levelTheme.boatTrimColor.copy(alpha = 0.8f)),
+            border = BorderStroke(1.2.dp, levelTheme.boatTrimColor.copy(alpha = 0.9f)),
             modifier = Modifier
-                .offset(x = (raftWidth / 2) - 14.dp, y = 14.dp)
-                .width(38.dp)
-                .height(6.dp)
-                .graphicsLayer { rotationZ = 32f - oarAngle() }
+                .offset(x = (raftWidth / 2) - 10.dp, y = 14.dp)
+                .width(48.dp)
+                .height(8.dp)
+                .graphicsLayer { rotationZ = 34f - oarAngle() }
         ) {
             Box(
                 modifier = Modifier
-                    .size(width = 11.dp, height = 6.dp)
+                    .size(width = 16.dp, height = 8.dp)
                     .background(levelTheme.boatTrimColor)
             )
         }

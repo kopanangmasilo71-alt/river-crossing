@@ -12,6 +12,7 @@ import com.example.data.db.AppDatabase
 import com.example.data.db.HighScoreEntity
 import com.example.data.repository.HighScoreRepository
 import com.example.model.Bank
+import com.example.model.BoatSpeed
 import com.example.model.DifficultyMode
 import com.example.model.DifficultyModifiers
 import com.example.model.GameItem
@@ -108,6 +109,18 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val _isHapticsEnabled = MutableStateFlow(true)
     val isHapticsEnabled: StateFlow<Boolean> = _isHapticsEnabled.asStateFlow()
+
+    // Boat crossing speed preference (controlled via Settings)
+    private val _boatSpeed = MutableStateFlow(
+        BoatSpeed.fromId(prefs.getString("boat_speed", BoatSpeed.FAST.id))
+    )
+    val boatSpeed: StateFlow<BoatSpeed> = _boatSpeed.asStateFlow()
+
+    fun setBoatSpeed(speed: BoatSpeed) {
+        _boatSpeed.value = speed
+        prefs.edit().putString("boat_speed", speed.id).apply()
+        audio.playButtonPopSound()
+    }
 
     // Difficulty settings and modifiers
     private val _difficultyModifiers = MutableStateFlow(DifficultyModifiers())
@@ -518,17 +531,17 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
             // Animate boat crossing progress with smooth 60fps cinematic rowing kinematics
             val targetProgress = if (toBank == Bank.RIGHT) 1f else 0f
             val startProgress = _boatPosition.value
-            val totalDurationMs = 1080L
+            val totalDurationMs = _boatSpeed.value.durationMs
             val frameDelay = 16L
-            val totalFrames = (totalDurationMs / frameDelay).toInt()
+            val totalFrames = (totalDurationMs / frameDelay).toInt().coerceAtLeast(6)
+            val strokeCycles = if (totalDurationMs <= 350L) 1.5 else if (totalDurationMs <= 600L) 2.0 else 2.5
 
             for (i in 1..totalFrames) {
                 val t = i.toDouble() / totalFrames // 0.0 to 1.0
                 // S-Curve (Cubic Ease-In-Out) base motion
                 val sCurve = (1.0 - kotlin.math.cos(t * kotlin.math.PI)) / 2.0
                 // Rowing stroke surge dynamics: real oars have rhythmic forward acceleration impulses
-                val strokeCycles = 2.5
-                val surge = kotlin.math.sin(t * strokeCycles * 2.0 * kotlin.math.PI) * 0.022 * kotlin.math.sin(t * kotlin.math.PI)
+                val surge = kotlin.math.sin(t * strokeCycles * 2.0 * kotlin.math.PI) * 0.024 * kotlin.math.sin(t * kotlin.math.PI)
                 val physicsProgress = (sCurve + surge).coerceIn(0.0, 1.0).toFloat()
 
                 _boatPosition.value = startProgress + (targetProgress - startProgress) * physicsProgress
@@ -768,7 +781,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
                 // 2. Cross river
                 crossRiver()
                 // Wait for boat animation & landing
-                delay(950)
+                delay(_boatSpeed.value.durationMs + 60L)
 
                 currentState = _riverState.value
                 if (_gameStatus.value == GameStatus.GAME_OVER) {
