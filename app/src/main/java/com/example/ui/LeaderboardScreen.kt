@@ -27,6 +27,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.History
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
@@ -58,6 +59,7 @@ import androidx.compose.ui.unit.sp
 import com.example.data.db.HighScoreEntity
 import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
+import com.example.ui.components.LockedLevelUnlockDialog
 import com.example.ui.components.WoodCard
 import com.example.ui.components.WoodFilterPill
 import com.example.ui.components.WoodInsetBox
@@ -110,9 +112,11 @@ fun LeaderboardScreen(
 ) {
     val highScores by viewModel.highScores.collectAsState()
     val recentHistory by viewModel.recentHistory.collectAsState()
+    val unlockedLevelIds by viewModel.unlockedLevelIds.collectAsState()
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     var selectedFilter by remember { mutableStateOf(LevelFilter.ALL) }
     var showClearConfirmDialog by remember { mutableStateOf(false) }
+    var scenarioToUnlock by remember { mutableStateOf<PuzzleScenario?>(null) }
 
     // Map best score per scenario by least moves
     val bestScoresByScenario = remember(highScores) {
@@ -336,10 +340,18 @@ fun LeaderboardScreen(
             ) {
                 items(filteredScenarios) { scenario ->
                     val bestScore = bestScoresByScenario[scenario.id]
+                    val isUnlocked = unlockedLevelIds.contains(scenario.id)
                     LevelLeaderboardCard(
                         scenario = scenario,
                         bestScore = bestScore,
-                        onPlay = { onPlayScenario(scenario) }
+                        isUnlocked = isUnlocked,
+                        onPlay = {
+                            if (isUnlocked) {
+                                onPlayScenario(scenario)
+                            } else {
+                                scenarioToUnlock = scenario
+                            }
+                        }
                     )
                 }
                 item {
@@ -440,23 +452,39 @@ fun LeaderboardScreen(
             }
         )
     }
+
+    // Rewarded Ad Unlock Dialog for locked levels accessed from the leaderboard
+    scenarioToUnlock?.let { targetScenario ->
+        LockedLevelUnlockDialog(
+            scenario = targetScenario,
+            onDismiss = { scenarioToUnlock = null },
+            onUnlockSuccess = {
+                val levelId = targetScenario.id
+                scenarioToUnlock = null
+                viewModel.unlockLevel(levelId)
+                onPlayScenario(targetScenario)
+            }
+        )
+    }
 }
 
 @Composable
 private fun LevelLeaderboardCard(
     scenario: PuzzleScenario,
     bestScore: HighScoreEntity?,
+    isUnlocked: Boolean,
     onPlay: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val isCleared = bestScore != null
     val isOptimal = bestScore != null && bestScore.movesCount <= scenario.optimalMoves
 
-    val (cardGradient, cardBorder) = when (scenario.difficulty) {
-        com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
-        com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
-        com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
-        com.example.model.PuzzleDifficulty.EXPERT -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
+    val (cardGradient, cardBorder) = when {
+        !isUnlocked -> listOf(Color(0xF0201006), Color(0xF0120703)) to Color(0x44D97706)
+        scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
+        scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
+        scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
+        else -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
     }
 
     WoodCard(
@@ -478,21 +506,38 @@ private fun LevelLeaderboardCard(
             Surface(
                 shape = RoundedCornerShape(12.dp),
                 color = Color(0xDD220F05),
-                border = BorderStroke(1.2.dp, if (isOptimal) GoldenBankGlow else cardBorder),
+                border = BorderStroke(1.2.dp, if (!isUnlocked) Color(0x66F87171) else if (isOptimal) GoldenBankGlow else cardBorder),
                 modifier = Modifier.size(46.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
-                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "${scenario.levelNumber}",
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 14.sp,
-                            color = if (isOptimal) GoldenBankGlow else Color.White
-                        )
-                        Text(
-                            text = scenario.difficulty.iconEmoji,
-                            fontSize = 9.sp
-                        )
+                    if (!isUnlocked) {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Icon(
+                                imageVector = Icons.Default.Lock,
+                                contentDescription = "Locked",
+                                tint = Color(0xFFFCA5A5),
+                                modifier = Modifier.size(16.dp)
+                            )
+                            Text(
+                                text = "${scenario.levelNumber}",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 11.sp,
+                                color = Color(0xFFFECACA)
+                            )
+                        }
+                    } else {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            Text(
+                                text = "${scenario.levelNumber}",
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 14.sp,
+                                color = if (isOptimal) GoldenBankGlow else Color.White
+                            )
+                            Text(
+                                text = scenario.difficulty.iconEmoji,
+                                fontSize = 9.sp
+                            )
+                        }
                     }
                 }
             }
@@ -509,7 +554,7 @@ private fun LevelLeaderboardCard(
                         text = scenario.title,
                         fontWeight = FontWeight.ExtraBold,
                         fontSize = 14.sp,
-                        color = Color.White
+                        color = if (isUnlocked) Color.White else Color(0xFFE2E8F0)
                     )
                     if (isOptimal) {
                         Surface(
@@ -522,6 +567,20 @@ private fun LevelLeaderboardCard(
                                 fontSize = 9.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = GoldenBankGlow,
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
+                            )
+                        }
+                    } else if (!isUnlocked) {
+                        Surface(
+                            shape = RoundedCornerShape(6.dp),
+                            color = Color(0xDD2A1207),
+                            border = BorderStroke(0.8.dp, Color(0xFFF87171))
+                        ) {
+                            Text(
+                                text = "LOCKED",
+                                fontSize = 8.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFFCA5A5),
                                 modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
                             )
                         }
@@ -572,10 +631,10 @@ private fun LevelLeaderboardCard(
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
-                            text = "• Unplayed",
-                            fontSize = 11.sp,
+                            text = if (isUnlocked) "• Unplayed" else "• Complete Lvl ${scenario.levelNumber - 1} or Watch Ad",
+                            fontSize = 10.5.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFFD4A373)
+                            color = if (isUnlocked) Color(0xFFD4A373) else Color(0xFFFCA5A5)
                         )
                     }
                 }
@@ -583,24 +642,45 @@ private fun LevelLeaderboardCard(
 
             Spacer(modifier = Modifier.width(8.dp))
 
-            Surface(
-                shape = CircleShape,
-                color = MenuBtnGreenTop,
-                border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
-                modifier = Modifier.size(36.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(Brush.verticalGradient(listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom))),
-                    contentAlignment = Alignment.Center
+            if (isUnlocked) {
+                Surface(
+                    shape = CircleShape,
+                    color = MenuBtnGreenTop,
+                    border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                    modifier = Modifier.size(36.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "Play",
-                        tint = Color.White,
-                        modifier = Modifier.size(18.dp)
-                    )
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Brush.verticalGradient(listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom))),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.PlayArrow,
+                            contentDescription = "Play",
+                            tint = Color.White,
+                            modifier = Modifier.size(18.dp)
+                        )
+                    }
+                }
+            } else {
+                Surface(
+                    shape = RoundedCornerShape(10.dp),
+                    color = Color(0xDD281006),
+                    border = BorderStroke(1.2.dp, Color(0xFFF87171)),
+                    modifier = Modifier.size(36.dp)
+                ) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Lock,
+                            contentDescription = "Locked - Watch Ad or Complete Level",
+                            tint = Color(0xFFFCA5A5),
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
                 }
             }
         }

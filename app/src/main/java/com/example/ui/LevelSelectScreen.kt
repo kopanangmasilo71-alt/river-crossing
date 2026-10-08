@@ -100,6 +100,7 @@ import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
 import com.example.ui.components.ComicVignetteDialog
 import com.example.ui.components.HighScoresDialog
+import com.example.ui.components.LockedLevelUnlockDialog
 import com.example.ui.theme.VibrantBackground
 import com.example.ui.theme.VibrantPrimary
 import com.example.ui.theme.VibrantPrimaryContainer
@@ -402,72 +403,15 @@ fun LevelSelectScreen(
 
     // Rewarded Ad Unlock Dialog
     scenarioToUnlock?.let { targetScenario ->
-        AlertDialog(
-            onDismissRequest = { scenarioToUnlock = null },
-            title = {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
-                        imageVector = Icons.Default.Lock,
-                        contentDescription = "Locked Level",
-                        tint = GoldenBankGlow,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "Unlock Level ${targetScenario.levelNumber}?",
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                }
-            },
-            text = {
-                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        text = "Level ${targetScenario.levelNumber} (${targetScenario.title}) is currently locked.",
-                        fontSize = 13.sp,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "Unlock this level now to set sail immediately and test your crossing skills!",
-                        fontSize = 12.sp,
-                        color = Color(0xFFBAE6FD)
-                    )
-                }
-            },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        val levelId = targetScenario.id
-                        scenarioToUnlock = null
-                        viewModel.unlockLevel(levelId)
-                        onSelectScenario(targetScenario)
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0284C7))
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            imageVector = Icons.Default.LockOpen,
-                            contentDescription = "Unlock",
-                            tint = GoldenBankGlow,
-                            modifier = Modifier.size(18.dp)
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text(
-                            text = "UNLOCK & PLAY",
-                            fontWeight = FontWeight.Bold,
-                            color = GoldenBankGlow
-                        )
-                    }
-                }
-            },
-            dismissButton = {
-                TextButton(onClick = { scenarioToUnlock = null }) {
-                    Text("Cancel", color = Color(0xFFBAE6FD))
-                }
-            },
-            shape = RoundedCornerShape(20.dp),
-            containerColor = Color(0xF2072449),
-            tonalElevation = 6.dp
+        LockedLevelUnlockDialog(
+            scenario = targetScenario,
+            onDismiss = { scenarioToUnlock = null },
+            onUnlockSuccess = {
+                val levelId = targetScenario.id
+                scenarioToUnlock = null
+                viewModel.unlockLevel(levelId)
+                onSelectScenario(targetScenario)
+            }
         )
     }
 

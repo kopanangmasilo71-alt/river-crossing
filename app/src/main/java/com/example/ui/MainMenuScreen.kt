@@ -72,6 +72,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.R
+import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
 import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuBtnAmberBorder
@@ -97,6 +98,8 @@ import com.example.ui.theme.MenuBtnPurpleTop
 import com.example.ui.theme.MenuBtnRedBorder
 import com.example.ui.theme.MenuBtnRedBottom
 import com.example.ui.theme.MenuBtnRedMid
+import com.example.ui.components.BannerAdView
+import com.example.ui.components.LockedLevelUnlockDialog
 import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.MenuCrownCyan
 import com.example.ui.theme.MenuQuickActionBgBottom
@@ -120,7 +123,9 @@ fun MainMenuScreen(
     val highScores by viewModel.highScores.collectAsState()
     val isMuted by viewModel.isMuted.collectAsState()
     val completedCount by viewModel.completedLevelsCount.collectAsState()
+    val unlockedLevelIds by viewModel.unlockedLevelIds.collectAsState()
     var showRulesDialog by remember { mutableStateOf(false) }
+    var scenarioToUnlock by remember { mutableStateOf<PuzzleScenario?>(null) }
 
     // Aggregate stars and least moves
     val bestScoresByLevel = remember(highScores) {
@@ -366,7 +371,13 @@ fun MainMenuScreen(
                 gradientColors = listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom),
                 borderColor = MenuBtnGreenBorder,
                 testTag = "main_menu_play_button",
-                onClick = { viewModel.selectScenarioAndPlay(nextLevel) }
+                onClick = {
+                    if (unlockedLevelIds.contains(nextLevel.id)) {
+                        viewModel.selectScenarioAndPlay(nextLevel)
+                    } else {
+                        scenarioToUnlock = nextLevel
+                    }
+                }
             )
 
             // 2. LEVELS MENU (BRILLIANT SKY / OCEAN BLUE)
@@ -427,12 +438,34 @@ fun MainMenuScreen(
                 onClick = { activity?.finish() }
             )
 
+            // =================================================================
+            // BANNER ADS CONTAINER (Google Mobile Ads / AdMob Integration)
+            // =================================================================
+            Spacer(modifier = Modifier.height(4.dp))
+            BannerAdView(
+                modifier = Modifier.padding(top = 2.dp, bottom = 4.dp)
+            )
+
             Spacer(modifier = Modifier.height(16.dp))
         }
 
         // Rules Dialog overlay
         if (showRulesDialog) {
             HowToPlayDialog(onDismiss = { showRulesDialog = false })
+        }
+
+        // Rewarded Ad Unlock Dialog for locked next level
+        scenarioToUnlock?.let { targetScenario ->
+            LockedLevelUnlockDialog(
+                scenario = targetScenario,
+                onDismiss = { scenarioToUnlock = null },
+                onUnlockSuccess = {
+                    val levelId = targetScenario.id
+                    scenarioToUnlock = null
+                    viewModel.unlockLevel(levelId)
+                    viewModel.selectScenarioAndPlay(targetScenario)
+                }
+            )
         }
     }
 }
@@ -462,7 +495,7 @@ private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
             Image(
                 painter = painterResource(id = R.drawable.img_app_icon),
                 contentDescription = "Game Launch Icon",
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .fillMaxSize()
                     .clip(RoundedCornerShape(12.dp))

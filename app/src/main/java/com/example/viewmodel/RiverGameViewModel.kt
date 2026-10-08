@@ -278,6 +278,13 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
     fun selectScenarioAndPlay(scenario: PuzzleScenario, modifiers: DifficultyModifiers? = null) {
+        // Enforce anti-bypass security: player can ONLY play unlocked levels (or Level 1)
+        if (!isLevelUnlocked(scenario.id) && scenario.id != PuzzleScenarios.CLASSIC.id) {
+            // Level is locked and has not been legitimately unlocked via completed prior level or rewarded ad
+            _screenDestination.value = ScreenDestination.LevelSelect
+            return
+        }
+
         stopAutoSolver()
         _levelAttemptCount.value = 0
         _currentScenario.value = scenario
