@@ -55,9 +55,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
@@ -218,13 +221,13 @@ fun MainMenuScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                // Game Title Logo Banner using img_game_logo_1790060116623
+                // Sleek compact game title (game icon removed to keep top bar compact and in place)
                 Box(
                     modifier = Modifier
                         .weight(1.12f)
                         .offset(y = gentleFloat.dp)
                 ) {
-                    RiverCrossingTitleLogo()
+                    RiverCrossingTitleText()
                 }
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -233,7 +236,7 @@ fun MainMenuScreen(
                 Column(
                     modifier = Modifier.weight(0.88f),
                     horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
                 ) {
                     // Quick Action Buttons Row (Circular 3D glossy blue pills)
                     Row(
@@ -265,15 +268,15 @@ fun MainMenuScreen(
                         )
                     }
 
-                    // Slogan Tagline: "Think • Plan • Move" + "Get everyone safely to the other side!"
+                    // Slogan Tagline: "Think • Plan • Move"
                     Column(
                         horizontalAlignment = Alignment.End,
-                        modifier = Modifier.padding(end = 4.dp, top = 2.dp)
+                        modifier = Modifier.padding(end = 4.dp, top = 1.dp)
                     ) {
                         Text(
                             text = "Think • Plan • Move",
                             color = Color(0xFFE0F2FE),
-                            fontSize = 12.5.sp,
+                            fontSize = 11.5.sp,
                             fontWeight = FontWeight.ExtraBold,
                             fontStyle = FontStyle.Italic,
                             letterSpacing = 0.5.sp,
@@ -286,12 +289,11 @@ fun MainMenuScreen(
                             )
                         )
                         Text(
-                            text = "Get everyone safely\nto the other side!",
+                            text = "Get everyone safely across!",
                             color = Color.White,
-                            fontSize = 11.5.sp,
+                            fontSize = 10.5.sp,
                             fontWeight = FontWeight.Bold,
                             fontStyle = FontStyle.Italic,
-                            lineHeight = 14.sp,
                             textAlign = TextAlign.End,
                             style = androidx.compose.ui.text.TextStyle(
                                 shadow = androidx.compose.ui.graphics.Shadow(
@@ -436,23 +438,80 @@ fun MainMenuScreen(
 }
 
 /**
- * River Crossing title logo asset (img_game_logo_1790060116623)
+ * Game title with game launcher icon positioned directly above the name of the game
  */
 @Composable
-private fun RiverCrossingTitleLogo(modifier: Modifier = Modifier) {
-    Box(
+private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
+    Column(
         modifier = modifier
-            .testTag("main_menu_game_logo")
+            .testTag("main_menu_game_title")
             .padding(end = 4.dp),
-        contentAlignment = Alignment.CenterStart
+        verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.img_game_logo_1790060116623),
-            contentDescription = "River Crossing Logo",
+        // Game launcher icon placed directly above the name of the game
+        Surface(
+            shape = RoundedCornerShape(12.dp),
+            shadowElevation = 6.dp,
+            border = BorderStroke(1.8.dp, GoldenBankGlow),
+            color = Color(0xFF0F325E),
             modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 68.dp, max = 96.dp),
-            contentScale = ContentScale.Fit
+                .padding(bottom = 6.dp)
+                .size(42.dp)
+                .testTag("main_menu_launch_icon")
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.img_app_icon),
+                contentDescription = "Game Launch Icon",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(12.dp))
+            )
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                text = "RIVER ",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = 1.sp,
+                color = GoldenBankGlow,
+                style = TextStyle(
+                    shadow = Shadow(
+                        color = Color(0xCC000000),
+                        offset = Offset(1.5f, 2f),
+                        blurRadius = 3f
+                    )
+                )
+            )
+            Text(
+                text = "CROSSING",
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Black,
+                letterSpacing = 1.sp,
+                color = Color.White,
+                style = TextStyle(
+                    shadow = Shadow(
+                        color = Color(0xCC000000),
+                        offset = Offset(1.5f, 2f),
+                        blurRadius = 3f
+                    )
+                )
+            )
+        }
+        Text(
+            text = "LOGIC PUZZLE ADVENTURE",
+            fontSize = 9.sp,
+            fontWeight = FontWeight.ExtraBold,
+            letterSpacing = 1.2.sp,
+            color = Color(0xFFBAE6FD),
+            style = TextStyle(
+                shadow = Shadow(
+                    color = Color(0x99000000),
+                    offset = Offset(1f, 1f),
+                    blurRadius = 2f
+                )
+            )
         )
     }
 }

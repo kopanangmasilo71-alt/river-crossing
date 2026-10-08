@@ -460,177 +460,77 @@ fun RiverScene(
                 }
             }
 
-            // Boat Wake & Trailing Foam
-            val boatCenterX = leftBankX + (riverSpan * boatProgress)
+            // Boat Wake & Trailing Water Ripples
+            val minBoatXPx = leftBankX + 8.dp.toPx()
+            val maxBoatXPx = rightBankX - 8.dp.toPx()
+            val boatCenterX = minBoatXPx + (maxBoatXPx - minBoatXPx) * boatProgress
             val curveFactor = sin(boatProgress * PI).toFloat()
-            val boatCenterY = (h * 0.48f) + (curveFactor * 26f)
+            // Waterline matches boat keel position in water
+            val boatWaterlineY = (h * 0.44f) + 60.dp.toPx() + (curveFactor * 26.dp.toPx())
 
             if (isRowing) {
                 val isHeadingRight = riverState.farmerBank == Bank.LEFT
-                val wakeSternX = if (isHeadingRight) boatCenterX - 48f else boatCenterX + 48f
-                val bowApexX = if (isHeadingRight) boatCenterX + 60f else boatCenterX - 60f
                 val bowDir = if (isHeadingRight) 1f else -1f
+                val bowApexX = boatCenterX + (bowDir * 44.dp.toPx())
+                val sternApexX = boatCenterX - (bowDir * 44.dp.toPx())
+                val normPhase = (wavePhase / 360f)
 
-                // 1. DYNAMIC BILLOWING BOW WAVE (Wide Foaming V-shaped Prow Wake)
-                val bowWaveSweep = (wavePhase * 0.45f) % 28f
-                val bowPortPath = Path()
-                bowPortPath.moveTo(bowApexX + (bowDir * 8f), boatCenterY)
-                bowPortPath.quadraticBezierTo(
-                    bowApexX - (bowDir * 24f), boatCenterY - 26f,
-                    bowApexX - (bowDir * (64f + bowWaveSweep)), boatCenterY - (42f + bowWaveSweep * 0.7f)
-                )
-                // Outer vibrant cyan/aqua froth wave
-                drawPath(
-                    path = bowPortPath,
-                    color = Color(0xFFBAE6FD).copy(alpha = 0.85f),
-                    style = Stroke(width = 12.0f, cap = StrokeCap.Round)
-                )
-                // Inner glistening white foam crest
-                drawPath(
-                    path = bowPortPath,
-                    color = Color.White.copy(alpha = 0.98f),
-                    style = Stroke(width = 6.5f, cap = StrokeCap.Round)
-                )
-
-                val bowStarboardPath = Path()
-                bowStarboardPath.moveTo(bowApexX + (bowDir * 8f), boatCenterY)
-                bowStarboardPath.quadraticBezierTo(
-                    bowApexX - (bowDir * 24f), boatCenterY + 26f,
-                    bowApexX - (bowDir * (64f + bowWaveSweep)), boatCenterY + (42f + bowWaveSweep * 0.7f)
-                )
-                drawPath(
-                    path = bowStarboardPath,
-                    color = Color(0xFFBAE6FD).copy(alpha = 0.85f),
-                    style = Stroke(width = 12.0f, cap = StrokeCap.Round)
-                )
-                drawPath(
-                    path = bowStarboardPath,
-                    color = Color.White.copy(alpha = 0.98f),
-                    style = Stroke(width = 6.5f, cap = StrokeCap.Round)
-                )
-
-                // 2. EXTRA LARGE DYNAMIC BOW WATER SPRAY PARTICLES & DROPLETS
-                for (drop in 0..9) {
-                    val dropCycle = (drop * 14f + (wavePhase * 0.9f)) % 46f
-                    val dx = bowApexX + (bowDir * (12f + dropCycle * 0.95f))
-                    val spreadY = (if (drop % 2 == 0) -1f else 1f) * (10f + drop * 9.5f + (dropCycle * 0.45f))
-                    val dy = boatCenterY + spreadY
-                    val dropAlpha = (1f - (dropCycle / 46f)).coerceIn(0f, 1f) * 0.90f
-                    val dropRadius = (26f - drop * 1.8f + sin(drop + wavePhase * 0.1) * 4f).toFloat().coerceIn(12f, 34f)
-
-                    // Outer watery glow halo
-                    drawCircle(
-                        color = Color(0xFF7DD3FC).copy(alpha = dropAlpha * 0.50f),
-                        radius = dropRadius * 1.7f,
-                        center = Offset(dx, dy)
+                // 1. DELICATE BOW CREST (Soft, fine water parting by the prow)
+                val bowPathTop = Path().apply {
+                    moveTo(bowApexX, boatWaterlineY - 1f)
+                    quadraticBezierTo(
+                        bowApexX - (bowDir * 6f), boatWaterlineY - 3f,
+                        bowApexX - (bowDir * 14f), boatWaterlineY - 5.5f
                     )
-                    // Core glistening water droplet
-                    drawCircle(
-                        color = Color.White.copy(alpha = dropAlpha),
-                        radius = dropRadius,
-                        center = Offset(dx, dy)
+                }
+                val bowPathBottom = Path().apply {
+                    moveTo(bowApexX, boatWaterlineY + 1f)
+                    quadraticBezierTo(
+                        bowApexX - (bowDir * 6f), boatWaterlineY + 3f,
+                        bowApexX - (bowDir * 14f), boatWaterlineY + 5.5f
                     )
-                    // Specular highlight gleam
-                    drawCircle(
-                        color = Color.White,
-                        radius = (dropRadius * 0.38f).coerceAtLeast(3f),
-                        center = Offset(dx - dropRadius * 0.28f, dy - dropRadius * 0.28f)
+                }
+                drawPath(
+                    path = bowPathTop,
+                    color = Color(0x99BAE6FD),
+                    style = Stroke(width = 1.2f, cap = StrokeCap.Round)
+                )
+                drawPath(
+                    path = bowPathBottom,
+                    color = Color(0x99BAE6FD),
+                    style = Stroke(width = 1.2f, cap = StrokeCap.Round)
+                )
+
+                // 2. SMOOTH SUBTLE STERN WAKE RIPPLES (Graceful gentle water parting)
+                for (ring in 0..2) {
+                    val p = (normPhase * 1.5f + (ring * 0.333f)) % 1.0f
+                    // Smooth bell-curve alpha without sudden pop
+                    val ringAlpha = (sin(p * PI).toFloat()).coerceIn(0f, 1f) * 0.28f
+                    val ringDist = bowDir * -(6f + p * 22f)
+                    val ringW = 6f + p * 14f
+                    val ringH = 2.5f + p * 5f
+                    val rx = sternApexX + ringDist
+                    drawOval(
+                        color = Color(0xFFBAE6FD).copy(alpha = ringAlpha),
+                        topLeft = Offset(rx - ringW, boatWaterlineY - ringH * 0.5f),
+                        size = Size(ringW * 2f, ringH),
+                        style = Stroke(width = 1.0f)
                     )
                 }
 
-                // 3. EXTRA LARGE OAR SPLASH RIPPLES & DIP SPRAY
-                val oarDipIntensity = (kotlin.math.abs(oarSweepState.value) / 24f).coerceIn(0f, 1f)
-                if (oarDipIntensity > 0.30f) {
-                    val dipPulse = (oarDipIntensity - 0.30f) / 0.70f
-                    val oarPortTipY = boatCenterY - 46f
-                    val oarStarboardTipY = boatCenterY + 46f
-                    val oarRippleRadius = 24f + (dipPulse * 54f) // 24px to 78px ripple
-                    val oarRippleAlpha = (1f - dipPulse) * 0.90f
+                // 3. TINY MICRO-FOAM FLECKS (Smooth gentle trailing water sparkles)
+                for (bubble in 0..3) {
+                    val p = (normPhase * 1.6f + (bubble * 0.25f)) % 1.0f
+                    val bubbleAlpha = (sin(p * PI).toFloat()).coerceIn(0f, 1f) * 0.35f
+                    val bubbleOffset = bowDir * -(8f + p * 24f + (bubble * 3f))
+                    val bx = sternApexX + bubbleOffset
+                    val by = boatWaterlineY + (sin(bubble * 1.9 + rad) * 2.5f).toFloat()
+                    val bubbleRadius = 1.0f + (1f - p) * 0.6f
 
-                    // Port oar splash oval & spray
-                    drawOval(
-                        color = Color(0xFFE0F2FE).copy(alpha = oarRippleAlpha),
-                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.5f, oarPortTipY - oarRippleRadius * 0.6f),
-                        size = Size(oarRippleRadius * 3.0f, oarRippleRadius * 1.2f),
-                        style = Stroke(width = 6.0f)
-                    )
-                    drawCircle(
-                        color = Color.White.copy(alpha = oarRippleAlpha),
-                        radius = 16f * dipPulse + 8f, // Big 8px to 24px splash droplet
-                        center = Offset(boatCenterX, oarPortTipY)
-                    )
-
-                    // Starboard oar splash oval & spray
-                    drawOval(
-                        color = Color(0xFFE0F2FE).copy(alpha = oarRippleAlpha),
-                        topLeft = Offset(boatCenterX - oarRippleRadius * 1.5f, oarStarboardTipY - oarRippleRadius * 0.6f),
-                        size = Size(oarRippleRadius * 3.0f, oarRippleRadius * 1.2f),
-                        style = Stroke(width = 6.0f)
-                    )
-                    drawCircle(
-                        color = Color.White.copy(alpha = oarRippleAlpha),
-                        radius = 16f * dipPulse + 8f,
-                        center = Offset(boatCenterX, oarStarboardTipY)
-                    )
-                }
-
-                // 4. EXTRA LARGE CONCENTRIC EXPANDING STERN FOAM RINGS
-                for (ring in 1..5) {
-                    val ringRadius = 32f * ring + ((wavePhase * 0.65f) % 48f)
-                    val ringAlpha = (0.65f - ring * 0.10f).coerceIn(0.10f, 0.65f)
-                    drawOval(
-                        color = Color(0xFFE0F2FE).copy(alpha = ringAlpha),
-                        topLeft = Offset(wakeSternX - ringRadius * 1.8f, boatCenterY - ringRadius * 0.7f),
-                        size = Size(ringRadius * 3.6f, ringRadius * 1.4f),
-                        style = Stroke(width = 6.5f)
-                    )
-                }
-
-                // 5. EXTRA LARGE VOLUMETRIC TRAILING WAKE FOAM BUBBLES
-                for (bubble in 0..11) {
-                    val bubbleOffset = (bubble * 28f) + ((wavePhase * 0.8f) % 34f)
-                    val bx = if (isHeadingRight) wakeSternX - bubbleOffset else wakeSternX + bubbleOffset
-                    val by = boatCenterY + (sin(bubble * 1.8 + rad) * 16f).toFloat()
-                    val bubbleRadius = (30f - bubble * 1.8f).coerceIn(12f, 38f) // Giant foam bubbles (12px to 38px)
-                    val bubbleAlpha = (0.75f - bubble * 0.05f).coerceIn(0.18f, 0.75f)
-
-                    // Frothy bubble base
-                    drawCircle(
-                        color = Color(0xFFBAE6FD).copy(alpha = bubbleAlpha * 0.6f),
-                        radius = bubbleRadius * 1.4f,
-                        center = Offset(bx, by)
-                    )
-                    // Solid white froth orb
                     drawCircle(
                         color = Color.White.copy(alpha = bubbleAlpha),
                         radius = bubbleRadius,
                         center = Offset(bx, by)
-                    )
-                    // Specular highlight spot
-                    drawCircle(
-                        color = Color.White,
-                        radius = (bubbleRadius * 0.38f).coerceAtLeast(2.5f),
-                        center = Offset(bx - bubbleRadius * 0.3f, by - bubbleRadius * 0.3f)
-                    )
-                }
-
-                // 6. FLANK WATER CHURNING SPRAY (Dynamic Bubbles Along Raft Sides)
-                for (flank in 0..7) {
-                    val flankOffset = (flank * 20f - 40f)
-                    val fx = boatCenterX + flankOffset
-                    val fyTop = boatCenterY - 32f + (sin(flank * 2.2 + rad) * 7f).toFloat()
-                    val fyBot = boatCenterY + 32f + (cos(flank * 2.2 + rad) * 7f).toFloat()
-                    val fRadius = (18f - flank * 1.2f).coerceIn(8f, 22f) // Enlarged flank churn bubbles (8px - 22px)
-
-                    drawCircle(
-                        color = Color.White.copy(alpha = 0.65f),
-                        radius = fRadius,
-                        center = Offset(fx, fyTop)
-                    )
-                    drawCircle(
-                        color = Color.White.copy(alpha = 0.65f),
-                        radius = fRadius,
-                        center = Offset(fx, fyBot)
                     )
                 }
             } else {
@@ -641,7 +541,7 @@ fun RiverScene(
                     val rAlpha = (0.42f - (r * 0.08f) - (ripplePulse * 0.10f)).coerceIn(0.04f, 0.45f)
                     drawOval(
                         color = Color(0xFFE0F2FE).copy(alpha = rAlpha),
-                        topLeft = Offset(boatCenterX - rRadius * 1.2f, boatCenterY - (rRadius * 0.32f)),
+                        topLeft = Offset(boatCenterX - rRadius * 1.2f, boatWaterlineY - (rRadius * 0.32f)),
                         size = Size(rRadius * 2.4f, rRadius * 0.64f),
                         style = Stroke(width = (3.2f - r * 0.4f).coerceAtLeast(1.5f))
                     )
@@ -651,7 +551,7 @@ fun RiverScene(
                 for (crest in 0..3) {
                     val cAngle = (wavePhase * 0.8f + crest * 90f) * (PI / 180f)
                     val cx = boatCenterX + cos(cAngle).toFloat() * 48f
-                    val cy = boatCenterY + sin(cAngle).toFloat() * 22f
+                    val cy = boatWaterlineY + sin(cAngle).toFloat() * 22f
                     val cAlpha = (0.35f + sin(cAngle * 2.0).toFloat() * 0.25f).coerceIn(0.1f, 0.6f)
                     drawCircle(
                         color = Color.White.copy(alpha = cAlpha),
@@ -1631,7 +1531,10 @@ private fun GameObjectToken(
  * Authentic Crescent Moon Boat Shape representing a real-life curved wooden river dinghy/skiff.
  * Sweeps upwards elegantly at the bow and stern with a gracefully curved keel.
  */
-class CrescentMoonBoatShape(private val bowSweepRatio: Float = 0.28f) : Shape {
+class CrescentMoonBoatShape(
+    private val bowSweepRatio: Float = 0.18f,
+    private val centerScoopRatio: Float = 0.28f
+) : Shape {
     override fun createOutline(
         size: Size,
         layoutDirection: LayoutDirection,
@@ -1644,18 +1547,18 @@ class CrescentMoonBoatShape(private val bowSweepRatio: Float = 0.28f) : Shape {
             moveTo(0f, h * bowSweepRatio)
             // Gently scooped sheer line along the deck/cockpit
             quadraticBezierTo(
-                w * 0.5f, h * (bowSweepRatio + 0.12f),
+                w * 0.5f, h * centerScoopRatio,
                 w, h * bowSweepRatio
             )
             // Down the prow to the pointed bow waterline tip
             quadraticBezierTo(
                 w * 0.98f, h * 0.65f,
-                w * 0.94f, h * 0.95f
+                w * 0.93f, h * 0.96f
             )
             // Gracefully curved crescent bottom keel curving deep and back up to stern
             quadraticBezierTo(
                 w * 0.5f, h * 1.02f,
-                w * 0.06f, h * 0.95f
+                w * 0.07f, h * 0.96f
             )
             // Up the stern back to the start tip
             quadraticBezierTo(
@@ -1688,18 +1591,19 @@ fun BoundLogRaft(
     modifier: Modifier = Modifier
 ) {
     val boatWidth = if (capacity >= 3) 176.dp else if (capacity >= 2) 152.dp else 128.dp
-    val crescentShape = remember { CrescentMoonBoatShape() }
+    val crescentShape = remember { CrescentMoonBoatShape(bowSweepRatio = 0.18f, centerScoopRatio = 0.28f) }
 
     Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
+        modifier = modifier.height(72.dp),
+        contentAlignment = Alignment.BottomCenter
     ) {
         // Glowing Golden Halo if Boat is Highlighted by Hint
         if (isHintHighlighted) {
             Box(
                 modifier = Modifier
-                    .size(width = boatWidth + 18.dp, height = 82.dp)
-                    .clip(CrescentMoonBoatShape(0.24f))
+                    .size(width = boatWidth + 18.dp, height = 48.dp)
+                    .align(Alignment.BottomCenter)
+                    .clip(CrescentMoonBoatShape(0.18f, 0.28f))
                     .background(levelTheme.boatAccentGlow.copy(alpha = 0.40f))
             )
         }
@@ -1711,7 +1615,8 @@ fun BoundLogRaft(
             color = levelTheme.boatOarColor,
             border = BorderStroke(1.2.dp, levelTheme.boatTrimColor.copy(alpha = 0.9f)),
             modifier = Modifier
-                .offset(x = (-boatWidth / 2) + 12.dp, y = 14.dp)
+                .align(Alignment.BottomCenter)
+                .offset(x = (-boatWidth / 2) + 12.dp, y = (-8).dp)
                 .width(48.dp)
                 .height(8.dp)
                 .graphicsLayer { rotationZ = -34f + oarAngle() }
@@ -1729,7 +1634,8 @@ fun BoundLogRaft(
             color = levelTheme.boatOarColor,
             border = BorderStroke(1.2.dp, levelTheme.boatTrimColor.copy(alpha = 0.9f)),
             modifier = Modifier
-                .offset(x = (boatWidth / 2) - 12.dp, y = 14.dp)
+                .align(Alignment.BottomCenter)
+                .offset(x = (boatWidth / 2) - 12.dp, y = (-8).dp)
                 .width(48.dp)
                 .height(8.dp)
                 .graphicsLayer { rotationZ = 34f - oarAngle() }
@@ -1741,15 +1647,139 @@ fun BoundLogRaft(
             )
         }
 
-        // Authentic Crescent Moon Curved Wooden Hull
+        // 1. Rear Hull Interior (Curves behind occupants, giving depth to cockpit)
         Surface(
             shape = crescentShape,
-            color = levelTheme.boatHullColors.first(),
-            border = BorderStroke(2.2.dp, if (isHintHighlighted) GoldenBankGlow else levelTheme.boatTrimColor),
-            shadowElevation = 14.dp,
+            color = Color(0xFF1B0E05),
+            shadowElevation = 4.dp,
             modifier = Modifier
                 .width(boatWidth)
-                .height(72.dp)
+                .height(38.dp)
+                .align(Alignment.BottomCenter)
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color(0xFF140B04),
+                                Color(0xFF221106),
+                                Color(0xFF160A03)
+                            )
+                        )
+                    )
+            )
+        }
+
+        // 2. Occupants: Farmer & Passengers seated naturally inside the boat
+        // Transparent with NO backgrounds and NO borders around them so the whole body of the boat is visible!
+        // Their lower half (waist down) is covered by the front hull, while the top half (torso, arms, head) peeks out!
+        Row(
+            modifier = Modifier
+                .width(boatWidth)
+                .align(Alignment.BottomCenter)
+                .padding(horizontal = 12.dp)
+                .padding(bottom = 4.dp),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom
+        ) {
+            // Farmer Figurine: Pure transparent sprite (no background, no border)
+            Box(
+                contentAlignment = Alignment.BottomCenter,
+                modifier = Modifier
+                    .size(width = 38.dp, height = 44.dp)
+                    .graphicsLayer {
+                        if (isRowing) {
+                            val angle = oarAngle()
+                            rotationZ = -angle * 0.35f
+                            translationX = if (headingRight) (-angle * 0.14f) else (angle * 0.14f)
+                        }
+                    }
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_farmer),
+                    contentDescription = "Farmer",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            if (!headingRight) {
+                                rotationY = 180f
+                            }
+                        }
+                )
+            }
+
+            // Recessed Cargo Berths
+            for (i in 0 until capacity) {
+                val passenger = passengers.getOrNull(i)
+                if (passenger != null) {
+                    RaftPassengerSlot(
+                        passenger = passenger,
+                        isRowing = isRowing,
+                        headingRight = headingRight,
+                        oarAngle = oarAngle,
+                        levelTheme = levelTheme,
+                        gameHaptics = gameHaptics,
+                        onPassengerClick = onPassengerClick
+                    )
+                } else {
+                    // Empty slot: clean transparent space with no card background or border;
+                    // shows welcoming pulsing drop indicator only when user is actively dragging an item
+                    val slotTransition = rememberInfiniteTransition(label = "slot_pulse_$i")
+                    val activePulseScale by slotTransition.animateFloat(
+                        initialValue = 0.94f,
+                        targetValue = 1.12f,
+                        animationSpec = infiniteRepeatable(
+                            animation = tween(400, easing = FastOutSlowInEasing),
+                            repeatMode = RepeatMode.Reverse
+                        ),
+                        label = "active_pulse_scale"
+                    )
+
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .size(width = 38.dp, height = 44.dp)
+                            .testTag("empty_berth_$i")
+                    ) {
+                        if (isDropActive) {
+                            // Pulsing drop target indicator
+                            Box(
+                                modifier = Modifier
+                                    .size(24.dp)
+                                    .scale(activePulseScale)
+                                    .clip(CircleShape)
+                                    .background(levelTheme.boatAccentGlow.copy(alpha = 0.35f))
+                                    .border(1.2.dp, levelTheme.boatTrimColor, CircleShape),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription = "Drop slot",
+                                    tint = Color.White,
+                                    modifier = Modifier.size(14.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // 3. Authentic Front Wooden Hull of the Boat
+        // Rendered in FRONT of the lower half of the occupants so they sit INSIDE the boat.
+        // Covers exactly half their body (bottom 22dp of the 44dp height), so upper body and head peek out over the gunwale!
+        Surface(
+            shape = CrescentMoonBoatShape(bowSweepRatio = 0.16f, centerScoopRatio = 0.24f),
+            color = levelTheme.boatHullColors.first(),
+            border = BorderStroke(2.0.dp, if (isHintHighlighted) GoldenBankGlow else levelTheme.boatTrimColor),
+            shadowElevation = 6.dp,
+            modifier = Modifier
+                .width(boatWidth)
+                .height(24.dp)
+                .align(Alignment.BottomCenter)
         ) {
             Box(
                 modifier = Modifier
@@ -1770,198 +1800,38 @@ fun BoundLogRaft(
                     val h = size.height
                     // Gunwale top brass/timber trim rail
                     val railPath = Path().apply {
-                        moveTo(0f, h * 0.28f)
-                        quadraticBezierTo(w * 0.5f, h * 0.40f, w, h * 0.28f)
+                        moveTo(0f, h * 0.16f)
+                        quadraticBezierTo(w * 0.5f, h * 0.24f, w, h * 0.16f)
                     }
                     drawPath(
                         path = railPath,
                         color = levelTheme.boatTrimColor.copy(alpha = 0.85f),
-                        style = Stroke(width = 3.2f, cap = StrokeCap.Round)
+                        style = Stroke(width = 2.8f, cap = StrokeCap.Round)
                     )
                     // Planking rib grooves
-                    for (rib in 1..4) {
-                        val ribY = h * (0.34f + rib * 0.12f)
+                    for (rib in 1..2) {
+                        val ribY = h * (0.32f + rib * 0.24f)
                         val ribPath = Path().apply {
                             moveTo(w * 0.05f * rib, ribY * 0.95f)
-                            quadraticBezierTo(w * 0.5f, ribY + 4f, w * (1f - 0.05f * rib), ribY * 0.95f)
+                            quadraticBezierTo(w * 0.5f, ribY + 2f, w * (1f - 0.05f * rib), ribY * 0.95f)
                         }
                         drawPath(
                             path = ribPath,
                             color = Color(0x66080503),
-                            style = Stroke(width = 1.6f, cap = StrokeCap.Round)
+                            style = Stroke(width = 1.4f, cap = StrokeCap.Round)
                         )
                     }
                     // Swept Bow & Stern reinforcing keel brackets
                     drawCircle(
                         color = levelTheme.boatTrimColor,
-                        radius = 3.5f,
-                        center = Offset(w * 0.08f, h * 0.45f)
+                        radius = 2.8f,
+                        center = Offset(w * 0.08f, h * 0.35f)
                     )
                     drawCircle(
                         color = levelTheme.boatTrimColor,
-                        radius = 3.5f,
-                        center = Offset(w * 0.92f, h * 0.45f)
+                        radius = 2.8f,
+                        center = Offset(w * 0.92f, h * 0.35f)
                     )
-                }
-
-                // Interior Layout: Seated Farmer & Recessed Passenger Cargo Berths
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(horizontal = 14.dp, vertical = 4.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    // Farmer Figurine on the Boat
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(horizontal = 2.dp)
-                    ) {
-                        Box(
-                            contentAlignment = Alignment.BottomCenter,
-                            modifier = Modifier
-                                .size(30.dp)
-                                .graphicsLayer {
-                                    if (isRowing) {
-                                        val angle = oarAngle()
-                                        // Lean forward on power stroke, lean back on return
-                                        rotationZ = -angle * 0.40f
-                                        translationX = if (headingRight) (-angle * 0.16f) else (angle * 0.16f)
-                                    }
-                                }
-                        ) {
-                            // Subtle contact shadow
-                            Box(
-                                modifier = Modifier
-                                    .width(22.dp)
-                                    .height(4.dp)
-                                    .align(Alignment.BottomCenter)
-                                    .background(
-                                        Brush.radialGradient(
-                                            listOf(Color(0x88000000), Color.Transparent)
-                                        )
-                                    )
-                            )
-                            Image(
-                                painter = painterResource(id = R.drawable.img_farmer),
-                                contentDescription = "Farmer",
-                                contentScale = ContentScale.Fit,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .graphicsLayer {
-                                        if (!headingRight) {
-                                            rotationY = 180f
-                                        }
-                                    }
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(1.dp))
-                        Text(
-                            text = if (isRowing) "SAILING" else "FARMER",
-                            fontSize = 7.sp,
-                            color = levelTheme.farmerNameColor,
-                            fontWeight = FontWeight.ExtraBold
-                        )
-                    }
-
-                    // Recessed Cargo Berths
-                    for (i in 0 until capacity) {
-                        val passenger = passengers.getOrNull(i)
-                        if (passenger != null) {
-                            RaftPassengerSlot(
-                                passenger = passenger,
-                                isRowing = isRowing,
-                                headingRight = headingRight,
-                                oarAngle = oarAngle,
-                                levelTheme = levelTheme,
-                                gameHaptics = gameHaptics,
-                                onPassengerClick = onPassengerClick
-                            )
-                        } else {
-                            // Empty Recessed Cargo Berth - Welcoming Animated Drop Slot with High-Contrast Target Feedback
-                            val slotTransition = rememberInfiniteTransition(label = "slot_pulse_$i")
-                            val slotScale by slotTransition.animateFloat(
-                                initialValue = 0.94f,
-                                targetValue = 1.05f,
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(850, easing = FastOutSlowInEasing),
-                                    repeatMode = RepeatMode.Reverse
-                                ),
-                                label = "slot_scale"
-                            )
-                            val activePulseScale by slotTransition.animateFloat(
-                                initialValue = 0.96f,
-                                targetValue = 1.15f,
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(380, easing = FastOutSlowInEasing),
-                                    repeatMode = RepeatMode.Reverse
-                                ),
-                                label = "active_pulse_scale"
-                            )
-                            val slotIconBounce by slotTransition.animateFloat(
-                                initialValue = -1.5f,
-                                targetValue = 1.5f,
-                                animationSpec = infiniteRepeatable(
-                                    animation = tween(if (isDropActive) 350 else 600, easing = FastOutSlowInEasing),
-                                    repeatMode = RepeatMode.Reverse
-                                ),
-                                label = "slot_bounce"
-                            )
-
-                            val borderStroke = if (isDropActive) {
-                                BorderStroke(2.6.dp, levelTheme.boatTrimColor)
-                            } else {
-                                BorderStroke(1.4.dp, levelTheme.boatTrimColor.copy(alpha = 0.85f * slotScale))
-                            }
-
-                            Box(
-                                contentAlignment = Alignment.Center
-                            ) {
-                                if (isDropActive) {
-                                    // High-contrast vibrant pulsing outer aura
-                                    Box(
-                                        modifier = Modifier
-                                            .size(width = 38.dp, height = 42.dp)
-                                            .scale(activePulseScale * 1.08f)
-                                            .clip(RoundedCornerShape(12.dp))
-                                            .background(levelTheme.boatAccentGlow.copy(alpha = 0.35f))
-                                    )
-                                }
-
-                                Surface(
-                                    shape = RoundedCornerShape(10.dp),
-                                    color = if (isDropActive) levelTheme.passengerBerthBackgroundColors.last().copy(alpha = 0.95f) else Color(0x660B101D),
-                                    border = borderStroke,
-                                    shadowElevation = if (isDropActive) 6.dp else 1.dp,
-                                    modifier = Modifier
-                                        .size(width = 34.dp, height = 38.dp)
-                                        .scale(if (isDropActive) activePulseScale else slotScale)
-                                ) {
-                                    Column(
-                                        modifier = Modifier.fillMaxSize(),
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        verticalArrangement = Arrangement.Center
-                                    ) {
-                                        Icon(
-                                            imageVector = Icons.Default.Add,
-                                            contentDescription = "Drop slot",
-                                            tint = if (isDropActive) Color.White else levelTheme.boatTrimColor,
-                                            modifier = Modifier
-                                                .size(if (isDropActive) 15.dp else 13.dp)
-                                                .offset(y = slotIconBounce.dp)
-                                        )
-                                        Text(
-                                            text = "DROP",
-                                            fontSize = if (isDropActive) 7.5.sp else 7.sp,
-                                            color = if (isDropActive) Color.White else levelTheme.boatTrimColor,
-                                            fontWeight = FontWeight.Black,
-                                            letterSpacing = 0.5.sp
-                                        )
-                                    }
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -2080,60 +1950,26 @@ private fun RaftPassengerSlot(
             }
             .then(dragModifier)
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
+        // Pure character sprite with no background or border when in the boat
+        Box(
+            contentAlignment = Alignment.BottomCenter,
             modifier = Modifier
-                .clip(RoundedCornerShape(10.dp))
-                .background(
-                    Brush.verticalGradient(
-                        listOf(
-                            levelTheme.passengerBerthBackgroundColors.first().copy(alpha = 0.92f),
-                            levelTheme.passengerBerthBackgroundColors.last().copy(alpha = 0.96f)
-                        )
-                    )
-                )
-                .border(1.4.dp, levelTheme.passengerBerthBorderColor, RoundedCornerShape(10.dp))
-                .padding(horizontal = 4.dp, vertical = 2.dp)
+                .size(width = 38.dp, height = 44.dp)
                 .testTag("boat_passenger_${passenger.id}")
         ) {
-            // Seated/Standing 3D Figurine in Boat Berth with contact shadow
-            Box(
-                contentAlignment = Alignment.BottomCenter,
-                modifier = Modifier.size(width = 34.dp, height = 32.dp)
-            ) {
-                Box(
-                    modifier = Modifier
-                        .width(24.dp)
-                        .height(4.dp)
-                        .align(Alignment.BottomCenter)
-                        .background(
-                            Brush.radialGradient(
-                                listOf(Color(0x99000000), Color.Transparent)
-                            )
-                        )
-                )
-                Image(
-                    painter = painterResource(id = passenger.drawableRes),
-                    contentDescription = passenger.displayName,
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(bottom = 1.dp)
-                        .graphicsLayer {
-                            scaleX = passenger.visualScale
-                            scaleY = passenger.visualScale
-                            if (!headingRight) {
-                                rotationY = 180f
-                            }
+            Image(
+                painter = painterResource(id = passenger.drawableRes),
+                contentDescription = passenger.displayName,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer {
+                        scaleX = passenger.visualScale
+                        scaleY = passenger.visualScale
+                        if (!headingRight) {
+                            rotationY = 180f
                         }
-                )
-            }
-            Text(
-                text = passenger.displayName.uppercase(),
-                fontSize = 7.sp,
-                color = levelTheme.objectNameColor,
-                fontWeight = FontWeight.ExtraBold,
-                maxLines = 1
+                    }
             )
         }
     }

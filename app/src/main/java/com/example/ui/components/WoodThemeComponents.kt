@@ -1297,7 +1297,7 @@ fun WoodTopAppBar(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 14.dp, vertical = 10.dp),
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -1314,25 +1314,6 @@ fun WoodTopAppBar(
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                     }
-
-                    // Mini Game Logo Accent to bind all screens directly to Main Menu visual identity
-                    Surface(
-                        shape = RoundedCornerShape(8.dp),
-                        color = Color(0x33000000),
-                        border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.65f)),
-                        modifier = Modifier.size(34.dp)
-                    ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.img_game_logo_1790060116623),
-                            contentDescription = "Game Logo",
-                            contentScale = ContentScale.Fit,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(2.dp)
-                        )
-                    }
-
-                    Spacer(modifier = Modifier.width(10.dp))
 
                     Column {
                         Text(
