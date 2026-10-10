@@ -1,0 +1,104 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Emerald Spirit Forest Glow -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#6600E676" />
+                <item android:offset="0.5" android:color="#3300B0FF" />
+                <item android:offset="1.0" android:color="#001B5E20" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Branching Luminous Golden Antlers -->
+    <!-- Left Main Antler Beam -->
+    <path
+        android:pathData="M58,34 C50,22 36,14 26,8 C32,16 38,20 44,22 C34,16 26,14 18,12 C24,18 32,24 40,28 C28,26 22,26 14,24 C22,30 30,34 50,38 Z"
+        android:fillColor="#FFFFD700" />
+    <!-- Right Main Antler Beam -->
+    <path
+        android:pathData="M70,34 C78,22 92,14 102,8 C96,16 90,20 84,22 C94,16 102,14 110,12 C104,18 96,24 88,28 C100,26 106,26 114,24 C106,30 98,34 78,38 Z"
+        android:fillColor="#FFFFD700" />
+
+    <!-- Antler Luminous Tips Glow -->
+    <path android:pathData="M26,8 A2,2 0 1,0 30,8 A2,2 0 1,0 26,8 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M18,12 A1.8,1.8 0 1,0 21.6,12 A1.8,1.8 0 1,0 18,12 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M102,8 A2,2 0 1,0 106,8 A2,2 0 1,0 102,8 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M110,12 A1.8,1.8 0 1,0 113.6,12 A1.8,1.8 0 1,0 110,12 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Noble Stag Body / Torso -->
+    <path
+        android:pathData="M64,52 C50,56 46,72 48,92 C50,102 78,102 80,92 C82,72 78,56 64,52 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="52"
+                android:endX="64"
+                android:endY="102"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFE0F2F1" />
+                <item android:offset="0.5" android:color="#FF80CBC4" />
+                <item android:offset="1.0" android:color="#FF004D40" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- White Spirit Fur Chest Patch -->
+    <path
+        android:pathData="M64,56 C58,64 58,78 64,86 C70,78 70,64 64,56 Z"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- Stag Head & Muzzle -->
+    <path
+        android:pathData="M64,32 C56,36 54,48 58,62 C61,68 67,68 70,62 C74,48 72,36 64,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="32"
+                android:endX="64"
+                android:endY="68"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.7" android:color="#FFB2DFDB" />
+                <item android:offset="1.0" android:color="#FF00897B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Soft Dark Muzzle & Nose -->
+    <path android:pathData="M61,58 C62,64 66,64 67,58 Z" android:fillColor="#FF004D40" />
+    <path android:pathData="M62,60 A0.6,0.6 0 1,0 63.2,60 A0.6,0.6 0 1,0 62,60 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M64.8,60 A0.6,0.6 0 1,0 66,60 A0.6,0.6 0 1,0 64.8,60 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Ears -->
+    <path android:pathData="M54,34 L46,24 L56,30 Z" android:fillColor="#FF80CBC4" />
+    <path android:pathData="M53,32 L48,26 L55,30 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M74,34 L82,24 L72,30 Z" android:fillColor="#FF80CBC4" />
+    <path android:pathData="M75,32 L80,26 L73,30 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Starlight Forehead Star Mark -->
+    <path
+        android:pathData="M64,40 L65,43 L68,44 L65,45 L64,48 L63,45 L60,44 L63,43 Z"
+        android:fillColor="#FFFFD700" />
+
+    <!-- Wise Glowing Eyes -->
+    <path android:pathData="M56,44 A2.4,2.4 0 1,0 60.8,44 A2.4,2.4 0 1,0 56,44 Z" android:fillColor="#FF004D40" />
+    <path android:pathData="M67.2,44 A2.4,2.4 0 1,0 72,44 A2.4,2.4 0 1,0 67.2,44 Z" android:fillColor="#FF004D40" />
+    <path android:pathData="M57,43.5 A0.8,0.8 0 1,0 58.6,43.5 A0.8,0.8 0 1,0 57,43.5 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M68.2,43.5 A0.8,0.8 0 1,0 69.8,43.5 A0.8,0.8 0 1,0 68.2,43.5 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Slender Golden Hooves Base -->
+    <path android:pathData="M54,100 L52,108 L58,108 L60,100 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M68,100 L66,108 L72,108 L74,100 Z" android:fillColor="#FFFFD700" />
+</vector>

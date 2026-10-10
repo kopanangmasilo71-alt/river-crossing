@@ -276,14 +276,32 @@ fun VictoryDialog(
 
                     // Title
                     Text(
-                        text = "Level ${scenario.levelNumber} Cleared!",
+                        text = if (scenario.levelNumber >= 100) "👑 ALL 100 LEVELS CONQUERED! 👑" else "Level ${scenario.levelNumber} Cleared!",
                         fontWeight = FontWeight.ExtraBold,
-                        fontSize = 22.sp,
+                        fontSize = if (scenario.levelNumber >= 100) 20.sp else 22.sp,
                         color = GoldenBankGlow,
                         textAlign = TextAlign.Center
                     )
 
                     Spacer(modifier = Modifier.height(4.dp))
+
+                    if (scenario.levelNumber >= 100) {
+                        Surface(
+                            shape = RoundedCornerShape(12.dp),
+                            color = Color(0xFF78350F).copy(alpha = 0.95f),
+                            border = BorderStroke(1.5.dp, Color(0xFFFFD700)),
+                            modifier = Modifier.padding(bottom = 6.dp)
+                        ) {
+                            Text(
+                                text = "🏆 SUPREME GRANDMASTER OF RIVER CROSSING! You conquered all 100 handcrafted river logic puzzles!",
+                                fontSize = 11.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color(0xFFFFD700),
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                            )
+                        }
+                    }
 
                     // Unique Biome Theme Tag
                     val theme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }

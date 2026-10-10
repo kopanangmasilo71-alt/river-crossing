@@ -282,7 +282,121 @@ enum class GameItem(
         description = "Aquatic polar swimmer that feasts on Fish, but hunted by Bears & Crocodiles!",
         dangerTag = "Polar Swimmer",
         drawableRes = R.drawable.img_penguin
-    )
+    ),
+    PHOENIX(
+        id = "phoenix",
+        displayName = "Phoenix",
+        emoji = "🔥",
+        description = "Radiant vermilion firebird of solar flame that clashes with dragons and beasts!",
+        dangerTag = "Solar Sovereign",
+        drawableRes = R.drawable.xml_phoenix,
+        visualScale = 1.15f
+    ),
+    DRAGON(
+        id = "dragon",
+        displayName = "Dragon",
+        emoji = "🐉",
+        description = "Majestic glacial frost wyrm that commands polar tempests and hoards treasures!",
+        dangerTag = "Glacial Wyrm",
+        drawableRes = R.drawable.xml_dragon,
+        visualScale = 1.15f
+    ),
+    UNICORN(
+        id = "unicorn",
+        displayName = "Unicorn",
+        emoji = "🦄",
+        description = "Luminous celestial horned equine that grazes on starry crystals and blooms!",
+        dangerTag = "Celestial Equine",
+        drawableRes = R.drawable.xml_unicorn,
+        visualScale = 1.12f
+    ),
+    KRAKEN(
+        id = "kraken",
+        displayName = "Kraken",
+        emoji = "🐙",
+        description = "Abyssal leviathan from the ocean depths with bioluminescent tentacles!",
+        dangerTag = "Abyssal Titan",
+        drawableRes = R.drawable.xml_kraken,
+        visualScale = 1.15f
+    ),
+    GRIFFIN(
+        id = "griffin",
+        displayName = "Griffin",
+        emoji = "🦅",
+        description = "Regal golden raptor-lion that guards celestial chalices and soars across clouds!",
+        dangerTag = "Sky Sentinel",
+        drawableRes = R.drawable.xml_griffin,
+        visualScale = 1.12f
+    ),
+    CERBERUS(
+        id = "cerberus",
+        displayName = "Cerberus",
+        emoji = "🐕",
+        description = "Three-headed nether shadow hound with glowing crimson eyes and volcanic collar!",
+        dangerTag = "Nether Guardian",
+        drawableRes = R.drawable.xml_cerberus,
+        visualScale = 1.15f
+    ),
+    STAR_CRYSTAL(
+        id = "star_crystal",
+        displayName = "Star Crystal",
+        emoji = "💎",
+        description = "Pulsing multi-faceted astral gemstone radiating cosmic starlight!",
+        dangerTag = "Astral Relic",
+        drawableRes = R.drawable.xml_star_crystal,
+        visualScale = 1.05f
+    ),
+    SUN_CHALICE(
+        id = "sun_chalice",
+        displayName = "Sun Chalice",
+        emoji = "🏆",
+        description = "Imperial golden solar grail filled with liquid starlight ambrosia!",
+        dangerTag = "Solar Grail",
+        drawableRes = R.drawable.xml_sun_chalice,
+        visualScale = 1.08f
+    ),
+    CELESTIAL_LOTUS(
+        id = "celestial_lotus",
+        displayName = "Celestial Lotus",
+        emoji = "🪷",
+        description = "Luminescent sacred water flower drifting with radiant stamen pollen!",
+        dangerTag = "Astral Bloom",
+        drawableRes = R.drawable.xml_celestial_lotus,
+        visualScale = 1.05f
+    ),
+    GOLDEN_ORB(
+        id = "golden_orb",
+        displayName = "Golden Orb",
+        emoji = "🔮",
+        description = "Divine primordial pearl with celestial orbital rings and concentric light!",
+        dangerTag = "Primordial Pearl",
+        drawableRes = R.drawable.xml_golden_orb,
+        visualScale = 1.05f
+    ),
+    ASTRAL_CROWN(
+        id = "astral_crown",
+        displayName = "Astral Crown",
+        emoji = "👑",
+        description = "Imperial cosmic crown forged with golden arches and precious gemstones!",
+        dangerTag = "Imperial Crest",
+        drawableRes = R.drawable.xml_astral_crown,
+        visualScale = 1.08f
+    ),
+    MYTHIC_STAG(
+        id = "mythic_stag",
+        displayName = "Mythic Stag",
+        emoji = "🦌",
+        description = "Ancient spirit forest sovereign with branching luminous starlight antlers!",
+        dangerTag = "Forest Sovereign",
+        drawableRes = R.drawable.xml_mythic_stag,
+        visualScale = 1.15f
+    );
+
+    val isXmlObject: Boolean
+        get() = this in listOf(
+            PHOENIX, DRAGON, UNICORN, KRAKEN, GRIFFIN, CERBERUS,
+            STAR_CRYSTAL, SUN_CHALICE, CELESTIAL_LOTUS, GOLDEN_ORB, ASTRAL_CROWN, MYTHIC_STAG
+        )
 }
 
 enum class ItemLocation {
@@ -446,8 +560,22 @@ data class DifficultyModifiers(
         val hasChicken = GameItem.CHICKEN in passengers
         val hasGrain = GameItem.GRAIN in passengers
         val hasTiger = GameItem.TIGER in passengers
+        val hasPhoenix = GameItem.PHOENIX in passengers
+        val hasDragon = GameItem.DRAGON in passengers
+        val hasKraken = GameItem.KRAKEN in passengers
+        val hasGriffin = GameItem.GRIFFIN in passengers
+        val hasCerberus = GameItem.CERBERUS in passengers
+        val hasUnicorn = GameItem.UNICORN in passengers
 
         return when {
+            hasDragon && (hasPhoenix || hasKraken || hasCerberus) ->
+                "⚠️ Restricted Cargo: Dragon will clash with rival titans inside the boat!"
+            hasPhoenix && (hasKraken || hasCerberus) ->
+                "⚠️ Restricted Cargo: Phoenix flame will erupt against nether/abyssal beasts!"
+            hasGriffin && (hasCerberus || hasUnicorn) ->
+                "⚠️ Restricted Cargo: Griffin will fight with passengers inside the boat!"
+            hasCerberus && hasUnicorn ->
+                "⚠️ Restricted Cargo: Cerberus will attack the celestial Unicorn inside the boat!"
             hasTiger && (hasGoat || hasSheep || hasChicken || hasWolf || hasDog) ->
                 "⚠️ Restricted Cargo: Tiger will pounce on passengers inside the boat!"
             hasCrocodile && (hasGoat || hasSheep || hasFish || hasChicken) ->
@@ -2580,6 +2708,241 @@ object PuzzleScenarios {
         )
     )
 
+    // Level 91: The Phoenix Awakening (All game objects made using XML)
+    val LEVEL_91 = PuzzleScenario(
+        id = "level_91_phoenix_awakening",
+        levelNumber = 91,
+        title = "Level 91: Phoenix Awakening",
+        subtitle = "Phoenix, Unicorn, and Star Crystal",
+        difficulty = PuzzleDifficulty.NORMAL,
+        items = listOf(GameItem.PHOENIX, GameItem.UNICORN, GameItem.STAR_CRYSTAL),
+        boatCapacity = 1,
+        optimalMoves = 7,
+        targetTimeSeconds = 60L,
+        dangerRules = listOf(
+            DangerRule(GameItem.PHOENIX, GameItem.UNICORN, "Phoenix Scorched The Unicorn!", "You left the solar Phoenix and celestial Unicorn alone together on the {bank}.", "🔥💥🦄"),
+            DangerRule(GameItem.UNICORN, GameItem.STAR_CRYSTAL, "Unicorn Consumed The Crystal!", "You left the Unicorn and Star Crystal alone together on the {bank}.", "🦄💥💎")
+        ),
+        description = "Mythic Chapter begins! Transport the blazing solar phoenix and celestial horned unicorn safely across the volcanic fjord.",
+        rules = listOf(
+            "Rowboat holds Farmer + 1 item at a time.",
+            "All game objects are handcrafted XML vectors.",
+            "Phoenix attacks Unicorn, Unicorn feeds on Star Crystal."
+        )
+    )
+
+    // Level 92: Wyrm & Solar Chalice (All game objects made using XML)
+    val LEVEL_92 = PuzzleScenario(
+        id = "level_92_wyrm_chalice",
+        levelNumber = 92,
+        title = "Level 92: Wyrm & Solar Chalice",
+        subtitle = "Dragon, Griffin, and Sun Chalice",
+        difficulty = PuzzleDifficulty.NORMAL,
+        items = listOf(GameItem.DRAGON, GameItem.GRIFFIN, GameItem.SUN_CHALICE),
+        boatCapacity = 1,
+        optimalMoves = 7,
+        targetTimeSeconds = 60L,
+        dangerRules = listOf(
+            DangerRule(GameItem.DRAGON, GameItem.GRIFFIN, "Dragon Battled The Griffin!", "You left the Frost Dragon and Griffin alone together on the {bank}.", "🐉💥🦅"),
+            DangerRule(GameItem.GRIFFIN, GameItem.SUN_CHALICE, "Griffin Drank The Chalice!", "You left the Griffin and Sun Chalice alone together on the {bank}.", "🦅💥🏆")
+        ),
+        description = "A classic three-tier mythical dilemma between the polar wyrm, golden griffin, and the sacred solar chalice.",
+        rules = listOf(
+            "Rowboat holds Farmer + 1 item at a time.",
+            "Dragon battles Griffin, Griffin drinks from Sun Chalice."
+        )
+    )
+
+    // Level 93: Abyssal Depths (All game objects made using XML)
+    val LEVEL_93 = PuzzleScenario(
+        id = "level_93_abyssal_hound",
+        levelNumber = 93,
+        title = "Level 93: Abyssal Depths",
+        subtitle = "Kraken, Cerberus, and Golden Orb",
+        difficulty = PuzzleDifficulty.NORMAL,
+        items = listOf(GameItem.KRAKEN, GameItem.CERBERUS, GameItem.GOLDEN_ORB),
+        boatCapacity = 1,
+        optimalMoves = 7,
+        targetTimeSeconds = 60L,
+        dangerRules = listOf(
+            DangerRule(GameItem.KRAKEN, GameItem.CERBERUS, "Kraken Dragged Cerberus Down!", "You left Kraken and Cerberus alone together on the {bank}.", "🐙💥🐕"),
+            DangerRule(GameItem.CERBERUS, GameItem.GOLDEN_ORB, "Cerberus Snatched The Golden Orb!", "You left Cerberus and Golden Orb alone together on the {bank}.", "🐕💥🔮")
+        ),
+        description = "Bioluminescent ocean depths meet the underworld shadow hound and the primordial glowing orb.",
+        rules = listOf(
+            "Rowboat holds Farmer + 1 item at a time.",
+            "Kraken attacks Cerberus, Cerberus hoards Golden Orb."
+        )
+    )
+
+    // Level 94: Forest Spirit Sanctuary (All game objects made using XML)
+    val LEVEL_94 = PuzzleScenario(
+        id = "level_94_forest_sanctuary",
+        levelNumber = 94,
+        title = "Level 94: Forest Spirit Sanctuary",
+        subtitle = "Cerberus, Mythic Stag, and Celestial Lotus",
+        difficulty = PuzzleDifficulty.NORMAL,
+        items = listOf(GameItem.CERBERUS, GameItem.MYTHIC_STAG, GameItem.CELESTIAL_LOTUS),
+        boatCapacity = 1,
+        optimalMoves = 7,
+        targetTimeSeconds = 60L,
+        dangerRules = listOf(
+            DangerRule(GameItem.CERBERUS, GameItem.MYTHIC_STAG, "Cerberus Hunted Mythic Stag!", "You left Cerberus and Mythic Stag alone together on the {bank}.", "🐕💥🦌"),
+            DangerRule(GameItem.MYTHIC_STAG, GameItem.CELESTIAL_LOTUS, "Stag Grazed The Lotus!", "You left Mythic Stag and Celestial Lotus alone together on the {bank}.", "🦌💥🪷")
+        ),
+        description = "The ancient horned stag seeks the floating sacred lotus while the three-headed hound prowls.",
+        rules = listOf(
+            "Rowboat holds Farmer + 1 item at a time.",
+            "Cerberus hunts Stag, Stag grazes on Celestial Lotus."
+        )
+    )
+
+    // Level 95: Celestial Guardians (All game objects made using XML)
+    val LEVEL_95 = PuzzleScenario(
+        id = "level_95_celestial_guardians",
+        levelNumber = 95,
+        title = "Level 95: Celestial Guardians",
+        subtitle = "Dragon, Griffin, Unicorn, and Star Crystal",
+        difficulty = PuzzleDifficulty.MEDIUM,
+        items = listOf(GameItem.DRAGON, GameItem.GRIFFIN, GameItem.UNICORN, GameItem.STAR_CRYSTAL),
+        boatCapacity = 2,
+        optimalMoves = 5,
+        targetTimeSeconds = 50L,
+        dangerRules = listOf(
+            DangerRule(GameItem.DRAGON, GameItem.GRIFFIN, "Dragon Attacked The Griffin!", "You left Dragon and Griffin alone together on the {bank}.", "🐉💥🦅"),
+            DangerRule(GameItem.GRIFFIN, GameItem.UNICORN, "Griffin Clashed With Unicorn!", "You left Griffin and Unicorn alone together on the {bank}.", "🦅💥🦄"),
+            DangerRule(GameItem.UNICORN, GameItem.STAR_CRYSTAL, "Unicorn Consumed The Crystal!", "You left Unicorn and Star Crystal alone together on the {bank}.", "🦄💥💎")
+        ),
+        description = "Four soaring mythic entities across the celestial fjord with an expanded 2-passenger skiff.",
+        rules = listOf(
+            "Rowboat holds Farmer + up to 2 items at once.",
+            "Dragon battles Griffin, Griffin attacks Unicorn, Unicorn eats Star Crystal."
+        )
+    )
+
+    // Level 96: Solar Convergence (All game objects made using XML)
+    val LEVEL_96 = PuzzleScenario(
+        id = "level_96_solar_convergence",
+        levelNumber = 96,
+        title = "Level 96: Solar Convergence",
+        subtitle = "Phoenix, Cerberus, Mythic Stag, and Sun Chalice",
+        difficulty = PuzzleDifficulty.MEDIUM,
+        items = listOf(GameItem.PHOENIX, GameItem.CERBERUS, GameItem.MYTHIC_STAG, GameItem.SUN_CHALICE),
+        boatCapacity = 2,
+        optimalMoves = 5,
+        targetTimeSeconds = 50L,
+        dangerRules = listOf(
+            DangerRule(GameItem.PHOENIX, GameItem.CERBERUS, "Phoenix Clashed With Cerberus!", "You left Phoenix and Cerberus alone together on the {bank}.", "🔥💥🐕"),
+            DangerRule(GameItem.CERBERUS, GameItem.MYTHIC_STAG, "Cerberus Hunted Mythic Stag!", "You left Cerberus and Mythic Stag alone together on the {bank}.", "🐕💥🦌"),
+            DangerRule(GameItem.MYTHIC_STAG, GameItem.SUN_CHALICE, "Stag Drank The Sun Chalice!", "You left Mythic Stag and Sun Chalice alone together on the {bank}.", "🦌💥🏆")
+        ),
+        description = "Sun and nether forces converge across flowing molten waters.",
+        rules = listOf(
+            "Rowboat holds Farmer + up to 2 items at once.",
+            "Phoenix clashes with Cerberus, Cerberus hunts Stag, Stag drinks Sun Chalice."
+        )
+    )
+
+    // Level 97: Crown of the Abyssal Sea (All game objects made using XML)
+    val LEVEL_97 = PuzzleScenario(
+        id = "level_97_abyssal_crown",
+        levelNumber = 97,
+        title = "Level 97: Abyssal Crown",
+        subtitle = "Kraken, Dragon, Golden Orb, and Astral Crown",
+        difficulty = PuzzleDifficulty.HARD,
+        items = listOf(GameItem.KRAKEN, GameItem.DRAGON, GameItem.GOLDEN_ORB, GameItem.ASTRAL_CROWN),
+        boatCapacity = 2,
+        optimalMoves = 5,
+        targetTimeSeconds = 50L,
+        dangerRules = listOf(
+            DangerRule(GameItem.KRAKEN, GameItem.DRAGON, "Kraken Clashed With Dragon!", "You left Kraken and Dragon alone together on the {bank}.", "🐙💥🐉"),
+            DangerRule(GameItem.DRAGON, GameItem.ASTRAL_CROWN, "Dragon Hoarded Astral Crown!", "You left Dragon and Astral Crown alone together on the {bank}.", "🐉💥👑"),
+            DangerRule(GameItem.KRAKEN, GameItem.GOLDEN_ORB, "Kraken Snatched Golden Orb!", "You left Kraken and Golden Orb alone together on the {bank}.", "🐙💥🔮")
+        ),
+        description = "Two colossal titans contending for imperial relics of the lost cosmic dynasty.",
+        rules = listOf(
+            "Rowboat holds Farmer + up to 2 items at once.",
+            "Kraken attacks Dragon, Dragon hoards Crown, Kraken takes Orb."
+        )
+    )
+
+    // Level 98: Titans of the Prismatic Fjord (All game objects made using XML)
+    val LEVEL_98 = PuzzleScenario(
+        id = "level_98_prismatic_fjord",
+        levelNumber = 98,
+        title = "Level 98: Prismatic Titans",
+        subtitle = "Phoenix, Dragon, Griffin, Unicorn, and Star Crystal",
+        difficulty = PuzzleDifficulty.HARD,
+        items = listOf(GameItem.PHOENIX, GameItem.DRAGON, GameItem.GRIFFIN, GameItem.UNICORN, GameItem.STAR_CRYSTAL),
+        boatCapacity = 2,
+        optimalMoves = 7,
+        targetTimeSeconds = 70L,
+        dangerRules = listOf(
+            DangerRule(GameItem.DRAGON, GameItem.PHOENIX, "Dragon Clashed With Phoenix!", "You left Dragon and Phoenix alone together on the {bank}.", "🐉💥🔥"),
+            DangerRule(GameItem.PHOENIX, GameItem.GRIFFIN, "Phoenix Fought The Griffin!", "You left Phoenix and Griffin alone together on the {bank}.", "🔥💥🦅"),
+            DangerRule(GameItem.GRIFFIN, GameItem.UNICORN, "Griffin Clashed With Unicorn!", "You left Griffin and Unicorn alone together on the {bank}.", "🦅💥🦄"),
+            DangerRule(GameItem.UNICORN, GameItem.STAR_CRYSTAL, "Unicorn Consumed The Crystal!", "You left Unicorn and Star Crystal alone together on the {bank}.", "🦄💥💎")
+        ),
+        description = "Five majestic vector mythics locked in an intricate chain of aerial and magical rivalry.",
+        rules = listOf(
+            "Rowboat holds Farmer + up to 2 items at once.",
+            "Dragon battles Phoenix, Phoenix fights Griffin, Griffin attacks Unicorn, Unicorn eats Crystal."
+        )
+    )
+
+    // Level 99: Celestial Pantheon (All game objects made using XML)
+    val LEVEL_99 = PuzzleScenario(
+        id = "level_99_pantheon_heavens",
+        levelNumber = 99,
+        title = "Level 99: Celestial Pantheon",
+        subtitle = "Dragon, Kraken, Cerberus, Mythic Stag, Celestial Lotus, and Golden Orb",
+        difficulty = PuzzleDifficulty.EXPERT,
+        items = listOf(GameItem.DRAGON, GameItem.KRAKEN, GameItem.CERBERUS, GameItem.MYTHIC_STAG, GameItem.CELESTIAL_LOTUS, GameItem.GOLDEN_ORB),
+        boatCapacity = 3,
+        optimalMoves = 5,
+        targetTimeSeconds = 90L,
+        dangerRules = listOf(
+            DangerRule(GameItem.KRAKEN, GameItem.DRAGON, "Kraken Clashed With Dragon!", "You left Kraken and Dragon alone together on the {bank}.", "🐙💥🐉"),
+            DangerRule(GameItem.DRAGON, GameItem.CERBERUS, "Dragon Frost-Froze Cerberus!", "You left Dragon and Cerberus alone together on the {bank}.", "🐉💥🐕"),
+            DangerRule(GameItem.CERBERUS, GameItem.MYTHIC_STAG, "Cerberus Hunted Mythic Stag!", "You left Cerberus and Mythic Stag alone together on the {bank}.", "🐕💥🦌"),
+            DangerRule(GameItem.MYTHIC_STAG, GameItem.CELESTIAL_LOTUS, "Stag Grazed The Lotus!", "You left Mythic Stag and Celestial Lotus alone together on the {bank}.", "🦌💥🪷"),
+            DangerRule(GameItem.KRAKEN, GameItem.GOLDEN_ORB, "Kraken Swallowed Golden Orb!", "You left Kraken and Golden Orb alone together on the {bank}.", "🐙💥🔮")
+        ),
+        description = "The penultimate trial! Six legendary beings aboard the Imperial Galleon on the threshold of infinity.",
+        rules = listOf(
+            "Imperial Celestial Barge carries up to 3 items.",
+            "Master a 6-item web of ancient affinities before the final summit!"
+        )
+    )
+
+    // Level 100: The Sovereign Convergence - GRAND FINALE (All game objects made using XML)
+    val LEVEL_100 = PuzzleScenario(
+        id = "level_100_grand_convergence",
+        levelNumber = 100,
+        title = "Level 100: The Sovereign Convergence",
+        subtitle = "Phoenix, Dragon, Unicorn, Griffin, Kraken, Star Crystal, Sun Chalice, and Astral Crown",
+        difficulty = PuzzleDifficulty.EXPERT,
+        items = listOf(GameItem.PHOENIX, GameItem.DRAGON, GameItem.UNICORN, GameItem.GRIFFIN, GameItem.KRAKEN, GameItem.STAR_CRYSTAL, GameItem.SUN_CHALICE, GameItem.ASTRAL_CROWN),
+        boatCapacity = 3,
+        optimalMoves = 7,
+        targetTimeSeconds = 120L,
+        dangerRules = listOf(
+            DangerRule(GameItem.DRAGON, GameItem.PHOENIX, "Dragon Clashed With Phoenix!", "You left Dragon and Phoenix alone together on the {bank}.", "🐉💥🔥"),
+            DangerRule(GameItem.PHOENIX, GameItem.GRIFFIN, "Phoenix Fought The Griffin!", "You left Phoenix and Griffin alone together on the {bank}.", "🔥💥🦅"),
+            DangerRule(GameItem.GRIFFIN, GameItem.UNICORN, "Griffin Clashed With Unicorn!", "You left Griffin and Unicorn alone together on the {bank}.", "🦅💥🦄"),
+            DangerRule(GameItem.KRAKEN, GameItem.DRAGON, "Kraken Dragged Down The Dragon!", "You left Kraken and Dragon alone together on the {bank}.", "🐙💥🐉"),
+            DangerRule(GameItem.UNICORN, GameItem.STAR_CRYSTAL, "Unicorn Consumed The Crystal!", "You left Unicorn and Star Crystal alone together on the {bank}.", "🦄💥💎"),
+            DangerRule(GameItem.PHOENIX, GameItem.SUN_CHALICE, "Phoenix Drank Sun Chalice!", "You left Phoenix and Sun Chalice alone together on the {bank}.", "🔥💥🏆"),
+            DangerRule(GameItem.DRAGON, GameItem.ASTRAL_CROWN, "Dragon Hoarded Astral Crown!", "You left Dragon and Astral Crown alone together on the {bank}.", "🐉💥👑")
+        ),
+        description = "THE 100TH LEVEL GRAND FINALE! All 8 mythical beings & cosmic relics unite on the Rainbow Sovereign River. Achieve total mastery to become the Eternal River Legend!",
+        rules = listOf(
+            "Supreme Sovereign Galleon carries up to 3 items.",
+            "All 8 game objects are handcrafted XML vectors.",
+            "Balance 7 supreme affinities to conquer the 100th level and beat River Crossing!"
+        )
+    )
+
     val SCENARIOS: List<PuzzleScenario> = listOf(
         LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4, LEVEL_5,
         LEVEL_6, LEVEL_7, LEVEL_8, LEVEL_9, LEVEL_10,
@@ -2598,7 +2961,9 @@ object PuzzleScenarios {
         LEVEL_71, LEVEL_72, LEVEL_73, LEVEL_74, LEVEL_75,
         LEVEL_76, LEVEL_77, LEVEL_78, LEVEL_79, LEVEL_80,
         LEVEL_81, LEVEL_82, LEVEL_83, LEVEL_84, LEVEL_85,
-        LEVEL_86, LEVEL_87, LEVEL_88, LEVEL_89, LEVEL_90
+        LEVEL_86, LEVEL_87, LEVEL_88, LEVEL_89, LEVEL_90,
+        LEVEL_91, LEVEL_92, LEVEL_93, LEVEL_94, LEVEL_95,
+        LEVEL_96, LEVEL_97, LEVEL_98, LEVEL_99, LEVEL_100
     )
 
     val ALL = SCENARIOS
@@ -2820,4 +3185,12 @@ data class SplashEvent(
     val id: Long = System.currentTimeMillis(),
     val targetBank: Bank
 )
+
+data class DisembarkJumpEvent(
+    val id: Long = System.currentTimeMillis(),
+    val jumpingItems: List<GameItem>,
+    val targetBank: Bank,
+    val durationMs: Long = 650L
+)
+
 

@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -42,6 +43,7 @@ import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -66,6 +68,9 @@ import com.example.ads.AdMobBanner
 import com.example.model.BoatSpeed
 import com.example.model.GameItem
 import com.example.model.PuzzleScenarios
+import com.example.model.WeatherEffectType
+import com.example.ui.components.spritesheet.SpriteSheetAnimation
+import com.example.ui.components.spritesheet.SpriteSheetSpec
 import com.example.ui.components.WoodCard
 import com.example.ui.components.WoodInsetBox
 import com.example.ui.components.WoodScreenContainer
@@ -425,6 +430,329 @@ fun SettingsScreen(
                             ),
                             modifier = Modifier.testTag("settings_haptics_switch")
                         )
+                    }
+
+                    Spacer(modifier = Modifier.height(14.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(1.dp)
+                            .background(Color(0x335EEAD4))
+                    )
+                    Spacer(modifier = Modifier.height(14.dp))
+
+                    // Procedural Biome Audio Engine Showcase
+                    var auditionBiome by remember { mutableStateOf(WeatherEffectType.SPRING_PETALS) }
+                    var isPreviewingAmbience by remember { mutableStateOf(false) }
+
+                    DisposableEffect(Unit) {
+                        onDispose {
+                            if (isPreviewingAmbience) {
+                                viewModel.stopBiomeAmbience()
+                            }
+                        }
+                    }
+
+                    Column {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Procedural Biome Audio Engine",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.5.sp,
+                                color = MenuBtnCyanTop
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Synthesizes real-time continuous river currents, authentic bird calls, and terrain footsteps natively tailored to the active biome.",
+                            fontSize = 11.sp,
+                            color = Color(0xFFCCFBF1).copy(alpha = 0.85f),
+                            lineHeight = 15.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // Biome selection chips
+                        val biomeList = listOf(
+                            WeatherEffectType.SPRING_PETALS to "🌸 Spring",
+                            WeatherEffectType.AUTUMN_LEAVES to "🍂 Autumn",
+                            WeatherEffectType.ALPINE_MIST to "⛰️ Alpine",
+                            WeatherEffectType.SAVANNAH_DUST to "🌾 Savanna",
+                            WeatherEffectType.MIDNIGHT_FIREFLIES to "✨ Night",
+                            WeatherEffectType.TWILIGHT_MOTES to "🌌 Twilight",
+                            WeatherEffectType.OASIS_MIRAGE to "🌴 Oasis",
+                            WeatherEffectType.AURORA_SHIMMER to "❄️ Aurora"
+                        )
+
+                        val chipScrollState = rememberScrollState()
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .horizontalScroll(chipScrollState),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            biomeList.forEach { (biome, label) ->
+                                val isSelected = auditionBiome == biome
+                                Surface(
+                                    shape = RoundedCornerShape(8.dp),
+                                    color = if (isSelected) MenuBtnCyanMid else Color(0xDD072624),
+                                    border = BorderStroke(
+                                        if (isSelected) 1.5.dp else 1.dp,
+                                        if (isSelected) MenuBtnCyanTop else Color(0x445EEAD4)
+                                    ),
+                                    modifier = Modifier
+                                        .clip(RoundedCornerShape(8.dp))
+                                        .clickable {
+                                            auditionBiome = biome
+                                            if (isPreviewingAmbience) {
+                                                viewModel.startBiomeAmbience(biome)
+                                            }
+                                        }
+                                ) {
+                                    Text(
+                                        text = label,
+                                        fontSize = 10.5.sp,
+                                        fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                        color = if (isSelected) Color.White else Color(0xFFCCFBF1),
+                                        modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp)
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        // Interactive audition triggers (River Flow, Bird Call, Footsteps, Continuous Ambience)
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(6.dp)
+                        ) {
+                            // River Flow Button
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        viewModel.playRiverFlowSound(auditionBiome)
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 7.dp, horizontal = 4.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(text = "🌊", fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = "River Flow",
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MenuBtnCyanTop
+                                    )
+                                }
+                            }
+
+                            // Bird Call Button
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        viewModel.playBiomeBirdCall(auditionBiome)
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 7.dp, horizontal = 4.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(text = "🐦", fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = "Bird Call",
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MenuBtnCyanTop
+                                    )
+                                }
+                            }
+
+                            // Footstep Button
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        viewModel.playFootstep(auditionBiome, isBoardingRaft = false)
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 7.dp, horizontal = 4.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(text = "👟", fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = "Footstep",
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MenuBtnCyanTop
+                                    )
+                                }
+                            }
+
+                            // Continuous Ambience Loop Preview Button
+                            Surface(
+                                shape = RoundedCornerShape(8.dp),
+                                color = if (isPreviewingAmbience) MenuBtnCyanMid else Color(0xDD072624),
+                                border = BorderStroke(1.dp, if (isPreviewingAmbience) Color.White else MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .clickable {
+                                        val newState = !isPreviewingAmbience
+                                        isPreviewingAmbience = newState
+                                        if (newState) {
+                                            viewModel.startBiomeAmbience(auditionBiome)
+                                        } else {
+                                            viewModel.stopBiomeAmbience()
+                                        }
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(vertical = 7.dp, horizontal = 4.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Text(text = if (isPreviewingAmbience) "⏹️" else "▶️", fontSize = 14.sp)
+                                    Spacer(modifier = Modifier.height(2.dp))
+                                    Text(
+                                        text = if (isPreviewingAmbience) "Stop Loop" else "Ambient Loop",
+                                        fontSize = 9.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = if (isPreviewingAmbience) Color.White else MenuBtnCyanTop
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(14.dp))
+                        Text(
+                            text = "Jump Animation Spritesheets",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp,
+                            color = MenuBtnCyanTop
+                        )
+                        Spacer(modifier = Modifier.height(2.dp))
+                        Text(
+                            text = "6-frame procedural jump animation when arriving on the bank:",
+                            fontSize = 10.5.sp,
+                            color = Color(0xFFCCFBF1).copy(alpha = 0.85f)
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            var isRabbitJumping by remember { mutableStateOf(false) }
+                            var isDogJumping by remember { mutableStateOf(false) }
+
+                            // Rabbit Jump Preview Card
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .clickable {
+                                        isRabbitJumping = true
+                                        viewModel.triggerPreviewJump(GameItem.RABBIT)
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Box(
+                                        modifier = Modifier.size(56.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        SpriteSheetAnimation(
+                                            spec = SpriteSheetSpec.RABBIT_JUMP,
+                                            isPlaying = isRabbitJumping,
+                                            onAnimationEnd = { isRabbitJumping = false },
+                                            modifier = Modifier.fillMaxSize()
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = "🐰 Rabbit Jump",
+                                        fontSize = 10.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = "6 frames · Tap to leap",
+                                        fontSize = 8.5.sp,
+                                        color = Color(0xFFCCFBF1)
+                                    )
+                                }
+                            }
+
+                            // Dog Jump Preview Card
+                            Surface(
+                                shape = RoundedCornerShape(10.dp),
+                                color = Color(0xDD072624),
+                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .clickable {
+                                        isDogJumping = true
+                                        viewModel.triggerPreviewJump(GameItem.DOG)
+                                    }
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(8.dp),
+                                    horizontalAlignment = Alignment.CenterHorizontally
+                                ) {
+                                    Box(
+                                        modifier = Modifier.size(56.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        SpriteSheetAnimation(
+                                            spec = SpriteSheetSpec.DOG_JUMP,
+                                            isPlaying = isDogJumping,
+                                            onAnimationEnd = { isDogJumping = false },
+                                            modifier = Modifier.fillMaxSize()
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.height(4.dp))
+                                    Text(
+                                        text = "🐶 Dog Jump",
+                                        fontSize = 10.5.sp,
+                                        fontWeight = FontWeight.Bold,
+                                        color = Color.White
+                                    )
+                                    Text(
+                                        text = "6 frames · Tap to leap",
+                                        fontSize = 8.5.sp,
+                                        color = Color(0xFFCCFBF1)
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

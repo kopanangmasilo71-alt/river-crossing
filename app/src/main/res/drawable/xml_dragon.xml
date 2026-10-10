@@ -1,0 +1,173 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Glacial / Mystic Aura Ring -->
+    <path
+        android:pathData="M64,10 C94,10 118,34 118,64 C118,94 94,118 64,118 C34,118 10,94 10,64 C10,34 34,10 64,10 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="54"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#5500E5FF" />
+                <item android:offset="0.6" android:color="#332979FF" />
+                <item android:offset="1.0" android:color="#00651FFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Dragon Left Leathery Wing -->
+    <path
+        android:pathData="M54,54 C34,30 14,24 4,28 C8,44 18,64 36,74 C22,68 12,62 6,60 C12,74 24,84 46,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="54"
+                android:startY="24"
+                android:endX="4"
+                android:endY="86"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00E5FF" />
+                <item android:offset="0.5" android:color="#FF1565C0" />
+                <item android:offset="1.0" android:color="#FF4A148C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Dragon Right Leathery Wing -->
+    <path
+        android:pathData="M74,54 C94,30 114,24 124,28 C120,44 110,64 92,74 C106,68 116,62 122,60 C116,74 104,84 82,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="74"
+                android:startY="24"
+                android:endX="124"
+                android:endY="86"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00E5FF" />
+                <item android:offset="0.5" android:color="#FF1565C0" />
+                <item android:offset="1.0" android:color="#FF4A148C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Dragon Coiled Tail & Spine Fins -->
+    <path
+        android:pathData="M64,86 C58,102 44,116 32,122 C42,120 54,114 62,100 C66,108 76,118 88,124 C78,114 70,102 66,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="86"
+                android:endX="88"
+                android:endY="124"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00B0FF" />
+                <item android:offset="0.5" android:color="#FF283593" />
+                <item android:offset="1.0" android:color="#FF4A148C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Dragon Armored Body / Torso -->
+    <path
+        android:pathData="M64,48 C52,56 48,72 52,88 C56,94 72,94 76,88 C80,72 76,56 64,48 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="48"
+                android:endX="64"
+                android:endY="94"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00E5FF" />
+                <item android:offset="0.4" android:color="#FF0091EA" />
+                <item android:offset="1.0" android:color="#FF1A237E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Chest Armor Scales Plates -->
+    <path
+        android:pathData="M58,60 C62,64 66,64 70,60 L68,66 C65,68 63,68 60,66 Z"
+        android:fillColor="#FF80D8FF" />
+    <path
+        android:pathData="M56,68 C61,72 67,72 72,68 L70,75 C66,77 62,77 58,75 Z"
+        android:fillColor="#FF80D8FF" />
+    <path
+        android:pathData="M56,76 C61,80 67,80 72,76 L70,82 C66,84 62,84 58,82 Z"
+        android:fillColor="#FF80D8FF" />
+
+    <!-- Dragon Fearsome Head -->
+    <path
+        android:pathData="M64,24 C56,28 54,42 60,54 C64,56 64,56 68,54 C74,42 72,28 64,24 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="24"
+                android:endX="64"
+                android:endY="56"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF40C4FF" />
+                <item android:offset="0.7" android:color="#FF0277BD" />
+                <item android:offset="1.0" android:color="#FF01579B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Sweeping Crystal Horns -->
+    <path
+        android:pathData="M60,26 C54,16 42,10 32,10 C40,16 48,22 56,30 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="10"
+                android:endX="60"
+                android:endY="30"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FF00E5FF" />
+                <item android:offset="1.0" android:color="#FF01579B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M68,26 C74,16 86,10 96,10 C88,16 80,22 72,30 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="96"
+                android:startY="10"
+                android:endX="68"
+                android:endY="30"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FF00E5FF" />
+                <item android:offset="1.0" android:color="#FF01579B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Golden Slit Dragon Eyes -->
+    <path
+        android:pathData="M57,36 L62,37 L58,40 Z"
+        android:fillColor="#FFFFD600" />
+    <path
+        android:pathData="M71,36 L66,37 L70,40 Z"
+        android:fillColor="#FFFFD600" />
+    <path
+        android:pathData="M59,37 L60,37 L59,39 Z"
+        android:fillColor="#FF212121" />
+    <path
+        android:pathData="M69,37 L68,37 L69,39 Z"
+        android:fillColor="#FF212121" />
+
+    <!-- Dragon Snout & Teeth -->
+    <path
+        android:pathData="M62,48 L66,48 L64,52 Z"
+        android:fillColor="#FF00B0FF" />
+    <path
+        android:pathData="M61,48 L62,50 L63,48 L64,50 L65,48 L66,50 L67,48 Z"
+        android:fillColor="#FFFFFFFF" />
+</vector>

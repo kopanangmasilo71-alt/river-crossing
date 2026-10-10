@@ -1,0 +1,140 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Solar Radiance Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#77FFD700" />
+                <item android:offset="0.6" android:color="#44FF9100" />
+                <item android:offset="1.0" android:color="#00DD2C00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Chalice Ornate Fluted Base -->
+    <path
+        android:pathData="M40,114 C40,106 54,104 64,104 C74,104 88,106 88,114 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="40"
+                android:startY="104"
+                android:endX="88"
+                android:endY="114"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFFF6F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Base Rim -->
+    <path android:pathData="M36,114 L92,114 L90,118 L38,118 Z" android:fillColor="#FFFFD700" />
+
+    <!-- Chalice Stem & Golden Knop -->
+    <path
+        android:pathData="M60,78 L68,78 L68,104 L60,104 Z"
+        android:fillColor="#FFFFB300" />
+    <path
+        android:pathData="M56,86 A8,8 0 1,0 72,86 A8,8 0 1,0 56,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="86"
+                android:gradientRadius="8"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.4" android:color="#FFFFD54F" />
+                <item android:offset="1.0" android:color="#FFFF8F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Chalice Bowl / Cup -->
+    <path
+        android:pathData="M32,24 C32,60 52,78 64,78 C76,78 96,60 96,24 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="24"
+                android:endX="96"
+                android:endY="78"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFF59D" />
+                <item android:offset="0.4" android:color="#FFFFD54F" />
+                <item android:offset="0.8" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFFF6F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Golden Rim Lip -->
+    <path
+        android:pathData="M30,22 C30,18 45,16 64,16 C83,16 98,18 98,22 C98,26 83,28 64,28 C45,28 30,26 30,22 Z"
+        android:fillColor="#FFFFD700" />
+
+    <!-- Glowing Ambrosia / Liquid Solar Nectar Inside -->
+    <path
+        android:pathData="M34,24 C34,20 47,18 64,18 C81,18 94,20 94,24 C94,27 81,29 64,29 C47,29 34,27 34,24 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="24"
+                android:gradientRadius="30"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.4" android:color="#FFFFEE58" />
+                <item android:offset="1.0" android:color="#FFFF6D00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Ornate Winged Handles -->
+    <path
+        android:pathData="M32,32 C18,36 14,54 30,64 C28,54 32,44 36,40 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="14"
+                android:startY="32"
+                android:endX="36"
+                android:endY="64"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="1.0" android:color="#FFFF8F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M96,32 C110,36 114,54 98,64 C100,54 96,44 92,40 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="114"
+                android:startY="32"
+                android:endX="92"
+                android:endY="64"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="1.0" android:color="#FFFF8F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Embedded Center Ruby Jewel -->
+    <path
+        android:pathData="M60,48 L64,42 L68,48 L64,54 Z"
+        android:fillColor="#FFD50000" />
+    <path android:pathData="M62,46 L64,44 L64,48 Z" android:fillColor="#FFFF8A80" />
+
+    <!-- Pure Sun Glint Sparkle -->
+    <path android:pathData="M48,30 L50,34 L48,38 L46,34 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M78,34 L80,38 L78,42 L76,38 Z" android:fillColor="#FFFFFFFF" />
+</vector>

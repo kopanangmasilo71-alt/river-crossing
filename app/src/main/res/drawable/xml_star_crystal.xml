@@ -1,0 +1,126 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Prismatic Sparkle Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#7700E5FF" />
+                <item android:offset="0.5" android:color="#44D500F9" />
+                <item android:offset="1.0" android:color="#00651FFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Star Gem Facets -->
+    <!-- Top Apex Point -->
+    <path
+        android:pathData="M64,14 L84,40 L64,48 L44,40 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="44"
+                android:startY="14"
+                android:endX="84"
+                android:endY="48"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.5" android:color="#FFE0F7FA" />
+                <item android:offset="1.0" android:color="#FF80DEEA" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Center Left Facet -->
+    <path
+        android:pathData="M44,40 L64,48 L64,88 L30,64 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="30"
+                android:startY="40"
+                android:endX="64"
+                android:endY="88"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF4DD0E1" />
+                <item android:offset="0.6" android:color="#FF00ACC1" />
+                <item android:offset="1.0" android:color="#FF00838F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Center Right Facet -->
+    <path
+        android:pathData="M64,48 L84,40 L98,64 L64,88 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="40"
+                android:endX="98"
+                android:endY="88"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF80DEEA" />
+                <item android:offset="0.5" android:color="#FF26C6DA" />
+                <item android:offset="1.0" android:color="#FF0097A7" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Bottom Point Left Facet -->
+    <path
+        android:pathData="M30,64 L64,88 L64,116 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="30"
+                android:startY="64"
+                android:endX="64"
+                android:endY="116"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00838F" />
+                <item android:offset="0.6" android:color="#FF006064" />
+                <item android:offset="1.0" android:color="#FF4A148C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Bottom Point Right Facet -->
+    <path
+        android:pathData="M64,88 L98,64 L64,116 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="64"
+                android:endX="98"
+                android:endY="116"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00ACC1" />
+                <item android:offset="0.5" android:color="#FF00838F" />
+                <item android:offset="1.0" android:color="#FF7B1FA2" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Far Left Wing Facet -->
+    <path
+        android:pathData="M44,40 L30,64 L20,54 Z"
+        android:fillColor="#FF00E5FF" />
+
+    <!-- Far Right Wing Facet -->
+    <path
+        android:pathData="M84,40 L98,64 L108,54 Z"
+        android:fillColor="#FFB2EBF2" />
+
+    <!-- Pure Light Glisten Highlights -->
+    <path android:pathData="M64,16 L78,38 L64,44 Z" android:fillColor="#88FFFFFF" />
+    <!-- 4-Point Starlight Sparkles -->
+    <path android:pathData="M34,26 L38,32 L34,38 L30,32 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M94,26 L98,32 L94,38 L90,32 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M64,54 L68,62 L64,70 L60,62 Z" android:fillColor="#FFFFFFFF" />
+</vector>

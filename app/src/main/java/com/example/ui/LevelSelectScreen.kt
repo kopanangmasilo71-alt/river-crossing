@@ -168,12 +168,13 @@ enum class LevelFilter(
     val gradient: List<Color>,
     val border: Color
 ) {
-    ALL("All (90)", 1, 90, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
+    ALL("All (100)", 1, 100, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
     NOVICE("Novice (1-15)", 1, 15, listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom), MenuBtnGreenBorder),
     SKILLED("Skilled (16-35)", 16, 35, listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom), MenuBtnBlueBorder),
     EXPERT("Expert (36-55)", 36, 55, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
     CHAMPION("Champion (56-75)", 56, 75, listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom), MenuBtnPurpleBorder),
-    GRANDMASTER("Grandmaster (76-90)", 76, 90, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder)
+    GRANDMASTER("Grandmaster (76-90)", 76, 90, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder),
+    MYTHIC("Mythic (91-100)", 91, 100, listOf(MenuBtnCyanTop, MenuBtnCyanMid, MenuBtnCyanBottom), MenuBtnCyanBorder)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

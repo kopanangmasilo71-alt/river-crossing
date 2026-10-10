@@ -15,16 +15,19 @@ import com.example.model.Bank
 import com.example.model.BoatSpeed
 import com.example.model.DifficultyMode
 import com.example.model.DifficultyModifiers
+import com.example.model.DisembarkJumpEvent
 import com.example.model.GameItem
 import com.example.model.GameStatus
 import com.example.model.ItemLocation
 import com.example.model.GameState
+import com.example.model.LevelTheme
 import com.example.model.MoveRecord
 import com.example.model.PuzzleScenario
 import com.example.model.PuzzleScenarios
 import com.example.model.RiverState
 import com.example.model.SplashEvent
 import com.example.model.ViolationType
+import com.example.model.WeatherEffectType
 import com.example.navigation.ScreenDestination
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -182,6 +185,10 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
     // Particle splash event triggered when boat lands successfully
     private val _splashEvent = MutableStateFlow<SplashEvent?>(null)
     val splashEvent: StateFlow<SplashEvent?> = _splashEvent.asStateFlow()
+
+    // Disembark jump animation event when boat lands on the bank with jumping animals (Rabbit, Dog)
+    private val _disembarkJumpEvent = MutableStateFlow<DisembarkJumpEvent?>(null)
+    val disembarkJumpEvent: StateFlow<DisembarkJumpEvent?> = _disembarkJumpEvent.asStateFlow()
 
     // Triggered when a river crossing safely lands without rules violations
     private val _crossingSuccessEvent = MutableStateFlow<Long?>(null)
@@ -412,6 +419,59 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         audio.playStarPopSound(starIndex)
     }
 
+    /** Starts procedural continuous ambient sound generator for the specified biome */
+    fun startBiomeAmbience(biome: WeatherEffectType) {
+        audio.startBiomeAmbience(biome)
+    }
+
+    /** Stops procedural continuous ambient sound generator */
+    fun stopBiomeAmbience() {
+        audio.stopBiomeAmbience()
+    }
+
+    /** Synthesizes procedural bird call or nocturnal call for the current biome */
+    fun playBiomeBirdCall(biome: WeatherEffectType) {
+        audio.playBiomeBirdCall(biome)
+    }
+
+    /** Synthesizes procedural river flow sound effect for the biome */
+    fun playRiverFlowSound(biome: WeatherEffectType) {
+        audio.playRiverFlow(biome)
+    }
+
+    /** Plays tactile water droplet / ripple sound effect */
+    fun playWaterRippleSound() {
+        audio.playWaterRippleSound()
+    }
+
+    /** Plays terrain-specific procedural footstep */
+    fun playFootstep(biome: WeatherEffectType, isBoardingRaft: Boolean) {
+        audio.playFootstep(biome, isBoardingRaft)
+    }
+
+    /** Triggers preview jump animation and sound for the Rabbit or Dog */
+    fun triggerPreviewJump(item: GameItem, targetBank: Bank = Bank.RIGHT) {
+        viewModelScope.launch {
+            val jumpEvent = DisembarkJumpEvent(
+                id = System.currentTimeMillis(),
+                jumpingItems = listOf(item),
+                targetBank = targetBank,
+                durationMs = 600L
+            )
+            _disembarkJumpEvent.value = jumpEvent
+            if (item == GameItem.RABBIT) {
+                audio.playRabbitHop()
+            } else if (item == GameItem.DOG) {
+                audio.playDogBark()
+            }
+            delay(jumpEvent.durationMs - 120L)
+            val currentBiome = LevelTheme.forScenario(_riverState.value.scenario).weatherEffect
+            audio.playFootstep(currentBiome, isBoardingRaft = false)
+            delay(120L)
+            _disembarkJumpEvent.value = null
+        }
+    }
+
     fun showBoatFullAlert(message: String = "⚠️ The raft is full! Tap cargo on the raft to unload before adding more.") {
         _boatFullAlert.value = message
         audio.playConflictSound()
@@ -486,7 +546,8 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         _riverState.value = state.withItemLocation(item, ItemLocation.IN_BOAT).copy(
             boatPassengers = currentPassengers
         )
-        audio.playBoardSound(item)
+        val currentBiome = LevelTheme.forScenario(_riverState.value.scenario).weatherEffect
+        audio.playBoardSound(item, currentBiome)
         _hintMessage.value = null
         _boatFullAlert.value = null
     }
@@ -499,6 +560,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
 
         val currentBank = state.farmerBank
         val targetLocation = if (currentBank == Bank.LEFT) ItemLocation.LEFT_BANK else ItemLocation.RIGHT_BANK
+        val currentBiome = LevelTheme.forScenario(state.scenario).weatherEffect
 
         if (item != null) {
             if (item !in passengers) return
@@ -506,13 +568,13 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
             _riverState.value = state.withItemLocation(item, targetLocation).copy(
                 boatPassengers = remaining
             )
-            audio.playUnboardSound(item)
+            audio.playUnboardSound(item, currentBiome)
         } else {
             // Unload all
             var newState = state
             for (p in passengers) {
                 newState = newState.withItemLocation(p, targetLocation)
-                audio.playUnboardSound(p)
+                audio.playUnboardSound(p, currentBiome)
             }
             _riverState.value = newState.copy(boatPassengers = emptyList())
         }
@@ -527,7 +589,9 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
 
         viewModelScope.launch {
             _gameStatus.value = GameStatus.ROWING
+            val currentBiome = LevelTheme.forScenario(_riverState.value.scenario).weatherEffect
             audio.playRowingSound()
+            audio.playRiverFlow(currentBiome, durationMs = 1200, volume = 0.25f)
             _hintMessage.value = null
 
             val previousState = _riverState.value
@@ -555,6 +619,28 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
                 delay(frameDelay)
             }
             _boatPosition.value = targetProgress
+
+            // Check if jumping animals (Rabbit, Dog) are disembarking
+            val jumpingAnimals = passengers.filter { it == GameItem.RABBIT || it == GameItem.DOG }
+            if (jumpingAnimals.isNotEmpty()) {
+                val jumpEvent = DisembarkJumpEvent(
+                    id = System.currentTimeMillis(),
+                    jumpingItems = jumpingAnimals,
+                    targetBank = toBank,
+                    durationMs = 580L
+                )
+                _disembarkJumpEvent.value = jumpEvent
+                if (GameItem.RABBIT in jumpingAnimals) {
+                    audio.playRabbitHop()
+                }
+                if (GameItem.DOG in jumpingAnimals) {
+                    audio.playDogBark()
+                }
+                delay(jumpEvent.durationMs - 120L)
+                audio.playFootstep(currentBiome, isBoardingRaft = false)
+                delay(120L)
+                _disembarkJumpEvent.value = null
+            }
 
             // Update item locations upon landing
             val newLocation = if (toBank == Bank.LEFT) ItemLocation.LEFT_BANK else ItemLocation.RIGHT_BANK
@@ -659,6 +745,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         _gameStatus.value = GameStatus.IDLE
         _activeViolation.value = null
         _hintMessage.value = null
+        _disembarkJumpEvent.value = null
         dismissBoatFullAlert()
         if (updatedCount == 0) {
             resetTimer()
@@ -681,6 +768,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         _gameStatus.value = GameStatus.IDLE
         _activeViolation.value = null
         _hintMessage.value = null
+        _disembarkJumpEvent.value = null
         dismissBoatFullAlert()
         audio.playResetSound()
     }
@@ -842,5 +930,6 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
     override fun onCleared() {
         super.onCleared()
         stopAutoSolver()
+        audio.stopBiomeAmbience()
     }
 }

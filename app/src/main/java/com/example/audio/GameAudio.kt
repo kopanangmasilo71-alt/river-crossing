@@ -4,11 +4,15 @@ import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
 import com.example.model.GameItem
+import com.example.model.WeatherEffectType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlin.math.PI
 import kotlin.math.sin
@@ -17,6 +21,8 @@ import kotlin.random.Random
 /**
  * AAA Procedural Sound Synthesis Engine for River Crossing.
  * Generates rich, artifact-free 16-bit PCM audio natively without external heavy asset files.
+ * Includes continuous multi-layered biome ambience (river currents, bird calls, crickets, celestial chimes)
+ * and terrain-specific procedural footsteps.
  */
 class GameAudio {
     private val scope = CoroutineScope(Dispatchers.Default)
@@ -24,10 +30,18 @@ class GameAudio {
     private val _isMutedState = MutableStateFlow(false)
     val isMutedState: StateFlow<Boolean> = _isMutedState.asStateFlow()
 
+    private var ambientLoopJob: Job? = null
+    private var currentActiveBiome: WeatherEffectType? = null
+
     var isMuted: Boolean
         get() = _isMutedState.value
         set(value) {
             _isMutedState.value = value
+            if (value) {
+                stopBiomeAmbience()
+            } else {
+                currentActiveBiome?.let { startBiomeAmbience(it) }
+            }
         }
 
     fun toggleMute(): Boolean {
@@ -35,8 +49,67 @@ class GameAudio {
         _isMutedState.value = newState
         if (!newState) {
             playClickSound()
+            currentActiveBiome?.let { startBiomeAmbience(it) }
+        } else {
+            stopBiomeAmbience()
         }
         return newState
+    }
+
+    /**
+     * Starts the procedural continuous ambient background sound generator for the current biome.
+     * Dynamically blends organic water flow currents with intermittent natural soundscapes:
+     * - SPRING_VALLEY: Gentle river ripples, cheerful songbirds (warblers/finches)
+     * - AUTUMN_LEAVES: Amber river rapids, woodland robins and falling foliage rustle
+     * - ALPINE_PEAKS: Glacial torrent rapids, soaring mountain hawk/eagle calls, glacial echoes
+     * - SAVANNAH_SUN: Broad lazy river, distant savanna shrike birds, heat cicadas
+     * - MIDNIGHT_STARLIGHT: Calm dark water, nocturnal crickets and gentle night owl calls
+     * - TWILIGHT_MOTES: Mystical bubbling mineral stream, resonant loon calls & dusk motes
+     * - OASIS_MIRAGE: Turquoise lagoon lap, tropical desert parakeet / palm warblers
+     * - AURORA_SHIMMER: Prismatic ethereal glacial stream, celestial harmonic crystal chimes
+     */
+    fun startBiomeAmbience(biome: WeatherEffectType) {
+        currentActiveBiome = biome
+        if (isMuted) return
+
+        ambientLoopJob?.cancel()
+        ambientLoopJob = scope.launch {
+            // Initial river rush upon level entry
+            playRiverFlow(biome, durationMs = 2800, volume = 0.22f)
+            delay(1200L)
+
+            while (isActive && !isMuted) {
+                // Play rolling river flow layer with slight organic variations
+                val flowDuration = Random.nextInt(3200, 4800)
+                playRiverFlow(biome, durationMs = flowDuration, volume = 0.20f)
+
+                // Randomly trigger intermittent nature calls (bird calls, crickets, celestial bells)
+                delay(Random.nextLong(1400L, 2600L))
+                if (!isActive || isMuted) break
+
+                val eventChoice = Random.nextInt(100)
+                when {
+                    eventChoice < 65 -> {
+                        // Bird call or nocturnal wildlife sound
+                        playBiomeBirdCall(biome)
+                    }
+                    else -> {
+                        // Soft surface river surge / droplet
+                        playWaterRippleSound()
+                    }
+                }
+
+                delay(Random.nextLong(2000L, 4200L))
+            }
+        }
+    }
+
+    /**
+     * Stops the ambient background loop.
+     */
+    fun stopBiomeAmbience() {
+        ambientLoopJob?.cancel()
+        ambientLoopJob = null
     }
 
     /**
@@ -355,13 +428,338 @@ class GameAudio {
             GameItem.CHICKEN -> playChickenSound()
             GameItem.GRAIN -> playGrainSound()
             GameItem.TIGER -> playTigerSound()
+            GameItem.PHOENIX -> playPhoenixChirp()
+            GameItem.DRAGON -> playDragonRoar()
+            GameItem.UNICORN -> playUnicornWhinny()
+            GameItem.KRAKEN -> playKrakenSurge()
+            GameItem.GRIFFIN -> playGriffinScreech()
+            GameItem.CERBERUS -> playCerberusBark()
+            GameItem.STAR_CRYSTAL -> playStarCrystalChime()
+            GameItem.SUN_CHALICE -> playSunChaliceResonance()
+            GameItem.CELESTIAL_LOTUS -> playLotusBloomSound()
+            GameItem.GOLDEN_ORB -> playOrbHumSound()
+            GameItem.ASTRAL_CROWN -> playCrownChime()
+            GameItem.MYTHIC_STAG -> playStagBugle()
             else -> playWaterRippleSound()
         }
     }
 
     // -------------------------------------------------------------
-    // GAMEPLAY & INTERACTION SOUND EFFECTS
+    // PROCEDURAL BIOME SOUND ENGINE (RIVER FLOW, BIRD CALLS, FOOTSTEPS)
     // -------------------------------------------------------------
+
+    /**
+     * Synthesizes continuous organic river water flow acoustics dynamically tailored to the biome.
+     * Generates rich pink-noise filtered water swirls, tumbling brook ripples, glacial currents,
+     * or desert oasis lap waves.
+     */
+    fun playRiverFlow(
+        biome: WeatherEffectType,
+        durationMs: Int = 3600,
+        volume: Float = 0.20f
+    ) {
+        playCustomSound(durationMs = durationMs, volume = volume) { t, p ->
+            // Base water wave frequencies adapt by biome
+            val (baseFreq, modulationRate, depth) = when (biome) {
+                WeatherEffectType.SPRING_PETALS -> Triple(280f, 0.45f, 0.65f)      // Gentle crystal stream
+                WeatherEffectType.AUTUMN_LEAVES -> Triple(240f, 0.55f, 0.70f)      // Woodland rushing creek
+                WeatherEffectType.ALPINE_MIST -> Triple(180f, 0.85f, 0.85f)        // Glacial mountain torrent
+                WeatherEffectType.SAVANNAH_DUST -> Triple(150f, 0.30f, 0.50f)      // Wide lazy warm river
+                WeatherEffectType.MIDNIGHT_FIREFLIES -> Triple(210f, 0.25f, 0.45f) // Serene tranquil night water
+                WeatherEffectType.TWILIGHT_MOTES -> Triple(320f, 0.40f, 0.60f)     // Mystical mineral spring
+                WeatherEffectType.OASIS_MIRAGE -> Triple(190f, 0.35f, 0.55f)       // Tropical palm lagoon lap
+                WeatherEffectType.AURORA_SHIMMER -> Triple(350f, 0.60f, 0.75f)     // Prismatic glacial crystal melt
+            }
+
+            // Organic natural swelling and wave modulation
+            val flowSwell = sin(2.0 * PI * modulationRate * t).toFloat() * 0.4f + 0.6f
+            val currentRipple = sin(2.0 * PI * (baseFreq + sin(2.0 * PI * 1.8 * t).toFloat() * 45f) * t).toFloat() * 0.35f
+            val subCurrent = sin(2.0 * PI * (baseFreq * 0.55f) * t).toFloat() * 0.25f
+
+            // Filtered water surface turbulence
+            val waterTurbulence = (Random.nextFloat() * 2f - 1f) * depth * (1f - p * 0.15f) * 0.40f
+
+            (currentRipple + subCurrent + waterTurbulence) * flowSwell
+        }
+    }
+
+    /**
+     * Synthesizes authentic, melodic bird calls and nocturnal nature calls tailored to the game biome.
+     * Uses frequency modulation and chirped harmonic envelopes.
+     */
+    fun playBiomeBirdCall(biome: WeatherEffectType) {
+        when (biome) {
+            WeatherEffectType.SPRING_PETALS -> {
+                // Cheerful Spring Warbler: Rising multi-note trill (C6 -> G6 melodic chirp)
+                playCustomSound(durationMs = 380, volume = 0.34f) { t, p ->
+                    val noteIndex = (p * 4f).toInt()
+                    val baseFreq = when (noteIndex) {
+                        0 -> 1046.50f // C6
+                        1 -> 1318.51f // E6
+                        2 -> 1567.98f // G6
+                        else -> 2093.00f // C7
+                    }
+                    val trill = sin(2.0 * PI * 28.0 * t).toFloat() * 120f
+                    val birdTone = sin(2.0 * PI * (baseFreq + trill) * t).toFloat() * 0.75f
+                    val airOvertone = sin(2.0 * PI * ((baseFreq + trill) * 2f) * t).toFloat() * 0.25f
+                    (birdTone + airOvertone)
+                }
+            }
+            WeatherEffectType.AUTUMN_LEAVES -> {
+                // Woodland Thrush / Meadowlark: Melodious descending triple whistle
+                playCustomSound(durationMs = 420, volume = 0.32f) { t, p ->
+                    val freq = 1760f - (sin(p * PI.toFloat() * 2.5f) * 320f) - p * 200f
+                    val whistle = sin(2.0 * PI * freq * t).toFloat() * 0.85f
+                    val flutter = (Random.nextFloat() * 2f - 1f) * 0.15f * (1f - p)
+                    (whistle + flutter)
+                }
+            }
+            WeatherEffectType.ALPINE_MIST -> {
+                // Mountain Raptor / High-Altitude Hawk screech
+                playCustomSound(durationMs = 520, volume = 0.36f) { t, p ->
+                    val glideFreq = 1950f + sin(p * PI.toFloat()) * 480f - p * 500f
+                    val screech = sin(2.0 * PI * glideFreq * t).toFloat() * 0.70f
+                    val rasp = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.5f) * 0.30f
+                    (screech + rasp)
+                }
+            }
+            WeatherEffectType.SAVANNAH_DUST -> {
+                // Sunlit Savanna Lark & Grassland Cicadas
+                playCustomSound(durationMs = 460, volume = 0.30f) { t, p ->
+                    val cicadaBuzz = (Random.nextFloat() * 2f - 1f) * sin(2.0 * PI * 42.0 * t).toFloat() * 0.35f
+                    val larkFreq = 1450f + sin(2.0 * PI * 18.0 * t).toFloat() * 180f
+                    val larkChirp = sin(2.0 * PI * larkFreq * t).toFloat() * 0.65f
+                    (larkChirp + cicadaBuzz)
+                }
+            }
+            WeatherEffectType.MIDNIGHT_FIREFLIES -> {
+                // Nocturnal Crickets & Night Owl Hoot
+                playCustomSound(durationMs = 600, volume = 0.32f) { t, p ->
+                    val owlPhase = if (p < 0.45f) sin(p / 0.45f * PI.toFloat()) else sin((p - 0.45f) / 0.55f * PI.toFloat())
+                    val owlFreq = 340f + owlPhase * 70f
+                    val owlTone = sin(2.0 * PI * owlFreq * t).toFloat() * 0.75f
+                    val cricketTrill = (Random.nextFloat() * 2f - 1f) * sin(2.0 * PI * 65.0 * t).toFloat() * 0.25f
+                    (owlTone + cricketTrill)
+                }
+            }
+            WeatherEffectType.TWILIGHT_MOTES -> {
+                // Twilight Canyon Loon: Haunting resonant wail over lake
+                playCustomSound(durationMs = 540, volume = 0.34f) { t, p ->
+                    val freq = 587.33f + sin(p * PI.toFloat()) * 180f // D5
+                    val loon = sin(2.0 * PI * freq * t).toFloat() * 0.70f
+                    val overtone = sin(2.0 * PI * (freq * 1.5f) * t).toFloat() * 0.30f
+                    (loon + overtone)
+                }
+            }
+            WeatherEffectType.OASIS_MIRAGE -> {
+                // Palm Parakeet & Desert Warbler: Sweet rapid warble
+                playCustomSound(durationMs = 360, volume = 0.33f) { t, p ->
+                    val freq = 1200f + sin(2.0 * PI * 34.0 * t).toFloat() * 280f
+                    val chirps = sin(2.0 * PI * freq * t).toFloat() * 0.85f
+                    val air = (Random.nextFloat() * 2f - 1f) * 0.15f * (1f - p)
+                    (chirps + air)
+                }
+            }
+            WeatherEffectType.AURORA_SHIMMER -> {
+                // Polar Snow Bunting & Ethereal Celestial Glacial Chimes
+                playCustomSound(durationMs = 680, volume = 0.35f) { t, p ->
+                    val f1 = 1567.98f + sin(p * PI.toFloat()) * 300f // G6
+                    val f2 = 2093.00f                                // C7
+                    val bell = sin(2.0 * PI * f1 * t).toFloat() * 0.5f + sin(2.0 * PI * f2 * t).toFloat() * 0.35f
+                    val shimmer = sin(2.0 * PI * (f1 * 2.2f) * t).toFloat() * 0.15f
+                    (bell + shimmer) * (1f - p * 0.4f)
+                }
+            }
+        }
+    }
+
+    /**
+     * Procedural Footsteps: Tailors board & bank step acoustics to the current ground terrain.
+     * Grass, pebble/rock, dry timber, and sandy shores sound distinctly tactile.
+     */
+    fun playFootstep(biome: WeatherEffectType, isBoardingRaft: Boolean) {
+        if (isBoardingRaft) {
+            // Wooden plank footstep onto the raft dock
+            playCustomSound(durationMs = 90, volume = 0.32f) { t, p ->
+                val woodThump = sin(2.0 * PI * (190f - p * 80f) * t).toFloat() * 0.75f
+                val woodCreak = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.8f) * 0.25f
+                (woodThump + woodCreak)
+            }
+        } else {
+            // Shore ground footstep based on the biome terrain
+            when (biome) {
+                WeatherEffectType.SPRING_PETALS, WeatherEffectType.TWILIGHT_MOTES -> {
+                    // Soft lush meadow grass step
+                    playCustomSound(durationMs = 95, volume = 0.28f) { t, p ->
+                        val grass = sin(2.0 * PI * (320f - p * 120f) * t).toFloat() * 0.6f
+                        val rustle = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.85f) * 0.4f
+                        (grass + rustle)
+                    }
+                }
+                WeatherEffectType.AUTUMN_LEAVES -> {
+                    // Crisp autumn leaf litter crunch
+                    playCustomSound(durationMs = 110, volume = 0.32f) { t, p ->
+                        val leafCrunch = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.7f) * 0.70f
+                        val earthSnap = sin(2.0 * PI * (440f - p * 200f) * t).toFloat() * 0.30f
+                        (leafCrunch + earthSnap)
+                    }
+                }
+                WeatherEffectType.ALPINE_MIST, WeatherEffectType.AURORA_SHIMMER -> {
+                    // Crisp crunchy snow / glacial pebble gravel
+                    playCustomSound(durationMs = 100, volume = 0.34f) { t, p ->
+                        val gravelFreq = 540f - p * 180f
+                        val grit = sin(2.0 * PI * gravelFreq * t).toFloat() * 0.45f
+                        val crunch = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.6f) * 0.55f
+                        (grit + crunch)
+                    }
+                }
+                WeatherEffectType.SAVANNAH_DUST, WeatherEffectType.OASIS_MIRAGE -> {
+                    // Soft sandy dry bank scuff
+                    playCustomSound(durationMs = 105, volume = 0.30f) { t, p ->
+                        val sandHiss = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.8f) * 0.65f
+                        val sandThump = sin(2.0 * PI * (220f - p * 90f) * t).toFloat() * 0.35f
+                        (sandHiss + sandThump)
+                    }
+                }
+                WeatherEffectType.MIDNIGHT_FIREFLIES -> {
+                    // Damp riverbank moss step
+                    playCustomSound(durationMs = 95, volume = 0.29f) { t, p ->
+                        val moss = sin(2.0 * PI * (260f - p * 80f) * t).toFloat() * 0.65f
+                        val squish = (Random.nextFloat() * 2f - 1f) * (1f - p * 0.85f) * 0.35f
+                        (moss + squish)
+                    }
+                }
+            }
+        }
+    }
+
+    // -------------------------------------------------------------
+    // MYTHIC GAME OBJECT SOUND EFFECTS (LEVELS 91-100)
+    // -------------------------------------------------------------
+
+    /** Phoenix: Radiant vermilion solar flame cry & blazing wings */
+    fun playPhoenixChirp() {
+        playCustomSound(durationMs = 380, volume = 0.48f) { t, p ->
+            val solarFreq = 880f + sin(p * PI.toFloat() * 2f) * 440f
+            val cry = sin(2.0 * PI * solarFreq * t).toFloat() * 0.70f
+            val flame = (Random.nextFloat() * 2f - 1f) * sin(p * PI.toFloat()) * 0.30f
+            (cry + flame)
+        }
+    }
+
+    /** Dragon: Majestic glacial frost wyrm roar */
+    fun playDragonRoar() {
+        playCustomSound(durationMs = 450, volume = 0.52f) { t, p ->
+            val freq = 90f + sin(p * PI.toFloat()) * 75f
+            val roar = sin(2.0 * PI * freq * t).toFloat() * 0.60f
+            val sub = sin(2.0 * PI * (freq * 0.5f) * t).toFloat() * 0.25f
+            val frost = (Random.nextFloat() * 2f - 1f) * 0.25f
+            (roar + sub + frost)
+        }
+    }
+
+    /** Unicorn: Ethereal celestial whinny with starlight resonance */
+    fun playUnicornWhinny() {
+        playCustomSound(durationMs = 360, volume = 0.42f) { t, p ->
+            val freq = 650f + sin(p * 24f) * 120f + (1f - p) * 200f
+            val tone = sin(2.0 * PI * freq * t).toFloat() * 0.70f
+            val sparkle = sin(2.0 * PI * (freq * 2.5f) * t).toFloat() * 0.30f
+            (tone + sparkle)
+        }
+    }
+
+    /** Kraken: Deep abyssal sea rumble and suction surge */
+    fun playKrakenSurge() {
+        playCustomSound(durationMs = 420, volume = 0.48f) { t, p ->
+            val freq = 75f + sin(p * PI.toFloat()) * 50f
+            val abyss = sin(2.0 * PI * freq * t).toFloat() * 0.65f
+            val waterSurge = (Random.nextFloat() * 2f - 1f) * sin(p * PI.toFloat()) * 0.35f
+            (abyss + waterSurge)
+        }
+    }
+
+    /** Griffin: Regal raptor-lion sky screech */
+    fun playGriffinScreech() {
+        playCustomSound(durationMs = 340, volume = 0.46f) { t, p ->
+            val freq = 1200f + sin(p * PI.toFloat()) * 600f - p * 300f
+            val screech = sin(2.0 * PI * freq * t).toFloat() * 0.75f
+            val growl = sin(2.0 * PI * 180f * t).toFloat() * 0.25f
+            (screech + growl)
+        }
+    }
+
+    /** Cerberus: Volcanic three-headed nether hound bark */
+    fun playCerberusBark() {
+        playCustomSound(durationMs = 300, volume = 0.48f) { t, p ->
+            val f1 = 280f - p * 80f
+            val f2 = 220f - p * 60f
+            val b1 = sin(2.0 * PI * f1 * t).toFloat() * 0.45f
+            val b2 = sin(2.0 * PI * f2 * t).toFloat() * 0.40f
+            val magma = (Random.nextFloat() * 2f - 1f) * 0.25f * (1f - p)
+            (b1 + b2 + magma)
+        }
+    }
+
+    /** Star Crystal: Multi-faceted cosmic starlight chime */
+    fun playStarCrystalChime() {
+        playCustomSound(durationMs = 340, volume = 0.42f) { t, p ->
+            val f1 = 1760.0f // A6
+            val f2 = 2217.46f // C#7
+            val c1 = sin(2.0 * PI * f1 * t).toFloat() * 0.55f
+            val c2 = sin(2.0 * PI * f2 * t).toFloat() * 0.45f
+            (c1 + c2) * (1f - p * 0.5f)
+        }
+    }
+
+    /** Sun Chalice: Imperial solar ambrosia bell resonance */
+    fun playSunChaliceResonance() {
+        playCustomSound(durationMs = 400, volume = 0.44f) { t, p ->
+            val f = 783.99f // G5
+            val bell = sin(2.0 * PI * f * t).toFloat() * 0.65f
+            val warmHarmonic = sin(2.0 * PI * (f * 1.5f) * t).toFloat() * 0.35f
+            (bell + warmHarmonic) * (1f - p * 0.4f)
+        }
+    }
+
+    /** Celestial Lotus: Gentle blossom unfold with water droplet */
+    fun playLotusBloomSound() {
+        playCustomSound(durationMs = 280, volume = 0.38f) { t, p ->
+            val freq = 980f + sin(p * PI.toFloat()) * 400f
+            val bloom = sin(2.0 * PI * freq * t).toFloat() * 0.70f
+            val dew = (Random.nextFloat() * 2f - 1f) * 0.30f * (1f - p)
+            (bloom + dew)
+        }
+    }
+
+    /** Golden Orb: Primordial orbital pearl hum */
+    fun playOrbHumSound() {
+        playCustomSound(durationMs = 420, volume = 0.42f) { t, p ->
+            val orbitalFreq = 440f + sin(2.0 * PI * 12.0 * t).toFloat() * 60f
+            val hum = sin(2.0 * PI * orbitalFreq * t).toFloat() * 0.75f
+            val pulse = sin(2.0 * PI * 220f * t).toFloat() * 0.25f
+            (hum + pulse)
+        }
+    }
+
+    /** Astral Crown: Imperial cosmic crest chime */
+    fun playCrownChime() {
+        playCustomSound(durationMs = 360, volume = 0.45f) { t, p ->
+            val c6 = sin(2.0 * PI * 1046.50 * t).toFloat() * 0.5f
+            val e6 = sin(2.0 * PI * 1318.51 * t).toFloat() * 0.35f
+            val g6 = sin(2.0 * PI * 1567.98 * t).toFloat() * 0.25f
+            (c6 + e6 + g6) * (1f - p * 0.4f)
+        }
+    }
+
+    /** Mythic Stag: Ancient forest sovereign bugle */
+    fun playStagBugle() {
+        playCustomSound(durationMs = 480, volume = 0.46f) { t, p ->
+            val bugleFreq = 380f + sin(p * PI.toFloat()) * 260f
+            val horn = sin(2.0 * PI * bugleFreq * t).toFloat() * 0.75f
+            val echo = sin(2.0 * PI * (bugleFreq * 0.5f) * t).toFloat() * 0.25f
+            (horn + echo)
+        }
+    }
 
     /** Danger Warning Alert / Danger Line Trigger: Pulsing dramatic alarm */
     fun playDangerAlertSound() {
@@ -408,26 +806,24 @@ class GameAudio {
     // -------------------------------------------------------------
 
     /** Boarding Boat: Wooden plank step + character cue */
-    fun playBoardSound(item: GameItem? = null) {
-        playCustomSound(durationMs = 150, volume = 0.4f) { t, p ->
-            val woodKnock = sin(2.0 * PI * (220f - p * 80f) * t).toFloat() * (1f - p)
-            val ding = sin(2.0 * PI * (660f + p * 220f) * t).toFloat() * 0.5f
-            woodKnock + ding
-        }
+    fun playBoardSound(item: GameItem? = null, biome: WeatherEffectType = WeatherEffectType.SPRING_PETALS) {
+        playFootstep(biome, isBoardingRaft = true)
         item?.let {
             scope.launch {
-                kotlinx.coroutines.delay(100)
+                delay(90)
                 playCharacterSound(it)
             }
         }
     }
 
-    /** Disembarking Boat: Soft grass landing tone */
-    fun playUnboardSound(item: GameItem? = null) {
-        playCustomSound(durationMs = 130, volume = 0.35f) { t, p ->
-            val grassStep = sin(2.0 * PI * (380f - p * 120f) * t).toFloat() * 0.6f
-            val rustle = (Random.nextFloat() * 2f - 1f) * 0.2f
-            grassStep + rustle
+    /** Disembarking Boat: Procedural terrain ground footstep based on the biome */
+    fun playUnboardSound(item: GameItem? = null, biome: WeatherEffectType = WeatherEffectType.SPRING_PETALS) {
+        playFootstep(biome, isBoardingRaft = false)
+        item?.let {
+            scope.launch {
+                delay(80)
+                playCharacterSound(it)
+            }
         }
     }
 

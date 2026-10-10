@@ -62,6 +62,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.Composable
@@ -273,6 +274,7 @@ private fun GameplayScreenContent(
     val isAutoSolving by viewModel.isAutoSolving.collectAsStateWithLifecycle()
     val boatProgress by viewModel.boatPosition.collectAsStateWithLifecycle()
     val splashEvent by viewModel.splashEvent.collectAsStateWithLifecycle()
+    val disembarkJumpEvent by viewModel.disembarkJumpEvent.collectAsStateWithLifecycle()
     val boatFullAlert by viewModel.boatFullAlert.collectAsStateWithLifecycle()
 
     val highScores by viewModel.highScores.collectAsStateWithLifecycle()
@@ -316,6 +318,18 @@ private fun GameplayScreenContent(
     val currentScenario = riverState.scenario
     val levelTheme = remember(currentScenario.levelNumber) {
         LevelTheme.forScenario(currentScenario)
+    }
+
+    // Procedural Biome Ambience: Continuously synthesizes river currents and bird calls uniquely tailored to the biome
+    DisposableEffect(levelTheme.weatherEffect, isMuted) {
+        if (!isMuted) {
+            viewModel.startBiomeAmbience(levelTheme.weatherEffect)
+        } else {
+            viewModel.stopBiomeAmbience()
+        }
+        onDispose {
+            viewModel.stopBiomeAmbience()
+        }
     }
 
     val configuration = LocalConfiguration.current
@@ -414,10 +428,12 @@ private fun GameplayScreenContent(
                     boatProgress = boatProgress,
                     isRowing = gameStatus == GameStatus.ROWING,
                     splashEvent = splashEvent,
+                    jumpEvent = disembarkJumpEvent,
                     highlightedHintItem = highlightedHintItem,
                     isHintHighlightingBoat = isHintHighlightingBoat,
                     gameHaptics = gameHaptics,
                     onItemClick = { viewModel.toggleItem(it) },
+                    onWaterTap = { viewModel.playWaterRippleSound() },
                     isVictory = gameStatus == GameStatus.VICTORY,
                     theme = levelTheme,
                     modifier = Modifier.fillMaxSize()

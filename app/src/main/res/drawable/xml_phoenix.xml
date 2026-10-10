@@ -1,0 +1,195 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Ambient Fire Halo / Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#77FF9800" />
+                <item android:offset="0.5" android:color="#44FF5722" />
+                <item android:offset="1.0" android:color="#00D32F2F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Flowing Flame Tail Plumes -->
+    <path
+        android:pathData="M64,80 C60,94 48,110 36,118 C46,110 52,98 56,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="48"
+                android:startY="80"
+                android:endX="36"
+                android:endY="118"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.6" android:color="#FFFF5722" />
+                <item android:offset="1.0" android:color="#FFB71C1C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M64,82 C64,98 64,112 64,124 C68,112 70,98 68,82 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="82"
+                android:endX="64"
+                android:endY="124"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFEE58" />
+                <item android:offset="0.5" android:color="#FFFF7043" />
+                <item android:offset="1.0" android:color="#FFD32F2F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M64,80 C68,94 80,110 92,118 C82,110 76,98 72,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="80"
+                android:startY="80"
+                android:endX="92"
+                android:endY="118"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.6" android:color="#FFFF5722" />
+                <item android:offset="1.0" android:color="#FFB71C1C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Left Wing - Outer Feathers -->
+    <path
+        android:pathData="M56,58 C38,40 18,34 6,36 C10,48 20,62 36,70 C24,68 14,64 8,62 C14,74 26,82 46,84 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="56"
+                android:startY="34"
+                android:endX="6"
+                android:endY="84"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFF8F00" />
+                <item android:offset="0.5" android:color="#FFE64A19" />
+                <item android:offset="1.0" android:color="#FFC2185B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Right Wing - Outer Feathers -->
+    <path
+        android:pathData="M72,58 C90,40 110,34 122,36 C118,48 108,62 92,70 C104,68 114,64 120,62 C114,74 102,82 82,84 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="72"
+                android:startY="34"
+                android:endX="122"
+                android:endY="84"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFF8F00" />
+                <item android:offset="0.5" android:color="#FFE64A19" />
+                <item android:offset="1.0" android:color="#FFC2185B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Left Wing - Inner Golden Layer -->
+    <path
+        android:pathData="M58,56 C44,44 28,42 18,46 C24,56 34,66 50,72 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="58"
+                android:startY="42"
+                android:endX="18"
+                android:endY="72"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFF59D" />
+                <item android:offset="0.6" android:color="#FFFFB300" />
+                <item android:offset="1.0" android:color="#FFF4511E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Right Wing - Inner Golden Layer -->
+    <path
+        android:pathData="M70,56 C84,44 100,42 110,46 C104,56 94,66 78,72 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="70"
+                android:startY="42"
+                android:endX="110"
+                android:endY="72"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFF59D" />
+                <item android:offset="0.6" android:color="#FFFFB300" />
+                <item android:offset="1.0" android:color="#FFF4511E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Torso and Chest Plumes -->
+    <path
+        android:pathData="M64,48 C54,54 50,68 54,82 C58,88 70,88 74,82 C78,68 74,54 64,48 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="48"
+                android:endX="64"
+                android:endY="88"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFEE58" />
+                <item android:offset="0.4" android:color="#FFFFA726" />
+                <item android:offset="1.0" android:color="#FFE65100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Phoenix Head & Neck -->
+    <path
+        android:pathData="M64,28 C58,32 58,44 64,52 C70,44 70,32 64,28 Z"
+        android:fillColor="#FFFFB300" />
+
+    <!-- Royal Crown Crest Feathers -->
+    <path
+        android:pathData="M64,28 C61,20 54,14 46,12 C52,18 56,24 60,30 Z"
+        android:fillColor="#FFFF5722" />
+    <path
+        android:pathData="M64,28 C64,16 64,8 64,4 C66,10 66,20 64,28 Z"
+        android:fillColor="#FFFFEE58" />
+    <path
+        android:pathData="M64,28 C67,20 74,14 82,12 C76,18 72,24 68,30 Z"
+        android:fillColor="#FFFF5722" />
+
+    <!-- Sharp Curved Golden Beak -->
+    <path
+        android:pathData="M61,38 L67,38 L64,46 Z"
+        android:fillColor="#FFFFEB3B" />
+
+    <!-- Piercing Eyes -->
+    <path
+        android:pathData="M60,34 A1.8,1.8 0 1,0 63.6,34 A1.8,1.8 0 1,0 60,34 Z"
+        android:fillColor="#FF212121" />
+    <path
+        android:pathData="M64.4,34 A1.8,1.8 0 1,0 68,34 A1.8,1.8 0 1,0 64.4,34 Z"
+        android:fillColor="#FF212121" />
+    <path
+        android:pathData="M61,33.5 A0.6,0.6 0 1,0 62.2,33.5 A0.6,0.6 0 1,0 61,33.5 Z"
+        android:fillColor="#FFFFFFFF" />
+    <path
+        android:pathData="M65.4,33.5 A0.6,0.6 0 1,0 66.6,33.5 A0.6,0.6 0 1,0 65.4,33.5 Z"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- Heart of Fire Ember Core -->
+    <path
+        android:pathData="M64,62 C61,62 58,65 58,68 C58,73 64,78 64,78 C64,78 70,73 70,68 C70,65 67,62 64,62 Z"
+        android:fillColor="#FFFFFFFF" />
+</vector>

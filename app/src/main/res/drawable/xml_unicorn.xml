@@ -1,0 +1,137 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Starlight Celestial Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#55E040FB" />
+                <item android:offset="0.5" android:color="#337C4DFF" />
+                <item android:offset="1.0" android:color="#0018FFFF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Spiral Luminous Starlight Horn -->
+    <path
+        android:pathData="M64,6 L60,34 L68,34 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="6"
+                android:endX="64"
+                android:endY="34"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.3" android:color="#FFFFD700" />
+                <item android:offset="0.7" android:color="#FFFF6D00" />
+                <item android:offset="1.0" android:color="#FFFFAB00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Horn Spirals -->
+    <path android:pathData="M62,12 L66,15" android:strokeWidth="1.5" android:strokeColor="#FFFFFF" />
+    <path android:pathData="M61,19 L67,23" android:strokeWidth="1.8" android:strokeColor="#FFFFFF" />
+    <path android:pathData="M60,26 L68,30" android:strokeWidth="2.0" android:strokeColor="#FFFFFF" />
+
+    <!-- Flowing Prismatic Mane -->
+    <path
+        android:pathData="M52,32 C40,40 34,56 34,76 C38,68 46,62 50,60 C42,70 42,84 46,92 C50,82 56,76 60,74 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="34"
+                android:startY="32"
+                android:endX="60"
+                android:endY="92"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFE040FB" />
+                <item android:offset="0.5" android:color="#FF7C4DFF" />
+                <item android:offset="1.0" android:color="#FF00E5FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Right Flowing Mane Strands -->
+    <path
+        android:pathData="M76,32 C88,40 94,56 94,76 C90,68 82,62 78,60 C86,70 86,84 82,92 C78,82 72,76 68,74 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="94"
+                android:startY="32"
+                android:endX="68"
+                android:endY="92"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFE040FB" />
+                <item android:offset="0.5" android:color="#FF7C4DFF" />
+                <item android:offset="1.0" android:color="#FF00E5FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Pearlescent Stallion Body / Neck -->
+    <path
+        android:pathData="M64,36 C50,42 46,60 48,82 C50,96 78,96 80,82 C82,60 78,42 64,36 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="36"
+                android:endX="64"
+                android:endY="96"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.6" android:color="#FFF3E5F5" />
+                <item android:offset="1.0" android:color="#FFE1BEE7" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Unicorn Muzzle & Head -->
+    <path
+        android:pathData="M64,32 C56,36 54,48 58,62 C61,68 67,68 70,62 C74,48 72,36 64,32 Z"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- Cute Soft Pink Muzzle Tip -->
+    <path
+        android:pathData="M60,56 C62,64 66,64 68,56 Z"
+        android:fillColor="#FFF8BBD0" />
+    <!-- Nostrils -->
+    <path android:pathData="M62,58 A0.8,0.8 0 1,0 63.6,58 A0.8,0.8 0 1,0 62,58 Z" android:fillColor="#FFC2185B" />
+    <path android:pathData="M64.4,58 A0.8,0.8 0 1,0 66,58 A0.8,0.8 0 1,0 64.4,58 Z" android:fillColor="#FFC2185B" />
+
+    <!-- Big Kind Violet Eyes with Stars -->
+    <path
+        android:pathData="M56,44 A3,4 0 1,0 62,44 A3,4 0 1,0 56,44 Z"
+        android:fillColor="#FF4A148C" />
+    <path
+        android:pathData="M66,44 A3,4 0 1,0 72,44 A3,4 0 1,0 66,44 Z"
+        android:fillColor="#FF4A148C" />
+    <path
+        android:pathData="M57,43 A1.2,1.2 0 1,0 59.4,43 A1.2,1.2 0 1,0 57,43 Z"
+        android:fillColor="#FFFFFFFF" />
+    <path
+        android:pathData="M67,43 A1.2,1.2 0 1,0 69.4,43 A1.2,1.2 0 1,0 67,43 Z"
+        android:fillColor="#FFFFFFFF" />
+
+    <!-- Ears with Pink Inset -->
+    <path android:pathData="M55,30 L52,20 L60,26 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M55,27 L53,22 L58,26 Z" android:fillColor="#FFF8BBD0" />
+    <path android:pathData="M73,30 L76,20 L68,26 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M73,27 L75,22 L70,26 Z" android:fillColor="#FFF8BBD0" />
+
+    <!-- Golden Hooves Base -->
+    <path
+        android:pathData="M54,94 L62,94 L60,102 L56,102 Z"
+        android:fillColor="#FFFFD700" />
+    <path
+        android:pathData="M66,94 L74,94 L72,102 L68,102 Z"
+        android:fillColor="#FFFFD700" />
+</vector>

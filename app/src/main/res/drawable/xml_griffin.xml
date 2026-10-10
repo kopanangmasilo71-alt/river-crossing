@@ -1,0 +1,132 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Golden Sun Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#55FFD700" />
+                <item android:offset="0.5" android:color="#33FF9800" />
+                <item android:offset="1.0" android:color="#00E65100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Griffin Left Golden Wing -->
+    <path
+        android:pathData="M56,52 C36,32 16,28 6,32 C10,48 22,66 38,72 C26,70 16,66 10,64 C16,78 30,86 50,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="56"
+                android:startY="28"
+                android:endX="6"
+                android:endY="86"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFE65100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Griffin Right Golden Wing -->
+    <path
+        android:pathData="M72,52 C92,32 112,28 122,32 C118,48 106,66 90,72 C102,70 112,66 118,64 C112,78 98,86 78,86 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="72"
+                android:startY="28"
+                android:endX="122"
+                android:endY="86"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFE65100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Lion Muscular Body & Haunches -->
+    <path
+        android:pathData="M64,52 C52,58 48,72 50,90 C54,100 74,100 78,90 C80,72 76,58 64,52 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="52"
+                android:endX="64"
+                android:endY="100"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFE082" />
+                <item android:offset="0.6" android:color="#FFFFB300" />
+                <item android:offset="1.0" android:color="#FFF57C00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Griffin Eagle Head & Feathered Ruff -->
+    <path
+        android:pathData="M64,26 C56,28 54,40 56,52 C60,56 68,56 72,52 C74,40 72,28 64,26 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="26"
+                android:endX="64"
+                android:endY="56"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.4" android:color="#FFFFF8E1" />
+                <item android:offset="1.0" android:color="#FFFFD54F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Lion Ear Tufts on Eagle Head -->
+    <path android:pathData="M56,26 L52,16 L60,22 Z" android:fillColor="#FFFFB300" />
+    <path android:pathData="M72,26 L76,16 L68,22 Z" android:fillColor="#FFFFB300" />
+
+    <!-- Fierce Golden Hooked Beak -->
+    <path
+        android:pathData="M60,38 C60,48 64,56 64,56 C64,56 68,48 68,38 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="60"
+                android:startY="38"
+                android:endX="68"
+                android:endY="56"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD600" />
+                <item android:offset="1.0" android:color="#FFFF6D00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Keen Raptor Eyes -->
+    <path
+        android:pathData="M56,34 A2.4,2.4 0 1,0 60.8,34 A2.4,2.4 0 1,0 56,34 Z"
+        android:fillColor="#FF212121" />
+    <path
+        android:pathData="M67.2,34 A2.4,2.4 0 1,0 72,34 A2.4,2.4 0 1,0 67.2,34 Z"
+        android:fillColor="#FF212121" />
+    <path android:pathData="M57,33.5 A0.8,0.8 0 1,0 58.6,33.5 A0.8,0.8 0 1,0 57,33.5 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M68.2,33.5 A0.8,0.8 0 1,0 69.8,33.5 A0.8,0.8 0 1,0 68.2,33.5 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Eagle Fore-Talons & Lion Paws -->
+    <path android:pathData="M52,98 L50,110 L54,110 L56,106 L58,110 L62,110 L60,98 Z" android:fillColor="#FFFFB300" />
+    <path android:pathData="M68,98 L66,110 L70,110 L72,106 L74,110 L78,110 L76,98 Z" android:fillColor="#FFFFB300" />
+    <!-- Sharp Claws -->
+    <path android:pathData="M50,110 L48,114 L52,110 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M56,110 L56,115 L58,110 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M62,110 L64,114 L62,110 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M66,110 L64,114 L68,110 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M72,110 L72,115 L74,110 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M78,110 L80,114 L78,110 Z" android:fillColor="#FF212121" />
+</vector>

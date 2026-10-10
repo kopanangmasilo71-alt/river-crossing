@@ -100,6 +100,26 @@ data class SpriteSheetSpec(
             fps = 10,
             loop = true
         )
+
+        val RABBIT_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_rabbit_jump,
+            columns = 6,
+            rows = 1,
+            totalFrames = 6,
+            fps = 11,
+            loop = false,
+            cellBleedInsetPercent = 0.045f
+        )
+
+        val DOG_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_dog_jump,
+            columns = 6,
+            rows = 1,
+            totalFrames = 6,
+            fps = 11,
+            loop = false,
+            cellBleedInsetPercent = 0.045f
+        )
     }
 }
 
@@ -111,6 +131,7 @@ fun SpriteSheetAnimation(
     spec: SpriteSheetSpec,
     modifier: Modifier = Modifier,
     isPlaying: Boolean = true,
+    progress: Float? = null,
     customFps: Int? = null,
     flipX: Boolean = false,
     onAnimationEnd: (() -> Unit)? = null
@@ -119,18 +140,24 @@ fun SpriteSheetAnimation(
     val effectiveFps = (customFps ?: spec.fps).coerceAtLeast(1)
     val frameDurationMs = (1000L / effectiveFps)
 
-    var currentFrame by remember(spec.drawableRes, isPlaying) { mutableIntStateOf(0) }
+    var internalFrame by remember(spec.drawableRes, isPlaying) { mutableIntStateOf(0) }
 
-    LaunchedEffect(spec.drawableRes, isPlaying, effectiveFps) {
-        if (!isPlaying) return@LaunchedEffect
-        currentFrame = 0
+    val currentFrame = if (progress != null) {
+        (progress.coerceIn(0f, 1f) * (spec.totalFrames - 1)).roundToInt().coerceIn(0, spec.totalFrames - 1)
+    } else {
+        internalFrame
+    }
+
+    LaunchedEffect(spec.drawableRes, isPlaying, effectiveFps, progress) {
+        if (progress != null || !isPlaying) return@LaunchedEffect
+        internalFrame = 0
         while (true) {
             delay(frameDurationMs)
-            if (currentFrame + 1 < spec.totalFrames) {
-                currentFrame++
+            if (internalFrame + 1 < spec.totalFrames) {
+                internalFrame++
             } else {
                 if (spec.loop) {
-                    currentFrame = 0
+                    internalFrame = 0
                 } else {
                     onAnimationEnd?.invoke()
                     break

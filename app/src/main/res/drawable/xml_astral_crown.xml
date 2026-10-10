@@ -1,0 +1,120 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Imperial Royalty Glow -->
+    <path
+        android:pathData="M64,14 C92,14 116,38 116,66 C116,94 92,118 64,118 C36,118 12,94 12,66 C12,38 36,14 64,14 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="66"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#77FFD700" />
+                <item android:offset="0.5" android:color="#44AA00FF" />
+                <item android:offset="1.0" android:color="#00311B92" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Velvet Purple Inner Cap -->
+    <path
+        android:pathData="M32,82 C32,50 46,38 64,38 C82,38 96,50 96,82 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="38"
+                android:endX="64"
+                android:endY="82"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF7B1FA2" />
+                <item android:offset="0.5" android:color="#FF4A148C" />
+                <item android:offset="1.0" android:color="#FF311B92" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Imperial Golden Diadem Band -->
+    <path
+        android:pathData="M24,84 L104,84 L100,98 L28,98 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="24"
+                android:startY="84"
+                android:endX="104"
+                android:endY="98"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFFF6F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Ermine Fur Trim Base -->
+    <path android:pathData="M26,98 L102,98 L100,104 L28,104 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M38,101 A1.2,1.2 0 1,0 40.4,101 A1.2,1.2 0 1,0 38,101 Z" android:fillColor="#FF000000" />
+    <path android:pathData="M52,101 A1.2,1.2 0 1,0 54.4,101 A1.2,1.2 0 1,0 52,101 Z" android:fillColor="#FF000000" />
+    <path android:pathData="M64,101 A1.2,1.2 0 1,0 66.4,101 A1.2,1.2 0 1,0 64,101 Z" android:fillColor="#FF000000" />
+    <path android:pathData="M76,101 A1.2,1.2 0 1,0 78.4,101 A1.2,1.2 0 1,0 76,101 Z" android:fillColor="#FF000000" />
+    <path android:pathData="M88,101 A1.2,1.2 0 1,0 90.4,101 A1.2,1.2 0 1,0 88,101 Z" android:fillColor="#FF000000" />
+
+    <!-- Crown Arches & Spires -->
+    <!-- Center Sceptre Spire -->
+    <path
+        android:pathData="M60,84 L60,42 L64,28 L68,42 L68,84 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="60"
+                android:startY="28"
+                android:endX="68"
+                android:endY="84"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.4" android:color="#FFFFD54F" />
+                <item android:offset="1.0" android:color="#FFFFA000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Left Spire -->
+    <path
+        android:pathData="M34,84 L40,48 L46,38 L50,56 L52,84 Z"
+        android:fillColor="#FFFFB300" />
+    <path
+        android:pathData="M24,84 L26,56 L32,46 L36,66 L38,84 Z"
+        android:fillColor="#FFFF8F00" />
+    <!-- Right Spire -->
+    <path
+        android:pathData="M94,84 L88,48 L82,38 L78,56 L76,84 Z"
+        android:fillColor="#FFFFB300" />
+    <path
+        android:pathData="M104,84 L102,56 L96,46 L92,66 L90,84 Z"
+        android:fillColor="#FFFF8F00" />
+
+    <!-- Crown Apex Celestial Cross / Star -->
+    <path
+        android:pathData="M64,20 L66,26 L72,28 L66,30 L64,36 L62,30 L56,28 L62,26 Z"
+        android:fillColor="#FFFFFFFF" />
+    <path
+        android:pathData="M64,28 A4,4 0 1,0 64,20 A4,4 0 1,0 64,28 Z"
+        android:fillColor="#FFFFD700" />
+
+    <!-- Precious Jewels on the Diadem Band -->
+    <!-- Center Sapphire -->
+    <path android:pathData="M60,91 A3,3 0 1,0 66,91 A3,3 0 1,0 60,91 Z" android:fillColor="#FF00E5FF" />
+    <!-- Left Rubies -->
+    <path android:pathData="M44,91 A2.5,2.5 0 1,0 49,91 A2.5,2.5 0 1,0 44,91 Z" android:fillColor="#FFD50000" />
+    <path android:pathData="M32,91 A2,2 0 1,0 36,91 A2,2 0 1,0 32,91 Z" android:fillColor="#FF00E676" />
+    <!-- Right Rubies -->
+    <path android:pathData="M78,91 A2.5,2.5 0 1,0 83,91 A2.5,2.5 0 1,0 78,91 Z" android:fillColor="#FFD50000" />
+    <path android:pathData="M90,91 A2,2 0 1,0 94,91 A2,2 0 1,0 90,91 Z" android:fillColor="#FF00E676" />
+
+    <!-- Spire Jewel Pearls -->
+    <path android:pathData="M44,38 A2.2,2.2 0 1,0 48.4,38 A2.2,2.2 0 1,0 44,38 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M80,38 A2.2,2.2 0 1,0 84.4,38 A2.2,2.2 0 1,0 80,38 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M30,46 A1.8,1.8 0 1,0 33.6,46 A1.8,1.8 0 1,0 30,46 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M94,46 A1.8,1.8 0 1,0 97.6,46 A1.8,1.8 0 1,0 94,46 Z" android:fillColor="#FFFFFFFF" />
+</vector>

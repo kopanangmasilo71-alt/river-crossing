@@ -1,0 +1,139 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Deep Ocean Water Bubble Glow -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#5500B4D8" />
+                <item android:offset="0.6" android:color="#330077B6" />
+                <item android:offset="1.0" android:color="#0003045E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Kraken Domed Head / Mantle -->
+    <path
+        android:pathData="M64,20 C46,20 38,36 40,56 C42,66 50,72 64,74 C78,72 86,66 88,56 C90,36 82,20 64,20 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="20"
+                android:endX="64"
+                android:endY="74"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00F5D4" />
+                <item android:offset="0.4" android:color="#FF00BBF9" />
+                <item android:offset="1.0" android:color="#FF0077B6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Bioluminescent Crown Spots on Mantle -->
+    <path android:pathData="M64,28 A3,3 0 1,0 70,28 A3,3 0 1,0 64,28 Z" android:fillColor="#FFFFEE58" />
+    <path android:pathData="M54,36 A2.5,2.5 0 1,0 59,36 A2.5,2.5 0 1,0 54,36 Z" android:fillColor="#FFFFEE58" />
+    <path android:pathData="M69,36 A2.5,2.5 0 1,0 74,36 A2.5,2.5 0 1,0 69,36 Z" android:fillColor="#FFFFEE58" />
+    <path android:pathData="M48,46 A2,2 0 1,0 52,46 A2,2 0 1,0 48,46 Z" android:fillColor="#FFFFEE58" />
+    <path android:pathData="M76,46 A2,2 0 1,0 80,46 A2,2 0 1,0 76,46 Z" android:fillColor="#FFFFEE58" />
+
+    <!-- Big Mystic Golden Eyes -->
+    <path
+        android:pathData="M46,58 A6,6 0 1,0 58,58 A6,6 0 1,0 46,58 Z"
+        android:fillColor="#FFFFD600" />
+    <path
+        android:pathData="M70,58 A6,6 0 1,0 82,58 A6,6 0 1,0 70,58 Z"
+        android:fillColor="#FFFFD600" />
+    <!-- Pupil Horizontal Slits -->
+    <path android:pathData="M48,56 L56,56 L56,60 L48,60 Z" android:fillColor="#FF03045E" />
+    <path android:pathData="M72,56 L80,56 L80,60 L72,60 Z" android:fillColor="#FF03045E" />
+    <!-- Eye Sparkles -->
+    <path android:pathData="M50,54 A1.2,1.2 0 1,0 52.4,54 A1.2,1.2 0 1,0 50,54 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M74,54 A1.2,1.2 0 1,0 76.4,54 A1.2,1.2 0 1,0 74,54 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Sinuous Writhing Tentacles -->
+    <!-- Far Left Tentacle -->
+    <path
+        android:pathData="M46,70 C30,76 12,88 14,106 C16,118 30,114 26,102 C24,94 36,84 46,78 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="46"
+                android:startY="70"
+                android:endX="14"
+                android:endY="114"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00BBF9" />
+                <item android:offset="1.0" android:color="#FF7209B7" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Mid Left Tentacle -->
+    <path
+        android:pathData="M52,72 C42,84 34,98 38,114 C40,122 48,120 46,110 C44,100 50,86 54,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="52"
+                android:startY="72"
+                android:endX="38"
+                android:endY="122"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00F5D4" />
+                <item android:offset="1.0" android:color="#FF0077B6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Center Left Tentacle -->
+    <path
+        android:pathData="M58,74 C54,88 52,106 56,122 C58,126 64,124 64,116 C64,104 62,88 62,74 Z"
+        android:fillColor="#FF00B4D8" />
+    <!-- Center Right Tentacle -->
+    <path
+        android:pathData="M66,74 C66,88 64,104 64,116 C64,124 70,126 72,122 C76,106 74,88 70,74 Z"
+        android:fillColor="#FF00B4D8" />
+    <!-- Mid Right Tentacle -->
+    <path
+        android:pathData="M74,76 C78,86 84,100 82,110 C80,120 88,122 90,114 C94,98 86,84 76,72 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="74"
+                android:startY="72"
+                android:endX="90"
+                android:endY="122"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00F5D4" />
+                <item android:offset="1.0" android:color="#FF0077B6" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Far Right Tentacle -->
+    <path
+        android:pathData="M82,78 C92,84 104,94 102,102 C98,114 112,118 114,106 C116,88 98,76 82,70 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="82"
+                android:startY="70"
+                android:endX="114"
+                android:endY="114"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00BBF9" />
+                <item android:offset="1.0" android:color="#FF7209B7" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Bioluminescent Tentacle Suckers -->
+    <path android:pathData="M22,102 A1.5,1.5 0 1,0 25,102 A1.5,1.5 0 1,0 22,102 Z" android:fillColor="#FFFFD166" />
+    <path android:pathData="M28,94 A1.8,1.8 0 1,0 31.6,94 A1.8,1.8 0 1,0 28,94 Z" android:fillColor="#FFFFD166" />
+    <path android:pathData="M40,110 A1.8,1.8 0 1,0 43.6,110 A1.8,1.8 0 1,0 40,110 Z" android:fillColor="#FFFFD166" />
+    <path android:pathData="M84,110 A1.8,1.8 0 1,0 87.6,110 A1.8,1.8 0 1,0 84,110 Z" android:fillColor="#FFFFD166" />
+    <path android:pathData="M96,94 A1.8,1.8 0 1,0 99.6,94 A1.8,1.8 0 1,0 96,94 Z" android:fillColor="#FFFFD166" />
+    <path android:pathData="M103,102 A1.5,1.5 0 1,0 106,102 A1.5,1.5 0 1,0 103,102 Z" android:fillColor="#FFFFD166" />
+</vector>

@@ -1,0 +1,130 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+
+    <!-- Deep Space Sky Gradient -->
+    <path
+        android:pathData="M0,0 H400 V300 H0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="0"
+                android:endX="200"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF0B0826" />
+                <item android:offset="0.4" android:color="#FF1A1041" />
+                <item android:offset="0.7" android:color="#FF241258" />
+                <item android:offset="1.0" android:color="#FF0D1B2A" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Celestial Nebula Clouds -->
+    <path
+        android:pathData="M0,40 C100,10 180,70 300,30 C350,15 380,45 400,35 L400,120 C320,150 200,90 100,140 C40,160 10,130 0,120 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="30"
+                android:endX="400"
+                android:endY="140"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#33E040FB" />
+                <item android:offset="0.5" android:color="#447C4DFF" />
+                <item android:offset="1.0" android:color="#2200E5FF" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Distant Cosmic Mountains -->
+    <path
+        android:pathData="M0,170 L60,110 L130,160 L210,95 L290,155 L350,115 L400,160 L400,200 L0,200 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="95"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF311B92" />
+                <item android:offset="1.0" android:color="#FF0F0E26" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Starfield Particles -->
+    <path android:pathData="M40,25 A1.2,1.2 0 1,0 42.4,25 A1.2,1.2 0 1,0 40,25 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M95,65 A1.5,1.5 0 1,0 98,65 A1.5,1.5 0 1,0 95,65 Z" android:fillColor="#FFFEF08A" />
+    <path android:pathData="M160,35 A1.0,1.0 0 1,0 162,35 A1.0,1.0 0 1,0 160,35 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M240,45 A1.8,1.8 0 1,0 243.6,45 A1.8,1.8 0 1,0 240,45 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M310,25 A1.2,1.2 0 1,0 312.4,25 A1.2,1.2 0 1,0 310,25 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M370,70 A1.5,1.5 0 1,0 373,70 A1.5,1.5 0 1,0 370,70 Z" android:fillColor="#FF80D8FF" />
+    <path android:pathData="M200,20 A1.0,1.0 0 1,0 202,20 A1.0,1.0 0 1,0 200,20 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M120,80 A1.0,1.0 0 1,0 122,80 A1.0,1.0 0 1,0 120,80 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M280,75 A1.2,1.2 0 1,0 282.4,75 A1.2,1.2 0 1,0 280,75 Z" android:fillColor="#FFFFFFFF" />
+
+    <!-- Left Shore Platform Base -->
+    <path
+        android:pathData="M0,165 Q70,185 100,230 L110,300 L0,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="165"
+                android:endX="110"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF1E163B" />
+                <item android:offset="0.7" android:color="#FF130E26" />
+                <item android:offset="1.0" android:color="#FF080614" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Left Shore Golden Edge -->
+    <path
+        android:pathData="M0,165 Q70,185 100,230 L110,300"
+        android:strokeWidth="2.5"
+        android:strokeColor="#AA00E5FF" />
+
+    <!-- Right Shore Platform Base -->
+    <path
+        android:pathData="M400,165 Q330,185 300,230 L290,300 L400,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="400"
+                android:startY="165"
+                android:endX="290"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF1E163B" />
+                <item android:offset="0.7" android:color="#FF130E26" />
+                <item android:offset="1.0" android:color="#FF080614" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Right Shore Golden Edge -->
+    <path
+        android:pathData="M400,165 Q330,185 300,230 L290,300"
+        android:strokeWidth="2.5"
+        android:strokeColor="#AA00E5FF" />
+
+    <!-- Central River Water Surface -->
+    <path
+        android:pathData="M70,180 L330,180 L290,300 L110,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="180"
+                android:endX="200"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#CC00B4D8" />
+                <item android:offset="0.5" android:color="#CC0077B6" />
+                <item android:offset="1.0" android:color="#EE03045E" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

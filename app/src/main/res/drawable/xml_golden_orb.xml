@@ -1,0 +1,83 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Celestial Energy Orbit Rings -->
+    <path
+        android:pathData="M64,10 C94,10 118,34 118,64 C118,94 94,118 64,118 C34,118 10,94 10,64 C10,34 34,10 64,10 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="54"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#77FFD700" />
+                <item android:offset="0.6" android:color="#44FFAB00" />
+                <item android:offset="1.0" android:color="#00FF6D00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Planetary Astral Ring 1 -->
+    <path
+        android:pathData="M16,68 C22,50 64,42 98,54 C112,60 116,72 108,76 C94,84 46,86 24,78 Z"
+        android:strokeWidth="2.0"
+        android:strokeColor="#AAFFE082" />
+    <!-- Planetary Astral Ring 2 -->
+    <path
+        android:pathData="M24,54 C36,40 76,38 104,52 C116,60 112,74 98,82 C72,92 34,84 20,70 Z"
+        android:strokeWidth="1.6"
+        android:strokeColor="#88FFD54F" />
+
+    <!-- Ornate Dragon-Claw / Lotus Plinth Pedestal -->
+    <path
+        android:pathData="M44,106 C44,98 54,94 64,94 C74,94 84,98 84,106 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="44"
+                android:startY="94"
+                android:endX="84"
+                android:endY="106"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFD54F" />
+                <item android:offset="0.5" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFFF6F00" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M38,106 L90,106 L86,114 L42,114 Z" android:fillColor="#FFFFD700" />
+
+    <!-- Pure Sphere Pearl / Golden Orb -->
+    <path
+        android:pathData="M64,28 A36,36 0 1,0 64,100 A36,36 0 1,0 64,28 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="52"
+                android:centerY="48"
+                android:gradientRadius="44"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.2" android:color="#FFFFF9C4" />
+                <item android:offset="0.5" android:color="#FFFFD54F" />
+                <item android:offset="0.8" android:color="#FFFFA000" />
+                <item android:offset="1.0" android:color="#FFE65100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Internal Concentric Swirl of Light -->
+    <path
+        android:pathData="M48,46 C56,36 74,40 76,52 C78,64 64,74 54,68 C46,62 48,54 54,50"
+        android:strokeWidth="2.5"
+        android:strokeColor="#55FFFFFF" />
+
+    <!-- Radiant Star Specular Highlight -->
+    <path
+        android:pathData="M50,38 A4,4 0 1,0 58,38 A4,4 0 1,0 50,38 Z"
+        android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M54,30 L54,46" android:strokeWidth="1.6" android:strokeColor="#FFFFFFFF" />
+    <path android:pathData="M46,38 L62,38" android:strokeWidth="1.6" android:strokeColor="#FFFFFFFF" />
+</vector>

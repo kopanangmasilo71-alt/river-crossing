@@ -1,0 +1,123 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="400dp"
+    android:height="300dp"
+    android:viewportWidth="400"
+    android:viewportHeight="300">
+
+    <!-- Volcanic Ember Sky Gradient -->
+    <path
+        android:pathData="M0,0 H400 V300 H0 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="0"
+                android:endX="200"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF1A0505" />
+                <item android:offset="0.4" android:color="#FF3E0E0E" />
+                <item android:offset="0.7" android:color="#FF6A1306" />
+                <item android:offset="1.0" android:color="#FF240404" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Glowing Volcanic Smoke & Fire Aurora -->
+    <path
+        android:pathData="M0,30 C90,10 180,60 280,20 C340,30 380,10 400,20 L400,110 C310,130 190,80 90,120 L0,90 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="20"
+                android:endX="400"
+                android:endY="120"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#44FF5722" />
+                <item android:offset="0.5" android:color="#55FF9800" />
+                <item android:offset="1.0" android:color="#22FFD54F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Jagged Obsidian Volcano Peaks -->
+    <path
+        android:pathData="M0,160 L50,90 L110,150 L180,80 L260,150 L340,100 L400,160 L400,200 L0,200 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="80"
+                android:endX="200"
+                android:endY="200"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF4E1408" />
+                <item android:offset="1.0" android:color="#FF1A0804" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Floating Fire Ember Sparks -->
+    <path android:pathData="M60,30 A1.5,1.5 0 1,0 63,30 A1.5,1.5 0 1,0 60,30 Z" android:fillColor="#FFFFD54F" />
+    <path android:pathData="M140,50 A1.2,1.2 0 1,0 142.4,50 A1.2,1.2 0 1,0 140,50 Z" android:fillColor="#FFFF7043" />
+    <path android:pathData="M230,25 A1.8,1.8 0 1,0 233.6,25 A1.8,1.8 0 1,0 230,25 Z" android:fillColor="#FFFFEB3B" />
+    <path android:pathData="M320,60 A1.5,1.5 0 1,0 323,60 A1.5,1.5 0 1,0 320,60 Z" android:fillColor="#FFFF5722" />
+
+    <!-- Left Basalt Cliff Shore -->
+    <path
+        android:pathData="M0,165 Q70,185 100,230 L110,300 L0,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="0"
+                android:startY="165"
+                android:endX="110"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF260E08" />
+                <item android:offset="0.7" android:color="#FF180703" />
+                <item android:offset="1.0" android:color="#FF0D0301" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M0,165 Q70,185 100,230 L110,300"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFF7043" />
+
+    <!-- Right Basalt Cliff Shore -->
+    <path
+        android:pathData="M400,165 Q330,185 300,230 L290,300 L400,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="400"
+                android:startY="165"
+                android:endX="290"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF260E08" />
+                <item android:offset="0.7" android:color="#FF180703" />
+                <item android:offset="1.0" android:color="#FF0D0301" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:pathData="M400,165 Q330,185 300,230 L290,300"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFF7043" />
+
+    <!-- Magma Stream River Water -->
+    <path
+        android:pathData="M70,180 L330,180 L290,300 L110,300 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="200"
+                android:startY="180"
+                android:endX="200"
+                android:endY="300"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#EEFF6D00" />
+                <item android:offset="0.5" android:color="#EEBF360C" />
+                <item android:offset="1.0" android:color="#FF5D1002" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

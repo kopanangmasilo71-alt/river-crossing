@@ -1,0 +1,154 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Ethereal Pond Water Glow -->
+    <path
+        android:pathData="M64,14 C92,14 116,38 116,66 C116,94 92,118 64,118 C36,118 12,94 12,66 C12,38 36,14 64,14 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="66"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#77F48FB1" />
+                <item android:offset="0.5" android:color="#33BA68C8" />
+                <item android:offset="1.0" android:color="#004A148C" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Lily Pad Leaf Base -->
+    <path
+        android:pathData="M24,96 C16,84 28,70 64,70 C100,70 112,84 104,96 C96,108 32,108 24,96 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="24"
+                android:startY="70"
+                android:endX="104"
+                android:endY="108"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF00E676" />
+                <item android:offset="0.5" android:color="#FF00C853" />
+                <item android:offset="1.0" android:color="#FF1B5E20" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Outer Lotus Petals -->
+    <!-- Far Left Petal -->
+    <path
+        android:pathData="M64,76 C40,76 20,60 16,44 C26,42 46,54 64,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="16"
+                android:startY="42"
+                android:endX="64"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFF8BBD0" />
+                <item android:offset="0.6" android:color="#FFEC407A" />
+                <item android:offset="1.0" android:color="#FFAD1457" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Far Right Petal -->
+    <path
+        android:pathData="M64,76 C88,76 108,60 112,44 C102,42 82,54 64,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="112"
+                android:startY="42"
+                android:endX="64"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFF8BBD0" />
+                <item android:offset="0.6" android:color="#FFEC407A" />
+                <item android:offset="1.0" android:color="#FFAD1457" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Mid Left Petal -->
+    <path
+        android:pathData="M64,76 C46,68 32,46 36,30 C46,36 56,54 64,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="32"
+                android:startY="30"
+                android:endX="64"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.5" android:color="#FFF06292" />
+                <item android:offset="1.0" android:color="#FFC2185B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Mid Right Petal -->
+    <path
+        android:pathData="M64,76 C82,68 96,46 92,30 C82,36 72,54 64,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="96"
+                android:startY="30"
+                android:endX="64"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.5" android:color="#FFF06292" />
+                <item android:offset="1.0" android:color="#FFC2185B" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Center Grand Petal -->
+    <path
+        android:pathData="M64,76 C54,58 52,34 64,18 C76,34 74,58 64,76 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="18"
+                android:endX="64"
+                android:endY="76"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.4" android:color="#FFF8BBD0" />
+                <item android:offset="0.8" android:color="#FFE91E63" />
+                <item android:offset="1.0" android:color="#FF880E4F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner Front Left Petal -->
+    <path
+        android:pathData="M64,76 C54,66 48,56 50,46 C56,52 60,64 64,76 Z"
+        android:fillColor="#FFFF80AB" />
+    <!-- Inner Front Right Petal -->
+    <path
+        android:pathData="M64,76 C74,66 80,56 78,46 C72,52 68,64 64,76 Z"
+        android:fillColor="#FFFF80AB" />
+
+    <!-- Luminous Golden Stamen Core -->
+    <path
+        android:pathData="M58,68 C58,60 64,54 64,54 C64,54 70,60 70,68 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="8"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#FFFFFFFF" />
+                <item android:offset="0.5" android:color="#FFFFEE58" />
+                <item android:offset="1.0" android:color="#FFFF9100" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Pollen Sparks -->
+    <path android:pathData="M64,56 A1.5,1.5 0 1,0 67,56 A1.5,1.5 0 1,0 64,56 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M60,62 A1.2,1.2 0 1,0 62.4,62 A1.2,1.2 0 1,0 60,62 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M66,62 A1.2,1.2 0 1,0 68.4,62 A1.2,1.2 0 1,0 66,62 Z" android:fillColor="#FFFFD700" />
+</vector>

@@ -98,6 +98,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
 import com.example.model.Bank
+import com.example.model.DisembarkJumpEvent
 import com.example.model.GameItem
 import com.example.model.RiverState
 import com.example.model.SplashEvent
@@ -139,10 +140,12 @@ fun RiverScene(
     boatProgress: Float,
     isRowing: Boolean,
     splashEvent: SplashEvent? = null,
+    jumpEvent: DisembarkJumpEvent? = null,
     highlightedHintItem: GameItem? = null,
     isHintHighlightingBoat: Boolean = false,
     gameHaptics: GameHaptics? = null,
     onItemClick: (GameItem) -> Unit,
+    onWaterTap: (() -> Unit)? = null,
     isVictory: Boolean = false,
     theme: LevelTheme? = null,
     modifier: Modifier = Modifier
@@ -643,6 +646,7 @@ fun RiverScene(
                         val newRipple = TapRipple(id = now, x = offset.x, y = offset.y, startTime = now)
                         tapRipples = (tapRipples.filter { (now - it.startTime) < 1200 } + newRipple).takeLast(8)
                         gameHaptics?.onDragStart()
+                        onWaterTap?.invoke()
                     }
                 }
         )
@@ -728,7 +732,17 @@ fun RiverScene(
             )
         }
 
-        // 5. Water Splash Particle Overlay
+        // 5. Animal Disembark Jump Animation Overlay (Rabbit & Dog realistic leap from boat to bank)
+        AnimalDisembarkJumpOverlay(
+            jumpEvent = jumpEvent,
+            totalWidth = totalWidth,
+            totalHeight = totalHeight,
+            bankWidth = bankWidth,
+            boatWidth = boatWidth,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        // 6. Water Splash Particle Overlay
         WaterSplashParticleOverlay(
             splashEvent = splashEvent,
             modifier = Modifier.fillMaxSize()

@@ -1,0 +1,108 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
+
+    <!-- Nether Netherfire Aura -->
+    <path
+        android:pathData="M64,12 C92,12 116,36 116,64 C116,92 92,116 64,116 C36,116 12,92 12,64 C12,36 36,12 64,12 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="64"
+                android:centerY="64"
+                android:gradientRadius="52"
+                android:type="radial">
+                <item android:offset="0.0" android:color="#55D50000" />
+                <item android:offset="0.5" android:color="#33B71C1C" />
+                <item android:offset="1.0" android:color="#00212121" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Powerful Obsidian Canine Body -->
+    <path
+        android:pathData="M64,54 C48,60 42,74 44,94 C46,104 82,104 84,94 C86,74 80,60 64,54 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="54"
+                android:endX="64"
+                android:endY="104"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF424242" />
+                <item android:offset="0.5" android:color="#FF212121" />
+                <item android:offset="1.0" android:color="#FF000000" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Spiked Nether Collar -->
+    <path android:pathData="M44,66 L84,66 L80,72 L48,72 Z" android:fillColor="#FFD50000" />
+    <path android:pathData="M46,65 L44,60 L48,65 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M54,65 L53,59 L56,65 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M64,65 L64,58 L66,65 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M74,65 L75,59 L72,65 Z" android:fillColor="#FFFFD700" />
+    <path android:pathData="M82,65 L84,60 L80,65 Z" android:fillColor="#FFFFD700" />
+
+    <!-- Left Flanking Head -->
+    <path
+        android:pathData="M46,36 C36,38 32,50 36,60 C40,66 48,66 52,60 C56,50 54,38 46,36 Z"
+        android:fillColor="#FF303030" />
+    <path android:pathData="M38,34 L32,22 L42,30 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M48,34 L54,24 L46,32 Z" android:fillColor="#FF212121" />
+    <!-- Left Head Eyes (Crimson Glow) -->
+    <path android:pathData="M38,44 A2,2 0 1,0 42,44 A2,2 0 1,0 38,44 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M46,44 A2,2 0 1,0 50,44 A2,2 0 1,0 46,44 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M41,52 L47,52 L44,56 Z" android:fillColor="#FF000000" />
+
+    <!-- Right Flanking Head -->
+    <path
+        android:pathData="M82,36 C74,38 72,50 76,60 C80,66 88,66 92,60 C96,50 92,38 82,36 Z"
+        android:fillColor="#FF303030" />
+    <path android:pathData="M82,34 L74,24 L82,32 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M90,34 L96,22 L86,30 Z" android:fillColor="#FF212121" />
+    <!-- Right Head Eyes (Crimson Glow) -->
+    <path android:pathData="M78,44 A2,2 0 1,0 82,44 A2,2 0 1,0 78,44 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M86,44 A2,2 0 1,0 90,44 A2,2 0 1,0 86,44 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M81,52 L87,52 L84,56 Z" android:fillColor="#FF000000" />
+
+    <!-- Center Primary Alpha Head -->
+    <path
+        android:pathData="M64,26 C52,30 50,46 54,62 C58,68 70,68 74,62 C78,46 76,30 64,26 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="64"
+                android:startY="26"
+                android:endX="64"
+                android:endY="68"
+                android:type="linear">
+                <item android:offset="0.0" android:color="#FF424242" />
+                <item android:offset="1.0" android:color="#FF212121" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Center Ears -->
+    <path android:pathData="M56,26 L48,12 L58,22 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M72,26 L80,12 L70,22 Z" android:fillColor="#FF212121" />
+
+    <!-- Center Head Crimson Flame Eyes -->
+    <path android:pathData="M56,38 A2.6,2.6 0 1,0 61.2,38 A2.6,2.6 0 1,0 56,38 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M66.8,38 A2.6,2.6 0 1,0 72,38 A2.6,2.6 0 1,0 66.8,38 Z" android:fillColor="#FFFF1744" />
+    <path android:pathData="M58,37.5 A0.8,0.8 0 1,0 59.6,37.5 A0.8,0.8 0 1,0 58,37.5 Z" android:fillColor="#FFFFEB3B" />
+    <path android:pathData="M68.8,37.5 A0.8,0.8 0 1,0 70.4,37.5 A0.8,0.8 0 1,0 68.8,37.5 Z" android:fillColor="#FFFFEB3B" />
+
+    <!-- Center Snout, Fangs & Tongue of Fire -->
+    <path android:pathData="M61,50 L67,50 L64,54 Z" android:fillColor="#FF000000" />
+    <path android:pathData="M60,54 L62,59 L63,54 L65,54 L66,59 L68,54 Z" android:fillColor="#FFFFFFFF" />
+    <path android:pathData="M63,55 C63,60 65,60 65,55 Z" android:fillColor="#FFFF5722" />
+
+    <!-- Shadow Paws -->
+    <path android:pathData="M48,98 L46,108 L54,108 L56,98 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M72,98 L74,108 L82,108 L80,98 Z" android:fillColor="#FF212121" />
+    <path android:pathData="M45,108 L47,112 L49,108 Z" android:fillColor="#FFB71C1C" />
+    <path android:pathData="M51,108 L53,112 L55,108 Z" android:fillColor="#FFB71C1C" />
+    <path android:pathData="M73,108 L75,112 L77,108 Z" android:fillColor="#FFB71C1C" />
+    <path android:pathData="M79,108 L81,112 L83,108 Z" android:fillColor="#FFB71C1C" />
+</vector>
