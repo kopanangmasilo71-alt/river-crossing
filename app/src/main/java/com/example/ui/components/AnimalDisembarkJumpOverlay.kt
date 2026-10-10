@@ -107,6 +107,8 @@ fun AnimalDisembarkJumpOverlay(
             }
 
             if (spec != null) {
+                val tokenSize = 52.dp * item.visualScale
+
                 // Ground drop shadow following the jump arc
                 Canvas(
                     modifier = Modifier
@@ -128,8 +130,8 @@ fun AnimalDisembarkJumpOverlay(
                 // Animated jumping animal token with synced frame playback
                 Box(
                     modifier = Modifier
-                        .offset(x = currentX - 24.dp, y = currentY)
-                        .size(48.dp)
+                        .offset(x = currentX - tokenSize / 2f, y = currentY)
+                        .size(tokenSize)
                         .graphicsLayer {
                             // Slight forward tilt in mid-air
                             val tilt = if (isRightBank) {
@@ -141,12 +143,25 @@ fun AnimalDisembarkJumpOverlay(
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    SpriteSheetAnimation(
-                        spec = spec,
-                        progress = progress,
-                        flipX = !isRightBank,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    if (spec != null) {
+                        SpriteSheetAnimation(
+                            spec = spec,
+                            progress = progress,
+                            flipX = !isRightBank,
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    } else {
+                        androidx.compose.foundation.Image(
+                            painter = androidx.compose.ui.res.painterResource(id = item.drawableRes),
+                            contentDescription = item.displayName,
+                            contentScale = androidx.compose.ui.layout.ContentScale.Fit,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .graphicsLayer {
+                                    if (!isRightBank) rotationY = 180f
+                                }
+                        )
+                    }
                 }
             }
         }

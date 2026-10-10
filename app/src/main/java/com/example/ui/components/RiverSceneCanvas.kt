@@ -656,6 +656,8 @@ fun RiverScene(
         val isDropActive = isAnyItemDragging || (highlightedHintItem != null && riverState.isItemOnBank(highlightedHintItem, riverState.farmerBank))
 
         // 3. Bank Zones with Organic Wooden Dock Piers & On-World Characters
+        val jumpingItems = jumpEvent?.jumpingItems ?: emptyList()
+
         Row(
             modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceBetween
@@ -665,6 +667,7 @@ fun RiverScene(
                 bank = Bank.LEFT,
                 riverState = riverState,
                 highlightedHintItem = highlightedHintItem,
+                jumpingItems = if (jumpEvent?.targetBank == Bank.LEFT) jumpingItems else emptyList(),
                 gameHaptics = gameHaptics,
                 onItemClick = onItemClick,
                 onDragStateChange = { isAnyItemDragging = it },
@@ -683,6 +686,7 @@ fun RiverScene(
                 bank = Bank.RIGHT,
                 riverState = riverState,
                 highlightedHintItem = highlightedHintItem,
+                jumpingItems = if (jumpEvent?.targetBank == Bank.RIGHT) jumpingItems else emptyList(),
                 gameHaptics = gameHaptics,
                 onItemClick = onItemClick,
                 onDragStateChange = { isAnyItemDragging = it },
@@ -719,7 +723,7 @@ fun RiverScene(
                 .testTag("boat_view")
         ) {
             BoundLogRaft(
-                passengers = riverState.boatPassengers,
+                passengers = riverState.boatPassengers.filter { it !in jumpingItems },
                 capacity = capacity,
                 isRowing = isRowing,
                 oarAngle = { oarSweepState.value },
@@ -759,6 +763,7 @@ private fun BankZone(
     bank: Bank,
     riverState: RiverState,
     highlightedHintItem: GameItem?,
+    jumpingItems: List<GameItem> = emptyList(),
     gameHaptics: GameHaptics? = null,
     onItemClick: (GameItem) -> Unit,
     onDragStateChange: ((Boolean) -> Unit)? = null,
@@ -869,7 +874,7 @@ private fun BankZone(
             ) {
                 // Characters on this bank
                 val itemsOnBank = riverState.scenario.items.filter {
-                    riverState.isItemOnBank(it, bank)
+                    riverState.isItemOnBank(it, bank) && it !in jumpingItems
                 }
 
                 if (isLandscape && itemsOnBank.size >= 2) {

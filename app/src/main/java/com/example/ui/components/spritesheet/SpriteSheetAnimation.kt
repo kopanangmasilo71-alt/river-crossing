@@ -108,7 +108,7 @@ data class SpriteSheetSpec(
             totalFrames = 6,
             fps = 11,
             loop = false,
-            cellBleedInsetPercent = 0.045f
+            cellBleedInsetPercent = 0.005f
         )
 
         val DOG_JUMP = SpriteSheetSpec(
@@ -118,7 +118,7 @@ data class SpriteSheetSpec(
             totalFrames = 6,
             fps = 11,
             loop = false,
-            cellBleedInsetPercent = 0.045f
+            cellBleedInsetPercent = 0.005f
         )
     }
 }
