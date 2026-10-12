@@ -73,6 +73,9 @@ import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.zIndex
 import kotlin.math.roundToInt
+import com.example.model.GameStatus
+import com.example.particles.model.ParticleLayer
+import com.example.particles.ui.XmlParticleSystemCanvas
 import com.example.model.FlotsamType
 import com.example.model.LevelTheme
 import androidx.compose.ui.geometry.Offset
@@ -598,6 +601,23 @@ fun RiverScene(
             }
         }
 
+        // XML-based Particle System: Water Surface Layer (Flowing Water, Ripples, Wake for Final Levels 91-100)
+        if (riverState.scenario.levelNumber in 91..100) {
+            XmlParticleSystemCanvas(
+                levelNumber = riverState.scenario.levelNumber,
+                gameStatus = if (isVictory) GameStatus.VICTORY else if (isRowing) GameStatus.ROWING else GameStatus.IDLE,
+                isRowing = isRowing,
+                boatProgress = boatProgress,
+                isVictory = isVictory,
+                isDangerAlertActive = riverState.checkImpendingConflict() != null || riverState.checkViolation() != null,
+                isBoardingActive = jumpEvent != null,
+                layerFilter = ParticleLayer.WATER_SURFACE,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(20.dp))
+            )
+        }
+
         // Ambient River Valley Fireflies & Atmospheric Floating Nature Motes
         val natureInfiniteTransition = rememberInfiniteTransition(label = "nature_motes_anim")
         val natureMotePhase by natureInfiniteTransition.animateFloat(
@@ -751,6 +771,32 @@ fun RiverScene(
             splashEvent = splashEvent,
             modifier = Modifier.fillMaxSize()
         )
+
+        // 7. XML-based Particle System: Atmospheric Wind & Foreground Effects for Final Levels (91-100)
+        if (riverState.scenario.levelNumber in 91..100) {
+            XmlParticleSystemCanvas(
+                levelNumber = riverState.scenario.levelNumber,
+                gameStatus = if (isVictory) GameStatus.VICTORY else if (isRowing) GameStatus.ROWING else GameStatus.IDLE,
+                isRowing = isRowing,
+                boatProgress = boatProgress,
+                isVictory = isVictory,
+                isDangerAlertActive = riverState.checkImpendingConflict() != null || riverState.checkViolation() != null,
+                isBoardingActive = jumpEvent != null,
+                layerFilter = ParticleLayer.ATMOSPHERE,
+                modifier = Modifier.fillMaxSize()
+            )
+            XmlParticleSystemCanvas(
+                levelNumber = riverState.scenario.levelNumber,
+                gameStatus = if (isVictory) GameStatus.VICTORY else if (isRowing) GameStatus.ROWING else GameStatus.IDLE,
+                isRowing = isRowing,
+                boatProgress = boatProgress,
+                isVictory = isVictory,
+                isDangerAlertActive = riverState.checkImpendingConflict() != null || riverState.checkViolation() != null,
+                isBoardingActive = jumpEvent != null,
+                layerFilter = ParticleLayer.FOREGROUND,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
     }
 }
 

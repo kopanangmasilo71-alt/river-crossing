@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_92"
+    level="92"
+    name="Glacial Frost Wyrm Melt Torrent &amp; Diamond Dust Blizzard">
+
+    <!-- Glacial Rapids and Ice Melt Current -->
+    <emitter
+        id="glacial_melt_stream"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="22.0"
+        maxParticles="70"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="45.0"
+        speedMax="110.0"
+        angleMin="88.0"
+        angleMax="92.0"
+        colorStart="#FFE0F7FA"
+        colorEnd="#FF00B0FF"
+        alphaStart="0.80"
+        alphaEnd="0.15"
+        sizeStart="3.5"
+        sizeEnd="7.0"
+        shape="WATER_DROPLET"
+        lifetimeMinMs="1600"
+        lifetimeMaxMs="3000"
+        turbulence="1.6"
+        swayAmplitude="10.0"
+        swayFrequency="2.5">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.5"
+            spawnRateMultiplier="2.0"
+            turbulenceMultiplier="2.2"
+            tintColor="#FF80D8FF" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.2"
+            spawnRateMultiplier="2.4"
+            burstCount="50"
+            tintColor="#FFE1F5FE" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF37474F" />
+    </emitter>
+
+    <!-- Alpine Blizzard and Diamond Dust Wind -->
+    <emitter
+        id="diamond_dust_blizzard"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="20.0"
+        maxParticles="65"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="35.0"
+        speedMax="95.0"
+        angleMin="15.0"
+        angleMax="45.0"
+        colorStart="#FFFFFFFF"
+        colorEnd="#FF80D8FF"
+        alphaStart="0.90"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="4.5"
+        shape="LINE_STREAK"
+        lifetimeMinMs="1800"
+        lifetimeMaxMs="3800"
+        turbulence="2.8"
+        swayAmplitude="16.0"
+        swayFrequency="1.8"
+        windForceX="35.0"
+        windForceY="5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.6"
+            spawnRateMultiplier="2.2"
+            windForceX="60.0"
+            tintColor="#FFB3E5FC" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.5"
+            spawnRateMultiplier="3.0"
+            burstCount="70"
+            shape="STAR_ORB"
+            tintColor="#FFE0F7FA" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.2"
+            speedMultiplier="1.8"
+            tintColor="#FF80DEEA" />
+    </emitter>
+</particle_system>

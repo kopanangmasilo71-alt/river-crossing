@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    River Crossing Mythic Environmental Particle System Definition Schema
+    Targeted for Final Chapter Mythic Finale Levels (Levels 91 - 100)
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+
+    <!-- Root Element -->
+    <xs:element name="particle_system">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="emitter" type="EmitterType" maxOccurs="unbounded" minOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="id" type="xs:string" use="required"/>
+            <xs:attribute name="level" type="xs:int" use="required"/>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="description" type="xs:string" use="optional"/>
+            <xs:attribute name="author" type="xs:string" use="optional" default="RiverCrossingEngine"/>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- Emitter Definition -->
+    <xs:complexType name="EmitterType">
+        <xs:sequence>
+            <xs:element name="trigger" type="StateTriggerType" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="type" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="FLOWING_WATER"/>
+                    <xs:enumeration value="WIND"/>
+                    <xs:enumeration value="WATER_RIPPLE"/>
+                    <xs:enumeration value="MIST_CURTAIN"/>
+                    <xs:enumeration value="MYTHIC_EMBER"/>
+                    <xs:enumeration value="COSMIC_BREEZE"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="layer" default="WATER_SURFACE">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="BELOW_WATER"/>
+                    <xs:enumeration value="WATER_SURFACE"/>
+                    <xs:enumeration value="ATMOSPHERE"/>
+                    <xs:enumeration value="FOREGROUND"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <!-- Generation & Capacity -->
+        <xs:attribute name="spawnRate" type="xs:float" default="20.0"/>
+        <xs:attribute name="maxParticles" type="xs:int" default="60"/>
+
+        <!-- Spatial Bounds (Normalized 0.0 - 1.0) -->
+        <xs:attribute name="xMin" type="xs:float" default="0.0"/>
+        <xs:attribute name="xMax" type="xs:float" default="1.0"/>
+        <xs:attribute name="yMin" type="xs:float" default="0.0"/>
+        <xs:attribute name="yMax" type="xs:float" default="1.0"/>
+
+        <!-- Kinematics & Direction -->
+        <xs:attribute name="speedMin" type="xs:float" default="20.0"/>
+        <xs:attribute name="speedMax" type="xs:float" default="60.0"/>
+        <xs:attribute name="angleMin" type="xs:float" default="0.0"/>
+        <xs:attribute name="angleMax" type="xs:float" default="360.0"/>
+
+        <!-- Color & Appearance -->
+        <xs:attribute name="colorStart" type="xs:string" default="#FFFFFFFF"/>
+        <xs:attribute name="colorEnd" type="xs:string" default="#00FFFFFF"/>
+        <xs:attribute name="alphaStart" type="xs:float" default="1.0"/>
+        <xs:attribute name="alphaEnd" type="xs:float" default="0.0"/>
+        <xs:attribute name="sizeStart" type="xs:float" default="4.0"/>
+        <xs:attribute name="sizeEnd" type="xs:float" default="2.0"/>
+
+        <!-- Geometry Shape -->
+        <xs:attribute name="shape" default="CIRCLE">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="CIRCLE"/>
+                    <xs:enumeration value="WAVE_RIPPLE"/>
+                    <xs:enumeration value="WATER_DROPLET"/>
+                    <xs:enumeration value="LINE_STREAK"/>
+                    <xs:enumeration value="EMBER_SPARK"/>
+                    <xs:enumeration value="LEAF_WISP"/>
+                    <xs:enumeration value="STAR_ORB"/>
+                    <xs:enumeration value="AURORA_SHIMMER"/>
+                    <xs:enumeration value="CRESCENT_RIPPLE"/>
+                    <xs:enumeration value="BUBBLE"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <!-- Lifetime & Turbulence Dynamics -->
+        <xs:attribute name="lifetimeMinMs" type="xs:long" default="2000"/>
+        <xs:attribute name="lifetimeMaxMs" type="xs:long" default="4000"/>
+        <xs:attribute name="turbulence" type="xs:float" default="1.0"/>
+        <xs:attribute name="swayAmplitude" type="xs:float" default="10.0"/>
+        <xs:attribute name="swayFrequency" type="xs:float" default="1.0"/>
+        <xs:attribute name="windForceX" type="xs:float" default="0.0"/>
+        <xs:attribute name="windForceY" type="xs:float" default="0.0"/>
+    </xs:complexType>
+
+    <!-- State Trigger Modifier Definition -->
+    <xs:complexType name="StateTriggerType">
+        <xs:attribute name="gameState" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="IDLE"/>
+                    <xs:enumeration value="ROWING"/>
+                    <xs:enumeration value="VICTORY"/>
+                    <xs:enumeration value="GAME_OVER"/>
+                    <xs:enumeration value="BOARDING"/>
+                    <xs:enumeration value="DANGER"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+
+        <!-- Kinetic Multipliers -->
+        <xs:attribute name="speedMultiplier" type="xs:float" default="1.0"/>
+        <xs:attribute name="spawnRateMultiplier" type="xs:float" default="1.0"/>
+        <xs:attribute name="turbulenceMultiplier" type="xs:float" default="1.0"/>
+        <xs:attribute name="sizeMultiplier" type="xs:float" default="1.0"/>
+
+        <!-- Visual & Spatial Overrides -->
+        <xs:attribute name="tintColor" type="xs:string" use="optional"/>
+        <xs:attribute name="windForceX" type="xs:float" use="optional"/>
+        <xs:attribute name="windForceY" type="xs:float" use="optional"/>
+        <xs:attribute name="burstCount" type="xs:int" default="0"/>
+    </xs:complexType>
+
+</xs:schema>

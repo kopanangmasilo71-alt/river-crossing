@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_94"
+    level="94"
+    name="Forest Spirit Sacred Grove Stream &amp; Whispering Breeze">
+
+    <!-- Emerald Sacred Grove Stream -->
+    <emitter
+        id="sacred_grove_stream"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="22.0"
+        maxParticles="70"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="35.0"
+        speedMax="85.0"
+        angleMin="87.0"
+        angleMax="93.0"
+        colorStart="#FF69F0AE"
+        colorEnd="#FF004D40"
+        alphaStart="0.80"
+        alphaEnd="0.15"
+        sizeStart="3.0"
+        sizeEnd="6.5"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1900"
+        lifetimeMaxMs="3500"
+        turbulence="1.5"
+        swayAmplitude="12.0"
+        swayFrequency="2.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.3"
+            spawnRateMultiplier="1.9"
+            turbulenceMultiplier="2.1"
+            tintColor="#FF00E676" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.3"
+            spawnRateMultiplier="2.5"
+            burstCount="45"
+            tintColor="#FFB9F6CA" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.4"
+            spawnRateMultiplier="0.5"
+            tintColor="#FF1B5E20" />
+    </emitter>
+
+    <!-- Whispering Forest Spirit Wind & Leaf Wisps -->
+    <emitter
+        id="forest_spirit_wind"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="16.0"
+        maxParticles="55"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="25.0"
+        speedMax="70.0"
+        angleMin="40.0"
+        angleMax="80.0"
+        colorStart="#FFB9F6CA"
+        colorEnd="#FF00C853"
+        alphaStart="0.85"
+        alphaEnd="0.0"
+        sizeStart="2.5"
+        sizeEnd="5.5"
+        shape="LEAF_WISP"
+        lifetimeMinMs="2400"
+        lifetimeMaxMs="4600"
+        turbulence="2.6"
+        swayAmplitude="22.0"
+        swayFrequency="1.5"
+        windForceX="20.0"
+        windForceY="-5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.4"
+            spawnRateMultiplier="2.1"
+            windForceX="45.0"
+            tintColor="#FF69F0AE" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.5"
+            spawnRateMultiplier="3.0"
+            burstCount="60"
+            tintColor="#FFE8F5E9" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.0"
+            speedMultiplier="1.5"
+            tintColor="#FFF59E0B" />
+    </emitter>
+</particle_system>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_98"
+    level="98"
+    name="Prismatic Titans Faceted Fjord &amp; Aurora Ribbon Winds">
+
+    <!-- Faceted Diamond Prismatic River Current -->
+    <emitter
+        id="prismatic_diamond_current"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="24.0"
+        maxParticles="75"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="40.0"
+        speedMax="95.0"
+        angleMin="86.0"
+        angleMax="94.0"
+        colorStart="#FFE040FB"
+        colorEnd="#FF00E5FF"
+        alphaStart="0.85"
+        alphaEnd="0.10"
+        sizeStart="3.5"
+        sizeEnd="7.5"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1700"
+        lifetimeMaxMs="3400"
+        turbulence="2.0"
+        swayAmplitude="14.0"
+        swayFrequency="2.2">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.4"
+            spawnRateMultiplier="2.0"
+            turbulenceMultiplier="2.4"
+            tintColor="#FF80D8FF" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.4"
+            spawnRateMultiplier="2.6"
+            burstCount="55"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF311B92" />
+    </emitter>
+
+    <!-- Aurora Ribbon Winds & Prismatic Shimmer -->
+    <emitter
+        id="aurora_shimmer_winds"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="20.0"
+        maxParticles="65"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="30.0"
+        speedMax="85.0"
+        angleMin="15.0"
+        angleMax="55.0"
+        colorStart="#FF00E5FF"
+        colorEnd="#FFE040FB"
+        alphaStart="0.90"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="5.5"
+        shape="AURORA_SHIMMER"
+        lifetimeMinMs="2000"
+        lifetimeMaxMs="4200"
+        turbulence="3.2"
+        swayAmplitude="22.0"
+        swayFrequency="1.6"
+        windForceX="30.0"
+        windForceY="5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.5"
+            spawnRateMultiplier="2.2"
+            windForceX="55.0"
+            tintColor="#FFE0F7FA" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.6"
+            spawnRateMultiplier="3.5"
+            burstCount="75"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.5"
+            speedMultiplier="1.7"
+            tintColor="#FFD50000" />
+    </emitter>
+</particle_system>

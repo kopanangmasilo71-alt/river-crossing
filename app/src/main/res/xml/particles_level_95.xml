@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_95"
+    level="95"
+    name="Celestial Guardians Starry Waterway &amp; Cosmic Zephyr">
+
+    <!-- Starry Cosmic Waterway Flow -->
+    <emitter
+        id="celestial_fjord_current"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="22.0"
+        maxParticles="70"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="35.0"
+        speedMax="90.0"
+        angleMin="86.0"
+        angleMax="94.0"
+        colorStart="#FFE040FB"
+        colorEnd="#FF311B92"
+        alphaStart="0.85"
+        alphaEnd="0.10"
+        sizeStart="3.5"
+        sizeEnd="7.0"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1800"
+        lifetimeMaxMs="3600"
+        turbulence="1.7"
+        swayAmplitude="12.0"
+        swayFrequency="2.1">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.3"
+            spawnRateMultiplier="1.9"
+            turbulenceMultiplier="2.3"
+            tintColor="#FFB388FF" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.4"
+            spawnRateMultiplier="2.6"
+            burstCount="50"
+            tintColor="#FFE1BEE7" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.4"
+            spawnRateMultiplier="0.5"
+            tintColor="#FF12005E" />
+    </emitter>
+
+    <!-- Cosmic High-Altitude Zephyr & Starlight Motes -->
+    <emitter
+        id="cosmic_starlight_zephyr"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="18.0"
+        maxParticles="60"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="30.0"
+        speedMax="80.0"
+        angleMin="25.0"
+        angleMax="75.0"
+        colorStart="#FFEDE7F6"
+        colorEnd="#FF7C4DFF"
+        alphaStart="0.90"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="5.0"
+        shape="STAR_ORB"
+        lifetimeMinMs="2200"
+        lifetimeMaxMs="4400"
+        turbulence="3.0"
+        swayAmplitude="18.0"
+        swayFrequency="1.6"
+        windForceX="25.0"
+        windForceY="-5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.5"
+            spawnRateMultiplier="2.0"
+            windForceX="50.0"
+            tintColor="#FFE040FB" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.6"
+            spawnRateMultiplier="3.4"
+            burstCount="70"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.2"
+            speedMultiplier="1.6"
+            tintColor="#FFD50000" />
+    </emitter>
+</particle_system>

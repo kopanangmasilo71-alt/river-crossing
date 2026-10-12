@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_100"
+    level="100"
+    name="The Sovereign Convergence Rainbow River &amp; Majestic Grand Finale Gale">
+
+    <!-- Rainbow Sovereign River Main Flow -->
+    <emitter
+        id="rainbow_sovereign_river"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="28.0"
+        maxParticles="90"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="45.0"
+        speedMax="115.0"
+        angleMin="85.0"
+        angleMax="95.0"
+        colorStart="#FFFFD700"
+        colorEnd="#FF1A1041"
+        alphaStart="0.90"
+        alphaEnd="0.10"
+        sizeStart="4.0"
+        sizeEnd="8.5"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1600"
+        lifetimeMaxMs="3200"
+        turbulence="2.4"
+        swayAmplitude="16.0"
+        swayFrequency="2.4">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.6"
+            spawnRateMultiplier="2.2"
+            turbulenceMultiplier="2.6"
+            sizeMultiplier="1.3"
+            tintColor="#FFFFEA00" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.6"
+            spawnRateMultiplier="3.0"
+            burstCount="80"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF1E163B" />
+    </emitter>
+
+    <!-- Sovereign Convergence Grand Finale Gale & Rainbow Crown Stardust -->
+    <emitter
+        id="sovereign_rainbow_gale"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="24.0"
+        maxParticles="85"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="35.0"
+        speedMax="100.0"
+        angleMin="20.0"
+        angleMax="65.0"
+        colorStart="#FFFFD700"
+        colorEnd="#FF00E5FF"
+        alphaStart="0.95"
+        alphaEnd="0.0"
+        sizeStart="2.5"
+        sizeEnd="6.5"
+        shape="STAR_ORB"
+        lifetimeMinMs="1800"
+        lifetimeMaxMs="4000"
+        turbulence="3.5"
+        swayAmplitude="24.0"
+        swayFrequency="1.8"
+        windForceX="40.0"
+        windForceY="-5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.8"
+            spawnRateMultiplier="2.4"
+            windForceX="70.0"
+            sizeMultiplier="1.2"
+            tintColor="#FFFFD700" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.8"
+            spawnRateMultiplier="4.0"
+            burstCount="100"
+            sizeMultiplier="1.8"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="4.0"
+            speedMultiplier="2.0"
+            tintColor="#FFFF1744" />
+    </emitter>
+
+    <!-- Transcendent Aurora Shimmer Crest -->
+    <emitter
+        id="sovereign_aurora_crest"
+        type="COSMIC_BREEZE"
+        layer="FOREGROUND"
+        spawnRate="14.0"
+        maxParticles="45"
+        xMin="0.1"
+        xMax="0.9"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="20.0"
+        speedMax="60.0"
+        angleMin="0.0"
+        angleMax="360.0"
+        colorStart="#FFE040FB"
+        colorEnd="#FF00E676"
+        alphaStart="0.75"
+        alphaEnd="0.0"
+        sizeStart="3.0"
+        sizeEnd="8.0"
+        shape="AURORA_SHIMMER"
+        lifetimeMinMs="2500"
+        lifetimeMaxMs="4800"
+        turbulence="2.8"
+        swayAmplitude="20.0"
+        swayFrequency="1.2">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.0"
+            spawnRateMultiplier="1.8"
+            tintColor="#FFFFD700" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.5"
+            spawnRateMultiplier="3.5"
+            burstCount="60"
+            tintColor="#FFFFFFFF" />
+    </emitter>
+</particle_system>

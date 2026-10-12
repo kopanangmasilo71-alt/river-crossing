@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_93"
+    level="93"
+    name="Abyssal Leviathan Deep Trench Current &amp; Phosphorescent Motes">
+
+    <!-- Deep Sea Bioluminescent Current -->
+    <emitter
+        id="abyssal_trench_current"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="20.0"
+        maxParticles="65"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="30.0"
+        speedMax="75.0"
+        angleMin="86.0"
+        angleMax="94.0"
+        colorStart="#FF00F5D4"
+        colorEnd="#FF0077B6"
+        alphaStart="0.85"
+        alphaEnd="0.10"
+        sizeStart="4.0"
+        sizeEnd="8.0"
+        shape="BUBBLE"
+        lifetimeMinMs="2200"
+        lifetimeMaxMs="4000"
+        turbulence="2.2"
+        swayAmplitude="16.0"
+        swayFrequency="1.8">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.1"
+            spawnRateMultiplier="1.8"
+            turbulenceMultiplier="2.6"
+            sizeMultiplier="1.3"
+            tintColor="#FF70E000" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.3"
+            spawnRateMultiplier="2.6"
+            burstCount="55"
+            tintColor="#FF00F5D4" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF03045E" />
+    </emitter>
+
+    <!-- Deep Phosphorescent Marine Snow & Ocean Zephyr -->
+    <emitter
+        id="phosphorescent_sparks"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="16.0"
+        maxParticles="55"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="20.0"
+        speedMax="60.0"
+        angleMin="60.0"
+        angleMax="120.0"
+        colorStart="#FF00BBF9"
+        colorEnd="#FF03045E"
+        alphaStart="0.90"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="5.0"
+        shape="STAR_ORB"
+        lifetimeMinMs="2500"
+        lifetimeMaxMs="5000"
+        turbulence="2.5"
+        swayAmplitude="18.0"
+        swayFrequency="1.4"
+        windForceX="15.0"
+        windForceY="-5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.2"
+            spawnRateMultiplier="1.9"
+            windForceX="35.0"
+            tintColor="#FF38BDF8" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.5"
+            spawnRateMultiplier="3.2"
+            burstCount="60"
+            tintColor="#FF38BDF8" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.5"
+            speedMultiplier="1.7"
+            tintColor="#FFEF4444" />
+    </emitter>
+</particle_system>

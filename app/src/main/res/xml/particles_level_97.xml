@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_97"
+    level="97"
+    name="Abyssal Crown Relic Shore Palace Tide &amp; Golden Ocean Mist">
+
+    <!-- Turquoise Palace Tidal Surge -->
+    <emitter
+        id="palace_tidal_surge"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="22.0"
+        maxParticles="70"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="38.0"
+        speedMax="90.0"
+        angleMin="87.0"
+        angleMax="93.0"
+        colorStart="#FFE0F7FA"
+        colorEnd="#FF00B4D8"
+        alphaStart="0.80"
+        alphaEnd="0.15"
+        sizeStart="3.5"
+        sizeEnd="7.0"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1800"
+        lifetimeMaxMs="3500"
+        turbulence="1.8"
+        swayAmplitude="12.0"
+        swayFrequency="2.2">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.3"
+            spawnRateMultiplier="1.9"
+            turbulenceMultiplier="2.3"
+            tintColor="#FF00E5FF" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.3"
+            spawnRateMultiplier="2.5"
+            burstCount="50"
+            tintColor="#FF80DEEA" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF0F172A" />
+    </emitter>
+
+    <!-- Imperial Relic Gold Glint & Coastal Zephyr -->
+    <emitter
+        id="relic_gold_glint"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="16.0"
+        maxParticles="55"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="25.0"
+        speedMax="75.0"
+        angleMin="20.0"
+        angleMax="60.0"
+        colorStart="#FFFFD700"
+        colorEnd="#FF00E5FF"
+        alphaStart="0.90"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="5.0"
+        shape="STAR_ORB"
+        lifetimeMinMs="2200"
+        lifetimeMaxMs="4500"
+        turbulence="2.8"
+        swayAmplitude="16.0"
+        swayFrequency="1.5"
+        windForceX="25.0"
+        windForceY="-5.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.4"
+            spawnRateMultiplier="2.0"
+            windForceX="45.0"
+            tintColor="#FFFFEA00" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.5"
+            spawnRateMultiplier="3.2"
+            burstCount="60"
+            tintColor="#FFFFD700" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.2"
+            speedMultiplier="1.6"
+            tintColor="#FFEF4444" />
+    </emitter>
+</particle_system>

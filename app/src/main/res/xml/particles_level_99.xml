@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<particle_system
+    id="particles_level_99"
+    level="99"
+    name="Pantheon of Nine Heavens Cosmic Void &amp; Astral Tempest">
+
+    <!-- Ethereal Nebula Cosmic River Flow -->
+    <emitter
+        id="nebula_cosmic_river"
+        type="FLOWING_WATER"
+        layer="WATER_SURFACE"
+        spawnRate="24.0"
+        maxParticles="75"
+        xMin="0.25"
+        xMax="0.75"
+        yMin="-0.05"
+        yMax="1.05"
+        speedMin="38.0"
+        speedMax="95.0"
+        angleMin="85.0"
+        angleMax="95.0"
+        colorStart="#FFD1C4E9"
+        colorEnd="#FF6200EA"
+        alphaStart="0.85"
+        alphaEnd="0.10"
+        sizeStart="3.5"
+        sizeEnd="7.5"
+        shape="WAVE_RIPPLE"
+        lifetimeMinMs="1800"
+        lifetimeMaxMs="3500"
+        turbulence="2.2"
+        swayAmplitude="16.0"
+        swayFrequency="2.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.4"
+            spawnRateMultiplier="2.0"
+            turbulenceMultiplier="2.5"
+            tintColor="#FFB388FF" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.4"
+            spawnRateMultiplier="2.7"
+            burstCount="60"
+            tintColor="#FFFFD700" />
+
+        <trigger
+            gameState="GAME_OVER"
+            speedMultiplier="0.3"
+            spawnRateMultiplier="0.4"
+            tintColor="#FF020617" />
+    </emitter>
+
+    <!-- Transcendent Astral Stardust Gale -->
+    <emitter
+        id="astral_stardust_gale"
+        type="WIND"
+        layer="ATMOSPHERE"
+        spawnRate="20.0"
+        maxParticles="65"
+        xMin="0.0"
+        xMax="1.0"
+        yMin="0.0"
+        yMax="1.0"
+        speedMin="35.0"
+        speedMax="90.0"
+        angleMin="20.0"
+        angleMax="70.0"
+        colorStart="#FFFFD700"
+        colorEnd="#FF7C4DFF"
+        alphaStart="0.95"
+        alphaEnd="0.0"
+        sizeStart="2.0"
+        sizeEnd="5.5"
+        shape="STAR_ORB"
+        lifetimeMinMs="2000"
+        lifetimeMaxMs="4200"
+        turbulence="3.4"
+        swayAmplitude="20.0"
+        swayFrequency="1.6"
+        windForceX="35.0"
+        windForceY="-10.0">
+
+        <trigger
+            gameState="ROWING"
+            speedMultiplier="2.6"
+            spawnRateMultiplier="2.2"
+            windForceX="60.0"
+            tintColor="#FFE040FB" />
+
+        <trigger
+            gameState="VICTORY"
+            speedMultiplier="1.6"
+            spawnRateMultiplier="3.6"
+            burstCount="80"
+            tintColor="#FFFFFFFF" />
+
+        <trigger
+            gameState="DANGER"
+            turbulenceMultiplier="3.6"
+            speedMultiplier="1.8"
+            tintColor="#FFFF1744" />
+    </emitter>
+</particle_system>

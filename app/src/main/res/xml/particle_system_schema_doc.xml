@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  River Crossing Mythic Environmental Particle System Schema Documentation
+  Used by Levels 91 - 100 for Dynamic Environmental Simulation
+  Triggered by Game State Changes (IDLE, ROWING, VICTORY, GAME_OVER, BOARDING, DANGER)
+-->
+<particle_system_schema
+    version="1.0"
+    targetLevels="91-100"
+    documentationUrl="http://schemas.rivercrossing.game/particle">
+
+    <supported_elements>
+        <element name="particle_system" description="Root node representing the particle configuration for a specific level.">
+            <attribute name="id" type="String" required="true" description="Unique system identifier." />
+            <attribute name="level" type="Integer" required="true" description="Target level number (91..100)." />
+            <attribute name="name" type="String" required="true" description="Display name for this atmospheric effect." />
+        </element>
+
+        <element name="emitter" description="Particle emitter generating environmental streams (water, wind, mist, embers).">
+            <attribute name="id" type="String" required="true" />
+            <attribute name="type" type="Enum" values="FLOWING_WATER, WIND, WATER_RIPPLE, MIST_CURTAIN, MYTHIC_EMBER, COSMIC_BREEZE" />
+            <attribute name="layer" type="Enum" values="BELOW_WATER, WATER_SURFACE, ATMOSPHERE, FOREGROUND" default="WATER_SURFACE" />
+            <attribute name="spawnRate" type="Float" default="20.0" />
+            <attribute name="maxParticles" type="Integer" default="60" />
+            <attribute name="xMin" type="Float" default="0.0" />
+            <attribute name="xMax" type="Float" default="1.0" />
+            <attribute name="yMin" type="Float" default="0.0" />
+            <attribute name="yMax" type="Float" default="1.0" />
+            <attribute name="speedMin" type="Float" default="20.0" />
+            <attribute name="speedMax" type="Float" default="60.0" />
+            <attribute name="angleMin" type="Float" default="0.0" />
+            <attribute name="angleMax" type="Float" default="360.0" />
+            <attribute name="colorStart" type="ColorHex" default="#FFFFFFFF" />
+            <attribute name="colorEnd" type="ColorHex" default="#00FFFFFF" />
+            <attribute name="alphaStart" type="Float" default="1.0" />
+            <attribute name="alphaEnd" type="Float" default="0.0" />
+            <attribute name="sizeStart" type="Float" default="4.0" />
+            <attribute name="sizeEnd" type="Float" default="2.0" />
+            <attribute name="shape" type="Enum" values="CIRCLE, WAVE_RIPPLE, WATER_DROPLET, LINE_STREAK, EMBER_SPARK, LEAF_WISP, STAR_ORB, AURORA_SHIMMER, CRESCENT_RIPPLE, BUBBLE" />
+            <attribute name="lifetimeMinMs" type="Long" default="2000" />
+            <attribute name="lifetimeMaxMs" type="Long" default="4000" />
+            <attribute name="turbulence" type="Float" default="1.0" />
+            <attribute name="swayAmplitude" type="Float" default="10.0" />
+            <attribute name="swayFrequency" type="Float" default="1.0" />
+            <attribute name="windForceX" type="Float" default="0.0" />
+            <attribute name="windForceY" type="Float" default="0.0" />
+        </element>
+
+        <element name="trigger" description="Modifies emitter properties in response to game state changes.">
+            <attribute name="gameState" type="Enum" values="IDLE, ROWING, VICTORY, GAME_OVER, BOARDING, DANGER" required="true" />
+            <attribute name="speedMultiplier" type="Float" default="1.0" />
+            <attribute name="spawnRateMultiplier" type="Float" default="1.0" />
+            <attribute name="turbulenceMultiplier" type="Float" default="1.0" />
+            <attribute name="sizeMultiplier" type="Float" default="1.0" />
+            <attribute name="tintColor" type="ColorHex" optional="true" />
+            <attribute name="windForceX" type="Float" optional="true" />
+            <attribute name="windForceY" type="Float" optional="true" />
+            <attribute name="burstCount" type="Integer" default="0" />
+        </element>
+    </supported_elements>
+</particle_system_schema>
