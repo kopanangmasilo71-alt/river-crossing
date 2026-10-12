@@ -103,20 +103,100 @@ data class SpriteSheetSpec(
 
         val RABBIT_JUMP = SpriteSheetSpec(
             drawableRes = R.drawable.spr_rabbit_jump,
-            columns = 6,
-            rows = 1,
-            totalFrames = 6,
-            fps = 11,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
             loop = false,
             cellBleedInsetPercent = 0.005f
         )
 
         val DOG_JUMP = SpriteSheetSpec(
             drawableRes = R.drawable.spr_dog_jump,
-            columns = 6,
-            rows = 1,
-            totalFrames = 6,
-            fps = 11,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val EAGLE_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_eagle_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val GOAT_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_goat_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val LION_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_lion_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val SHEEP_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_sheep_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val TIGER_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_tiger_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val WOLF_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_wolf_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val BEAR_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_bear_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
+            loop = false,
+            cellBleedInsetPercent = 0.005f
+        )
+
+        val CHICKEN_JUMP = SpriteSheetSpec(
+            drawableRes = R.drawable.spr_chicken_jump,
+            columns = 4,
+            rows = 2,
+            totalFrames = 8,
+            fps = 12,
             loop = false,
             cellBleedInsetPercent = 0.005f
         )

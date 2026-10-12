@@ -3190,7 +3190,8 @@ data class DisembarkJumpEvent(
     val id: Long = System.currentTimeMillis(),
     val jumpingItems: List<GameItem>,
     val targetBank: Bank,
-    val durationMs: Long = 650L
+    val durationMs: Long = 650L,
+    val isEnteringBoat: Boolean = false
 )
 
 

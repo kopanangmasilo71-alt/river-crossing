@@ -209,6 +209,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
 
     private var autoSolveJob: Job? = null
     private var timerJob: Job? = null
+    private var jumpJob: Job? = null
 
     init {
         _boatPosition.value = 0f
@@ -550,6 +551,35 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         audio.playBoardSound(item, currentBiome)
         _hintMessage.value = null
         _boatFullAlert.value = null
+
+        // Trigger realistic 8-frame jump animation when animals leap into the boat
+        val isJumpingAnimal = item in setOf(
+            GameItem.RABBIT, GameItem.DOG, GameItem.EAGLE, GameItem.GOAT,
+            GameItem.LION, GameItem.SHEEP, GameItem.TIGER, GameItem.WOLF,
+            GameItem.BEAR, GameItem.CHICKEN
+        )
+        if (isJumpingAnimal) {
+            val jumpEvent = DisembarkJumpEvent(
+                id = System.currentTimeMillis(),
+                jumpingItems = listOf(item),
+                targetBank = state.farmerBank,
+                durationMs = 520L,
+                isEnteringBoat = true
+            )
+            _disembarkJumpEvent.value = jumpEvent
+            if (item == GameItem.RABBIT) {
+                audio.playRabbitHop()
+            } else if (item == GameItem.DOG) {
+                audio.playDogBark()
+            }
+            jumpJob?.cancel()
+            jumpJob = viewModelScope.launch {
+                delay(jumpEvent.durationMs - 100L)
+                audio.playFootstep(currentBiome, isBoardingRaft = true)
+                delay(100L)
+                _disembarkJumpEvent.value = null
+            }
+        }
     }
 
     fun unloadItemFromBoat(item: GameItem? = null) {
@@ -620,8 +650,14 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
             }
             _boatPosition.value = targetProgress
 
-            // Check if jumping animals (Rabbit, Dog) are disembarking
-            val jumpingAnimals = passengers.filter { it == GameItem.RABBIT || it == GameItem.DOG }
+            // Check if jumping animals are disembarking
+            val jumpingAnimals = passengers.filter {
+                it in setOf(
+                    GameItem.RABBIT, GameItem.DOG, GameItem.EAGLE, GameItem.GOAT,
+                    GameItem.LION, GameItem.SHEEP, GameItem.TIGER, GameItem.WOLF,
+                    GameItem.BEAR, GameItem.CHICKEN
+                )
+            }
             if (jumpingAnimals.isNotEmpty()) {
                 val jumpEvent = DisembarkJumpEvent(
                     id = System.currentTimeMillis(),
@@ -758,6 +794,7 @@ class RiverGameViewModel(application: Application) : AndroidViewModel(applicatio
         modifiers: DifficultyModifiers = _difficultyModifiers.value
     ) {
         stopAutoSolver()
+        jumpJob?.cancel()
         resetTimer()
         _currentScenario.value = scenario
         _difficultyModifiers.value = modifiers

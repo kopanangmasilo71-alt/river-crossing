@@ -72,19 +72,23 @@ fun AnimalDisembarkJumpOverlay(
 
     val progress = progressAnim.value
     val isRightBank = jumpEvent.targetBank == Bank.RIGHT
+    val isEnteringBoat = jumpEvent.isEnteringBoat
 
-    // Determine horizontal start (inside boat) and end (on bank dock) positions in Dp
-    val startXBase = if (isRightBank) {
+    // Determine horizontal positions for boat and bank in Dp
+    val boatX = if (isRightBank) {
         totalWidth - bankWidth - (boatWidth * 0.45f)
     } else {
         bankWidth + (boatWidth * 0.45f)
     }
 
-    val endXBase = if (isRightBank) {
+    val bankX = if (isRightBank) {
         totalWidth - bankWidth + 36.dp
     } else {
         bankWidth - 36.dp
     }
+
+    val startXBase = if (isEnteringBoat) bankX else boatX
+    val endXBase = if (isEnteringBoat) boatX else bankX
 
     val baseY = totalHeight * 0.44f + 4.dp
     val jumpArcHeight = 52.dp
@@ -103,11 +107,21 @@ fun AnimalDisembarkJumpOverlay(
             val spec = when (item) {
                 GameItem.RABBIT -> SpriteSheetSpec.RABBIT_JUMP
                 GameItem.DOG -> SpriteSheetSpec.DOG_JUMP
+                GameItem.EAGLE -> SpriteSheetSpec.EAGLE_JUMP
+                GameItem.GOAT -> SpriteSheetSpec.GOAT_JUMP
+                GameItem.LION -> SpriteSheetSpec.LION_JUMP
+                GameItem.SHEEP -> SpriteSheetSpec.SHEEP_JUMP
+                GameItem.TIGER -> SpriteSheetSpec.TIGER_JUMP
+                GameItem.WOLF -> SpriteSheetSpec.WOLF_JUMP
+                GameItem.BEAR -> SpriteSheetSpec.BEAR_JUMP
+                GameItem.CHICKEN -> SpriteSheetSpec.CHICKEN_JUMP
                 else -> null
             }
 
             if (spec != null) {
                 val tokenSize = 52.dp * item.visualScale
+                val movingRight = if (isEnteringBoat) !isRightBank else isRightBank
+                val flipHorizontal = !movingRight
 
                 // Ground drop shadow following the jump arc
                 Canvas(
@@ -134,7 +148,7 @@ fun AnimalDisembarkJumpOverlay(
                         .size(tokenSize)
                         .graphicsLayer {
                             // Slight forward tilt in mid-air
-                            val tilt = if (isRightBank) {
+                            val tilt = if (movingRight) {
                                 (sin(progress * PI.toFloat()) * 8f)
                             } else {
                                 -(sin(progress * PI.toFloat()) * 8f)
@@ -143,25 +157,12 @@ fun AnimalDisembarkJumpOverlay(
                         },
                     contentAlignment = Alignment.Center
                 ) {
-                    if (spec != null) {
-                        SpriteSheetAnimation(
-                            spec = spec,
-                            progress = progress,
-                            flipX = !isRightBank,
-                            modifier = Modifier.fillMaxSize()
-                        )
-                    } else {
-                        androidx.compose.foundation.Image(
-                            painter = androidx.compose.ui.res.painterResource(id = item.drawableRes),
-                            contentDescription = item.displayName,
-                            contentScale = androidx.compose.ui.layout.ContentScale.Fit,
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .graphicsLayer {
-                                    if (!isRightBank) rotationY = 180f
-                                }
-                        )
-                    }
+                    SpriteSheetAnimation(
+                        spec = spec,
+                        progress = progress,
+                        flipX = flipHorizontal,
+                        modifier = Modifier.fillMaxSize()
+                    )
                 }
             }
         }
