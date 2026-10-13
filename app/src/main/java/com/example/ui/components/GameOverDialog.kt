@@ -41,6 +41,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
@@ -181,7 +182,7 @@ fun GameOverDialog(
     ) {
         Surface(
             shape = RoundedCornerShape(26.dp),
-            color = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
+            color = Color.Transparent,
             border = BorderStroke(
                 2.dp,
                 Brush.verticalGradient(
@@ -206,8 +207,18 @@ fun GameOverDialog(
                             levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.95f) }
                         )
                     )
-                    .padding(horizontal = 20.dp, vertical = 22.dp)
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.img_wood_card_square_1791812840654),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .matchParentSize()
+                        .alpha(0.75f)
+                )
+                Box(
+                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 22.dp)
+                ) {
                 Column(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -537,4 +548,5 @@ fun GameOverDialog(
             }
         }
     }
+}
 }

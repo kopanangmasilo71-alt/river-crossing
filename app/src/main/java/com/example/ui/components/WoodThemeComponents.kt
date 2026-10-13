@@ -65,6 +65,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
@@ -154,6 +155,17 @@ import com.example.ui.theme.MenuBtnRedBottom
 import com.example.ui.theme.MenuBtnRedBorder
 
 /**
+ * High-resolution wooden image assets generated for UI components across all menus.
+ */
+object WoodAssets {
+    val signHeader = R.drawable.img_wood_sign_header_1791812764001
+    val btnSail = R.drawable.img_wood_btn_sail_1791812782354
+    val btnSmall = R.drawable.img_wood_btn_small_1791812800194
+    val pillMenu = R.drawable.img_wood_pill_menu_1791812817980
+    val cardSquare = R.drawable.img_wood_card_square_1791812840654
+}
+
+/**
  * Authentic carved wooden signboard header matching the provided reference image.
  * Features beveled wooden plank texture, level title, dark carved inset panel for items,
  * and moves/timer stats.
@@ -232,14 +244,27 @@ fun WoodSignboardHeader(
             .testTag("wood_signboard_header")
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.58f) }
-                    )
-                )
+            modifier = Modifier.fillMaxWidth()
         ) {
+            // Authentic carved wooden signboard texture
+            Image(
+                painter = painterResource(id = WoodAssets.signHeader),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.85f)
+            )
+            // Theme tint scrim
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.52f) }
+                        )
+                    )
+            )
             // Ambient light gleam traveling across the carved wooden signboard
             Canvas(modifier = Modifier.matchParentSize()) {
                 val sheenW = size.width * 0.32f
@@ -578,15 +603,35 @@ fun WoodCargoBadge(
 ) {
     Surface(
         shape = RoundedCornerShape(14.dp),
-        color = levelTheme.headerBackgroundColors.first().copy(alpha = 0.85f),
+        color = Color.Transparent,
         border = BorderStroke(1.5.dp, levelTheme.headerBorderColors.first().copy(alpha = 0.75f)),
         shadowElevation = 4.dp,
         modifier = modifier.testTag("wood_cargo_badge")
     ) {
         Box(
-            modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp),
             contentAlignment = Alignment.Center
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.pillMenu),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.85f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.60f) }
+                        )
+                    )
+            )
+            Box(
+                modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp),
+                contentAlignment = Alignment.Center
+            ) {
             val cargoText = if (passengers.isEmpty()) {
                 "Cargo: Empty (Farmer Alone)"
             } else {
@@ -608,6 +653,7 @@ fun WoodCargoBadge(
             )
         }
     }
+}
 }
 
 /**
@@ -751,7 +797,7 @@ fun WoodSetSailButton(
 
         Surface(
             shape = RoundedCornerShape(18.dp),
-            color = if (isConflict) Color(0xFF7F1D1D) else if (enabled) levelTheme.sailButtonColors.getOrElse(1) { RiverForestGreenMid } else Color(0xFF0A2B4E),
+            color = Color.Transparent,
             border = BorderStroke(if (isPressed || isConflict) 3.2.dp else 2.6.dp, borderBrush),
             shadowElevation = shadowElevation,
             modifier = Modifier
@@ -776,10 +822,27 @@ fun WoodSetSailButton(
                 .testTag("set_sail_button")
         ) {
             Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Brush.verticalGradient(colors = buttonBg))
+                modifier = Modifier.fillMaxWidth()
             ) {
+                // Embossed wooden button texture
+                Image(
+                    painter = painterResource(id = WoodAssets.btnSail),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .matchParentSize()
+                        .alpha(if (enabled) 0.88f else 0.40f)
+                )
+                // Color tint overlay
+                Box(
+                    modifier = Modifier
+                        .matchParentSize()
+                        .background(
+                            Brush.verticalGradient(
+                                colors = buttonBg.map { it.copy(alpha = if (isConflict) 0.75f else 0.55f) }
+                            )
+                        )
+                )
                 // Dynamic shimmering sunlight light gleam across button when ready to cross
                 if (enabled && !isRowing && !isConflict) {
                     Canvas(modifier = Modifier.matchParentSize()) {
@@ -1076,7 +1139,7 @@ fun WoodActionButton(
 
     Surface(
         shape = RoundedCornerShape(11.dp),
-        color = if (isPressed) secondaryBg.copy(alpha = 0.70f) else if (enabled) primaryBg.copy(alpha = 0.55f) else primaryBg.copy(alpha = 0.25f),
+        color = Color.Transparent,
         border = BorderStroke(
             1.4.dp,
             if (isPressed) GoldenBankGlow else if (isHint) Color(0xFFFBBF24) else if (enabled) levelTheme.actionButtonBorder.copy(alpha = 0.85f) else levelTheme.actionButtonBorder.copy(alpha = 0.25f)
@@ -1096,29 +1159,41 @@ fun WoodActionButton(
             )
             .testTag(testTag)
     ) {
-        Row(
-            modifier = Modifier
-                .background(
-                    if (enabled) {
-                        Brush.verticalGradient(
-                            if (isPressed) {
-                                listOf(secondaryBg.copy(alpha = 0.75f), primaryBg.copy(alpha = 0.75f))
-                            } else if (isHint) {
-                                listOf(Color(0xC078350F), Color(0xC0451A03))
-                            } else {
-                                levelTheme.actionButtonColors.map { it.copy(alpha = 0.60f) }
-                            }
-                        )
-                    } else {
-                        Brush.verticalGradient(
-                            colors = listOf(primaryBg.copy(alpha = 0.25f), secondaryBg.copy(alpha = 0.20f))
-                        )
-                    }
-                )
-                .padding(horizontal = 6.dp, vertical = 7.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
+        Box(contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(id = WoodAssets.btnSmall),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(if (enabled) 0.88f else 0.45f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        if (enabled) {
+                            Brush.verticalGradient(
+                                if (isPressed) {
+                                    listOf(secondaryBg.copy(alpha = 0.70f), primaryBg.copy(alpha = 0.70f))
+                                } else if (isHint) {
+                                    listOf(Color(0xD078350F), Color(0xD0451A03))
+                                } else {
+                                    levelTheme.actionButtonColors.map { it.copy(alpha = 0.50f) }
+                                }
+                            )
+                        } else {
+                            Brush.verticalGradient(
+                                colors = listOf(primaryBg.copy(alpha = 0.30f), secondaryBg.copy(alpha = 0.25f))
+                            )
+                        }
+                    )
+            )
+            Row(
+                modifier = Modifier.padding(horizontal = 6.dp, vertical = 7.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
             if (icon != null) {
                 Icon(
                     imageVector = icon,
@@ -1142,6 +1217,7 @@ fun WoodActionButton(
             )
         }
     }
+}
 }
 
 /**
@@ -1204,7 +1280,7 @@ fun WoodQuickActionButton(
 
     Surface(
         shape = CircleShape,
-        color = MenuQuickActionBgTop,
+        color = Color.Transparent,
         border = BorderStroke(1.5.dp, MenuQuickActionBorder),
         shadowElevation = 4.dp,
         modifier = modifier
@@ -1219,15 +1295,29 @@ fun WoodQuickActionButton(
             .testTag(testTag)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(MenuQuickActionBgTop, MenuQuickActionBgBottom)
-                    )
-                ),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.btnSmall),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .alpha(0.88f)
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                MenuQuickActionBgTop.copy(alpha = 0.55f),
+                                MenuQuickActionBgBottom.copy(alpha = 0.70f)
+                            )
+                        )
+                    )
+            )
             if (icon != null) {
                 Icon(
                     imageVector = icon,
@@ -1261,7 +1351,7 @@ fun WoodTopAppBar(
 ) {
     Surface(
         shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp),
-        color = MenuStatBarBgBottom,
+        color = Color.Transparent,
         border = BorderStroke(
             1.8.dp,
             Brush.verticalGradient(
@@ -1274,14 +1364,29 @@ fun WoodTopAppBar(
             .shadow(8.dp, RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp))
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(MenuStatBarBgTop, MenuStatBarBgBottom, Color(0xFF041730))
-                    )
-                )
+            modifier = Modifier.fillMaxWidth()
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.signHeader),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.85f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                MenuStatBarBgTop.copy(alpha = 0.65f),
+                                MenuStatBarBgBottom.copy(alpha = 0.80f),
+                                Color(0xDD041730)
+                            )
+                        )
+                    )
+            )
             // Subtle 3D glossy highlight gleam at top edge
             Box(
                 modifier = Modifier
@@ -1371,7 +1476,7 @@ fun WoodCard(
 
     Card(
         shape = shape,
-        colors = CardDefaults.cardColors(containerColor = bgColors.first()),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         border = BorderStroke(
             1.8.dp,
             Brush.verticalGradient(
@@ -1382,10 +1487,25 @@ fun WoodCard(
         modifier = modifier.shadow(6.dp, shape)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Brush.verticalGradient(colors = bgColors))
+            modifier = Modifier.fillMaxWidth()
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.cardSquare),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.78f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = bgColors.map { it.copy(alpha = 0.68f) }
+                        )
+                    )
+            )
             // Subtle 3D glossy highlight gleam at top
             Box(
                 modifier = Modifier
@@ -1475,7 +1595,17 @@ fun WoodInsetBox(
         border = BorderStroke(1.2.dp, Color(0x5538BDF8)),
         modifier = modifier
     ) {
-        content()
+        Box {
+            Image(
+                painter = painterResource(id = WoodAssets.cardSquare),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.35f)
+            )
+            content()
+        }
     }
 }
 
@@ -1503,7 +1633,7 @@ fun WoodMenuButton(
 
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = bgColors.first(),
+        color = Color.Transparent,
         border = BorderStroke(1.8.dp, borderCol),
         shadowElevation = if (accentGlow) 6.dp else 4.dp,
         modifier = modifier
@@ -1512,52 +1642,70 @@ fun WoodMenuButton(
             .clickable(onClick = onClick)
             .testTag(testTag)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Brush.verticalGradient(colors = bgColors))
-                .padding(horizontal = 14.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Surface(
-                shape = CircleShape,
-                color = Color(0x35000000),
-                border = BorderStroke(1.2.dp, Color.White.copy(alpha = 0.65f)),
-                modifier = Modifier.size(44.dp)
-            ) {
-                Box(contentAlignment = Alignment.Center) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = null,
-                        tint = Color.White,
-                        modifier = Modifier.size(24.dp)
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.width(12.dp))
-
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = title,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    color = Color.White,
-                    style = TextStyle(
-                        shadow = Shadow(
-                            color = Color(0x99000000),
-                            offset = Offset(1f, 1f),
-                            blurRadius = 2f
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Image(
+                painter = painterResource(id = WoodAssets.pillMenu),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.85f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = bgColors.map { it.copy(alpha = 0.60f) }
                         )
                     )
-                )
-                Text(
-                    text = subtitle,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Medium,
-                    color = Color(0xE6FFFFFF),
-                    maxLines = 1
-                )
+            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Surface(
+                    shape = CircleShape,
+                    color = Color(0x35000000),
+                    border = BorderStroke(1.2.dp, Color.White.copy(alpha = 0.65f)),
+                    modifier = Modifier.size(44.dp)
+                ) {
+                    Box(contentAlignment = Alignment.Center) {
+                        Icon(
+                            imageVector = icon,
+                            contentDescription = null,
+                            tint = Color.White,
+                            modifier = Modifier.size(24.dp)
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = title,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        color = Color.White,
+                        style = TextStyle(
+                            shadow = Shadow(
+                                color = Color(0x99000000),
+                                offset = Offset(1f, 1f),
+                                blurRadius = 2f
+                            )
+                        )
+                    )
+                    Text(
+                        text = subtitle,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Medium,
+                        color = Color(0xE6FFFFFF),
+                        maxLines = 1
+                    )
+                }
             }
         }
     }
@@ -1588,25 +1736,42 @@ fun WoodFilterPill(
 
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = bgGradient.first(),
+        color = Color.Transparent,
         border = BorderStroke(1.4.dp, borderCol),
         shadowElevation = if (selected) 4.dp else 1.dp,
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
             .clickable(onClick = onClick)
     ) {
-        Box(
-            modifier = Modifier
-                .background(Brush.verticalGradient(bgGradient))
-                .padding(horizontal = 13.dp, vertical = 7.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = text,
-                fontSize = 11.5.sp,
-                fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold,
-                color = if (selected) Color.White else Color(0xFFBAE6FD)
+        Box(contentAlignment = Alignment.Center) {
+            Image(
+                painter = painterResource(id = WoodAssets.btnSmall),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(if (selected) 0.88f else 0.50f)
             )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            bgGradient.map { it.copy(alpha = if (selected) 0.60f else 0.75f) }
+                        )
+                    )
+            )
+            Box(
+                modifier = Modifier.padding(horizontal = 13.dp, vertical = 7.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = text,
+                    fontSize = 11.5.sp,
+                    fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold,
+                    color = if (selected) Color.White else Color(0xFFBAE6FD)
+                )
+            }
         }
     }
 }

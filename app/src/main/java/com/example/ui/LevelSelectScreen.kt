@@ -361,7 +361,7 @@ fun LevelSelectScreen(
                             horizontalArrangement = Arrangement.spacedBy(8.dp),
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            items(LevelFilter.values()) { filter ->
+                            items(LevelFilter.values(), key = { it.name }) { filter ->
                                 val isSelected = selectedFilter == filter
                                 WoodFilterPill(
                                     selected = isSelected,
@@ -375,7 +375,7 @@ fun LevelSelectScreen(
                     }
                 }
 
-                items(filteredScenarios) { scenario ->
+                items(filteredScenarios, key = { it.id }) { scenario ->
                     val bestRecord = bestRecordsByScenario[scenario.id]
                     val isUnlocked = unlockedLevelIds.contains(scenario.id)
 

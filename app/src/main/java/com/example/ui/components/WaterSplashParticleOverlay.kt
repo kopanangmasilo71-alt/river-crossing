@@ -176,6 +176,8 @@ fun WaterSplashParticleOverlay(
         }
     }
 
+    val reusableSparklePath = remember { Path() }
+
     val currentP = progress.value
     if (currentP < 1f && splashEvent != null) {
         val isRight = splashEvent.targetBank == Bank.RIGHT
@@ -243,16 +245,9 @@ fun WaterSplashParticleOverlay(
                     val rad = d.radius * (1f - localP * 0.35f)
 
                     if (alpha > 0.02f && rad > 0.5f) {
-                        // Soft glow under droplet
+                        // Soft glow halo under droplet
                         drawCircle(
-                            brush = Brush.radialGradient(
-                                colors = listOf(
-                                    d.color.copy(alpha = alpha * 0.9f),
-                                    d.color.copy(alpha = 0f)
-                                ),
-                                center = Offset(px, py),
-                                radius = rad * 1.6f
-                            ),
+                            color = d.color.copy(alpha = alpha * 0.35f),
                             radius = rad * 1.6f,
                             center = Offset(px, py)
                         )
@@ -287,7 +282,8 @@ fun WaterSplashParticleOverlay(
                         center = Offset(px, py),
                         size = s.size * (1f + 0.3f * sin(sparkleP * PI.toFloat() * 2f).toFloat()),
                         angleDegrees = currentAngle,
-                        color = s.color.copy(alpha = alpha)
+                        color = s.color.copy(alpha = alpha),
+                        reusablePath = reusableSparklePath
                     )
                 }
             }
@@ -303,7 +299,8 @@ private fun DrawScope.drawSparkleStar(
     center: Offset,
     size: Float,
     angleDegrees: Float,
-    color: Color
+    color: Color,
+    reusablePath: Path
 ) {
     val rad = Math.toRadians(angleDegrees.toDouble())
     val cosA = cos(rad).toFloat()
@@ -316,20 +313,19 @@ private fun DrawScope.drawSparkleStar(
         )
     }
 
-    val path = Path().apply {
-        val tip = size
-        val waist = size * 0.22f
+    reusablePath.reset()
+    val tip = size
+    val waist = size * 0.22f
 
-        moveTo(rotate(0f, -tip).x, rotate(0f, -tip).y)
-        lineTo(rotate(waist, -waist).x, rotate(waist, -waist).y)
-        lineTo(rotate(tip, 0f).x, rotate(tip, 0f).y)
-        lineTo(rotate(waist, waist).x, rotate(waist, waist).y)
-        lineTo(rotate(0f, tip).x, rotate(0f, tip).y)
-        lineTo(rotate(-waist, waist).x, rotate(-waist, waist).y)
-        lineTo(rotate(-tip, 0f).x, rotate(-tip, 0f).y)
-        lineTo(rotate(-waist, -waist).x, rotate(-waist, -waist).y)
-        close()
-    }
+    reusablePath.moveTo(rotate(0f, -tip).x, rotate(0f, -tip).y)
+    reusablePath.lineTo(rotate(waist, -waist).x, rotate(waist, -waist).y)
+    reusablePath.lineTo(rotate(tip, 0f).x, rotate(tip, 0f).y)
+    reusablePath.lineTo(rotate(waist, waist).x, rotate(waist, waist).y)
+    reusablePath.lineTo(rotate(0f, tip).x, rotate(0f, tip).y)
+    reusablePath.lineTo(rotate(-waist, waist).x, rotate(-waist, waist).y)
+    reusablePath.lineTo(rotate(-tip, 0f).x, rotate(-tip, 0f).y)
+    reusablePath.lineTo(rotate(-waist, -waist).x, rotate(-waist, -waist).y)
+    reusablePath.close()
 
-    drawPath(path = path, color = color)
+    drawPath(path = reusablePath, color = color)
 }

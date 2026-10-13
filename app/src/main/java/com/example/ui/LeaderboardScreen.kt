@@ -320,7 +320,7 @@ fun LeaderboardScreen(
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp, vertical = 4.dp)
             ) {
-                items(LevelFilter.entries) { filter ->
+                items(LevelFilter.entries, key = { it.name }) { filter ->
                     WoodFilterPill(
                         text = filter.title,
                         selected = selectedFilter == filter,
@@ -338,7 +338,7 @@ fun LeaderboardScreen(
                     .padding(horizontal = 16.dp, vertical = 6.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                items(filteredScenarios) { scenario ->
+                items(filteredScenarios, key = { it.id }) { scenario ->
                     val bestScore = bestScoresByScenario[scenario.id]
                     val isUnlocked = unlockedLevelIds.contains(scenario.id)
                     LevelLeaderboardCard(
@@ -396,7 +396,7 @@ fun LeaderboardScreen(
                         .padding(horizontal = 16.dp, vertical = 8.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(recentHistory) { record ->
+                    items(recentHistory, key = { it.timestamp }) { record ->
                         val scenario = PuzzleScenarios.getById(record.levelId) ?: PuzzleScenarios.CLASSIC
                         HistoryItemCard(record = record, scenario = scenario)
                     }

@@ -52,6 +52,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
@@ -100,6 +101,7 @@ import com.example.ui.theme.MenuBtnRedBottom
 import com.example.ui.theme.MenuBtnRedMid
 import com.example.ui.components.BannerAdView
 import com.example.ui.components.LockedLevelUnlockDialog
+import com.example.ui.components.WoodAssets
 import com.example.ui.theme.MenuBtnRedTop
 import com.example.ui.theme.MenuCrownCyan
 import com.example.ui.theme.MenuQuickActionBgBottom
@@ -481,25 +483,33 @@ private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
             .padding(end = 4.dp),
         verticalArrangement = Arrangement.Center
     ) {
-        // Game launcher icon placed directly above the name of the game
+        // Game launcher icon placed directly above the name of the game with wooden frame
         Surface(
             shape = RoundedCornerShape(12.dp),
             shadowElevation = 6.dp,
             border = BorderStroke(1.8.dp, GoldenBankGlow),
-            color = Color(0xFF0F325E),
+            color = Color.Transparent,
             modifier = Modifier
                 .padding(bottom = 6.dp)
                 .size(42.dp)
                 .testTag("main_menu_launch_icon")
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.img_app_icon),
-                contentDescription = "Game Launch Icon",
-                contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(12.dp))
-            )
+            Box(contentAlignment = Alignment.Center) {
+                Image(
+                    painter = painterResource(id = WoodAssets.btnSmall),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxSize().alpha(0.90f)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.img_app_icon),
+                    contentDescription = "Game Launch Icon",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clip(RoundedCornerShape(12.dp))
+                )
+            }
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -570,7 +580,7 @@ private fun QuickActionButton(
 
     Surface(
         shape = CircleShape,
-        color = MenuQuickActionBgTop,
+        color = Color.Transparent,
         border = BorderStroke(1.5.dp, MenuQuickActionBorder),
         shadowElevation = 4.dp,
         modifier = Modifier
@@ -585,15 +595,29 @@ private fun QuickActionButton(
             .testTag(testTag)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(MenuQuickActionBgTop, MenuQuickActionBgBottom)
-                    )
-                ),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.btnSmall),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .alpha(0.88f)
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                MenuQuickActionBgTop.copy(alpha = 0.55f),
+                                MenuQuickActionBgBottom.copy(alpha = 0.70f)
+                            )
+                        )
+                    )
+            )
             if (icon != null) {
                 Icon(
                     imageVector = icon,
@@ -626,7 +650,7 @@ private fun StatCapsuleBar(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = MenuStatBarBgBottom,
+        color = Color.Transparent,
         border = BorderStroke(1.5.dp, MenuStatBarBorder),
         shadowElevation = 5.dp,
         modifier = Modifier
@@ -634,17 +658,32 @@ private fun StatCapsuleBar(
             .testTag("main_menu_stat_capsule_bar")
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(
-                    Brush.verticalGradient(
-                        listOf(MenuStatBarBgTop, MenuStatBarBgBottom)
-                    )
-                )
-                .padding(horizontal = 14.dp, vertical = 9.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.pillMenu),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.80f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(
+                                MenuStatBarBgTop.copy(alpha = 0.65f),
+                                MenuStatBarBgBottom.copy(alpha = 0.80f)
+                            )
+                        )
+                    )
+            )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 14.dp, vertical = 9.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -798,7 +837,7 @@ private fun MainMenuPillButton(
 
     Surface(
         shape = RoundedCornerShape(18.dp),
-        color = gradientColors.last(),
+        color = Color.Transparent,
         border = BorderStroke(2.dp, borderColor),
         shadowElevation = 5.dp,
         modifier = Modifier
@@ -814,14 +853,30 @@ private fun MainMenuPillButton(
             .testTag(testTag)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Brush.verticalGradient(colors = gradientColors))
-                .padding(horizontal = 12.dp, vertical = 10.dp),
+            modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
+            Image(
+                painter = painterResource(id = WoodAssets.pillMenu),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .matchParentSize()
+                    .alpha(0.85f)
+            )
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            colors = gradientColors.map { it.copy(alpha = 0.60f) }
+                        )
+                    )
+            )
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 // Left Circular Inset Medallion

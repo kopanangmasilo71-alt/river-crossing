@@ -314,6 +314,8 @@ fun RiverScene(
 
         // 3. Living River Water Canvas (flowing waves, caustics, wake)
         val reusableWavePath = remember { Path() }
+        val reusableBowPathTop = remember { Path() }
+        val reusableBowPathBottom = remember { Path() }
         Canvas(modifier = Modifier.fillMaxSize()) {
             val wavePhase = wavePhaseState.value
             val floatingCurrentOffset = floatingCurrentOffsetState.value
@@ -482,27 +484,27 @@ fun RiverScene(
                 val normPhase = (wavePhase / 360f)
 
                 // 1. DELICATE BOW CREST (Soft, fine water parting by the prow)
-                val bowPathTop = Path().apply {
-                    moveTo(bowApexX, boatWaterlineY - 1f)
-                    quadraticBezierTo(
-                        bowApexX - (bowDir * 6f), boatWaterlineY - 3f,
-                        bowApexX - (bowDir * 14f), boatWaterlineY - 5.5f
-                    )
-                }
-                val bowPathBottom = Path().apply {
-                    moveTo(bowApexX, boatWaterlineY + 1f)
-                    quadraticBezierTo(
-                        bowApexX - (bowDir * 6f), boatWaterlineY + 3f,
-                        bowApexX - (bowDir * 14f), boatWaterlineY + 5.5f
-                    )
-                }
+                reusableBowPathTop.reset()
+                reusableBowPathTop.moveTo(bowApexX, boatWaterlineY - 1f)
+                reusableBowPathTop.quadraticBezierTo(
+                    bowApexX - (bowDir * 6f), boatWaterlineY - 3f,
+                    bowApexX - (bowDir * 14f), boatWaterlineY - 5.5f
+                )
+
+                reusableBowPathBottom.reset()
+                reusableBowPathBottom.moveTo(bowApexX, boatWaterlineY + 1f)
+                reusableBowPathBottom.quadraticBezierTo(
+                    bowApexX - (bowDir * 6f), boatWaterlineY + 3f,
+                    bowApexX - (bowDir * 14f), boatWaterlineY + 5.5f
+                )
+
                 drawPath(
-                    path = bowPathTop,
+                    path = reusableBowPathTop,
                     color = Color(0x99BAE6FD),
                     style = Stroke(width = 1.2f, cap = StrokeCap.Round)
                 )
                 drawPath(
-                    path = bowPathBottom,
+                    path = reusableBowPathBottom,
                     color = Color(0x99BAE6FD),
                     style = Stroke(width = 1.2f, cap = StrokeCap.Round)
                 )
@@ -619,19 +621,10 @@ fun RiverScene(
         }
 
         // Ambient River Valley Fireflies & Atmospheric Floating Nature Motes
-        val natureInfiniteTransition = rememberInfiniteTransition(label = "nature_motes_anim")
-        val natureMotePhase by natureInfiniteTransition.animateFloat(
-            initialValue = 0f,
-            targetValue = 1f,
-            animationSpec = infiniteRepeatable(
-                animation = tween(6500, easing = LinearEasing),
-                repeatMode = RepeatMode.Restart
-            ),
-            label = "nature_mote_phase"
-        )
         Canvas(modifier = Modifier.fillMaxSize()) {
             val w = size.width
             val h = size.height
+            val natureMotePhase = (wavePhaseState.value / 360f)
             for (i in 0..9) {
                 val seed = i * 49.37f
                 val p = (natureMotePhase + i * 0.10f) % 1.0f

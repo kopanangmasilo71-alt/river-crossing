@@ -178,19 +178,17 @@ fun BiomeWeatherCanvas(
                     val bandY = h * (0.20f + band * 0.28f)
                     val shift = (weatherPhase * 0.4f + band * 0.33f) % 1f
                     val startX = (shift * w * 1.5f) - (w * 0.25f)
+                    val cx = startX % (w + 100f)
 
                     drawOval(
-                        brush = Brush.radialGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.18f),
-                                Color(0xFFBAE6FD).copy(alpha = 0.10f),
-                                Color.Transparent
-                            ),
-                            center = Offset(startX % (w + 100f), bandY),
-                            radius = w * 0.45f
-                        ),
-                        topLeft = Offset((startX % (w + 100f)) - w * 0.45f, bandY - 35f),
+                        color = Color(0x18BAE6FD),
+                        topLeft = Offset(cx - w * 0.45f, bandY - 35f),
                         size = androidx.compose.ui.geometry.Size(w * 0.9f, 70f)
+                    )
+                    drawOval(
+                        color = Color(0x22FFFFFF),
+                        topLeft = Offset(cx - w * 0.25f, bandY - 20f),
+                        size = androidx.compose.ui.geometry.Size(w * 0.5f, 40f)
                     )
                 }
 
@@ -238,24 +236,22 @@ fun BiomeWeatherCanvas(
                     val y = (p.yRatio * h + cos(t * 1.6 * PI + p.phaseOffset).toFloat() * (p.swayAmp * 0.8f)) % h
                     val glowPulse = (sin(t * 12f + p.phaseOffset).toFloat() * 0.5f + 0.5f).coerceIn(0.15f, 1f)
 
-                    // Outer soft glow
+                    // Outer soft glow halo
                     drawCircle(
-                        brush = Brush.radialGradient(
-                            colors = listOf(
-                                p.color.copy(alpha = 0.60f * glowPulse),
-                                p.color.copy(alpha = 0.15f * glowPulse),
-                                Color.Transparent
-                            ),
-                            center = Offset(x, y),
-                            radius = p.size * 3.5f
-                        ),
+                        color = p.color.copy(alpha = 0.25f * glowPulse),
                         radius = p.size * 3.5f,
+                        center = Offset(x, y)
+                    )
+                    // Mid glow halo
+                    drawCircle(
+                        color = p.color.copy(alpha = 0.55f * glowPulse),
+                        radius = p.size * 1.8f,
                         center = Offset(x, y)
                     )
                     // Bright core
                     drawCircle(
                         color = Color.White.copy(alpha = 0.95f * glowPulse),
-                        radius = p.size * 0.5f,
+                        radius = p.size * 0.6f,
                         center = Offset(x, y)
                     )
                 }
