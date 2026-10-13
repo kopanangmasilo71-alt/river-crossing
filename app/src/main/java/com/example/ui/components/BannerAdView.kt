@@ -63,8 +63,8 @@ fun BannerAdView(
 
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = Color(0x990A1D37),
-        border = BorderStroke(1.2.dp, Color(0x6638BDF8)),
+        color = Color(0xDD2A1406),
+        border = BorderStroke(1.2.dp, Color(0xFF8B4513)),
         shadowElevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
@@ -86,14 +86,14 @@ fun BannerAdView(
             ) {
                 Surface(
                     shape = RoundedCornerShape(4.dp),
-                    color = Color(0x660284C7),
+                    color = Color(0x665A2603),
                     modifier = Modifier.padding(bottom = 2.dp)
                 ) {
                     Text(
                         text = "ADVERTISEMENT",
                         fontSize = 8.5.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFBAE6FD),
+                        color = GoldenBankGlow,
                         letterSpacing = 0.8.sp,
                         modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
                     )
@@ -102,7 +102,7 @@ fun BannerAdView(
                 Text(
                     text = "Free to Play Supported",
                     fontSize = 8.5.sp,
-                    color = Color(0x88BAE6FD),
+                    color = Color(0xFFFEF3C7).copy(alpha = 0.7f),
                     letterSpacing = 0.4.sp
                 )
             }
@@ -165,8 +165,8 @@ fun BannerAdView(
                     ) {
                         Surface(
                             shape = RoundedCornerShape(6.dp),
-                            color = Color(0xFF1E3A8A),
-                            border = BorderStroke(1.dp, Color(0xFF38BDF8)),
+                            color = Color(0xDD3B1E0D),
+                            border = BorderStroke(1.dp, GoldenBankGlow),
                             modifier = Modifier.padding(end = 8.dp)
                         ) {
                             Text(
@@ -181,7 +181,7 @@ fun BannerAdView(
                             text = if (adLoadFailed) "Google Test Banner Ad • Ready" else "Loading Google Mobile Ad...",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFF93C5FD)
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                 }

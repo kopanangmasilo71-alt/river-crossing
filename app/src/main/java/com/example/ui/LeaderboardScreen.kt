@@ -69,26 +69,6 @@ import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuStatBarBgTop
 import com.example.ui.theme.MenuStatBarBgBottom
 import com.example.ui.theme.MenuStatBarBorder
-import com.example.ui.theme.MenuBtnGreenTop
-import com.example.ui.theme.MenuBtnGreenMid
-import com.example.ui.theme.MenuBtnGreenBottom
-import com.example.ui.theme.MenuBtnGreenBorder
-import com.example.ui.theme.MenuBtnBlueTop
-import com.example.ui.theme.MenuBtnBlueMid
-import com.example.ui.theme.MenuBtnBlueBottom
-import com.example.ui.theme.MenuBtnBlueBorder
-import com.example.ui.theme.MenuBtnAmberTop
-import com.example.ui.theme.MenuBtnAmberMid
-import com.example.ui.theme.MenuBtnAmberBottom
-import com.example.ui.theme.MenuBtnAmberBorder
-import com.example.ui.theme.MenuBtnPurpleTop
-import com.example.ui.theme.MenuBtnPurpleMid
-import com.example.ui.theme.MenuBtnPurpleBottom
-import com.example.ui.theme.MenuBtnPurpleBorder
-import com.example.ui.theme.MenuBtnRedTop
-import com.example.ui.theme.MenuBtnRedMid
-import com.example.ui.theme.MenuBtnRedBottom
-import com.example.ui.theme.MenuBtnRedBorder
 import com.example.ui.theme.WoodButtonBottom
 import com.example.ui.theme.WoodButtonTop
 import com.example.ui.theme.WoodGoldenText
@@ -185,7 +165,7 @@ fun LeaderboardScreen(
                 Surface(
                     shape = RoundedCornerShape(12.dp),
                     color = Color(0xDD2A1506),
-                    border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
+                    border = BorderStroke(1.2.dp, GoldenBankGlow),
                     modifier = Modifier.weight(1f)
                 ) {
                     Column(
@@ -217,11 +197,11 @@ fun LeaderboardScreen(
                     }
                 }
 
-                // Capsule 2: Levels Cleared (Lush Emerald)
+                // Capsule 2: Levels Cleared (Warm Timber)
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = Color(0xDD0D2612),
-                    border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.2.dp, Color(0xFFD97706)),
                     modifier = Modifier.weight(1f)
                 ) {
                     Column(
@@ -245,17 +225,17 @@ fun LeaderboardScreen(
                             text = "CLEARED",
                             fontSize = 9.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            color = Color(0xFF4ADE80),
+                            color = Color(0xFFFEF3C7),
                             letterSpacing = 0.5.sp
                         )
                     }
                 }
 
-                // Capsule 3: Optimal Solves (Royal Amethyst)
+                // Capsule 3: Optimal Solves (Rich Mahogany & Gold)
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = Color(0xDD230B33),
-                    border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.2.dp, GoldenBankGlow),
                     modifier = Modifier.weight(1f)
                 ) {
                     Column(
@@ -279,7 +259,7 @@ fun LeaderboardScreen(
                             text = "OPTIMAL",
                             fontSize = 9.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            color = Color(0xFFC084FC),
+                            color = GoldenBankGlow,
                             letterSpacing = 0.5.sp
                         )
                     }
@@ -298,16 +278,16 @@ fun LeaderboardScreen(
                 text = "${PuzzleScenarios.ALL.size} Levels Matrix",
                 selected = selectedTabIndex == 0,
                 onClick = { selectedTabIndex = 0 },
-                activeGradient = listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom),
-                activeBorder = MenuBtnPurpleBorder,
+                activeGradient = listOf(Color(0xFF8B4513), Color(0xFF5A2603)),
+                activeBorder = GoldenBankGlow,
                 modifier = Modifier.weight(1f)
             )
             WoodFilterPill(
                 text = "Match History (${recentHistory.size})",
                 selected = selectedTabIndex == 1,
                 onClick = { selectedTabIndex = 1 },
-                activeGradient = listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom),
-                activeBorder = MenuBtnAmberBorder,
+                activeGradient = listOf(Color(0xFF78350F), Color(0xFF451A03)),
+                activeBorder = GoldenBankGlow,
                 modifier = Modifier.weight(1f)
             )
         }
@@ -429,8 +409,8 @@ fun LeaderboardScreen(
             confirmButton = {
                 Surface(
                     shape = RoundedCornerShape(12.dp),
-                    color = MenuBtnRedTop,
-                    border = BorderStroke(1.2.dp, MenuBtnRedBorder),
+                    color = Color(0xFFDC2626),
+                    border = BorderStroke(1.2.dp, Color(0xFFEF4444)),
                     modifier = Modifier.clickable {
                         viewModel.clearHighScoreHistory(null)
                         showClearConfirmDialog = false
@@ -438,7 +418,7 @@ fun LeaderboardScreen(
                 ) {
                     Box(
                         modifier = Modifier
-                            .background(Brush.verticalGradient(listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom)))
+                            .background(Brush.verticalGradient(listOf(Color(0xFFDC2626), Color(0xFF991B1B))))
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                     ) {
                         Text("Clear All", fontWeight = FontWeight.Bold, color = Color.White)
@@ -480,11 +460,9 @@ private fun LevelLeaderboardCard(
     val isOptimal = bestScore != null && bestScore.movesCount <= scenario.optimalMoves
 
     val (cardGradient, cardBorder) = when {
-        !isUnlocked -> listOf(Color(0xF0201006), Color(0xF0120703)) to Color(0x44D97706)
-        scenario.difficulty == com.example.model.PuzzleDifficulty.NORMAL -> listOf(Color(0xF012351A), Color(0xF00A200F)) to MenuBtnGreenBorder
-        scenario.difficulty == com.example.model.PuzzleDifficulty.MEDIUM -> listOf(Color(0xF00D3560), Color(0xF007203A)) to MenuBtnBlueBorder
-        scenario.difficulty == com.example.model.PuzzleDifficulty.HARD -> listOf(Color(0xF04A2A08), Color(0xF02C1704)) to MenuBtnAmberBorder
-        else -> listOf(Color(0xF032124A), Color(0xF01D092B)) to MenuBtnPurpleBorder
+        !isUnlocked -> listOf(Color(0xDD201006), Color(0xDD120703)) to Color(0x448B4513)
+        isOptimal -> listOf(Color(0xF04A260E), Color(0xF02B1405)) to GoldenBankGlow
+        else -> listOf(Color(0xF03B1E0D), Color(0xF0231106)) to Color(0xFFB45309)
     }
 
     WoodCard(
@@ -506,7 +484,7 @@ private fun LevelLeaderboardCard(
             Surface(
                 shape = RoundedCornerShape(12.dp),
                 color = Color(0xDD220F05),
-                border = BorderStroke(1.2.dp, if (!isUnlocked) Color(0x66F87171) else if (isOptimal) GoldenBankGlow else cardBorder),
+                border = BorderStroke(1.2.dp, if (!isUnlocked) Color(0x668B4513) else if (isOptimal) GoldenBankGlow else cardBorder),
                 modifier = Modifier.size(46.dp)
             ) {
                 Box(contentAlignment = Alignment.Center) {
@@ -515,14 +493,14 @@ private fun LevelLeaderboardCard(
                             Icon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = "Locked",
-                                tint = Color(0xFFFCA5A5),
+                                tint = Color(0xFFD97706),
                                 modifier = Modifier.size(16.dp)
                             )
                             Text(
                                 text = "${scenario.levelNumber}",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 11.sp,
-                                color = Color(0xFFFECACA)
+                                color = Color(0xFFFDE68A)
                             )
                         }
                     } else {
@@ -574,13 +552,13 @@ private fun LevelLeaderboardCard(
                         Surface(
                             shape = RoundedCornerShape(6.dp),
                             color = Color(0xDD2A1207),
-                            border = BorderStroke(0.8.dp, Color(0xFFF87171))
+                            border = BorderStroke(0.8.dp, Color(0xFF8B4513))
                         ) {
                             Text(
                                 text = "LOCKED",
                                 fontSize = 8.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = Color(0xFFFCA5A5),
+                                color = Color(0xFFFEF3C7),
                                 modifier = Modifier.padding(horizontal = 4.dp, vertical = 1.dp)
                             )
                         }
@@ -645,20 +623,20 @@ private fun LevelLeaderboardCard(
             if (isUnlocked) {
                 Surface(
                     shape = CircleShape,
-                    color = MenuBtnGreenTop,
-                    border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                    color = Color(0xFF6B3209),
+                    border = BorderStroke(1.5.dp, GoldenBankGlow),
                     modifier = Modifier.size(36.dp)
                 ) {
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Brush.verticalGradient(listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom))),
+                            .background(Brush.verticalGradient(listOf(Color(0xFF8B4513), Color(0xFF5A2603)))),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
                             contentDescription = "Play",
-                            tint = Color.White,
+                            tint = Color(0xFFFFFBEB),
                             modifier = Modifier.size(18.dp)
                         )
                     }
@@ -666,8 +644,8 @@ private fun LevelLeaderboardCard(
             } else {
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = Color(0xDD281006),
-                    border = BorderStroke(1.2.dp, Color(0xFFF87171)),
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.2.dp, Color(0xFF8B4513)),
                     modifier = Modifier.size(36.dp)
                 ) {
                     Box(
@@ -677,7 +655,7 @@ private fun LevelLeaderboardCard(
                         Icon(
                             imageVector = Icons.Default.Lock,
                             contentDescription = "Locked - Watch Ad or Complete Level",
-                            tint = Color(0xFFFCA5A5),
+                            tint = Color(0xFFD97706),
                             modifier = Modifier.size(16.dp)
                         )
                     }

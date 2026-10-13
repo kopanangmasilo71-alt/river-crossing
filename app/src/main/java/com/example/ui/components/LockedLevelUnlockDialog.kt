@@ -243,8 +243,8 @@ fun LockedLevelUnlockDialog(
                 // Alternative Approach: Watch Rewarded Ad
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = Color(0xDD0D2612),
-                    border = BorderStroke(1.dp, MenuBtnGreenBorder),
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.dp, GoldenBankGlow),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -258,12 +258,12 @@ fun LockedLevelUnlockDialog(
                                 text = "Watch Rewarded Ad",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 12.sp,
-                                color = Color(0xFF86EFAC)
+                                color = GoldenBankGlow
                             )
                             Text(
                                 text = "Watch an ad completely to unlock instantly. Active internet is required.",
                                 fontSize = 11.sp,
-                                color = Color(0xFFBBF7D0)
+                                color = Color(0xFFFDE68A)
                             )
                         }
                     }
@@ -343,8 +343,8 @@ fun LockedLevelUnlockDialog(
 
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = MenuBtnGreenTop,
-                        border = BorderStroke(1.5.dp, MenuBtnGreenBorder),
+                        color = Color(0xFF6B3209),
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
                         modifier = Modifier
                             .clip(RoundedCornerShape(12.dp))
                             .testTag("unlock_via_rewarded_ad_button")

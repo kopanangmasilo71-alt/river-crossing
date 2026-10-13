@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="56dp"
+    android:viewportWidth="200"
+    android:viewportHeight="56">
+    <!-- Drop shadow -->
+    <path
+        android:fillColor="#2C1607"
+        android:pathData="M 28,0 L 172,0 Q 200,0 200,28 L 200,28 Q 200,56 172,56 L 28,56 Q 0,56 0,28 L 0,28 Q 0,0 28,0 Z" />
+    <!-- Outer wooden border -->
+    <path
+        android:fillColor="#4F2B12"
+        android:pathData="M 28,3 L 172,3 Q 197,3 197,28 L 197,28 Q 197,53 172,53 L 28,53 Q 3,53 3,28 L 3,28 Q 3,3 28,3 Z" />
+    <!-- Main wood body -->
+    <path
+        android:fillColor="#76431C"
+        android:pathData="M 28,5 L 172,5 Q 195,5 195,28 L 195,28 Q 195,51 172,51 L 28,51 Q 5,51 5,28 L 5,28 Q 5,5 28,5 Z" />
+    <!-- Top curved bevel -->
+    <path
+        android:fillColor="#955A2A"
+        android:pathData="M 28,5 L 172,5 Q 195,5 195,20 L 5,20 Q 5,5 28,5 Z" />
+    <!-- Carved horizontal grain -->
+    <path
+        android:strokeColor="#562F11"
+        android:strokeWidth="1.5"
+        android:pathData="M 12,20 L 188,20 M 12,36 L 188,36" />
+    <!-- Grain texture -->
+    <path
+        android:strokeColor="#864E22"
+        android:strokeWidth="1.0"
+        android:pathData="M 15,12 Q 65,8 115,14 T 185,11 M 15,28 Q 75,34 135,26 T 185,30 M 15,44 Q 65,40 125,46 T 185,42" />
+    <!-- End rivets -->
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 18,28 m -2.5,0 a 2.5,2.5 0 1,0 5,0 a 2.5,2.5 0 1,0 -5,0" />
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 182,28 m -2.5,0 a 2.5,2.5 0 1,0 5,0 a 2.5,2.5 0 1,0 -5,0" />
+</vector>

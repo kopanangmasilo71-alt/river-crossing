@@ -209,8 +209,8 @@ fun VictoryDialog(
         ) {
             Surface(
                 shape = RoundedCornerShape(26.dp),
-                color = theme.headerBackgroundColors.last().copy(alpha = 0.96f),
-                border = BorderStroke(2.dp, Brush.verticalGradient(theme.headerBorderColors)),
+                color = Color(0xF62C1408),
+                border = BorderStroke(2.dp, GoldenBankGlow),
                 shadowElevation = 16.dp,
                 modifier = Modifier
                     .fillMaxWidth(0.94f)
@@ -470,8 +470,8 @@ fun VictoryDialog(
                         if (onNextLevel != null) {
                             Surface(
                                 shape = RoundedCornerShape(14.dp),
-                                color = theme.sailButtonColors.first(),
-                                border = BorderStroke(1.8.dp, theme.sailButtonBorderColors.first()),
+                                color = Color(0xFF6B3209),
+                                border = BorderStroke(1.8.dp, GoldenBankGlow),
                                 shadowElevation = 6.dp,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -483,7 +483,7 @@ fun VictoryDialog(
                                         .fillMaxWidth()
                                         .background(
                                             Brush.verticalGradient(
-                                                theme.sailButtonColors
+                                                listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                                             )
                                         )
                                         .padding(vertical = 12.dp),
@@ -497,14 +497,14 @@ fun VictoryDialog(
                                             "Next Level",
                                             fontSize = 15.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = Color.White
+                                            color = Color(0xFFFFFBEB)
                                         )
                                         Spacer(modifier = Modifier.width(6.dp))
                                         Text(
                                             "➔",
                                             fontSize = 16.sp,
                                             fontWeight = FontWeight.ExtraBold,
-                                            color = Color.White
+                                            color = GoldenBankGlow
                                         )
                                     }
                                 }

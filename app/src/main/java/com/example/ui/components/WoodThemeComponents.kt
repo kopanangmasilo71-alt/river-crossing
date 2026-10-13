@@ -163,6 +163,7 @@ object WoodAssets {
     val btnSmall = R.drawable.img_wood_btn_small_1791812800194
     val pillMenu = R.drawable.img_wood_pill_menu_1791812817980
     val cardSquare = R.drawable.img_wood_card_square_1791812840654
+    val woodPanel = cardSquare
 }
 
 /**
@@ -246,24 +247,12 @@ fun WoodSignboardHeader(
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Authentic carved wooden signboard texture
+            // Authentic carved wooden signboard texture (solid realistic wood, no semitransparent color overlay)
             Image(
                 painter = painterResource(id = WoodAssets.signHeader),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.85f)
-            )
-            // Theme tint scrim
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.52f) }
-                        )
-                    )
+                modifier = Modifier.matchParentSize()
             )
             // Ambient light gleam traveling across the carved wooden signboard
             Canvas(modifier = Modifier.matchParentSize()) {
@@ -615,18 +604,7 @@ fun WoodCargoBadge(
                 painter = painterResource(id = WoodAssets.pillMenu),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.85f)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            levelTheme.headerBackgroundColors.map { it.copy(alpha = 0.60f) }
-                        )
-                    )
+                modifier = Modifier.matchParentSize()
             )
             Box(
                 modifier = Modifier.padding(horizontal = 18.dp, vertical = 6.dp),
@@ -758,7 +736,7 @@ fun WoodSetSailButton(
 
     val buttonBg = when {
         isConflict -> listOf(Color(0xFF7F1D1D), Color(0xFF450A0A))
-        !enabled -> listOf(Color(0xE60A2B4E), Color(0xCC061A30))
+        !enabled -> listOf(Color(0xDD2A1406), Color(0xDD180A03))
         isPressed -> listOf(
             levelTheme.sailButtonColors.last(),
             levelTheme.sailButtonColors.last()
@@ -767,7 +745,7 @@ fun WoodSetSailButton(
     }
     val borderBrush = when {
         isConflict -> Brush.verticalGradient(listOf(Color(0xFFEF4444), Color(0xFF991B1B)))
-        !enabled -> Brush.verticalGradient(listOf(Color(0xFF1E4976), Color(0xFF0F2B48)))
+        !enabled -> Brush.verticalGradient(listOf(Color(0xFF5A2C0D), Color(0xFF381A07)))
         isPressed -> Brush.verticalGradient(
             listOf(
                 levelTheme.sailButtonBorderColors.getOrElse(1) { Color(0xFF86EFAC) },
@@ -824,24 +802,14 @@ fun WoodSetSailButton(
             Box(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                // Embossed wooden button texture
+                // Embossed wooden button texture (solid realistic wood)
                 Image(
                     painter = painterResource(id = WoodAssets.btnSail),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .matchParentSize()
-                        .alpha(if (enabled) 0.88f else 0.40f)
-                )
-                // Color tint overlay
-                Box(
-                    modifier = Modifier
-                        .matchParentSize()
-                        .background(
-                            Brush.verticalGradient(
-                                colors = buttonBg.map { it.copy(alpha = if (isConflict) 0.75f else 0.55f) }
-                            )
-                        )
+                        .alpha(if (enabled) 1f else 0.45f)
                 )
                 // Dynamic shimmering sunlight light gleam across button when ready to cross
                 if (enabled && !isRowing && !isConflict) {
@@ -1051,8 +1019,8 @@ fun FloatingBankPill(
 ) {
     Surface(
         shape = RoundedCornerShape(12.dp),
-        color = if (isDocked) Color(0xF00E3D79) else Color(0x990A2342),
-        border = BorderStroke(1.2.dp, if (isDocked) Color(0xFF38BDF8) else Color(0x4038BDF8)),
+        color = if (isDocked) Color(0xF04A260E) else Color(0x992E1507),
+        border = BorderStroke(1.2.dp, if (isDocked) GoldenBankGlow else Color(0x66B45309)),
         shadowElevation = if (isDocked) 4.dp else 1.dp,
         modifier = modifier
     ) {
@@ -1065,7 +1033,7 @@ fun FloatingBankPill(
                 text = if (bank == Bank.LEFT) "▶ LEFT BANK" else "▶ RIGHT BANK",
                 fontSize = 9.5.sp,
                 fontWeight = FontWeight.ExtraBold,
-                color = if (isDocked) Color.White else Color(0xFF94A3B8),
+                color = if (isDocked) GoldenBankGlow else Color(0xFFFEF3C7),
                 letterSpacing = 0.5.sp
             )
         }
@@ -1166,28 +1134,7 @@ fun WoodActionButton(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()
-                    .alpha(if (enabled) 0.88f else 0.45f)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        if (enabled) {
-                            Brush.verticalGradient(
-                                if (isPressed) {
-                                    listOf(secondaryBg.copy(alpha = 0.70f), primaryBg.copy(alpha = 0.70f))
-                                } else if (isHint) {
-                                    listOf(Color(0xD078350F), Color(0xD0451A03))
-                                } else {
-                                    levelTheme.actionButtonColors.map { it.copy(alpha = 0.50f) }
-                                }
-                            )
-                        } else {
-                            Brush.verticalGradient(
-                                colors = listOf(primaryBg.copy(alpha = 0.30f), secondaryBg.copy(alpha = 0.25f))
-                            )
-                        }
-                    )
+                    .alpha(if (enabled) 1f else 0.45f)
             )
             Row(
                 modifier = Modifier.padding(horizontal = 6.dp, vertical = 7.dp),
@@ -1258,8 +1205,8 @@ fun WoodScreenContainer(
 }
 
 /**
- * Circular Quick Action Button matching the Main Menu top buttons
- * (3D glossy ocean blue gradient pill with cyan border, interactive spring press, and crisp white icon)
+ * Circular Quick Action Button matching the warm wooden adventure theme
+ * (Carved timber grain, warm brass/gold border, interactive spring press, and crisp warm cream icon)
  */
 @Composable
 fun WoodQuickActionButton(
@@ -1281,7 +1228,7 @@ fun WoodQuickActionButton(
     Surface(
         shape = CircleShape,
         color = Color.Transparent,
-        border = BorderStroke(1.5.dp, MenuQuickActionBorder),
+        border = BorderStroke(1.5.dp, GoldenBankGlow),
         shadowElevation = 4.dp,
         modifier = modifier
             .size(36.dp)
@@ -1302,34 +1249,20 @@ fun WoodQuickActionButton(
                 painter = painterResource(id = WoodAssets.btnSmall),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .alpha(0.88f)
-            )
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        Brush.verticalGradient(
-                            listOf(
-                                MenuQuickActionBgTop.copy(alpha = 0.55f),
-                                MenuQuickActionBgBottom.copy(alpha = 0.70f)
-                            )
-                        )
-                    )
+                modifier = Modifier.fillMaxSize()
             )
             if (icon != null) {
                 Icon(
                     imageVector = icon,
                     contentDescription = contentDescription,
-                    tint = Color.White,
+                    tint = Color(0xFFFFFBEB),
                     modifier = Modifier.size(19.dp)
                 )
             } else if (drawableRes != null) {
                 Icon(
                     painter = painterResource(id = drawableRes),
                     contentDescription = contentDescription,
-                    tint = Color.White,
+                    tint = Color(0xFFFFFBEB),
                     modifier = Modifier.size(19.dp)
                 )
             }
@@ -1338,8 +1271,8 @@ fun WoodQuickActionButton(
 }
 
 /**
- * Top App Bar styled with the Main Menu's signature deep ocean blue and warm golden amber aesthetic.
- * Features 3D glossy highlight gleam, gold border accent, high-res game logo badge, and circular quick action buttons.
+ * Top App Bar styled with warm cedar/mahogany signboard and golden amber border trim.
+ * Features carved wooden texture, warm cream typography, and brass quick action buttons.
  */
 @Composable
 fun WoodTopAppBar(
@@ -1355,7 +1288,7 @@ fun WoodTopAppBar(
         border = BorderStroke(
             1.8.dp,
             Brush.verticalGradient(
-                listOf(MenuStatBarBorder, Color(0xFF0F325E), GoldenBankGlow.copy(alpha = 0.6f))
+                listOf(GoldenBankGlow, Color(0xFFB45309), Color(0xFF4A260E))
             )
         ),
         shadowElevation = 8.dp,
@@ -1370,31 +1303,16 @@ fun WoodTopAppBar(
                 painter = painterResource(id = WoodAssets.signHeader),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.85f)
+                modifier = Modifier.matchParentSize()
             )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                MenuStatBarBgTop.copy(alpha = 0.65f),
-                                MenuStatBarBgBottom.copy(alpha = 0.80f),
-                                Color(0xDD041730)
-                            )
-                        )
-                    )
-            )
-            // Subtle 3D glossy highlight gleam at top edge
+            // Subtle warm golden amber bevel highlight at top edge
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(2.dp)
                     .background(
                         Brush.horizontalGradient(
-                            listOf(Color.Transparent, Color.White.copy(alpha = 0.45f), Color.Transparent)
+                            listOf(Color.Transparent, Color(0x66FDE68A), Color.Transparent)
                         )
                     )
             )
@@ -1425,7 +1343,7 @@ fun WoodTopAppBar(
                             text = title,
                             fontSize = 17.5.sp,
                             fontWeight = FontWeight.ExtraBold,
-                            color = Color.White,
+                            color = Color(0xFFFFFBEB),
                             style = TextStyle(
                                 shadow = Shadow(
                                     color = Color(0xCC000000),
@@ -1439,7 +1357,7 @@ fun WoodTopAppBar(
                                 text = subtitle,
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.SemiBold,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFEF3C7)
                             )
                         }
                     }
@@ -1457,8 +1375,8 @@ fun WoodTopAppBar(
 }
 
 /**
- * Vibrant card with rich warm cedar/mahogany tones or custom rainbow gradients,
- * 3D glossy highlight sheen, and beveled golden borders matching the Main Menu buttons.
+ * Cohesive rustic wooden card with rich warm cedar/mahogany tones,
+ * carved wooden borders, subtle bevel sheen, and authentic wood texture.
  */
 @Composable
 fun WoodCard(
@@ -1469,22 +1387,22 @@ fun WoodCard(
     content: @Composable () -> Unit
 ) {
     val bgColors = gradientColors ?: listOf(
-        Color(0xF00A2346),
-        Color(0xF005162D)
+        Color(0xF042220E),
+        Color(0xF0281305)
     )
-    val borderCol = borderColor ?: MenuStatBarBorder
+    val borderCol = borderColor ?: Color(0xFFB45309)
 
     Card(
         shape = shape,
         colors = CardDefaults.cardColors(containerColor = Color.Transparent),
         border = BorderStroke(
-            1.8.dp,
+            1.6.dp,
             Brush.verticalGradient(
-                listOf(borderCol.copy(alpha = 0.95f), borderCol.copy(alpha = 0.55f))
+                listOf(borderCol.copy(alpha = 0.95f), borderCol.copy(alpha = 0.65f))
             )
         ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = modifier.shadow(6.dp, shape)
+        elevation = CardDefaults.cardElevation(defaultElevation = 5.dp),
+        modifier = modifier.shadow(5.dp, shape)
     ) {
         Box(
             modifier = Modifier.fillMaxWidth()
@@ -1493,27 +1411,16 @@ fun WoodCard(
                 painter = painterResource(id = WoodAssets.cardSquare),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.78f)
+                modifier = Modifier.matchParentSize()
             )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = bgColors.map { it.copy(alpha = 0.68f) }
-                        )
-                    )
-            )
-            // Subtle 3D glossy highlight gleam at top
+            // Subtle warm golden amber grain highlight at top
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(2.dp)
                     .background(
                         Brush.horizontalGradient(
-                            listOf(Color.Transparent, Color.White.copy(alpha = 0.35f), Color.Transparent)
+                            listOf(Color.Transparent, Color(0x33FDE68A), Color.Transparent)
                         )
                     )
             )
@@ -1523,7 +1430,7 @@ fun WoodCard(
 }
 
 /**
- * Vibrant section header matching the "🧭 EXPEDITION MENU" signpost in MainMenuScreen.
+ * Cohesive wooden section header matching the rustic adventure signpost aesthetic.
  */
 @Composable
 fun VibrantSectionHeader(
@@ -1539,7 +1446,7 @@ fun VibrantSectionHeader(
     ) {
         Surface(
             shape = CircleShape,
-            color = Color(0xCC072449),
+            color = Color(0xDD2C1406),
             border = BorderStroke(1.2.dp, accentColor),
             modifier = Modifier.size(24.dp)
         ) {
@@ -1570,7 +1477,7 @@ fun VibrantSectionHeader(
             color = accentColor,
             style = TextStyle(
                 shadow = Shadow(
-                    color = Color(0x99000000),
+                    color = Color(0xCC000000),
                     offset = Offset(1f, 1f),
                     blurRadius = 2f
                 )
@@ -1580,8 +1487,8 @@ fun VibrantSectionHeader(
 }
 
 /**
- * Vibrant inset panel for content groupings, stats, or text descriptions.
- * Styled in the Main Menu's deep ocean-blue inset container with subtle cyan/amber border.
+ * Carved mahogany inset panel for grouped stats, text descriptions, or inputs.
+ * Features deep warm mahogany inset with subtle carved timber border.
  */
 @Composable
 fun WoodInsetBox(
@@ -1591,8 +1498,8 @@ fun WoodInsetBox(
 ) {
     Surface(
         shape = shape,
-        color = Color(0xCC05162E),
-        border = BorderStroke(1.2.dp, Color(0x5538BDF8)),
+        color = Color.Transparent,
+        border = BorderStroke(1.2.dp, Color(0xFFB45309)),
         modifier = modifier
     ) {
         Box {
@@ -1600,9 +1507,7 @@ fun WoodInsetBox(
                 painter = painterResource(id = WoodAssets.cardSquare),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.35f)
+                modifier = Modifier.matchParentSize()
             )
             content()
         }
@@ -1610,7 +1515,7 @@ fun WoodInsetBox(
 }
 
 /**
- * Vibrant button for menus and large actions.
+ * Vibrant button for menus and large actions with carved wooden textures.
  */
 @Composable
 fun WoodMenuButton(
@@ -1625,17 +1530,17 @@ fun WoodMenuButton(
     modifier: Modifier = Modifier
 ) {
     val bgColors = gradientColors ?: if (accentGlow) {
-        listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
+        listOf(Color(0xF048260E), Color(0xF02C1406))
     } else {
-        listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom)
+        listOf(Color(0xF03B1E0C), Color(0xF0220F05))
     }
-    val borderCol = borderColor ?: if (accentGlow) MenuBtnAmberBorder else MenuBtnBlueBorder
+    val borderCol = borderColor ?: if (accentGlow) GoldenBankGlow else Color(0xFFB45309)
 
     Surface(
         shape = RoundedCornerShape(16.dp),
         color = Color.Transparent,
         border = BorderStroke(1.8.dp, borderCol),
-        shadowElevation = if (accentGlow) 6.dp else 4.dp,
+        shadowElevation = if (accentGlow) 5.dp else 3.dp,
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
@@ -1647,18 +1552,7 @@ fun WoodMenuButton(
                 painter = painterResource(id = WoodAssets.pillMenu),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(0.85f)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = bgColors.map { it.copy(alpha = 0.60f) }
-                        )
-                    )
+                modifier = Modifier.matchParentSize()
             )
             Row(
                 modifier = Modifier
@@ -1669,14 +1563,14 @@ fun WoodMenuButton(
                 Surface(
                     shape = CircleShape,
                     color = Color(0x35000000),
-                    border = BorderStroke(1.2.dp, Color.White.copy(alpha = 0.65f)),
+                    border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.7f)),
                     modifier = Modifier.size(44.dp)
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             imageVector = icon,
                             contentDescription = null,
-                            tint = Color.White,
+                            tint = Color(0xFFFFFBEB),
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -1689,7 +1583,7 @@ fun WoodMenuButton(
                         text = title,
                         fontSize = 16.sp,
                         fontWeight = FontWeight.ExtraBold,
-                        color = Color.White,
+                        color = Color(0xFFFFFBEB),
                         style = TextStyle(
                             shadow = Shadow(
                                 color = Color(0x99000000),
@@ -1702,7 +1596,7 @@ fun WoodMenuButton(
                         text = subtitle,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Medium,
-                        color = Color(0xE6FFFFFF),
+                        color = Color(0xFFFEF3C7),
                         maxLines = 1
                     )
                 }
@@ -1712,7 +1606,7 @@ fun WoodMenuButton(
 }
 
 /**
- * Filter pill / chip for level selections and category tabs with vibrant active coloring.
+ * Filter pill / chip for level selections and category tabs with warm wooden styling.
  */
 @Composable
 fun WoodFilterPill(
@@ -1724,14 +1618,14 @@ fun WoodFilterPill(
     modifier: Modifier = Modifier
 ) {
     val bgGradient = if (selected) {
-        activeGradient ?: listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom)
+        activeGradient ?: listOf(Color(0xFFB45309), Color(0xFF78350F))
     } else {
-        listOf(Color(0xE60A264D), Color(0xE6051731))
+        listOf(Color(0xE6321607), Color(0xE61F0C03))
     }
     val borderCol = if (selected) {
-        activeBorder ?: MenuBtnAmberBorder
+        activeBorder ?: Color(0xFFFDE68A)
     } else {
-        Color(0x5538BDF8)
+        Color(0x66A06634)
     }
 
     Surface(
@@ -1748,18 +1642,7 @@ fun WoodFilterPill(
                 painter = painterResource(id = WoodAssets.btnSmall),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .matchParentSize()
-                    .alpha(if (selected) 0.88f else 0.50f)
-            )
-            Box(
-                modifier = Modifier
-                    .matchParentSize()
-                    .background(
-                        Brush.verticalGradient(
-                            bgGradient.map { it.copy(alpha = if (selected) 0.60f else 0.75f) }
-                        )
-                    )
+                modifier = Modifier.matchParentSize()
             )
             Box(
                 modifier = Modifier.padding(horizontal = 13.dp, vertical = 7.dp),
@@ -1769,7 +1652,7 @@ fun WoodFilterPill(
                     text = text,
                     fontSize = 11.5.sp,
                     fontWeight = if (selected) FontWeight.ExtraBold else FontWeight.Bold,
-                    color = if (selected) Color.White else Color(0xFFBAE6FD)
+                    color = if (selected) Color(0xFFFFFBEB) else Color(0xFFFEF3C7)
                 )
             }
         }

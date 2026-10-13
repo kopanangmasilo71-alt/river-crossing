@@ -1,0 +1,61 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="400dp"
+    android:height="160dp"
+    android:viewportWidth="400"
+    android:viewportHeight="160">
+    <!-- Base dark wood border -->
+    <path
+        android:fillColor="#3E200C"
+        android:pathData="M 12,0 L 388,0 Q 400,0 400,12 L 400,148 Q 400,160 388,160 L 12,160 Q 0,160 0,148 L 0,12 Q 0,0 12,0 Z" />
+    <!-- Outer wooden plank frame -->
+    <path
+        android:fillColor="#5A3215"
+        android:pathData="M 14,4 L 386,4 Q 396,4 396,14 L 396,146 Q 396,156 386,156 L 14,156 Q 4,156 4,146 L 4,14 Q 4,4 14,4 Z" />
+    <!-- Main inner wooden plank body -->
+    <path
+        android:fillColor="#7B461D"
+        android:pathData="M 18,8 L 382,8 Q 392,8 392,18 L 392,142 Q 392,152 382,152 L 18,152 Q 8,152 8,142 L 8,18 Q 8,8 18,8 Z" />
+    <!-- Top plank highlight -->
+    <path
+        android:fillColor="#965B29"
+        android:pathData="M 18,8 L 382,8 Q 390,8 390,16 L 390,32 L 10,32 L 10,16 Q 10,8 18,8 Z" />
+    <!-- Carved horizontal plank lines -->
+    <path
+        android:strokeColor="#4A260E"
+        android:strokeWidth="2.5"
+        android:pathData="M 8,42 L 392,42 M 8,78 L 392,78 M 8,116 L 392,116" />
+    <!-- Subtle wood grain waves -->
+    <path
+        android:strokeColor="#643614"
+        android:strokeWidth="1.2"
+        android:pathData="M 12,24 Q 80,18 160,26 T 320,22 T 388,26 M 12,58 Q 120,64 220,56 T 388,60 M 12,96 Q 70,90 180,98 T 350,92 T 388,96 M 12,134 Q 140,140 260,132 T 388,136" />
+    <path
+        android:strokeColor="#8C5424"
+        android:strokeWidth="1.0"
+        android:pathData="M 16,14 Q 90,20 200,12 T 380,16 M 16,68 Q 110,60 240,70 T 380,64 M 16,104 Q 130,112 250,102 T 380,106" />
+    <!-- Brass / gold corner rivets -->
+    <path
+        android:fillColor="#E5A93C"
+        android:pathData="M 18,18 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 17,17 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#E5A93C"
+        android:pathData="M 382,18 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 381,17 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#E5A93C"
+        android:pathData="M 18,142 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 17,141 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#E5A93C"
+        android:pathData="M 382,142 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 381,141 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+</vector>

@@ -59,6 +59,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ui.theme.GoldenBankGlow
 import androidx.compose.ui.window.Dialog
 import com.example.R
 import com.example.model.GameItem
@@ -91,8 +92,8 @@ fun ComicVignetteDialog(
     Dialog(onDismissRequest = onDismiss) {
         Card(
             shape = RoundedCornerShape(22.dp),
-            colors = CardDefaults.cardColors(containerColor = activeTheme.headerBackgroundColors.last().copy(alpha = 0.96f)),
-            border = BorderStroke(2.dp, activeTheme.headerBorderColors.first()),
+            colors = CardDefaults.cardColors(containerColor = Color(0xF42B1406)),
+            border = BorderStroke(2.dp, GoldenBankGlow),
             elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,7 +105,7 @@ fun ComicVignetteDialog(
                     .fillMaxWidth()
                     .background(
                         Brush.verticalGradient(
-                            colors = activeTheme.headerBackgroundColors.map { it.copy(alpha = 0.95f) }
+                            colors = listOf(Color(0xF04A260E), Color(0xF02B1405))
                         )
                     )
                     .padding(14.dp),
@@ -292,8 +293,8 @@ fun ComicVignetteDialog(
                 // Play / Dismiss Button
                 Surface(
                     shape = RoundedCornerShape(14.dp),
-                    color = activeTheme.sailButtonColors.first(),
-                    border = BorderStroke(2.dp, activeTheme.sailButtonBorderColors.first()),
+                    color = Color(0xFF6B3209),
+                    border = BorderStroke(2.dp, GoldenBankGlow),
                     shadowElevation = 6.dp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -305,7 +306,7 @@ fun ComicVignetteDialog(
                         modifier = Modifier
                             .background(
                                 Brush.verticalGradient(
-                                    colors = activeTheme.sailButtonColors
+                                    colors = listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                                 )
                             )
                             .padding(vertical = 10.dp),
@@ -315,13 +316,13 @@ fun ComicVignetteDialog(
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
                             contentDescription = "Start",
-                            tint = Color.White,
+                            tint = Color(0xFFFFFBEB),
                             modifier = Modifier.size(20.dp)
                         )
                         Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "LET'S SOLVE IT!",
-                            color = Color.White,
+                            color = Color(0xFFFFFBEB),
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Black,
                             letterSpacing = 1.sp
@@ -344,8 +345,8 @@ private fun ComicPanel(
 ) {
     Card(
         shape = RoundedCornerShape(14.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xF00A2D58)),
-        border = BorderStroke(2.dp, Color(0xFF38BDF8).copy(alpha = 0.6f)),
+        colors = CardDefaults.cardColors(containerColor = Color(0xF03B1E0D)),
+        border = BorderStroke(1.8.dp, GoldenBankGlow),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -364,12 +365,13 @@ private fun ComicPanel(
                     Box(
                         modifier = Modifier
                             .size(20.dp)
-                            .background(Color(0xFF0284C7), CircleShape),
+                            .background(Color(0xFF6B3209), CircleShape)
+                            .border(1.dp, GoldenBankGlow, CircleShape),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
                             text = panelNumber,
-                            color = Color.White,
+                            color = Color(0xFFFFFBEB),
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Black
                         )
@@ -391,7 +393,7 @@ private fun ComicPanel(
 
                 Text(
                     text = title,
-                    color = Color.White,
+                    color = Color(0xFFFFFBEB),
                     fontWeight = FontWeight.ExtraBold,
                     fontSize = 12.5.sp
                 )
@@ -399,17 +401,17 @@ private fun ComicPanel(
 
             visualContent()
 
-            // Comic Speech Bubble
+            // Comic Speech Bubble in warm parchment / wood inset
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0x3338BDF8), RoundedCornerShape(8.dp))
-                    .border(1.dp, Color(0x6638BDF8), RoundedCornerShape(8.dp))
+                    .background(Color(0xDD241106), RoundedCornerShape(8.dp))
+                    .border(1.dp, Color(0xFF8B4513), RoundedCornerShape(8.dp))
                     .padding(horizontal = 10.dp, vertical = 6.dp)
             ) {
                 Text(
                     text = speechText,
-                    color = Color(0xFFE0F2FE),
+                    color = Color(0xFFFEF3C7),
                     fontSize = 11.5.sp,
                     fontWeight = FontWeight.Medium,
                     lineHeight = 15.sp

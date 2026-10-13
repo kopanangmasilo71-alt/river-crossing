@@ -115,8 +115,8 @@ fun HighScoresDialog(
         confirmButton = {
             Surface(
                 shape = RoundedCornerShape(14.dp),
-                color = levelTheme.sailButtonColors.first(),
-                border = BorderStroke(1.8.dp, levelTheme.sailButtonBorderColors.first()),
+                color = Color(0xFF6B3209),
+                border = BorderStroke(1.8.dp, GoldenBankGlow),
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable(onClick = onDismiss)
@@ -127,13 +127,13 @@ fun HighScoresDialog(
                         .fillMaxWidth()
                         .background(
                             Brush.verticalGradient(
-                                levelTheme.sailButtonColors
+                                listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                             )
                         )
                         .padding(vertical = 12.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text("Close Logbook", fontWeight = FontWeight.ExtraBold, fontSize = 14.sp, color = Color.White)
+                    Text("Close Logbook", fontWeight = FontWeight.ExtraBold, fontSize = 14.sp, color = Color(0xFFFFFBEB))
                 }
             }
         },
@@ -228,8 +228,8 @@ fun HighScoresDialog(
                         val isAllSelected = selectedLevelId == null
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = if (isAllSelected) MenuBtnAmberMid else Color(0xCC2A1308),
-                            border = BorderStroke(1.2.dp, if (isAllSelected) GoldenBankGlow else Color(0x40D4A373)),
+                            color = if (isAllSelected) Color(0xFF6B3209) else Color(0xCC2A1308),
+                            border = BorderStroke(1.2.dp, if (isAllSelected) GoldenBankGlow else Color(0xFF8B4513)),
                             modifier = Modifier
                                 .clip(RoundedCornerShape(10.dp))
                                 .clickable { selectedLevelId = null }
@@ -238,7 +238,7 @@ fun HighScoresDialog(
                                 text = "All Levels",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isAllSelected) Color.White else GoldenBankGlow,
+                                color = if (isAllSelected) Color(0xFFFFFBEB) else GoldenBankGlow,
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                             )
                         }
@@ -248,8 +248,8 @@ fun HighScoresDialog(
                         val isSelected = selectedLevelId == scenario.id
                         Surface(
                             shape = RoundedCornerShape(10.dp),
-                            color = if (isSelected) MenuBtnGreenMid else Color(0xCC2A1308),
-                            border = BorderStroke(1.2.dp, if (isSelected) GoldenBankGlow else Color(0x40D4A373)),
+                            color = if (isSelected) Color(0xFF6B3209) else Color(0xCC2A1308),
+                            border = BorderStroke(1.2.dp, if (isSelected) GoldenBankGlow else Color(0xFF8B4513)),
                             modifier = Modifier
                                 .clip(RoundedCornerShape(10.dp))
                                 .clickable { selectedLevelId = scenario.id }
@@ -258,7 +258,7 @@ fun HighScoresDialog(
                                 text = "Lvl ${scenario.levelNumber}",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (isSelected) Color.White else WoodGoldenText,
+                                color = if (isSelected) Color(0xFFFFFBEB) else GoldenBankGlow,
                                 modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
                             )
                         }
@@ -342,7 +342,7 @@ fun HighScoresDialog(
                         Text(
                             text = "Safely guide everyone across the river to record your first time in the logbook.",
                             fontSize = 11.5.sp,
-                            color = Color(0xFFBAE6FD),
+                            color = Color(0xFFFEF3C7),
                             textAlign = TextAlign.Center,
                             modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
                         )
@@ -363,7 +363,7 @@ fun HighScoresDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
+        containerColor = Color(0xF42B1406),
         modifier = modifier
     )
 

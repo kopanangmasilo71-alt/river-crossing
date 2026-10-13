@@ -53,19 +53,19 @@ data class RiverThemePalette(
     val goldLight: Color = Color(0xFFFEF08A),
     val goldShadow: Color = Color(0x66D97706),
 
-    // 5. Semantic Surfaces & Containers (No plain white or generic grey cards)
-    val screenBackground: Color = Color(0xFF07192F),
-    val cardBackground: Color = Color(0xF2092341),
-    val cardWoodBorder: Color = Color(0xFFA06634),
-    val cardWaterBorder: Color = Color(0xFF38BDF8),
-    val insetDark: Color = Color(0xCC05172A),
-    val insetBorder: Color = Color(0x6638BDF8),
+    // 5. Semantic Surfaces & Containers (Warm carved wood panels)
+    val screenBackground: Color = Color(0xFF1B0B04),
+    val cardBackground: Color = Color(0xF22B1406),
+    val cardWoodBorder: Color = Color(0xFFD97706),
+    val cardWaterBorder: Color = GoldenBankGlow,
+    val insetDark: Color = Color(0xDD180A03),
+    val insetBorder: Color = GoldenBankGlow.copy(alpha = 0.5f),
 
     // 6. High-Contrast Typography
-    val textPrimary: Color = Color(0xFFFFFFFF),
-    val textSecondary: Color = Color(0xFFE0F2FE),
-    val textMuted: Color = Color(0xFFBAE6FD),
-    val textGold: Color = Color(0xFFFEF08A),
+    val textPrimary: Color = Color(0xFFFFFBEB),
+    val textSecondary: Color = Color(0xFFFEF3C7),
+    val textMuted: Color = Color(0xFFFDE68A),
+    val textGold: Color = GoldenBankGlow,
     val textTimber: Color = Color(0xFFD4A373),
 
     // 7. Gradients
@@ -82,7 +82,7 @@ data class RiverThemePalette(
         listOf(Color(0xFFFBBF24), Color(0xFFD97706))
     ),
     val screenBackgroundGradient: Brush = Brush.verticalGradient(
-        listOf(Color(0xFF0F325E), Color(0xFF07192F))
+        listOf(Color(0xFF3B1E0D), Color(0xFF180A03))
     )
 )
 
@@ -118,49 +118,49 @@ val MaterialTheme.riverColors: RiverThemePalette
 // ============================================================================
 
 val RiverLightColorScheme: ColorScheme = lightColorScheme(
-    primary = Color(0xFF22724A),             // Forest green
-    onPrimary = Color.White,
-    primaryContainer = Color(0xFF143B28),
-    onPrimaryContainer = Color(0xFF86EFAC),
-    secondary = Color(0xFF0284C7),           // Deep river blue
-    onSecondary = Color.White,
-    secondaryContainer = Color(0xFF0A2B4E),
-    onSecondaryContainer = Color(0xFFBAE6FD),
-    tertiary = Color(0xFF8B5A2B),            // Earthy timber brown
-    onTertiary = Color.White,
-    tertiaryContainer = Color(0xFF2E190E),
+    primary = Color(0xFF8B4513),             // Rustic timber brown
+    onPrimary = Color(0xFFFFFBEB),
+    primaryContainer = Color(0xFF451A03),
+    onPrimaryContainer = Color(0xFFFEF3C7),
+    secondary = Color(0xFFD97706),           // Warm amber
+    onSecondary = Color(0xFFFFFBEB),
+    secondaryContainer = Color(0xFF3B1C08),
+    onSecondaryContainer = Color(0xFFFDE68A),
+    tertiary = Color(0xFFB45309),            // Warm bronze
+    onTertiary = Color(0xFFFFFBEB),
+    tertiaryContainer = Color(0xFF2E1508),
     onTertiaryContainer = Color(0xFFFDE68A),
-    background = Color(0xFF07192F),          // Deep river twilight backdrop
-    onBackground = Color.White,
-    surface = Color(0xF2092341),             // Themed sapphire/timber surface
-    onSurface = Color.White,
-    surfaceVariant = Color(0xFF0A2B4E),
-    onSurfaceVariant = Color(0xFFBAE6FD),
-    outline = Color(0xFF38BDF8),
-    outlineVariant = Color(0xFFA06634)
+    background = Color(0xFF1B0B04),          // Dark timber wood backdrop
+    onBackground = Color(0xFFFFFBEB),
+    surface = Color(0xF22B1406),             // Carved wood surface
+    onSurface = Color(0xFFFFFBEB),
+    surfaceVariant = Color(0xFF3B1E0D),
+    onSurfaceVariant = Color(0xFFFEF3C7),
+    outline = GoldenBankGlow,
+    outlineVariant = Color(0xFF8B4513)
 )
 
 val RiverDarkColorScheme: ColorScheme = darkColorScheme(
-    primary = Color(0xFF2E8B57),             // Forest green highlight
-    onPrimary = Color.White,
-    primaryContainer = Color(0xFF143B28),
-    onPrimaryContainer = Color(0xFF86EFAC),
-    secondary = Color(0xFF38BDF8),           // River cyan highlight
-    onSecondary = Color(0xFF04182E),
-    secondaryContainer = Color(0xFF071E38),
-    onSecondaryContainer = Color(0xFFBAE6FD),
-    tertiary = Color(0xFFA06634),            // Warm timber
-    onTertiary = Color.White,
-    tertiaryContainer = Color(0xFF2E190E),
+    primary = Color(0xFF8B4513),             // Rustic timber brown
+    onPrimary = Color(0xFFFFFBEB),
+    primaryContainer = Color(0xFF451A03),
+    onPrimaryContainer = Color(0xFFFEF3C7),
+    secondary = Color(0xFFD97706),           // Warm amber
+    onSecondary = Color(0xFFFFFBEB),
+    secondaryContainer = Color(0xFF3B1C08),
+    onSecondaryContainer = Color(0xFFFDE68A),
+    tertiary = Color(0xFFB45309),            // Warm bronze
+    onTertiary = Color(0xFFFFFBEB),
+    tertiaryContainer = Color(0xFF2E1508),
     onTertiaryContainer = Color(0xFFFDE68A),
-    background = Color(0xFF05182F),
-    onBackground = Color.White,
-    surface = Color(0xF2071E38),
-    onSurface = Color.White,
-    surfaceVariant = Color(0xFF0A2440),
-    onSurfaceVariant = Color(0xFFBAE6FD),
-    outline = Color(0xFF38BDF8),
-    outlineVariant = Color(0xFF5A361D)
+    background = Color(0xFF180A03),
+    onBackground = Color(0xFFFFFBEB),
+    surface = Color(0xF2231106),
+    onSurface = Color(0xFFFFFBEB),
+    surfaceVariant = Color(0xFF331707),
+    onSurfaceVariant = Color(0xFFFEF3C7),
+    outline = GoldenBankGlow,
+    outlineVariant = Color(0xFF6B3209)
 )
 
 /**

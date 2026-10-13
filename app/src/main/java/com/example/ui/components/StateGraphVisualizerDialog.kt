@@ -102,8 +102,8 @@ fun StateGraphVisualizerDialog(
                 } else {
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = levelTheme.sailButtonColors.first(),
-                        border = BorderStroke(1.5.dp, levelTheme.sailButtonBorderColors.first()),
+                        color = Color(0xFF6B3209),
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
                         modifier = Modifier
                             .weight(1f)
                             .clickable {
@@ -116,16 +116,16 @@ fun StateGraphVisualizerDialog(
                                 .fillMaxWidth()
                                 .background(
                                     Brush.verticalGradient(
-                                        levelTheme.sailButtonColors
+                                        listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                                     )
                                 )
                                 .padding(vertical = 12.dp),
                             contentAlignment = Alignment.Center
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Auto Solve", tint = Color.White)
+                                Icon(imageVector = Icons.Default.PlayArrow, contentDescription = "Auto Solve", tint = Color(0xFFFFFBEB))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("Demonstrate BFS", fontWeight = FontWeight.ExtraBold, color = Color.White, fontSize = 13.sp)
+                                Text("Demonstrate BFS", fontWeight = FontWeight.ExtraBold, color = Color(0xFFFFFBEB), fontSize = 13.sp)
                             }
                         }
                     }
@@ -134,7 +134,7 @@ fun StateGraphVisualizerDialog(
                 Surface(
                     shape = RoundedCornerShape(14.dp),
                     color = WoodInsetPanel,
-                    border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.4f)),
+                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.5f)),
                     modifier = Modifier
                         .weight(0.5f)
                         .clickable(onClick = onDismiss)
@@ -143,7 +143,7 @@ fun StateGraphVisualizerDialog(
                         modifier = Modifier.padding(vertical = 12.dp),
                         contentAlignment = Alignment.Center
                     ) {
-                        Text("Close", color = Color(0xFFBAE6FD), fontWeight = FontWeight.Bold, fontSize = 13.sp)
+                        Text("Close", color = Color(0xFFFEF3C7), fontWeight = FontWeight.Bold, fontSize = 13.sp)
                     }
                 }
             }
@@ -170,7 +170,7 @@ fun StateGraphVisualizerDialog(
                     )
                 }
                 IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = Color(0xFFBAE6FD))
+                    Icon(imageVector = Icons.Default.Close, contentDescription = "Close", tint = GoldenBankGlow)
                 }
             }
         },
@@ -199,7 +199,7 @@ fun StateGraphVisualizerDialog(
                                 "Optimal Path (7 Steps)",
                                 fontSize = 11.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (selectedTab == 0) Color.White else Color(0xFFBAE6FD)
+                                color = if (selectedTab == 0) Color(0xFFFFFBEB) else Color(0xFFFEF3C7)
                             )
                         }
                     )
@@ -211,7 +211,7 @@ fun StateGraphVisualizerDialog(
                                 "All States (16)",
                                 fontSize = 11.5.sp,
                                 fontWeight = FontWeight.Bold,
-                                color = if (selectedTab == 1) Color.White else Color(0xFFBAE6FD)
+                                color = if (selectedTab == 1) Color(0xFFFFFBEB) else Color(0xFFFEF3C7)
                             )
                         }
                     )
@@ -232,7 +232,7 @@ fun StateGraphVisualizerDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
+        containerColor = Color(0xF42B1406),
         modifier = modifier
     )
 }

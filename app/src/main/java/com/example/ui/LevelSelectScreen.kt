@@ -113,30 +113,6 @@ import com.example.ui.theme.GoldenBankGlow
 import com.example.ui.theme.MenuStatBarBgTop
 import com.example.ui.theme.MenuStatBarBgBottom
 import com.example.ui.theme.MenuStatBarBorder
-import com.example.ui.theme.MenuBtnGreenTop
-import com.example.ui.theme.MenuBtnGreenMid
-import com.example.ui.theme.MenuBtnGreenBottom
-import com.example.ui.theme.MenuBtnGreenBorder
-import com.example.ui.theme.MenuBtnBlueTop
-import com.example.ui.theme.MenuBtnBlueMid
-import com.example.ui.theme.MenuBtnBlueBottom
-import com.example.ui.theme.MenuBtnBlueBorder
-import com.example.ui.theme.MenuBtnAmberTop
-import com.example.ui.theme.MenuBtnAmberMid
-import com.example.ui.theme.MenuBtnAmberBottom
-import com.example.ui.theme.MenuBtnAmberBorder
-import com.example.ui.theme.MenuBtnPurpleTop
-import com.example.ui.theme.MenuBtnPurpleMid
-import com.example.ui.theme.MenuBtnPurpleBottom
-import com.example.ui.theme.MenuBtnPurpleBorder
-import com.example.ui.theme.MenuBtnCyanTop
-import com.example.ui.theme.MenuBtnCyanMid
-import com.example.ui.theme.MenuBtnCyanBottom
-import com.example.ui.theme.MenuBtnCyanBorder
-import com.example.ui.theme.MenuBtnRedTop
-import com.example.ui.theme.MenuBtnRedMid
-import com.example.ui.theme.MenuBtnRedBottom
-import com.example.ui.theme.MenuBtnRedBorder
 import com.example.ui.theme.MenuQuickActionBgTop
 import com.example.ui.theme.MenuQuickActionBgBottom
 import com.example.ui.theme.MenuQuickActionBorder
@@ -168,13 +144,13 @@ enum class LevelFilter(
     val gradient: List<Color>,
     val border: Color
 ) {
-    ALL("All (100)", 1, 100, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
-    NOVICE("Novice (1-15)", 1, 15, listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom), MenuBtnGreenBorder),
-    SKILLED("Skilled (16-35)", 16, 35, listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom), MenuBtnBlueBorder),
-    EXPERT("Expert (36-55)", 36, 55, listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom), MenuBtnAmberBorder),
-    CHAMPION("Champion (56-75)", 56, 75, listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom), MenuBtnPurpleBorder),
-    GRANDMASTER("Grandmaster (76-90)", 76, 90, listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom), MenuBtnRedBorder),
-    MYTHIC("Mythic (91-100)", 91, 100, listOf(MenuBtnCyanTop, MenuBtnCyanMid, MenuBtnCyanBottom), MenuBtnCyanBorder)
+    ALL("All (100)", 1, 100, listOf(Color(0xFF8B4513), Color(0xFF5A2603)), GoldenBankGlow),
+    NOVICE("Novice (1-15)", 1, 15, listOf(Color(0xFF78350F), Color(0xFF451A03)), GoldenBankGlow),
+    SKILLED("Skilled (16-35)", 16, 35, listOf(Color(0xFF854D0E), Color(0xFF532E06)), GoldenBankGlow),
+    EXPERT("Expert (36-55)", 36, 55, listOf(Color(0xFF92400E), Color(0xFF5C2304)), GoldenBankGlow),
+    CHAMPION("Champion (56-75)", 56, 75, listOf(Color(0xFF9A3412), Color(0xFF652006)), GoldenBankGlow),
+    GRANDMASTER("Grandmaster (76-90)", 76, 90, listOf(Color(0xFF7C2D12), Color(0xFF431407)), GoldenBankGlow),
+    MYTHIC("Mythic (91-100)", 91, 100, listOf(Color(0xFF78350F), Color(0xFF3B1504)), GoldenBankGlow)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -351,7 +327,7 @@ fun LevelSelectScreen(
                                 text = "Showing ${filteredScenarios.size} of ${PuzzleScenarios.ALL.size}",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Medium,
-                                color = Color(0xFFBAE6FD)
+                                color = Color(0xFFFEF3C7)
                             )
                         }
 
@@ -538,15 +514,15 @@ private fun QuickLevelGridDialog(
                             val levelTheme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
 
                             val tileGradient = when {
-                                isCleared -> levelTheme.sailButtonColors
+                                isCleared -> listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                                 !isUnlocked -> listOf(Color(0xDD241106), Color(0xDD180A03))
-                                else -> levelTheme.headerBackgroundColors
+                                else -> listOf(Color(0xF04A260E), Color(0xF02C1406))
                             }
 
                             val tileBorder = when {
-                                isCleared -> levelTheme.sailButtonBorderColors.first()
-                                !isUnlocked -> Color(0x44D97706)
-                                else -> levelTheme.bankAccentColor
+                                isCleared -> GoldenBankGlow
+                                !isUnlocked -> Color(0x448B4513)
+                                else -> Color(0xFFB45309)
                             }
 
                             Surface(
@@ -572,21 +548,21 @@ private fun QuickLevelGridDialog(
                                             Icon(
                                                 imageVector = Icons.Default.Lock,
                                                 contentDescription = "Locked",
-                                                tint = Color(0xFFF87171),
+                                                tint = Color(0xFFD97706),
                                                 modifier = Modifier.size(14.dp)
                                             )
                                             Text(
                                                 text = "${scenario.levelNumber}",
                                                 fontWeight = FontWeight.Bold,
                                                 fontSize = 11.sp,
-                                                color = Color(0xFFFECACA)
+                                                color = Color(0xFFFDE68A)
                                             )
                                         } else {
                                             Text(
                                                 text = "${scenario.levelNumber}",
                                                 fontWeight = FontWeight.ExtraBold,
                                                 fontSize = 14.sp,
-                                                color = if (isCleared) Color.White else Color(0xFFFEF3C7)
+                                                color = if (isCleared) Color(0xFFFFFBEB) else Color(0xFFFEF3C7)
                                             )
                                             Row(
                                                 verticalAlignment = Alignment.CenterVertically,
@@ -644,7 +620,7 @@ private fun LevelSelectHeroCard(
             ) {
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xDD072449),
+                    color = Color(0xDD2A1406),
                     border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.8f))
                 ) {
                     Row(
@@ -669,8 +645,8 @@ private fun LevelSelectHeroCard(
 
                 Surface(
                     shape = RoundedCornerShape(8.dp),
-                    color = Color(0xDD072449),
-                    border = BorderStroke(1.2.dp, Color(0xFF22C55E).copy(alpha = 0.8f))
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.2.dp, Color(0xFFB45309).copy(alpha = 0.8f))
                 ) {
                     Row(
                         modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -679,7 +655,7 @@ private fun LevelSelectHeroCard(
                         Icon(
                             imageVector = Icons.Default.EmojiEvents,
                             contentDescription = "Solved",
-                            tint = Color(0xFF4ADE80),
+                            tint = GoldenBankGlow,
                             modifier = Modifier.size(13.dp)
                         )
                         Spacer(modifier = Modifier.width(4.dp))
@@ -687,7 +663,7 @@ private fun LevelSelectHeroCard(
                             text = "$completedLevels / $totalLevels Solved",
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFF4ADE80)
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                 }
@@ -695,8 +671,8 @@ private fun LevelSelectHeroCard(
 
             Surface(
                 shape = RoundedCornerShape(8.dp),
-                color = MenuBtnAmberTop,
-                border = BorderStroke(1.2.dp, MenuBtnAmberBorder),
+                color = Color(0xFF6B3209),
+                border = BorderStroke(1.2.dp, GoldenBankGlow),
                 modifier = Modifier
                     .clip(RoundedCornerShape(8.dp))
                     .clickable { onOpenGrid() }
@@ -735,12 +711,16 @@ private fun LevelScenarioCard(
     onPlay: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val theme = remember(scenario.levelNumber) { LevelTheme.forScenario(scenario) }
-    val cardGradient = listOf(
-        theme.headerBackgroundColors.first().copy(alpha = 0.95f),
-        theme.headerBackgroundColors.last().copy(alpha = 0.98f)
-    )
-    val cardBorder = if (isUnlocked) theme.headerBorderColors.first() else Color(0x44D97706)
+    val cardGradient = if (isUnlocked) {
+        listOf(Color(0xF03B1E0D), Color(0xF0231106))
+    } else {
+        listOf(Color(0xDD231106), Color(0xDD150903))
+    }
+    val cardBorder = if (isUnlocked) {
+        if (starsEarned == 3) GoldenBankGlow else Color(0xFFB45309)
+    } else {
+        Color(0x558B4513)
+    }
 
     WoodCard(
         shape = RoundedCornerShape(14.dp),
@@ -767,8 +747,8 @@ private fun LevelScenarioCard(
             ) {
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = if (isUnlocked) theme.dockWoodTop else Color(0x88220F05),
-                    border = BorderStroke(1.2.dp, if (isUnlocked) GoldenBankGlow else Color(0x55F87171)),
+                    color = if (isUnlocked) Color(0xFF4A250E) else Color(0x88220F05),
+                    border = BorderStroke(1.2.dp, if (isUnlocked) GoldenBankGlow else Color(0x668B4513)),
                     shadowElevation = 2.dp,
                     modifier = Modifier.size(38.dp)
                 ) {
@@ -777,7 +757,7 @@ private fun LevelScenarioCard(
                             Icon(
                                 imageVector = Icons.Default.Lock,
                                 contentDescription = "Locked",
-                                tint = Color(0xFFFCA5A5),
+                                tint = Color(0xFFD97706),
                                 modifier = Modifier.size(16.dp)
                             )
                         } else {
@@ -908,8 +888,8 @@ private fun LevelScenarioCard(
             if (isUnlocked) {
                 Surface(
                     shape = CircleShape,
-                    color = theme.sailButtonColors.first(),
-                    border = BorderStroke(1.5.dp, theme.sailButtonBorderColors.first()),
+                    color = Color(0xFF6B3209),
+                    border = BorderStroke(1.5.dp, GoldenBankGlow),
                     shadowElevation = 3.dp,
                     modifier = Modifier
                         .size(38.dp)
@@ -920,13 +900,17 @@ private fun LevelScenarioCard(
                     Box(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(Brush.verticalGradient(theme.sailButtonColors)),
+                            .background(
+                                Brush.verticalGradient(
+                                    listOf(Color(0xFF8B4513), Color(0xFF5A2603))
+                                )
+                            ),
                         contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = Icons.Default.PlayArrow,
                             contentDescription = "Play",
-                            tint = Color.White,
+                            tint = Color(0xFFFFFBEB),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -934,8 +918,8 @@ private fun LevelScenarioCard(
             } else {
                 Surface(
                     shape = RoundedCornerShape(10.dp),
-                    color = Color(0xDD220F05),
-                    border = BorderStroke(1.2.dp, Color(0xFFEF4444).copy(alpha = 0.8f)),
+                    color = Color(0xDD2A1406),
+                    border = BorderStroke(1.2.dp, Color(0xFF8B4513)),
                     shadowElevation = 2.dp,
                     modifier = Modifier
                         .clip(RoundedCornerShape(10.dp))
@@ -949,7 +933,7 @@ private fun LevelScenarioCard(
                         Icon(
                             imageVector = Icons.Default.Lock,
                             contentDescription = "Locked",
-                            tint = Color(0xFFFCA5A5),
+                            tint = Color(0xFFD97706),
                             modifier = Modifier.size(14.dp)
                         )
                         Spacer(modifier = Modifier.width(3.dp))
@@ -957,7 +941,7 @@ private fun LevelScenarioCard(
                             text = "Unlock",
                             fontSize = 10.5.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color(0xFFFCA5A5)
+                            color = Color(0xFFFEF3C7)
                         )
                     }
                 }

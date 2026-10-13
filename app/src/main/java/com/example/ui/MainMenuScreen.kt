@@ -80,22 +80,6 @@ import com.example.ui.theme.MenuBtnAmberBorder
 import com.example.ui.theme.MenuBtnAmberBottom
 import com.example.ui.theme.MenuBtnAmberMid
 import com.example.ui.theme.MenuBtnAmberTop
-import com.example.ui.theme.MenuBtnBlueBorder
-import com.example.ui.theme.MenuBtnBlueBottom
-import com.example.ui.theme.MenuBtnBlueMid
-import com.example.ui.theme.MenuBtnBlueTop
-import com.example.ui.theme.MenuBtnCyanBorder
-import com.example.ui.theme.MenuBtnCyanBottom
-import com.example.ui.theme.MenuBtnCyanMid
-import com.example.ui.theme.MenuBtnCyanTop
-import com.example.ui.theme.MenuBtnGreenBorder
-import com.example.ui.theme.MenuBtnGreenBottom
-import com.example.ui.theme.MenuBtnGreenMid
-import com.example.ui.theme.MenuBtnGreenTop
-import com.example.ui.theme.MenuBtnPurpleBorder
-import com.example.ui.theme.MenuBtnPurpleBottom
-import com.example.ui.theme.MenuBtnPurpleMid
-import com.example.ui.theme.MenuBtnPurpleTop
 import com.example.ui.theme.MenuBtnRedBorder
 import com.example.ui.theme.MenuBtnRedBottom
 import com.example.ui.theme.MenuBtnRedMid
@@ -282,14 +266,14 @@ fun MainMenuScreen(
                     ) {
                         Text(
                             text = "Think • Plan • Move",
-                            color = Color(0xFFE0F2FE),
+                            color = Color(0xFFFEF3C7),
                             fontSize = 11.5.sp,
                             fontWeight = FontWeight.ExtraBold,
                             fontStyle = FontStyle.Italic,
                             letterSpacing = 0.5.sp,
                             style = androidx.compose.ui.text.TextStyle(
                                 shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = Color(0x99000000),
+                                    color = Color(0xCC000000),
                                     offset = androidx.compose.ui.geometry.Offset(1f, 2f),
                                     blurRadius = 3f
                                 )
@@ -297,14 +281,14 @@ fun MainMenuScreen(
                         )
                         Text(
                             text = "Get everyone safely across!",
-                            color = Color.White,
+                            color = Color(0xFFFFFBEB),
                             fontSize = 10.5.sp,
                             fontWeight = FontWeight.Bold,
                             fontStyle = FontStyle.Italic,
                             textAlign = TextAlign.End,
                             style = androidx.compose.ui.text.TextStyle(
                                 shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = Color(0x99000000),
+                                    color = Color(0xCC000000),
                                     offset = androidx.compose.ui.geometry.Offset(1f, 2f),
                                     blurRadius = 3f
                                 )
@@ -318,7 +302,7 @@ fun MainMenuScreen(
 
             // =================================================================
             // STAT CAPSULE BAR: STARS, LEVELS CLEARED, PLAYER RANK
-            // Deep glossy ocean blue container with cyan highlight border
+            // Rich carved cedar plank with warm golden amber border
             // =================================================================
             StatCapsuleBar(
                 starsEarned = totalStarsEarned,
@@ -337,7 +321,7 @@ fun MainMenuScreen(
             ) {
                 Surface(
                     shape = CircleShape,
-                    color = Color(0xCC072449),
+                    color = Color(0xDD2C1406),
                     border = BorderStroke(1.2.dp, GoldenBankGlow),
                     modifier = Modifier.size(22.dp)
                 ) {
@@ -361,17 +345,17 @@ fun MainMenuScreen(
             }
 
             // =================================================================
-            // 6 VIBRANT RAINBOW MENU ACTION BUTTONS (Original Reference Design)
+            // 6 COHESIVE CARVED WOOD MENU ACTION BUTTONS
             // =================================================================
 
-            // 1. CONTINUE / PLAY GAME (LUSH EMERALD / MEADOW GREEN)
+            // 1. CONTINUE / PLAY GAME (DEEP FOREST MOSS TIMBER & GOLD TRIM)
             MainMenuPillButton(
                 title = if (clearedCount == 0) "Play Game" else "Continue",
                 subtitle = "Level ${nextLevel.levelNumber}: ${nextLevel.title} (${nextLevel.difficulty.title})",
                 iconVector = Icons.Default.PlayArrow,
                 badgeText = if (clearedCount == 0) "START" else "LVL ${nextLevel.levelNumber}",
-                gradientColors = listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom),
-                borderColor = MenuBtnGreenBorder,
+                gradientColors = listOf(Color(0xF03B2610), Color(0xF0241608)),
+                borderColor = Color(0xFFD97706),
                 testTag = "main_menu_play_button",
                 onClick = {
                     if (unlockedLevelIds.contains(nextLevel.id)) {
@@ -382,60 +366,60 @@ fun MainMenuScreen(
                 }
             )
 
-            // 2. LEVELS MENU (BRILLIANT SKY / OCEAN BLUE)
+            // 2. LEVELS MENU (RICH NAUTICAL CEDAR TIMBER)
             MainMenuPillButton(
                 title = "Levels Menu",
                 subtitle = "Browse all ${PuzzleScenarios.ALL.size} handcrafted river puzzles",
                 drawableIconRes = R.drawable.ic_map_treasure,
                 badgeText = "$clearedCount/${PuzzleScenarios.ALL.size}",
-                gradientColors = listOf(MenuBtnBlueTop, MenuBtnBlueMid, MenuBtnBlueBottom),
-                borderColor = MenuBtnBlueBorder,
+                gradientColors = listOf(Color(0xF040220E), Color(0xF0281206)),
+                borderColor = Color(0xFFB45309),
                 testTag = "main_menu_levels_button",
                 onClick = onNavigateToLevels
             )
 
-            // 3. RIVER ACADEMY (VIBRANT GOLDEN AMBER)
+            // 3. RIVER ACADEMY (SUNLIT GOLDEN AMBER TIMBER)
             MainMenuPillButton(
                 title = "River Academy",
                 subtitle = "Step-by-step guided practice, rules & bestiary",
                 drawableIconRes = R.drawable.ic_group_people,
                 badgeText = "GUIDE",
-                gradientColors = listOf(MenuBtnAmberTop, MenuBtnAmberMid, MenuBtnAmberBottom),
-                borderColor = MenuBtnAmberBorder,
+                gradientColors = listOf(Color(0xF046260E), Color(0xF02C1406)),
+                borderColor = Color(0xFFD97706),
                 testTag = "main_menu_tutorial_button",
                 onClick = onNavigateToTutorial
             )
 
-            // 4. HIGH SCORE LEADERBOARD (ROYAL AMETHYST PURPLE)
+            // 4. HIGH SCORE LEADERBOARD (ROYAL MAHOGANY TIMBER)
             MainMenuPillButton(
                 title = "High Score Leaderboard",
                 subtitle = "Personal best moves, stars & optimal clears",
                 drawableIconRes = R.drawable.ic_crown,
                 badgeText = "$totalStarsEarned ★",
-                gradientColors = listOf(MenuBtnPurpleTop, MenuBtnPurpleMid, MenuBtnPurpleBottom),
-                borderColor = MenuBtnPurpleBorder,
+                gradientColors = listOf(Color(0xF03A1B10), Color(0xF0241008)),
+                borderColor = Color(0xFFD97706),
                 testTag = "main_menu_leaderboard_button",
                 onClick = onNavigateToLeaderboard
             )
 
-            // 5. SETTINGS MENU (VIBRANT TEAL / CYAN)
+            // 5. SETTINGS MENU (WEATHERED OAK TIMBER)
             MainMenuPillButton(
                 title = "Settings Menu",
                 subtitle = "Audio SFX, captain profile & modifiers",
                 iconVector = Icons.Default.Settings,
-                gradientColors = listOf(MenuBtnCyanTop, MenuBtnCyanMid, MenuBtnCyanBottom),
-                borderColor = MenuBtnCyanBorder,
+                gradientColors = listOf(Color(0xF0361E10), Color(0xF0221207)),
+                borderColor = Color(0xFFA06634),
                 testTag = "main_menu_settings_button",
                 onClick = onNavigateToSettings
             )
 
-            // 6. QUIT GAME (VIBRANT CRIMSON / RUBY RED)
+            // 6. QUIT GAME (DEEP RUST TIMBER)
             MainMenuPillButton(
                 title = "Quit Game",
                 subtitle = "Exit back to home screen",
                 iconVector = Icons.AutoMirrored.Filled.ExitToApp,
-                gradientColors = listOf(MenuBtnRedTop, MenuBtnRedMid, MenuBtnRedBottom),
-                borderColor = MenuBtnRedBorder,
+                gradientColors = listOf(Color(0xF0381810), Color(0xF0220D07)),
+                borderColor = Color(0xFF8B3A2B),
                 testTag = "main_menu_quit_button",
                 onClick = { activity?.finish() }
             )
@@ -547,7 +531,7 @@ private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
             fontSize = 9.sp,
             fontWeight = FontWeight.ExtraBold,
             letterSpacing = 1.2.sp,
-            color = Color(0xFFBAE6FD),
+            color = Color(0xFFFDE68A),
             style = TextStyle(
                 shadow = Shadow(
                     color = Color(0x99000000),
@@ -714,7 +698,7 @@ private fun StatCapsuleBar(
                             text = "Stars Earned",
                             fontSize = 9.5.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFFBAE6FD)
+                            color = Color(0xFFFDE68A)
                         )
                     }
                 }
@@ -761,7 +745,7 @@ private fun StatCapsuleBar(
                             text = "Levels Cleared",
                             fontSize = 9.5.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFFBAE6FD)
+                            color = Color(0xFFFDE68A)
                         )
                     }
                 }
@@ -803,7 +787,7 @@ private fun StatCapsuleBar(
                             text = "Player Rank",
                             fontSize = 9.5.sp,
                             fontWeight = FontWeight.Medium,
-                            color = Color(0xFFBAE6FD)
+                            color = Color(0xFFFDE68A)
                         )
                     }
                 }
@@ -1055,123 +1039,133 @@ private fun SignpostDecoration(modifier: Modifier = Modifier) {
 }
 
 /**
- * Dialog displaying River Crossing Rules & Lore
+ * Dialog displaying River Crossing Rules & Lore with carved wooden theme
  */
 @Composable
 private fun HowToPlayDialog(onDismiss: () -> Unit) {
     Dialog(onDismissRequest = onDismiss) {
         Surface(
             shape = RoundedCornerShape(20.dp),
-            color = Color(0xF2072449),
-            border = BorderStroke(1.8.dp, Color(0xFF38BDF8)),
+            color = Color(0xF22B1406),
+            border = BorderStroke(2.dp, GoldenBankGlow),
             shadowElevation = 10.dp,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 4.dp)
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(18.dp)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Image(
+                    painter = painterResource(id = WoodAssets.woodPanel),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .matchParentSize()
+                        .alpha(0.35f)
+                )
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(18.dp)
+                        .verticalScroll(rememberScrollState()),
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Text(text = "📜", fontSize = 20.sp)
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(
-                            text = "Expedition Rules & Lore",
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 16.5.sp,
-                            color = GoldenBankGlow
-                        )
-                    }
-                    Surface(
-                        shape = CircleShape,
-                        color = Color(0x33000000),
-                        border = BorderStroke(1.dp, Color(0xFF38BDF8).copy(alpha = 0.5f)),
-                        modifier = Modifier
-                            .size(28.dp)
-                            .clickable { onDismiss() }
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Box(contentAlignment = Alignment.Center) {
-                            Icon(
-                                Icons.Default.Close,
-                                contentDescription = "Close",
-                                tint = Color(0xFFE0F2FE),
-                                modifier = Modifier.size(16.dp)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Text(text = "📜", fontSize = 20.sp)
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(
+                                text = "Expedition Rules & Lore",
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 16.5.sp,
+                                color = GoldenBankGlow
+                            )
+                        }
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0x40000000),
+                            border = BorderStroke(1.2.dp, GoldenBankGlow.copy(alpha = 0.7f)),
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clickable { onDismiss() }
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    Icons.Default.Close,
+                                    contentDescription = "Close",
+                                    tint = Color(0xFFFFFBEB),
+                                    modifier = Modifier.size(16.dp)
+                                )
+                            }
+                        }
+                    }
+
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = Color(0x80180B04),
+                        border = BorderStroke(1.2.dp, Color(0xFF8B4513))
+                    ) {
+                        Column(
+                            modifier = Modifier.padding(12.dp),
+                            verticalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Text(
+                                text = "The Goal",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.sp,
+                                color = GoldenBankGlow
+                            )
+                            Text(
+                                text = "Transport all characters and cargo safely from the Left Bank across to the Right Bank.",
+                                fontSize = 12.sp,
+                                color = Color(0xFFFEF3C7)
+                            )
+
+                            Text(
+                                text = "River Crossing Laws",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.sp,
+                                color = GoldenBankGlow
+                            )
+                            Text(
+                                text = "• The Farmer must always pilot the wooden rowboat.\n• The boat can only carry 1 or 2 passengers at a time.\n• If the Farmer leaves a bank, predator & prey left together will clash (Wolf eats Sheep, Sheep eats Cabbage, Fox eats Rabbit, etc.)!\n• Complete the crossings in the fewest moves to earn 3 Stars and climb the Leaderboards!",
+                                fontSize = 12.sp,
+                                color = Color(0xFFFEF3C7),
+                                lineHeight = 16.sp
                             )
                         }
                     }
-                }
 
-                Surface(
-                    shape = RoundedCornerShape(12.dp),
-                    color = Color(0x4D041429),
-                    border = BorderStroke(1.dp, Color(0x3338BDF8))
-                ) {
-                    Column(
-                        modifier = Modifier.padding(12.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text(
-                            text = "The Goal",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
-                            color = Color(0xFF38BDF8)
-                        )
-                        Text(
-                            text = "Transport all characters and cargo safely from the Left Bank across to the Right Bank.",
-                            fontSize = 12.sp,
-                            color = Color.White
-                        )
-
-                        Text(
-                            text = "River Crossing Laws",
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 13.sp,
-                            color = Color(0xFF38BDF8)
-                        )
-                        Text(
-                            text = "• The Farmer must always pilot the wooden rowboat.\n• The boat can only carry 1 or 2 passengers at a time.\n• If the Farmer leaves a bank, predator & prey left together will clash (Wolf eats Sheep, Sheep eats Cabbage, Fox eats Rabbit, etc.)!\n• Complete the crossings in the fewest moves to earn 3 Stars and climb the Leaderboards!",
-                            fontSize = 12.sp,
-                            color = Color(0xFFE0F2FE),
-                            lineHeight = 16.sp
-                        )
-                    }
-                }
-
-                Surface(
-                    shape = RoundedCornerShape(14.dp),
-                    color = Color(0xFF0284C7),
-                    border = BorderStroke(1.5.dp, Color(0xFF38BDF8)),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(14.dp))
-                        .clickable(onClick = onDismiss)
-                ) {
-                    Box(
+                    Surface(
+                        shape = RoundedCornerShape(14.dp),
+                        color = Color.Transparent,
+                        border = BorderStroke(1.5.dp, GoldenBankGlow),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .background(
-                                Brush.verticalGradient(
-                                    colors = listOf(Color(0xFF0284C7), Color(0xFF0369A1))
-                                )
-                            )
-                            .padding(vertical = 12.dp),
-                        contentAlignment = Alignment.Center
+                            .clip(RoundedCornerShape(14.dp))
+                            .clickable(onClick = onDismiss)
                     ) {
-                        Text(
-                            text = "Got It, Let's Play!",
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 14.sp,
-                            color = Color.White
-                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(Color(0xFF8B4513), Color(0xFF5A2603))
+                                    )
+                                )
+                                .padding(vertical = 12.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "Got It, Let's Play!",
+                                fontWeight = FontWeight.ExtraBold,
+                                fontSize = 14.sp,
+                                color = Color(0xFFFFFBEB)
+                            )
+                        }
                     }
                 }
             }

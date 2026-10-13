@@ -177,8 +177,8 @@ fun RulesDialog(
                 // Mathematical State Logic
                 RuleSection(
                     title = "⚙️ Level Parameters & Target",
-                    borderColor = MenuBtnGreenBorder,
-                    bgGradient = listOf(Color(0xF012351A), Color(0xF00A200F))
+                    borderColor = GoldenBankGlow,
+                    bgGradient = listOf(Color(0xF042220E), Color(0xF0281305))
                 ) {
                     Text(
                         text = "Passengers: ${currentScenario.items.joinToString { it.displayName }}",
@@ -197,8 +197,8 @@ fun RulesDialog(
                 // Human-Friendly Strategy
                 RuleSection(
                     title = "💡 The 'Take-Back' Strategy",
-                    borderColor = MenuBtnCyanBorder,
-                    bgGradient = listOf(Color(0xF00A263D), Color(0xF0071828))
+                    borderColor = Color(0xFFD97706),
+                    bgGradient = listOf(Color(0xF042220E), Color(0xF0281305))
                 ) {
                     Text(
                         text = "1. First move a passenger that prevents immediate conflict.\n2. When returning, bring a passenger back if leaving them would trigger a conflict.\n3. Keep calm and alternate your ferrying moves!",
@@ -210,7 +210,7 @@ fun RulesDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = activeTheme.headerBackgroundColors.last().copy(alpha = 0.97f),
+        containerColor = Color(0xF42B1406),
         modifier = modifier
     )
 }

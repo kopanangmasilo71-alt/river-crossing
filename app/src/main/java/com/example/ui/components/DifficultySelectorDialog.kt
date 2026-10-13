@@ -294,7 +294,7 @@ fun DifficultySelectorDialog(
                 Surface(
                     shape = RoundedCornerShape(12.dp),
                     color = Color(0xCC2A1308),
-                    border = BorderStroke(1.dp, MenuBtnCyanBorder.copy(alpha = 0.5f)),
+                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.6f)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -329,7 +329,7 @@ fun DifficultySelectorDialog(
                             },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = MenuBtnGreenMid,
+                                checkedTrackColor = Color(0xFF8B4513),
                                 uncheckedThumbColor = Color(0xFF94A3B8),
                                 uncheckedTrackColor = Color(0x664A260E)
                             ),
@@ -342,7 +342,7 @@ fun DifficultySelectorDialog(
                 Surface(
                     shape = RoundedCornerShape(12.dp),
                     color = Color(0xCC2A1308),
-                    border = BorderStroke(1.dp, MenuBtnAmberBorder.copy(alpha = 0.5f)),
+                    border = BorderStroke(1.dp, GoldenBankGlow.copy(alpha = 0.6f)),
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Row(
@@ -377,7 +377,7 @@ fun DifficultySelectorDialog(
                             },
                             colors = SwitchDefaults.colors(
                                 checkedThumbColor = GoldenBankGlow,
-                                checkedTrackColor = MenuBtnAmberMid,
+                                checkedTrackColor = Color(0xFF8B4513),
                                 uncheckedThumbColor = Color(0xFF94A3B8),
                                 uncheckedTrackColor = Color(0x664A260E)
                             ),
@@ -388,7 +388,7 @@ fun DifficultySelectorDialog(
             }
         },
         shape = RoundedCornerShape(24.dp),
-        containerColor = levelTheme.headerBackgroundColors.last().copy(alpha = 0.96f),
+        containerColor = Color(0xF42B1406),
         modifier = modifier.testTag("difficulty_dialog")
     )
 }

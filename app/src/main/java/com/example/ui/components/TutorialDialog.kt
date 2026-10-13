@@ -145,32 +145,32 @@ fun TutorialDialog(
                         step = 1,
                         title = "1. Board the Boat",
                         desc = "Tap any item on the active bank where the Farmer is docked to load them into the boat (up to boat capacity).",
-                        accentColor = MenuBtnGreenBorder,
-                        bgTint = Color(0xF012351A)
+                        accentColor = GoldenBankGlow,
+                        bgTint = Color(0xF042220E)
                     )
 
                     QuickTutorialStep(
                         step = 2,
                         title = "2. Row Across",
                         desc = "Tap 'CROSS RIVER'. The Farmer rows the boat across to the opposite bank with any onboard cargo.",
-                        accentColor = MenuBtnCyanBorder,
-                        bgTint = Color(0xF00A263D)
+                        accentColor = Color(0xFFD97706),
+                        bgTint = Color(0xF042220E)
                     )
 
                     QuickTutorialStep(
                         step = 3,
                         title = "3. Beware of Predators! ⚠️",
                         desc = "Never leave predator & prey alone without the Farmer! (e.g. Wolf eats Rabbit, Rabbit eats Cabbage, Fox eats Goose).",
-                        accentColor = MenuBtnRedBorder,
-                        bgTint = Color(0xF03B1313)
+                        accentColor = Color(0xFFB45309),
+                        bgTint = Color(0xF03B1C08)
                     )
 
                     QuickTutorialStep(
                         step = 4,
                         title = "4. The 'Take-Back' Trick ⭐",
                         desc = "Stuck in a deadlock? Bring an item BACK with you on the return trip to keep banks safe!",
-                        accentColor = MenuBtnAmberBorder,
-                        bgTint = Color(0xF038220A)
+                        accentColor = GoldenBankGlow,
+                        bgTint = Color(0xF042220E)
                     )
                 }
 
@@ -205,7 +205,7 @@ fun TutorialDialog(
 
                     Surface(
                         shape = RoundedCornerShape(14.dp),
-                        color = MenuBtnGreenBottom,
+                        color = Color(0xFF6B3209),
                         border = BorderStroke(1.8.dp, GoldenBankGlow),
                         modifier = Modifier
                             .weight(1f)
@@ -216,13 +216,13 @@ fun TutorialDialog(
                                 .fillMaxWidth()
                                 .background(
                                     Brush.verticalGradient(
-                                        listOf(MenuBtnGreenTop, MenuBtnGreenMid, MenuBtnGreenBottom)
+                                        listOf(Color(0xFF8B4513), Color(0xFF5A2603))
                                     )
                                 )
                                 .padding(vertical = 12.dp),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text("Got It! Play", fontWeight = FontWeight.ExtraBold, fontSize = 13.sp, color = Color.White)
+                            Text("Got It! Play", fontWeight = FontWeight.ExtraBold, fontSize = 13.sp, color = Color(0xFFFFFBEB))
                         }
                     }
                 }

@@ -1,0 +1,61 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="300dp"
+    android:height="300dp"
+    android:viewportWidth="300"
+    android:viewportHeight="300">
+    <!-- Drop shadow -->
+    <path
+        android:fillColor="#2C1607"
+        android:pathData="M 16,0 L 284,0 Q 300,0 300,16 L 300,284 Q 300,300 284,300 L 16,300 Q 0,300 0,284 L 0,16 Q 0,0 16,0 Z" />
+    <!-- Outer wooden border -->
+    <path
+        android:fillColor="#4F2B12"
+        android:pathData="M 16,4 L 284,4 Q 296,4 296,16 L 296,284 Q 296,296 284,296 L 16,296 Q 4,296 4,284 L 4,16 Q 4,4 16,4 Z" />
+    <!-- Main wood body -->
+    <path
+        android:fillColor="#76431C"
+        android:pathData="M 16,8 L 284,8 Q 292,8 292,16 L 292,284 Q 292,292 284,292 L 16,292 Q 8,292 8,284 L 8,16 Q 8,8 16,8 Z" />
+    <!-- Top bevel -->
+    <path
+        android:fillColor="#955A2A"
+        android:pathData="M 16,8 L 284,8 Q 290,8 290,14 L 290,36 L 10,36 L 10,14 Q 10,8 16,8 Z" />
+    <!-- Carved horizontal plank lines -->
+    <path
+        android:strokeColor="#562F11"
+        android:strokeWidth="2.0"
+        android:pathData="M 8,60 L 292,60 M 8,120 L 292,120 M 8,180 L 292,180 M 8,240 L 292,240" />
+    <!-- Wood grain patterns -->
+    <path
+        android:strokeColor="#864E22"
+        android:strokeWidth="1.2"
+        android:pathData="M 12,30 Q 80,24 160,32 T 288,28 M 12,90 Q 90,96 180,88 T 288,92 M 12,150 Q 70,144 170,154 T 288,148 M 12,210 Q 100,216 200,206 T 288,212 M 12,270 Q 80,264 180,272 T 288,268" />
+    <path
+        android:strokeColor="#643614"
+        android:strokeWidth="1.0"
+        android:pathData="M 14,44 Q 100,50 200,42 T 286,46 M 14,104 Q 70,98 160,108 T 286,102 M 14,164 Q 110,172 210,162 T 286,166 M 14,224 Q 90,218 190,228 T 286,222" />
+    <!-- Corner rivets -->
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 22,22 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 21,21 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 278,22 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 277,21 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 22,278 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 21,277 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+    <path
+        android:fillColor="#EDB039"
+        android:pathData="M 278,278 m -4,0 a 4,4 0 1,0 8,0 a 4,4 0 1,0 -8,0" />
+    <path
+        android:fillColor="#FCD875"
+        android:pathData="M 277,277 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+</vector>

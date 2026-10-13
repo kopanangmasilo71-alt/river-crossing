@@ -154,12 +154,12 @@ fun SettingsScreen(
                     .padding(horizontal = 16.dp, vertical = 8.dp),
                 verticalArrangement = Arrangement.spacedBy(14.dp)
             ) {
-            // 1. PLAYER PROFILE CARD (Warm Golden Amber)
+            // 1. PLAYER PROFILE CARD (Warm Carved Wood)
             VibrantSectionHeader(title = "Captain Profile", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF00D3560), Color(0xF007203A)),
-                borderColor = MenuBtnBlueBorder
+                gradientColors = listOf(Color(0xF042220E), Color(0xF0281305)),
+                borderColor = GoldenBankGlow
             ) {
                 Row(
                     modifier = Modifier
@@ -169,7 +169,7 @@ fun SettingsScreen(
                 ) {
                     Surface(
                         shape = CircleShape,
-                        color = Color(0xDD072449),
+                        color = Color(0xDD2A1406),
                         border = BorderStroke(2.dp, GoldenBankGlow),
                         modifier = Modifier.size(54.dp),
                         shadowElevation = 4.dp
@@ -191,7 +191,7 @@ fun SettingsScreen(
                             text = "Captain Name",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.SemiBold,
-                            color = Color(0xFFBAE6FD)
+                            color = Color(0xFFFEF3C7)
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         OutlinedTextField(
@@ -203,11 +203,11 @@ fun SettingsScreen(
                             singleLine = true,
                             colors = OutlinedTextFieldDefaults.colors(
                                 focusedBorderColor = GoldenBankGlow,
-                                unfocusedBorderColor = MenuBtnBlueBorder,
+                                unfocusedBorderColor = Color(0xFF8B4513),
                                 focusedTextColor = GoldenBankGlow,
-                                unfocusedTextColor = Color.White,
-                                focusedContainerColor = Color(0xDD072449),
-                                unfocusedContainerColor = Color(0xDD072449)
+                                unfocusedTextColor = Color(0xFFFFFBEB),
+                                focusedContainerColor = Color(0x80180B04),
+                                unfocusedContainerColor = Color(0x80180B04)
                             ),
                             shape = RoundedCornerShape(10.dp),
                             modifier = Modifier
@@ -317,11 +317,11 @@ fun SettingsScreen(
             }
 
             // 3. AUDIO & HAPTICS SETTINGS (Vibrant Cyan / Teal)
-            VibrantSectionHeader(title = "Audio & Feedback", accentColor = MenuBtnCyanTop)
+            VibrantSectionHeader(title = "Audio & Feedback", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF00E3D3A), Color(0xF0072624)),
-                borderColor = MenuBtnCyanBorder
+                gradientColors = listOf(Color(0xF042220E), Color(0xF0281305)),
+                borderColor = GoldenBankGlow
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     // Sound Effects switch
@@ -336,15 +336,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.2.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.2.dp, GoldenBankGlow),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = if (isMuted) Icons.Default.VolumeMute else Icons.Default.VolumeUp,
                                         contentDescription = null,
-                                        tint = if (isMuted) Color(0xFFEF4444) else MenuBtnCyanTop,
+                                        tint = if (isMuted) Color(0xFFEF4444) else GoldenBankGlow,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -360,7 +360,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Animal calls, water splash & oar strokes",
                                     fontSize = 11.sp,
-                                    color = Color(0xFFCCFBF1)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                         }
@@ -368,10 +368,10 @@ fun SettingsScreen(
                             checked = !isMuted,
                             onCheckedChange = { viewModel.toggleMute() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = MenuBtnCyanMid,
-                                uncheckedThumbColor = Color(0xFF99F6E4),
-                                uncheckedTrackColor = Color(0xDD072624)
+                                checkedThumbColor = Color(0xFFFFFBEB),
+                                checkedTrackColor = Color(0xFF8B4513),
+                                uncheckedThumbColor = Color(0xFFD97706),
+                                uncheckedTrackColor = Color(0xDD2A1406)
                             ),
                             modifier = Modifier.testTag("settings_sound_switch")
                         )
@@ -391,15 +391,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.2.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.2.dp, GoldenBankGlow),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.Vibration,
                                         contentDescription = null,
-                                        tint = MenuBtnCyanTop,
+                                        tint = GoldenBankGlow,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -415,7 +415,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Tactile vibration when boarding or docking",
                                     fontSize = 11.sp,
-                                    color = Color(0xFFCCFBF1)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                         }
@@ -423,10 +423,10 @@ fun SettingsScreen(
                             checked = isHapticsEnabled,
                             onCheckedChange = { viewModel.toggleHaptics() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = MenuBtnCyanMid,
-                                uncheckedThumbColor = Color(0xFF99F6E4),
-                                uncheckedTrackColor = Color(0xDD072624)
+                                checkedThumbColor = Color(0xFFFFFBEB),
+                                checkedTrackColor = Color(0xFF8B4513),
+                                uncheckedThumbColor = Color(0xFFD97706),
+                                uncheckedTrackColor = Color(0xDD2A1406)
                             ),
                             modifier = Modifier.testTag("settings_haptics_switch")
                         )
@@ -437,7 +437,7 @@ fun SettingsScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(1.dp)
-                            .background(Color(0x335EEAD4))
+                            .background(Color(0x33D97706))
                     )
                     Spacer(modifier = Modifier.height(14.dp))
 
@@ -462,14 +462,14 @@ fun SettingsScreen(
                                 text = "Procedural Biome Audio Engine",
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 13.5.sp,
-                                color = MenuBtnCyanTop
+                                color = GoldenBankGlow
                             )
                         }
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = "Synthesizes real-time continuous river currents, authentic bird calls, and terrain footsteps natively tailored to the active biome.",
                             fontSize = 11.sp,
-                            color = Color(0xFFCCFBF1).copy(alpha = 0.85f),
+                            color = Color(0xFFFEF3C7).copy(alpha = 0.85f),
                             lineHeight = 15.sp
                         )
 
@@ -498,10 +498,10 @@ fun SettingsScreen(
                                 val isSelected = auditionBiome == biome
                                 Surface(
                                     shape = RoundedCornerShape(8.dp),
-                                    color = if (isSelected) MenuBtnCyanMid else Color(0xDD072624),
+                                    color = if (isSelected) Color(0xFF6B3209) else Color(0xDD2A1406),
                                     border = BorderStroke(
                                         if (isSelected) 1.5.dp else 1.dp,
-                                        if (isSelected) MenuBtnCyanTop else Color(0x445EEAD4)
+                                        if (isSelected) GoldenBankGlow else Color(0xFF8B4513)
                                     ),
                                     modifier = Modifier
                                         .clip(RoundedCornerShape(8.dp))
@@ -516,7 +516,7 @@ fun SettingsScreen(
                                         text = label,
                                         fontSize = 10.5.sp,
                                         fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                        color = if (isSelected) Color.White else Color(0xFFCCFBF1),
+                                        color = if (isSelected) Color(0xFFFFFBEB) else Color(0xFFFEF3C7),
                                         modifier = Modifier.padding(horizontal = 9.dp, vertical = 5.dp)
                                     )
                                 }
@@ -533,8 +533,8 @@ fun SettingsScreen(
                             // River Flow Button
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(8.dp))
@@ -552,7 +552,7 @@ fun SettingsScreen(
                                         text = "River Flow",
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = MenuBtnCyanTop
+                                        color = GoldenBankGlow
                                     )
                                 }
                             }
@@ -560,8 +560,8 @@ fun SettingsScreen(
                             // Bird Call Button
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(8.dp))
@@ -579,7 +579,7 @@ fun SettingsScreen(
                                         text = "Bird Call",
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = MenuBtnCyanTop
+                                        color = GoldenBankGlow
                                     )
                                 }
                             }
@@ -587,8 +587,8 @@ fun SettingsScreen(
                             // Footstep Button
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(8.dp))
@@ -606,7 +606,7 @@ fun SettingsScreen(
                                         text = "Footstep",
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = MenuBtnCyanTop
+                                        color = GoldenBankGlow
                                     )
                                 }
                             }
@@ -614,8 +614,8 @@ fun SettingsScreen(
                             // Continuous Ambience Loop Preview Button
                             Surface(
                                 shape = RoundedCornerShape(8.dp),
-                                color = if (isPreviewingAmbience) MenuBtnCyanMid else Color(0xDD072624),
-                                border = BorderStroke(1.dp, if (isPreviewingAmbience) Color.White else MenuBtnCyanBorder),
+                                color = if (isPreviewingAmbience) Color(0xFF6B3209) else Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, if (isPreviewingAmbience) GoldenBankGlow else Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(8.dp))
@@ -639,7 +639,7 @@ fun SettingsScreen(
                                         text = if (isPreviewingAmbience) "Stop Loop" else "Ambient Loop",
                                         fontSize = 9.5.sp,
                                         fontWeight = FontWeight.Bold,
-                                        color = if (isPreviewingAmbience) Color.White else MenuBtnCyanTop
+                                        color = if (isPreviewingAmbience) Color(0xFFFFFBEB) else GoldenBankGlow
                                     )
                                 }
                             }
@@ -650,13 +650,13 @@ fun SettingsScreen(
                             text = "Jump Animation Spritesheets",
                             fontWeight = FontWeight.Bold,
                             fontSize = 12.sp,
-                            color = MenuBtnCyanTop
+                            color = GoldenBankGlow
                         )
                         Spacer(modifier = Modifier.height(2.dp))
                         Text(
                             text = "6-frame procedural jump animation when arriving on the bank:",
                             fontSize = 10.5.sp,
-                            color = Color(0xFFCCFBF1).copy(alpha = 0.85f)
+                            color = Color(0xFFFEF3C7).copy(alpha = 0.85f)
                         )
                         Spacer(modifier = Modifier.height(8.dp))
 
@@ -670,8 +670,8 @@ fun SettingsScreen(
                             // Rabbit Jump Preview Card
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(10.dp))
@@ -705,7 +705,7 @@ fun SettingsScreen(
                                     Text(
                                         text = "6 frames · Tap to leap",
                                         fontSize = 8.5.sp,
-                                        color = Color(0xFFCCFBF1)
+                                        color = Color(0xFFFEF3C7)
                                     )
                                 }
                             }
@@ -713,8 +713,8 @@ fun SettingsScreen(
                             // Dog Jump Preview Card
                             Surface(
                                 shape = RoundedCornerShape(10.dp),
-                                color = Color(0xDD072624),
-                                border = BorderStroke(1.dp, MenuBtnCyanBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.dp, Color(0xFF8B4513)),
                                 modifier = Modifier
                                     .weight(1f)
                                     .clip(RoundedCornerShape(10.dp))
@@ -748,7 +748,7 @@ fun SettingsScreen(
                                     Text(
                                         text = "6 frames · Tap to leap",
                                         fontSize = 8.5.sp,
-                                        color = Color(0xFFCCFBF1)
+                                        color = Color(0xFFFEF3C7)
                                     )
                                 }
                             }
@@ -757,12 +757,12 @@ fun SettingsScreen(
                 }
             }
 
-            // 3. CHALLENGE MODIFIERS (Royal Amethyst Purple)
-            VibrantSectionHeader(title = "Gameplay Modifiers", accentColor = MenuBtnPurpleTop)
+            // 3. CHALLENGE MODIFIERS (Warm Carved Mahogany)
+            VibrantSectionHeader(title = "Gameplay Modifiers", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF0300F48), Color(0xF01B072B)),
-                borderColor = MenuBtnPurpleBorder
+                gradientColors = listOf(Color(0xF042220E), Color(0xF0281305)),
+                borderColor = GoldenBankGlow
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     // Mystery Shore Fog of War
@@ -777,15 +777,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color(0xDD1B072B),
-                                border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.2.dp, GoldenBankGlow),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.VisibilityOff,
                                         contentDescription = null,
-                                        tint = MenuBtnPurpleTop,
+                                        tint = GoldenBankGlow,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -801,7 +801,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Hides opposite shore items until boat docks",
                                     fontSize = 11.sp,
-                                    color = Color(0xFFF3E8FF)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                         }
@@ -809,10 +809,10 @@ fun SettingsScreen(
                             checked = modifiers.hideOppositeBankItems,
                             onCheckedChange = { viewModel.toggleHiddenItems() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = MenuBtnPurpleMid,
-                                uncheckedThumbColor = Color(0xFFE9D5FF),
-                                uncheckedTrackColor = Color(0xDD1B072B)
+                                checkedThumbColor = Color(0xFFFFFBEB),
+                                checkedTrackColor = Color(0xFF8B4513),
+                                uncheckedThumbColor = Color(0xFFD97706),
+                                uncheckedTrackColor = Color(0xDD2A1406)
                             ),
                             modifier = Modifier.testTag("settings_fog_switch")
                         )
@@ -832,15 +832,15 @@ fun SettingsScreen(
                         ) {
                             Surface(
                                 shape = CircleShape,
-                                color = Color(0xDD1B072B),
-                                border = BorderStroke(1.2.dp, MenuBtnPurpleBorder),
+                                color = Color(0xDD2A1406),
+                                border = BorderStroke(1.2.dp, GoldenBankGlow),
                                 modifier = Modifier.size(38.dp)
                             ) {
                                 Box(contentAlignment = Alignment.Center) {
                                     Icon(
                                         imageVector = Icons.Default.Security,
                                         contentDescription = null,
-                                        tint = MenuBtnPurpleTop,
+                                        tint = GoldenBankGlow,
                                         modifier = Modifier.size(20.dp)
                                     )
                                 }
@@ -856,7 +856,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Conflicting items cannot share boat cargo",
                                     fontSize = 11.sp,
-                                    color = Color(0xFFF3E8FF)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                         }
@@ -864,10 +864,10 @@ fun SettingsScreen(
                             checked = modifiers.restrictBoatCombinations,
                             onCheckedChange = { viewModel.toggleRestrictedCombos() },
                             colors = SwitchDefaults.colors(
-                                checkedThumbColor = Color.White,
-                                checkedTrackColor = MenuBtnPurpleMid,
-                                uncheckedThumbColor = Color(0xFFE9D5FF),
-                                uncheckedTrackColor = Color(0xDD1B072B)
+                                checkedThumbColor = Color(0xFFFFFBEB),
+                                checkedTrackColor = Color(0xFF8B4513),
+                                uncheckedThumbColor = Color(0xFFD97706),
+                                uncheckedTrackColor = Color(0xDD2A1406)
                             ),
                             modifier = Modifier.testTag("settings_restricted_switch")
                         )
@@ -875,18 +875,18 @@ fun SettingsScreen(
                 }
             }
 
-            // 4. DATA & LOCAL ROOM DATABASE MANAGEMENT (Lush Emerald Green)
-            VibrantSectionHeader(title = "Logbook & Progress", accentColor = MenuBtnGreenTop)
+            // 4. DATA & LOCAL ROOM DATABASE MANAGEMENT (Warm Timber)
+            VibrantSectionHeader(title = "Logbook & Progress", accentColor = GoldenBankGlow)
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF012361B), Color(0xF00B2110)),
-                borderColor = MenuBtnGreenBorder
+                gradientColors = listOf(Color(0xF042220E), Color(0xF0281305)),
+                borderColor = GoldenBankGlow
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Surface(
                         shape = RoundedCornerShape(12.dp),
-                        color = Color(0xCC091D0E),
-                        border = BorderStroke(1.2.dp, MenuBtnGreenBorder),
+                        color = Color(0xCC2A1406),
+                        border = BorderStroke(1.2.dp, Color(0xFF8B4513)),
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Row(
@@ -905,7 +905,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Levels Solved",
                                     fontSize = 11.sp,
-                                    color = Color(0xFF86EFAC)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
@@ -918,7 +918,7 @@ fun SettingsScreen(
                                 Text(
                                     text = "Total Runs Logged",
                                     fontSize = 11.sp,
-                                    color = Color(0xFF86EFAC)
+                                    color = Color(0xFFFEF3C7)
                                 )
                             }
                         }
@@ -976,8 +976,8 @@ fun SettingsScreen(
             SettingsSectionHeader(title = "ABOUT")
             WoodCard(
                 shape = RoundedCornerShape(18.dp),
-                gradientColors = listOf(Color(0xF00D3560), Color(0xF007203A)),
-                borderColor = MenuBtnBlueBorder
+                gradientColors = listOf(Color(0xF042220E), Color(0xF0281305)),
+                borderColor = GoldenBankGlow
             ) {
                 Column(
                     modifier = Modifier.padding(16.dp),
@@ -992,7 +992,7 @@ fun SettingsScreen(
                     Text(
                         text = "${PuzzleScenarios.ALL.size} Handcrafted Logic Levels • Room Database High Scores • State-Space AI Solver • Procedural Audio Engine",
                         fontSize = 11.sp,
-                        color = Color(0xFFBAE6FD)
+                        color = Color(0xFFFEF3C7)
                     )
                     Text(
                         text = "Version 1.0.0 • River Academy Edition",

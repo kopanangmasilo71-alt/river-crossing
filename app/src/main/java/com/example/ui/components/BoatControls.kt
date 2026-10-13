@@ -84,7 +84,7 @@ fun BoatControls(
             hintMessage?.let { msg ->
                 Card(
                     shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = RiverDeepBlueDark),
+                    colors = CardDefaults.cardColors(containerColor = Color(0xF02A1406)),
                     border = BorderStroke(1.2.dp, RiverGoldGlow),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     modifier = Modifier.fillMaxWidth()
@@ -116,7 +116,7 @@ fun BoatControls(
                             Icon(
                                 imageVector = Icons.Default.Close,
                                 contentDescription = "Close Hint",
-                                tint = Color(0xFFBAE6FD),
+                                tint = Color(0xFFFEF3C7),
                                 modifier = Modifier.size(16.dp)
                             )
                         }
@@ -131,11 +131,11 @@ fun BoatControls(
             enabled = !isRowing && !isGameOver && !isVictory,
             shape = RoundedCornerShape(24.dp),
             colors = ButtonDefaults.buttonColors(
-                containerColor = levelTheme.sailButtonColors.getOrElse(1) { RiverForestGreenMid },
-                contentColor = Color.White,
-                disabledContainerColor = RiverDeepBlueDark
+                containerColor = Color(0xFF8B4513),
+                contentColor = Color(0xFFFFFBEB),
+                disabledContainerColor = Color(0xDD2A1406)
             ),
-            border = BorderStroke(1.5.dp, if (!isRowing && !isGameOver && !isVictory) levelTheme.sailButtonGlow else RiverTimberBorder.copy(alpha = 0.5f)),
+            border = BorderStroke(1.5.dp, if (!isRowing && !isGameOver && !isVictory) GoldenBankGlow else RiverTimberBorder.copy(alpha = 0.5f)),
             elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp, pressedElevation = 2.dp),
             modifier = Modifier
                 .fillMaxWidth()
@@ -175,7 +175,7 @@ fun BoatControls(
                 shape = RoundedCornerShape(14.dp),
                 border = BorderStroke(1.dp, if (canUndo) RiverTimberBorder else Color(0x3364748B)),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = RiverDeepBlueDark.copy(alpha = 0.7f),
+                    containerColor = Color(0xF02A1406),
                     contentColor = Color.White,
                     disabledContentColor = Color.Gray
                 ),
@@ -200,7 +200,7 @@ fun BoatControls(
                 enabled = !isRowing && !isGameOver && !isVictory,
                 shape = RoundedCornerShape(14.dp),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = RiverDeepBlueDark.copy(alpha = 0.7f),
+                    containerColor = Color(0xF02A1406),
                     contentColor = RiverGoldGlow
                 ),
                 border = BorderStroke(1.dp, RiverGoldGlow.copy(alpha = 0.7f)),
@@ -226,7 +226,7 @@ fun BoatControls(
                 shape = RoundedCornerShape(14.dp),
                 border = BorderStroke(1.dp, Color(0xFFEF4444).copy(alpha = 0.7f)),
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = RiverDeepBlueDark.copy(alpha = 0.7f),
+                    containerColor = Color(0xF02A1406),
                     contentColor = Color(0xFFFCA5A5)
                 ),
                 modifier = Modifier
