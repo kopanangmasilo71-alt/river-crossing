@@ -194,245 +194,283 @@ fun MainMenuScreen(
             SignpostDecoration()
         }
 
-        // Main Vertical Content
+        // Main Layout: Scrollable menu items with fixed bottom BannerAdView
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 14.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            modifier = Modifier.fillMaxSize()
         ) {
-            // =================================================================
-            // TOP HEADER: LOGO ON LEFT, TAGLINE IN MIDDLE, ACTION BUTTONS RIGHT
-            // =================================================================
-            Row(
+            // Scrollable Menu Content
+            Column(
                 modifier = Modifier
+                    .weight(1f)
                     .fillMaxWidth()
-                    .padding(top = 6.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 14.dp, vertical = 12.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                // Sleek compact game title (game icon removed to keep top bar compact and in place)
+                // =================================================================
+                // TOP HEADER: LOGO ON LEFT, TAGLINE IN MIDDLE, ACTION BUTTONS RIGHT
+                // =================================================================
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // Sleek compact game title
+                    Box(
+                        modifier = Modifier
+                            .weight(1.12f)
+                            .offset(y = gentleFloat.dp)
+                    ) {
+                        RiverCrossingTitleText()
+                    }
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    // Tagline & Quick Action Buttons (Sound, Rules, Close)
+                    Column(
+                        modifier = Modifier.weight(0.88f),
+                        horizontalAlignment = Alignment.End,
+                        verticalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        // Quick Action Buttons Row
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(8.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // Sound Mute Toggle
+                            QuickActionButton(
+                                drawableRes = if (isMuted) R.drawable.ic_sound_mute else R.drawable.ic_sound_speaker,
+                                contentDescription = if (isMuted) "Unmute Audio" else "Mute Audio",
+                                testTag = "main_menu_mute_button",
+                                onClick = { viewModel.toggleMute() }
+                            )
+
+                            // Help / Rules
+                            QuickActionButton(
+                                drawableRes = R.drawable.ic_help_question,
+                                contentDescription = "How To Play Rules",
+                                testTag = "main_menu_rules_button",
+                                onClick = { showRulesDialog = true }
+                            )
+
+                            // Close App
+                            QuickActionButton(
+                                icon = Icons.Default.Close,
+                                contentDescription = "Close Game",
+                                testTag = "main_menu_close_button",
+                                onClick = { activity?.finish() }
+                            )
+                        }
+
+                        // Slogan Tagline: "Think • Plan • Move"
+                        Column(
+                            horizontalAlignment = Alignment.End,
+                            modifier = Modifier.padding(end = 4.dp, top = 1.dp)
+                        ) {
+                            Text(
+                                text = "Think • Plan • Move",
+                                color = Color(0xFFFEF3C7),
+                                fontSize = 11.5.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                fontStyle = FontStyle.Italic,
+                                letterSpacing = 0.5.sp,
+                                style = androidx.compose.ui.text.TextStyle(
+                                    shadow = androidx.compose.ui.graphics.Shadow(
+                                        color = Color(0xCC000000),
+                                        offset = androidx.compose.ui.geometry.Offset(1f, 2f),
+                                        blurRadius = 3f
+                                    )
+                                )
+                            )
+                            Text(
+                                text = "Get everyone safely across!",
+                                color = Color(0xFFFFFBEB),
+                                fontSize = 10.5.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontStyle = FontStyle.Italic,
+                                textAlign = TextAlign.End,
+                                style = androidx.compose.ui.text.TextStyle(
+                                    shadow = androidx.compose.ui.graphics.Shadow(
+                                        color = Color(0xCC000000),
+                                        offset = androidx.compose.ui.geometry.Offset(1f, 2f),
+                                        blurRadius = 3f
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(2.dp))
+
+                // =================================================================
+                // STAT CAPSULE BAR: STARS, LEVELS CLEARED, PLAYER RANK
+                // =================================================================
+                StatCapsuleBar(
+                    starsEarned = totalStarsEarned,
+                    totalStars = PuzzleScenarios.ALL.size * 3,
+                    levelsCleared = clearedCount,
+                    totalLevels = PuzzleScenarios.ALL.size,
+                    rankTitle = playerRank
+                )
+
+                // =================================================================
+                // SECTION HEADER: "🧭 EXPEDITION MENU"
+                // Solid carved wood badge with crisp high-contrast cream/white text
+                // =================================================================
+                Surface(
+                    shape = RoundedCornerShape(12.dp),
+                    color = Color(0xFF2E1508),
+                    border = BorderStroke(1.4.dp, GoldenBankGlow),
+                    shadowElevation = 4.dp,
+                    modifier = Modifier.padding(start = 2.dp, top = 4.dp, bottom = 2.dp)
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+                    ) {
+                        Surface(
+                            shape = CircleShape,
+                            color = Color(0xFF4A250E),
+                            border = BorderStroke(1.dp, GoldenBankGlow),
+                            modifier = Modifier.size(22.dp)
+                        ) {
+                            Box(contentAlignment = Alignment.Center) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_map_treasure),
+                                    contentDescription = null,
+                                    tint = GoldenBankGlow,
+                                    modifier = Modifier.size(13.dp)
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Text(
+                            text = "EXPEDITION MENU",
+                            fontSize = 12.5.sp,
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = 1.2.sp,
+                            color = Color(0xFFFFFBEB),
+                            style = androidx.compose.ui.text.TextStyle(
+                                shadow = androidx.compose.ui.graphics.Shadow(
+                                    color = Color(0xCC000000),
+                                    offset = androidx.compose.ui.geometry.Offset(1f, 1.5f),
+                                    blurRadius = 3f
+                                )
+                            )
+                        )
+                    }
+                }
+
+                // =================================================================
+                // 6 COHESIVE SOLID & BRIGHT CARVED WOOD MENU ACTION BUTTONS
+                // =================================================================
+
+                // 1. CONTINUE / PLAY GAME (VIBRANT SUNLIT GOLDEN TIMBER)
+                MainMenuPillButton(
+                    title = if (clearedCount == 0) "Play Game" else "Continue",
+                    subtitle = "Level ${nextLevel.levelNumber}: ${nextLevel.title} (${nextLevel.difficulty.title})",
+                    iconVector = Icons.Default.PlayArrow,
+                    badgeText = if (clearedCount == 0) "START" else "LVL ${nextLevel.levelNumber}",
+                    highlightColor = Color(0xFF10B981),
+                    borderColor = Color(0xFF34D399),
+                    medallionBg = Color(0xFF065F46),
+                    testTag = "main_menu_play_button",
+                    onClick = {
+                        if (unlockedLevelIds.contains(nextLevel.id)) {
+                            viewModel.selectScenarioAndPlay(nextLevel)
+                        } else {
+                            scenarioToUnlock = nextLevel
+                        }
+                    }
+                )
+
+                // 2. LEVELS MENU (WARM RICH CEDAR TIMBER)
+                MainMenuPillButton(
+                    title = "Levels Menu",
+                    subtitle = "Browse all ${PuzzleScenarios.ALL.size} handcrafted river puzzles",
+                    drawableIconRes = R.drawable.ic_map_treasure,
+                    badgeText = "$clearedCount/${PuzzleScenarios.ALL.size}",
+                    highlightColor = Color(0xFFF59E0B),
+                    borderColor = Color(0xFFFBBF24),
+                    medallionBg = Color(0xFF92400E),
+                    testTag = "main_menu_levels_button",
+                    onClick = onNavigateToLevels
+                )
+
+                // 3. RIVER ACADEMY (BRIGHT SAPPHIRE RIVER TIMBER)
+                MainMenuPillButton(
+                    title = "River Academy",
+                    subtitle = "Step-by-step guided practice, rules & bestiary",
+                    drawableIconRes = R.drawable.ic_group_people,
+                    badgeText = "GUIDE",
+                    highlightColor = Color(0xFF38BDF8),
+                    borderColor = Color(0xFF7DD3FC),
+                    medallionBg = Color(0xFF0369A1),
+                    testTag = "main_menu_tutorial_button",
+                    onClick = onNavigateToTutorial
+                )
+
+                // 4. HIGH SCORE LEADERBOARD (ROYAL RADIANT GOLD TIMBER)
+                MainMenuPillButton(
+                    title = "High Score Leaderboard",
+                    subtitle = "Personal best moves, stars & optimal clears",
+                    drawableIconRes = R.drawable.ic_crown,
+                    badgeText = "$totalStarsEarned ★",
+                    highlightColor = Color(0xFFFACC15),
+                    borderColor = Color(0xFFFEF08A),
+                    medallionBg = Color(0xFFA16207),
+                    testTag = "main_menu_leaderboard_button",
+                    onClick = onNavigateToLeaderboard
+                )
+
+                // 5. SETTINGS MENU (VIBRANT AMETHYST OAK TIMBER)
+                MainMenuPillButton(
+                    title = "Settings Menu",
+                    subtitle = "Audio SFX, captain profile & modifiers",
+                    iconVector = Icons.Default.Settings,
+                    highlightColor = Color(0xFFA78BFA),
+                    borderColor = Color(0xFFC4B5FD),
+                    medallionBg = Color(0xFF6D28D9),
+                    testTag = "main_menu_settings_button",
+                    onClick = onNavigateToSettings
+                )
+
+                // 6. QUIT GAME (WARM COPPER RUST TIMBER)
+                MainMenuPillButton(
+                    title = "Quit Game",
+                    subtitle = "Exit back to home screen",
+                    iconVector = Icons.AutoMirrored.Filled.ExitToApp,
+                    highlightColor = Color(0xFFF87171),
+                    borderColor = Color(0xFFFCA5A5),
+                    medallionBg = Color(0xFF991B1B),
+                    testTag = "main_menu_quit_button",
+                    onClick = { activity?.finish() }
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+            }
+
+            // =================================================================
+            // FIXED BOTTOM BANNER AD VIEW (Does not scroll with menu buttons)
+            // =================================================================
+            Surface(
+                color = Color(0xF21C0E05),
+                border = BorderStroke(1.2.dp, Color(0xFF6B3510)),
+                shadowElevation = 8.dp,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Box(
                     modifier = Modifier
-                        .weight(1.12f)
-                        .offset(y = gentleFloat.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 12.dp, vertical = 4.dp),
+                    contentAlignment = Alignment.Center
                 ) {
-                    RiverCrossingTitleText()
-                }
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                // Tagline & Quick Action Buttons (Sound, Rules, Close)
-                Column(
-                    modifier = Modifier.weight(0.88f),
-                    horizontalAlignment = Alignment.End,
-                    verticalArrangement = Arrangement.spacedBy(6.dp)
-                ) {
-                    // Quick Action Buttons Row (Circular 3D glossy blue pills)
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        // Sound Mute Toggle
-                        QuickActionButton(
-                            drawableRes = if (isMuted) R.drawable.ic_sound_mute else R.drawable.ic_sound_speaker,
-                            contentDescription = if (isMuted) "Unmute Audio" else "Mute Audio",
-                            testTag = "main_menu_mute_button",
-                            onClick = { viewModel.toggleMute() }
-                        )
-
-                        // Help / Rules
-                        QuickActionButton(
-                            drawableRes = R.drawable.ic_help_question,
-                            contentDescription = "How To Play Rules",
-                            testTag = "main_menu_rules_button",
-                            onClick = { showRulesDialog = true }
-                        )
-
-                        // Close App
-                        QuickActionButton(
-                            icon = Icons.Default.Close,
-                            contentDescription = "Close Game",
-                            testTag = "main_menu_close_button",
-                            onClick = { activity?.finish() }
-                        )
-                    }
-
-                    // Slogan Tagline: "Think • Plan • Move"
-                    Column(
-                        horizontalAlignment = Alignment.End,
-                        modifier = Modifier.padding(end = 4.dp, top = 1.dp)
-                    ) {
-                        Text(
-                            text = "Think • Plan • Move",
-                            color = Color(0xFFFEF3C7),
-                            fontSize = 11.5.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontStyle = FontStyle.Italic,
-                            letterSpacing = 0.5.sp,
-                            style = androidx.compose.ui.text.TextStyle(
-                                shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = Color(0xCC000000),
-                                    offset = androidx.compose.ui.geometry.Offset(1f, 2f),
-                                    blurRadius = 3f
-                                )
-                            )
-                        )
-                        Text(
-                            text = "Get everyone safely across!",
-                            color = Color(0xFFFFFBEB),
-                            fontSize = 10.5.sp,
-                            fontWeight = FontWeight.Bold,
-                            fontStyle = FontStyle.Italic,
-                            textAlign = TextAlign.End,
-                            style = androidx.compose.ui.text.TextStyle(
-                                shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = Color(0xCC000000),
-                                    offset = androidx.compose.ui.geometry.Offset(1f, 2f),
-                                    blurRadius = 3f
-                                )
-                            )
-                        )
-                    }
+                    BannerAdView()
                 }
             }
-
-            Spacer(modifier = Modifier.height(2.dp))
-
-            // =================================================================
-            // STAT CAPSULE BAR: STARS, LEVELS CLEARED, PLAYER RANK
-            // Rich carved cedar plank with warm golden amber border
-            // =================================================================
-            StatCapsuleBar(
-                starsEarned = totalStarsEarned,
-                totalStars = PuzzleScenarios.ALL.size * 3,
-                levelsCleared = clearedCount,
-                totalLevels = PuzzleScenarios.ALL.size,
-                rankTitle = playerRank
-            )
-
-            // =================================================================
-            // SECTION HEADER: "🧭 EXPEDITION MENU"
-            // =================================================================
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(start = 4.dp, top = 4.dp, bottom = 2.dp)
-            ) {
-                Surface(
-                    shape = CircleShape,
-                    color = Color(0xDD2C1406),
-                    border = BorderStroke(1.2.dp, GoldenBankGlow),
-                    modifier = Modifier.size(22.dp)
-                ) {
-                    Box(contentAlignment = Alignment.Center) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_map_treasure),
-                            contentDescription = null,
-                            tint = GoldenBankGlow,
-                            modifier = Modifier.size(13.dp)
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.width(6.dp))
-                Text(
-                    text = "EXPEDITION MENU",
-                    fontSize = 12.5.sp,
-                    fontWeight = FontWeight.ExtraBold,
-                    letterSpacing = 1.2.sp,
-                    color = GoldenBankGlow
-                )
-            }
-
-            // =================================================================
-            // 6 COHESIVE CARVED WOOD MENU ACTION BUTTONS
-            // =================================================================
-
-            // 1. CONTINUE / PLAY GAME (DEEP FOREST MOSS TIMBER & GOLD TRIM)
-            MainMenuPillButton(
-                title = if (clearedCount == 0) "Play Game" else "Continue",
-                subtitle = "Level ${nextLevel.levelNumber}: ${nextLevel.title} (${nextLevel.difficulty.title})",
-                iconVector = Icons.Default.PlayArrow,
-                badgeText = if (clearedCount == 0) "START" else "LVL ${nextLevel.levelNumber}",
-                gradientColors = listOf(Color(0xF03B2610), Color(0xF0241608)),
-                borderColor = Color(0xFFD97706),
-                testTag = "main_menu_play_button",
-                onClick = {
-                    if (unlockedLevelIds.contains(nextLevel.id)) {
-                        viewModel.selectScenarioAndPlay(nextLevel)
-                    } else {
-                        scenarioToUnlock = nextLevel
-                    }
-                }
-            )
-
-            // 2. LEVELS MENU (RICH NAUTICAL CEDAR TIMBER)
-            MainMenuPillButton(
-                title = "Levels Menu",
-                subtitle = "Browse all ${PuzzleScenarios.ALL.size} handcrafted river puzzles",
-                drawableIconRes = R.drawable.ic_map_treasure,
-                badgeText = "$clearedCount/${PuzzleScenarios.ALL.size}",
-                gradientColors = listOf(Color(0xF040220E), Color(0xF0281206)),
-                borderColor = Color(0xFFB45309),
-                testTag = "main_menu_levels_button",
-                onClick = onNavigateToLevels
-            )
-
-            // 3. RIVER ACADEMY (SUNLIT GOLDEN AMBER TIMBER)
-            MainMenuPillButton(
-                title = "River Academy",
-                subtitle = "Step-by-step guided practice, rules & bestiary",
-                drawableIconRes = R.drawable.ic_group_people,
-                badgeText = "GUIDE",
-                gradientColors = listOf(Color(0xF046260E), Color(0xF02C1406)),
-                borderColor = Color(0xFFD97706),
-                testTag = "main_menu_tutorial_button",
-                onClick = onNavigateToTutorial
-            )
-
-            // 4. HIGH SCORE LEADERBOARD (ROYAL MAHOGANY TIMBER)
-            MainMenuPillButton(
-                title = "High Score Leaderboard",
-                subtitle = "Personal best moves, stars & optimal clears",
-                drawableIconRes = R.drawable.ic_crown,
-                badgeText = "$totalStarsEarned ★",
-                gradientColors = listOf(Color(0xF03A1B10), Color(0xF0241008)),
-                borderColor = Color(0xFFD97706),
-                testTag = "main_menu_leaderboard_button",
-                onClick = onNavigateToLeaderboard
-            )
-
-            // 5. SETTINGS MENU (WEATHERED OAK TIMBER)
-            MainMenuPillButton(
-                title = "Settings Menu",
-                subtitle = "Audio SFX, captain profile & modifiers",
-                iconVector = Icons.Default.Settings,
-                gradientColors = listOf(Color(0xF0361E10), Color(0xF0221207)),
-                borderColor = Color(0xFFA06634),
-                testTag = "main_menu_settings_button",
-                onClick = onNavigateToSettings
-            )
-
-            // 6. QUIT GAME (DEEP RUST TIMBER)
-            MainMenuPillButton(
-                title = "Quit Game",
-                subtitle = "Exit back to home screen",
-                iconVector = Icons.AutoMirrored.Filled.ExitToApp,
-                gradientColors = listOf(Color(0xF0381810), Color(0xF0220D07)),
-                borderColor = Color(0xFF8B3A2B),
-                testTag = "main_menu_quit_button",
-                onClick = { activity?.finish() }
-            )
-
-            // =================================================================
-            // BANNER ADS CONTAINER (Google Mobile Ads / AdMob Integration)
-            // =================================================================
-            Spacer(modifier = Modifier.height(4.dp))
-            BannerAdView(
-                modifier = Modifier.padding(top = 2.dp, bottom = 4.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
         }
 
         // Rules Dialog overlay
@@ -472,7 +510,7 @@ private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
             shape = RoundedCornerShape(12.dp),
             shadowElevation = 6.dp,
             border = BorderStroke(1.8.dp, GoldenBankGlow),
-            color = Color.Transparent,
+            color = Color(0xFF2C1607),
             modifier = Modifier
                 .padding(bottom = 6.dp)
                 .size(42.dp)
@@ -483,7 +521,7 @@ private fun RiverCrossingTitleText(modifier: Modifier = Modifier) {
                     painter = painterResource(id = WoodAssets.btnSmall),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxSize().alpha(0.90f)
+                    modifier = Modifier.fillMaxSize().alpha(1.0f)
                 )
                 Image(
                     painter = painterResource(id = R.drawable.img_app_icon),
@@ -564,7 +602,7 @@ private fun QuickActionButton(
 
     Surface(
         shape = CircleShape,
-        color = Color.Transparent,
+        color = Color(0xFF1E3A5F),
         border = BorderStroke(1.5.dp, MenuQuickActionBorder),
         shadowElevation = 4.dp,
         modifier = Modifier
@@ -588,7 +626,7 @@ private fun QuickActionButton(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .alpha(0.88f)
+                    .alpha(1.0f)
             )
             Box(
                 modifier = Modifier
@@ -634,9 +672,9 @@ private fun StatCapsuleBar(
 ) {
     Surface(
         shape = RoundedCornerShape(16.dp),
-        color = Color.Transparent,
+        color = Color(0xFF2C1607),
         border = BorderStroke(1.5.dp, MenuStatBarBorder),
-        shadowElevation = 5.dp,
+        shadowElevation = 6.dp,
         modifier = Modifier
             .fillMaxWidth()
             .testTag("main_menu_stat_capsule_bar")
@@ -644,13 +682,22 @@ private fun StatCapsuleBar(
         Box(
             modifier = Modifier.fillMaxWidth()
         ) {
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(Color(0xFF5A2C0F), Color(0xFF381A07))
+                        )
+                    )
+            )
             Image(
                 painter = painterResource(id = WoodAssets.pillMenu),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()
-                    .alpha(0.80f)
+                    .alpha(1.0f)
             )
             Box(
                 modifier = Modifier
@@ -658,9 +705,20 @@ private fun StatCapsuleBar(
                     .background(
                         Brush.verticalGradient(
                             listOf(
-                                MenuStatBarBgTop.copy(alpha = 0.65f),
-                                MenuStatBarBgBottom.copy(alpha = 0.80f)
+                                MenuStatBarBgTop.copy(alpha = 0.40f),
+                                MenuStatBarBgBottom.copy(alpha = 0.55f)
                             )
+                        )
+                    )
+            )
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.dp)
+                    .align(Alignment.TopCenter)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(Color.Transparent, Color(0x88FFE082), Color.Transparent)
                         )
                     )
             )
@@ -797,7 +855,8 @@ private fun StatCapsuleBar(
 }
 
 /**
- * Vibrant 3D pill button with rainbow gradients matching reference design
+ * Authentic carved wood menu button with solid opaque base, rich warm highlights,
+ * and crisp typography.
  */
 @Composable
 private fun MainMenuPillButton(
@@ -806,8 +865,9 @@ private fun MainMenuPillButton(
     iconVector: ImageVector? = null,
     drawableIconRes: Int? = null,
     badgeText: String? = null,
-    gradientColors: List<Color>,
-    borderColor: Color,
+    highlightColor: Color = Color(0xFFD97706),
+    borderColor: Color = GoldenBankGlow,
+    medallionBg: Color = Color(0xFF4A250E),
     testTag: String,
     onClick: () -> Unit
 ) {
@@ -821,13 +881,13 @@ private fun MainMenuPillButton(
 
     Surface(
         shape = RoundedCornerShape(18.dp),
-        color = Color.Transparent,
+        color = Color(0xFF2C1607), // SOLID OPAQUE COLOR - zero transparency
         border = BorderStroke(2.dp, borderColor),
-        shadowElevation = 5.dp,
+        shadowElevation = 6.dp,
         modifier = Modifier
             .fillMaxWidth()
             .scale(buttonScale)
-            .shadow(4.dp, RoundedCornerShape(18.dp))
+            .shadow(5.dp, RoundedCornerShape(18.dp))
             .clip(RoundedCornerShape(18.dp))
             .clickable(
                 interactionSource = interactionSource,
@@ -840,23 +900,61 @@ private fun MainMenuPillButton(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.CenterStart
         ) {
+            // 1. Solid warm timber base layer
+            Box(
+                modifier = Modifier
+                    .matchParentSize()
+                    .background(
+                        Brush.verticalGradient(
+                            listOf(Color(0xFF5A2C0F), Color(0xFF381A07))
+                        )
+                    )
+            )
+
+            // 2. Solid carved wooden button artwork (100% opaque, no transparency)
             Image(
                 painter = painterResource(id = WoodAssets.pillMenu),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .matchParentSize()
-                    .alpha(0.85f)
+                    .alpha(1.0f)
             )
+
+            // 3. Warm luminous glow that brightens the button art
             Box(
                 modifier = Modifier
                     .matchParentSize()
                     .background(
                         Brush.verticalGradient(
-                            colors = gradientColors.map { it.copy(alpha = 0.60f) }
+                            colors = listOf(
+                                highlightColor.copy(alpha = 0.35f),
+                                highlightColor.copy(alpha = 0.12f),
+                                Color.Transparent
+                            )
                         )
                     )
             )
+
+            // 4. Subtle top bevel highlight for 3D embossed look
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(2.5.dp)
+                    .align(Alignment.TopCenter)
+                    .background(
+                        Brush.horizontalGradient(
+                            listOf(
+                                Color.Transparent,
+                                Color(0x88FFE082),
+                                Color(0xCCFFD54F),
+                                Color(0x88FFE082),
+                                Color.Transparent
+                            )
+                        )
+                    )
+            )
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -866,8 +964,9 @@ private fun MainMenuPillButton(
                 // Left Circular Inset Medallion
                 Surface(
                     shape = CircleShape,
-                    color = Color(0x35000000),
-                    border = BorderStroke(1.2.dp, Color.White.copy(alpha = 0.65f)),
+                    color = medallionBg,
+                    border = BorderStroke(1.5.dp, Color.White.copy(alpha = 0.85f)),
+                    shadowElevation = 3.dp,
                     modifier = Modifier.size(44.dp)
                 ) {
                     Box(
@@ -906,28 +1005,28 @@ private fun MainMenuPillButton(
                         Text(
                             text = title,
                             fontSize = 16.5.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            color = Color.White,
+                            fontWeight = FontWeight.Black,
+                            color = Color(0xFFFFFBEB),
                             letterSpacing = 0.3.sp,
                             style = androidx.compose.ui.text.TextStyle(
                                 shadow = androidx.compose.ui.graphics.Shadow(
-                                    color = Color(0x99000000),
-                                    offset = androidx.compose.ui.geometry.Offset(1f, 1f),
-                                    blurRadius = 2f
+                                    color = Color(0xDD000000),
+                                    offset = androidx.compose.ui.geometry.Offset(1f, 1.5f),
+                                    blurRadius = 3f
                                 )
                             )
                         )
                         if (badgeText != null) {
                             Surface(
                                 shape = RoundedCornerShape(6.dp),
-                                color = Color(0x40000000),
-                                border = BorderStroke(0.8.dp, Color.White.copy(alpha = 0.7f))
+                                color = Color(0xFF431D06),
+                                border = BorderStroke(1.dp, GoldenBankGlow)
                             ) {
                                 Text(
                                     text = badgeText,
                                     fontSize = 9.sp,
                                     fontWeight = FontWeight.Black,
-                                    color = Color.White,
+                                    color = Color(0xFFFFFBEB),
                                     modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.dp)
                                 )
                             }
@@ -937,23 +1036,31 @@ private fun MainMenuPillButton(
                     Text(
                         text = subtitle,
                         fontSize = 11.sp,
-                        fontWeight = FontWeight.Medium,
-                        color = Color(0xE6FFFFFF),
-                        maxLines = 1
+                        fontWeight = FontWeight.SemiBold,
+                        color = Color(0xFFFEF3C7),
+                        maxLines = 1,
+                        style = androidx.compose.ui.text.TextStyle(
+                            shadow = androidx.compose.ui.graphics.Shadow(
+                                color = Color(0x99000000),
+                                offset = androidx.compose.ui.geometry.Offset(0.5f, 1f),
+                                blurRadius = 2f
+                            )
+                        )
                     )
                 }
 
                 // Right Chevron Arrow in subtle inset circle
                 Surface(
                     shape = CircleShape,
-                    color = Color(0x25000000),
+                    color = Color(0x40000000),
+                    border = BorderStroke(0.8.dp, Color(0x66FFFFFF)),
                     modifier = Modifier.size(26.dp)
                 ) {
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                             contentDescription = null,
-                            tint = Color.White,
+                            tint = Color(0xFFFFFBEB),
                             modifier = Modifier.size(20.dp)
                         )
                     }

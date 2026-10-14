@@ -41,6 +41,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.DirectionsBoat
 import androidx.compose.material.icons.filled.HelpOutline
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.MoreVert
@@ -871,11 +872,15 @@ fun WoodSetSailButton(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(
-                            text = "⛵ ",
-                            fontSize = 20.sp,
-                            modifier = Modifier.offset(y = if (isRowing) oarBob.dp else 0.dp)
+                        Icon(
+                            imageVector = Icons.Default.DirectionsBoat,
+                            contentDescription = null,
+                            tint = if (isConflict) Color(0xFFFEE2E2) else if (enabled) Color.White else Color(0xFF7DD3FC).copy(alpha = 0.6f),
+                            modifier = Modifier
+                                .size(22.dp)
+                                .offset(y = if (isRowing) oarBob.dp else 0.dp)
                         )
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = if (isRowing) "SAILING ACROSS..." else "S E T   S A I L",
                             fontSize = if (isRowing) 17.sp else 19.sp,
@@ -890,13 +895,6 @@ fun WoodSetSailButton(
                                 )
                             )
                         )
-                        if (isRowing) {
-                            Text(
-                                text = " 🌊",
-                                fontSize = 18.sp,
-                                modifier = Modifier.offset(y = (-oarBob).dp)
-                            )
-                        }
                     }
                     if (subtext != null && !isRowing) {
                         Spacer(modifier = Modifier.height(2.dp))
